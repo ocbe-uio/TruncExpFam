@@ -1,0 +1,79 @@
+## --##--##--##--##--##--##--##--##--##--##--##--##--##
+##   Functions related to the Gamma distribution    ##
+## --##--##--##--##--##--##--##--##--##--##--##--##--##
+
+rtrunc.gamma <- function(n, alpha, beta, a, b) {
+	# n: Sample size
+	# alpha, beta: shape and rate of "parent" distribution
+	# a, b: points of left and right truncation
+	# returns a sample of size n drawn from a truncated normal distribution
+	# Note the effective sample size is reduced due to truncation
+	y <- rgamma(n, shape = alpha, rate = beta)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	}
+	return(y)
+}
+
+density.trunc.gamma <- function(y, eta, a, b) {
+	parm <- natural2parameters.gamma(eta)
+	dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))
+	if (!missing(a)) {
+		F.a <- pgamma(a, shape = parm[1], rate = parm[2])
+	} else {
+		F.a <- 0
+	}
+	if (!missing(b)) {
+		F.b <- pgamma(b, shape = parm[1], rate = parm[2])
+	} else {
+		F.b <- 1
+	}
+	const <- 1 / (F.b - F.a)
+	return(dens / (F.b - F.a))
+}
+
+init.parms.gamma <- function(y) {
+	# Returns  parameter estimates mu and sd
+	amean <- mean(y)
+	avar <- var(y)
+	a <- amean^2 / avar
+	parm <- c(alpha = a, beta = a / amean)
+}
+
+sufficient.T.gamma <- function(y) {
+	return(suff.T = cbind(log(y), y))
+}
+
+average.T.gamma <- function(y) {
+	return(apply(cbind(log(y), y), 2, mean))
+}
+
+natural2parameters.gamma <- function(eta) {
+	# eta: The natural parameters in a gamma distribution
+	# returns (alpha,beta)
+	return(c(alpha = eta[1] + 1, beta = -eta[2]))
+}
+
+parameters2natural.gamma <- function(parms) {
+	# parms: The parameters alpha and beta in a gamma distribution
+	# returns the natural parameters
+	return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
+}
+
+get.y.seq.gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
+	# Bør chekkes
+	mu <- mean(y, na.rm = T)
+	sd <- var(y, na.rm = T)^0.5
+	lo <- max(y.min, mu - 5 * sd)
+	hi <- min(y.max, mu + 5 * sd)
+	return(seq(lo, hi, length = n))
+}
+
+get.grad.E.T.inv.gamma <- function(eta) {
+	# eta: Natural parameter
+	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
+	return(A = solve(matrix(c(-1 / eta[1]^2 + dpsi.dx(eta[1]), -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2), ncol = 2)))
+}
