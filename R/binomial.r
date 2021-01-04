@@ -4,6 +4,7 @@
 
 
 rtrunc.binomial <- function(n, prob, a, b, ...) {
+	# TODO: develop
 	# n: Sample size
 	# prob: probability of success on each trial in the "parent" distribution
 	# a, b: points of left and right truncation

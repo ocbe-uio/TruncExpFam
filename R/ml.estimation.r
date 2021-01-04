@@ -1,13 +1,44 @@
+#' @title ML Estimation of Distribution Parameters
+#' @description ML-estimation of the parameters of the distribution of the specified family, truncated at y.min and y.max
+#' @param y Sequence spanning the domain of the truncated distribution
+#' @param y.min Lower bound for y
+#' @param y.max Upper bound for y
+#' @param family Distribution family (Gaussian, LogNormal, Gamma, Poisson, Binomial)
+#' @param tol Error tolerance for parameter estimation
+#' @param delta #TODO: describe
+#' @param max.it Maximum number of iterations
+#' @param ... other parameters passed to the get.y.seq subfunctions
+#' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
+#' @author René Holst
+#' @examples
+#' # Normal
+#' sample.norm <- rtrunc.norm(n = 10000, mu = 2, sigma = 1.5, a = -1)
+#' ml.estimation.trunc.dist(
+#'   sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
+#' )
+#'
+#' # Log-Normal
+#' sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
+#' ml_lognormal <- ml.estimation.trunc.dist(
+#'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
+#'   family = "LogNormal"
+#' )
+#'
+#' # Poisson
+#' sample.pois <- rtrunc.pois(1000, 10, 4)
+#' ml.estimation.trunc.dist(
+#'   sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"
+#' )
+#'
+#' # Gamma
+#' sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
+#' ml.estimation.trunc.dist(
+#'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma"
+#' )
+#' @export
+# TODO: add option to suppress output
 ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gaussian", tol = 1e-5, max.it = 25, delta = 0.33, ...) {
-	# ML-estimation of the parameters of the distribution of the specified
-	# family, truncated at y.min and y.max
-	# Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of
-	# the parameters of the truncated normal and lognormal distributions"
-
-	# 12-12-2020: Rewritten in vector and matrix format - Se notes...
-
 	get.T.minus.E.T <- function(eta) {
-		# y Sequence spannig the domain of the truncated distribution
 		# Calculates T.bar-E(T|eta_j) by numerical integration
 		delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
 		trunc.density <- density.trunc(y.seq, eta, y.min, y.max) # L vector
@@ -89,7 +120,6 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		get.y.seq <- get.y.seq.binomial
 		cont.dist <- F
 	}
-	#  browser()
 	T.avg <- average.T(y)
 	eta.j <- parameters2natural(init.parms(y))
 	y.seq <- get.y.seq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations

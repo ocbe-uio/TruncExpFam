@@ -1,12 +1,21 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 ##   Functions related to the normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
+
+#' @title Random Truncated Normal
+#' @param n sample size
+#' @param mu mean of "parent" distribution
+#' @param sigma standard deviation of "parent" distribution
+#' @param a point of left truncation
+#' @param b point of right truncation
+#' @return A sample of size n drawn from a truncated normal distribution
+#' @note The effective sample size is reduced due to truncation.
+#' @author René Holst
+#' @examples
+#' sample.norm <- rtrunc.norm(n=10000,mu=2,sigma=1.5,a=-1)
+#' hist(sample.norm, nclass = 25)
+#' @export
 rtrunc.norm <- function(n, mu, sigma, a, b) {
-	# n: Sample size
-	# mu, sigma: mean and sd of "parent" distribution
-	# a, b: points of left and right truncation
-	# returns a sample of size n drawn from a truncated normal distribution
-	# Note the effective sample size is reduced due to truncation
 	y <- rnorm(n, mu, sigma)
 	if (!missing(a)) {
 		y <- y[y >= a]

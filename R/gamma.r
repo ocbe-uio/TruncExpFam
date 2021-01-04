@@ -2,12 +2,20 @@
 ##   Functions related to the Gamma distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @title Random Truncated Gamma
+#' @param n sample size
+#' @param alpha shape of "parent" distribution
+#' @param beta rate of "parent" distribution
+#' @param a point of left truncation
+#' @param b point of right truncation
+#' @return A sample of size n drawn from a truncated gamma distribution
+#' @note The effective sample size is reduced due to truncation.
+#' @author René Holst
+#' @examples
+#' sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
+#' hist(sample.gamma,nclass=15)
+#' @export
 rtrunc.gamma <- function(n, alpha, beta, a, b) {
-	# n: Sample size
-	# alpha, beta: shape and rate of "parent" distribution
-	# a, b: points of left and right truncation
-	# returns a sample of size n drawn from a truncated normal distribution
-	# Note the effective sample size is reduced due to truncation
 	y <- rgamma(n, shape = alpha, rate = beta)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -57,6 +65,18 @@ natural2parameters.gamma <- function(eta) {
 	return(c(alpha = eta[1] + 1, beta = -eta[2]))
 }
 
+#' @title Convert parameters to Natural Gamma
+#' @param parms The parameters alpha and beta in a gamma distribution
+#' @return The natural parameters
+#' @author René Holst
+#' @examples
+#' sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
+#' ml_lognormal <- ml.estimation.trunc.dist(
+#'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
+#'   family = "LogNormal"
+#' )
+#' eta.hat <- parameters2natural.gamma(ml_lognormal)
+#' @export
 parameters2natural.gamma <- function(parms) {
 	# parms: The parameters alpha and beta in a gamma distribution
 	# returns the natural parameters
