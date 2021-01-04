@@ -10,6 +10,7 @@
 #' @param ... other parameters passed to the get.y.seq subfunctions
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
 #' @author René Holst
+#' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
 #' @examples
 #' # Normal
 #' sample.norm <- rtrunc.norm(n = 10000, mu = 2, sigma = 1.5, a = -1)
