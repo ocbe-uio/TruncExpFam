@@ -1,30 +1,75 @@
-set.seed(117)
-sample.norm=rtrunc.norm(n=10000,mu=2,sigma=1.5,a=-1)
-hist(sample.norm,nclass=25)
-ml.estimation.trunc.dist(sample.norm,y.min=-1,max.it = 500,delta=0.33,family="Gaussian")
+context("Normal distribution")
 
 set.seed(117)
-sample.lognorm=rtrunc.lognorm(n=100000,mu=2.5,sigma=0.5,a=7)
-hist(sample.lognorm,nclass=35,xlim=c(0,60),freq=F,ylim = c(0,0.15))
-y=seq(-3,60,length=200)
-lines(y,density.trunc.lognorm(y,eta=c(10,-2),a=7),lwd=2,col=2)
-#hist(log(sample.lognorm))
-x=ml.estimation.trunc.dist(sample.lognorm,y.min=7,max.it = 500,tol=1e-10,delta=0.3,family="LogNormal")
-eta.hat=parameters2natural.gamma(x)
-lines(y,density.trunc.lognorm(y,eta=eta.hat,a=7),lwd=2,col=4)
+sample.norm <- rtrunc.norm(n = 10000, mu = 2, sigma = 1.5, a = -1)
+ml_gaussian <- ml.estimation.trunc.dist(
+	sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
+)
+
+test_that("rtrunc.norm works", {
+	expect_equal(head(sample.norm, 3), c(2.8645444, 2.1329365, 3.0388173))
+})
+
+context("Log-normal distribution")
 
 set.seed(117)
-sample.pois=rtrunc.pois(1000,10,4)
+sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
+
+# TODO: export density.* functions as S3 methods
+# y <- seq(-3, 60, length = 200)
+# lines(y, density.trunc.lognorm(y, eta = c(10, -2), a = 7), lwd = 2, col = 2)
+# hist(log(sample.lognorm))
+
+ml_lognormal <- ml.estimation.trunc.dist(
+	sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
+	family = "LogNormal"
+)
+eta.hat <- parameters2natural.gamma(ml_lognormal)
+
+# lines(y, density.trunc.lognorm(y, eta = eta.hat, a = 7), lwd = 2, col = 4)
+
+test_that("rtrunc.norm works", {
+	expect_equal(eta.hat, c(eta.1.mu = 1.5207, eta.2.sd = -0.4842), tol = 1e-3)
+})
+
+context("Poisson distribution")
+
+set.seed(117)
+sample.pois <- rtrunc.pois(1000, 10, 4)
 hist(sample.pois)
-ml.estimation.trunc.dist(sample.pois,y.min=4,max.it = 500,delta=0.33,family="Poisson")
+ml_poisson <- ml.estimation.trunc.dist(
+	sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"
+)
+
+test_that("rtrunc.pois works", {
+	expect_equal(head(sample.pois), c(11, 10, 12, 18, 12, 11))
+})
+
+context("Binomial distribution")
+
+# set.seed(117)
+# # NOT WORKING YET
+# sample.binom <- rtrunc.binomial(1000, 0.6, 4, , 10)
+# hist(sample.binom)
+# ml.estimation.trunc.dist(sample.binom, y.min = 4, max.it = 500, delta = 0.33, family = "Binomial", nsize = 10)
+
+context("Gamma distribution")
 
 set.seed(117)
-# NOT WORKING YET
-sample.binom=rtrunc.binomial(1000,0.6,4,,10)
-hist(sample.binom)
-ml.estimation.trunc.dist(sample.binom,y.min=4,max.it = 500,delta=0.33,family="Binomial",nsize=10)
+sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
 
-set.seed(117)
-sample.gamma=rtrunc.gamma(n=10000,alpha=6,beta=2,a=2)
-hist(sample.gamma,nclass=15)
-ml.estimation.trunc.dist(sample.gamma,y.min=2,max.it = 1500,delta=0.3,family="Gamma")
+ml_gamma <- ml.estimation.trunc.dist(
+	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma"
+)
+
+test_that("rtrunc.gamma works", {
+	expect_equal(head(sample.gamma, 3), c(3.4673, 2.8549, 3.6220), tol = 1e-4)
+})
+
+context("ML estimation")
+
+test_that("ml.estimation.trunc.dist works", {
+	expect_equal(ml_gaussian, c(mu = 2.041146, sd = 1.481114), tol = 1e-6)
+	expect_equal(ml_lognormal, c(mu = 2.5207512, sd = 0.4842092), tol = 1e-6)
+	expect_equivalent(ml_poisson, 10.18402, tol = 1e-5) # TODO: name output lambda
+})
