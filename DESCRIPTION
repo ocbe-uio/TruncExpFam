@@ -16,7 +16,7 @@ Authors@R:
 			email = "w.l.netto@medisin.uio.no"
 		)
 	)
-Description: Generates Data from the Truncated Exponential Family
+Description: Generates Data from the Truncated Exponential Family.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
