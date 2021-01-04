@@ -1,0 +1,30 @@
+set.seed(117)
+sample.norm=rtrunc.norm(n=10000,mu=2,sigma=1.5,a=-1)
+hist(sample.norm,nclass=25)
+ml.estimation.trunc.dist(sample.norm,y.min=-1,max.it = 500,delta=0.33,family="Gaussian")
+
+set.seed(117)
+sample.lognorm=rtrunc.lognorm(n=100000,mu=2.5,sigma=0.5,a=7)
+hist(sample.lognorm,nclass=35,xlim=c(0,60),freq=F,ylim = c(0,0.15))
+y=seq(-3,60,length=200)
+lines(y,density.trunc.lognorm(y,eta=c(10,-2),a=7),lwd=2,col=2)
+#hist(log(sample.lognorm))
+x=ml.estimation.trunc.dist(sample.lognorm,y.min=7,max.it = 500,tol=1e-10,delta=0.3,family="LogNormal")
+eta.hat=parameters2natural.gamma(x)
+lines(y,density.trunc.lognorm(y,eta=eta.hat,a=7),lwd=2,col=4)
+
+set.seed(117)
+sample.pois=rtrunc.pois(1000,10,4)
+hist(sample.pois)
+ml.estimation.trunc.dist(sample.pois,y.min=4,max.it = 500,delta=0.33,family="Poisson")
+
+set.seed(117)
+# NOT WORKING YET
+sample.binom=rtrunc.binomial(1000,0.6,4,,10)
+hist(sample.binom)
+ml.estimation.trunc.dist(sample.binom,y.min=4,max.it = 500,delta=0.33,family="Binomial",nsize=10)
+
+set.seed(117)
+sample.gamma=rtrunc.gamma(n=10000,alpha=6,beta=2,a=2)
+hist(sample.gamma,nclass=15)
+ml.estimation.trunc.dist(sample.gamma,y.min=2,max.it = 1500,delta=0.3,family="Gamma")
