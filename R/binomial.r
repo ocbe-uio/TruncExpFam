@@ -1,7 +1,6 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
-##   Functions related to the Binomial distribution   ##
+##   Functions related to the Binomial distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
-
 
 rtrunc.binomial <- function(n, prob, a, b, ...) {
 	# TODO: develop
