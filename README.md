@@ -1,6 +1,6 @@
 # TruncExpFam
 
-This is an R package to generate data related to the Truncated Exponential Family.
+This is an R package to handle truncated members from the exponential family.
 
 # Installation
 
