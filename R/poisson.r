@@ -2,29 +2,6 @@
 ##   Functions related to the Poisson distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Poisson
-#' @param n sample size
-#' @param lambda mean and var of "parent" distribution
-#' @param a point of left truncation
-#' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated Poisson distribution
-#' @note The effective sample size is reduced due to truncation. a, and b are included in the domain
-#' @author René Holst
-#' @examples
-#' sample.pois <- rtrunc.pois(1000, 10, 4)
-#' hist(sample.pois)
-#' @export
-rtrunc.pois <- function(n, lambda, a, b) {
-	y <- rpois(n, lambda)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	return(y)
-}
-
 density.trunc.pois <- function(y, eta, a = 0, b) {
 	parm <- exp(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))

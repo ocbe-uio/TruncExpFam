@@ -2,25 +2,6 @@
 ##   Functions related to the Binomial distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-
-rtrunc.binomial <- function(n, prob, a, b, ...) {
-	# TODO: develop
-	# n: Sample size
-	# prob: probability of success on each trial in the "parent" distribution
-	# a, b: points of left and right truncation
-	# # OBS: a, and b are included in the domain
-	# returns a sample of size n drawn from a truncated binomialson distribution
-	# Note the effective sample size is reduced due to truncation
-	y <- rbinom(n, ..., prob)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	return(y)
-}
-
 density.trunc.binomial <- function(y, eta, a = 0, b, ...) {
 	my.dbinom <- function(nsize) {
 		dbinom(y, size = nsize, prob = proba)
