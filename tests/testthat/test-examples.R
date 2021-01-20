@@ -1,7 +1,7 @@
 context("Normal distribution")
 
 set.seed(117)
-sample.norm <- rtrunc.norm(n = 10000, mu = 2, sigma = 1.5, a = -1)
+sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)@sample
 ml_gaussian <- ml.estimation.trunc.dist(
 	sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
 )
@@ -13,7 +13,7 @@ test_that("rtrunc.norm works", {
 context("Log-normal distribution")
 
 set.seed(117)
-sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
+sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)@sample
 
 # TODO: export density.* functions as S3 methods
 # y <- seq(-3, 60, length = 200)
@@ -35,7 +35,7 @@ test_that("rtrunc.norm works", {
 context("Poisson distribution")
 
 set.seed(117)
-sample.pois <- rtrunc.pois(1000, 10, 4)
+sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
 hist(sample.pois)
 ml_poisson <- ml.estimation.trunc.dist(
 	sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"
@@ -47,16 +47,16 @@ test_that("rtrunc.pois works", {
 
 context("Binomial distribution")
 
-# set.seed(117)
-# # NOT WORKING YET
-# sample.binom <- rtrunc.binomial(1000, 0.6, 4, , 10)
-# hist(sample.binom)
+set.seed(117)
+# NOT WORKING YET
+sample.binom <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10)@sample
 # ml.estimation.trunc.dist(sample.binom, y.min = 4, max.it = 500, delta = 0.33, family = "Binomial", nsize = 10)
+# FIXME: ml.estimation.trunc.dist not working for binomial
 
 context("Gamma distribution")
 
 set.seed(117)
-sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
+sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 
 ml_gamma <- ml.estimation.trunc.dist(
 	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma"
