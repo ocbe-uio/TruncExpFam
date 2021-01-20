@@ -12,6 +12,23 @@ setGeneric(
 		a, b, ...) standardGeneric("rtrunc")
 )
 
+# n: Sample size
+# prob: probability of success on each trial in the "parent" distribution
+# a, b: points of left and right truncation
+# # OBS: a, and b are included in the domain
+# returns a sample of size n drawn from a truncated binomialson distribution
+# Note the effective sample size is reduced due to truncation
+#' @title Random Truncated Binomial
+#' @param n sample size
+#' @param trials number of trials
+#' @param probs probability of success on each trial
+#' @param a point of left truncation
+#' @param b point of right truncation
+#' @return A sample of size n drawn from a truncated binomial distribution
+#' @note The effective sample size is reduced due to truncation.
+#' @author René Holst, Waldir Leôncio
+#' @examples
+#' rtrunc(n=15L, prob=.4, a=5, b=10, trials=10)
 setMethod(
 	f         = "rtrunc",
 	signature(
@@ -24,13 +41,7 @@ setMethod(
 		b      = "numeric",
 		mu     = "missing"
 	),
-	definition =  function(n, trials, prob, a, b, ...) {
-		# n: Sample size
-		# prob: probability of success on each trial in the "parent" distribution
-		# a, b: points of left and right truncation
-		# # OBS: a, and b are included in the domain
-		# returns a sample of size n drawn from a truncated binomialson distribution
-		# Note the effective sample size is reduced due to truncation
+	definition = function(n, trials, prob, a, b) {
 		y <- rbinom(n, trials, prob)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -38,7 +49,10 @@ setMethod(
 		if (!missing(b)) {
 			y <- y[y <= b]
 		}
-		class(y) <- c("binomial", "rtrunc")
+		y <- new(
+			"rtrunc-binomial", n=as.integer(n), a=a, b=b, r=as.integer(y),
+			trials=trials, prob=prob
+		)
 		return(y)
 	}
 )
