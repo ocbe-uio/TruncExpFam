@@ -1,3 +1,32 @@
+#' @title The Truncated Exponential Family
+#' @description Random generation for
+#' @param
+#' @return
+#' @author Waldir Leoncio
+#' @export
+rtrunc <- function(n, family, ...) {
+	# ======================================================== #
+	# Validating                                               #
+	# ======================================================== #
+	family <- tolower(family)
+	valid_distros <- c(
+		"binomial", "gamma", "log-gamma", "log-normal", "normal", "poisson"
+	)
+	if (!(family %in% valid_distros)) {
+		stop(
+			"Invalid distribution family. Please choose from the list below:\n",
+			valid_distros
+		)
+	}
+
+	# ======================================================== #
+	# Dispatching functions                                    #
+	# ======================================================== #
+	if (family == "binomial") {
+		rtrunc.binomial(n, ...)
+	}
+}
+
 rtrunc.binomial <- function(n, prob, a, b, ...) {
 	# TODO: develop
 	# n: Sample size
