@@ -1,50 +1,47 @@
 #' @title The Truncated Exponential Family
 #' @description Random generation for
-#' @param
 #' @return
-#' @author Waldir Leoncio
 #' @export
-rtrunc <- function(n, family, ...) {
-	# ======================================================== #
-	# Validating                                               #
-	# ======================================================== #
-	family <- tolower(family)
-	valid_distros <- c(
-		"binomial", "gamma", "log-gamma", "log-normal", "normal", "poisson"
-	)
-	if (!(family %in% valid_distros)) {
-		stop(
-			"Invalid distribution family. Please choose from the list below:\n",
-			valid_distros
-		)
-	}
+setGeneric(
+	name = "rtrunc",
+	def  = function(
+		n,
+		trials, prob,
+		alfa, beta,
+		mu,
+		a, b, ...) standardGeneric("rtrunc")
+)
 
-	# ======================================================== #
-	# Dispatching functions                                    #
-	# ======================================================== #
-	if (family == "binomial") {
-		rtrunc.binomial(n, ...)
+setMethod(
+	f         = "rtrunc",
+	signature(
+		n      = "numeric",
+		trials = "numeric",
+		prob   = "numeric",
+		alfa   = "missing",
+		beta   = "missing",
+		a      = "numeric",
+		b      = "numeric",
+		mu     = "missing"
+	),
+	definition =  function(n, trials, prob, a, b, ...) {
+		# n: Sample size
+		# prob: probability of success on each trial in the "parent" distribution
+		# a, b: points of left and right truncation
+		# # OBS: a, and b are included in the domain
+		# returns a sample of size n drawn from a truncated binomialson distribution
+		# Note the effective sample size is reduced due to truncation
+		y <- rbinom(n, trials, prob)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		}
+		class(y) <- c("binomial", "rtrunc")
+		return(y)
 	}
-}
-
-rtrunc.binomial <- function(n, prob, a, b, ...) {
-	# TODO: develop
-	# n: Sample size
-	# prob: probability of success on each trial in the "parent" distribution
-	# a, b: points of left and right truncation
-	# # OBS: a, and b are included in the domain
-	# returns a sample of size n drawn from a truncated binomialson distribution
-	# Note the effective sample size is reduced due to truncation
-	y <- rbinom(n, ..., prob)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- c("binomial", "rtrunc")
-	return(y)
-}
+)
 
 #' @title Random Truncated Gamma
 #' @param n sample size
@@ -86,8 +83,8 @@ rtrunc.gamma <- function(n, alpha, beta, a, b) {
 #'    ylim = c(0, 0.15)
 #' )
 #' @export
-rtrunc.lognorm <- function(n, mu, sigma, a, b) {
-	y <- rlnorm(n, mu, sigma)
+rtrunc.lognorm <- function(n, mulog, sigmalog, a, b) {
+	y <- rlnorm(n, mulog, sigmalog)
 	if (!missing(a)) {
 		y <- y[y >= a]
 	}
