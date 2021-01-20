@@ -9,13 +9,13 @@ rtrunc.lognorm(n, mulog, sigmalog, a, b)
 \arguments{
 \item{n}{sample size}
 
+\item{mulog}{mean of un-truncated distribution}
+
+\item{sigmalog}{standard deviation of un-truncated distribution}
+
 \item{a}{point of left truncation}
 
 \item{b}{point of right truncation}
-
-\item{mu}{mean of un-truncated distribution}
-
-\item{sigma}{standard deviation of un-truncated distribution}
 }
 \value{
 A sample of size n drawn from a truncated log-normal distribution

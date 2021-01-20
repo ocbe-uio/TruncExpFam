@@ -1,15 +1,17 @@
 #' @title The Truncated Exponential Family
 #' @description Random generation for the truncated exponential family distributions.
 #' @param n sample size
-#' @param trials number of trials
-#' @param probs probability of success on each trial
-#' @param alpha shape of "parent" distribution
-#' @param beta rate of "parent" distribution
 #' @param a point of left truncation
 #' @param b point of right truncation
+#' @param trials number of trials
+#' @param prob probability of success on each trial
+#' @param alpha shape of "parent" distribution
+#' @param beta rate of "parent" distribution
+#' @param mu mean of un-truncated distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
 #' @author René Holst, Waldir Leôncio
+#' @importFrom methods new
 #' @examples
 #' x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10) # Binomial
 #' x # whole object
@@ -20,27 +22,28 @@
 setGeneric(
 	name = "rtrunc",
 	def  = function(
-		n,
+		n, a, b,
 		trials, prob,
 		alpha, beta,
-		mu,
-		a, b
+		mu
 	) standardGeneric("rtrunc")
 )
 
+#' @title Method containing the parameters for the truncated binomial distribution
+#' @inherit rtrunc
 setMethod(
 	f = "rtrunc",
 	signature(
 		n      = "numeric",
-		trials = "numeric",
-		prob   = "numeric",
 		a      = "numeric",
 		b      = "numeric",
+		trials = "numeric",
+		prob   = "numeric",
 		alpha   = "missing",
 		beta   = "missing",
 		mu     = "missing"
 	),
-	definition = function(n, trials, prob, a, b) {
+	definition = function(n, a, b, trials, prob) {
 		y <- rbinom(n, trials, prob)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -56,19 +59,21 @@ setMethod(
 	}
 )
 
+#' @title Method containing the parameters for the truncated gamma distribution
+#' @inherit rtrunc
 setMethod(
 	f = "rtrunc",
 	signature(
 		n      = "numeric",
-		alpha   = "numeric",
-		beta   = "numeric",
 		a      = "numeric",
 		b      = "ANY",
+		alpha  = "numeric",
+		beta   = "numeric",
 		trials = "missing",
 		prob   = "missing",
 		mu     = "missing"
 	),
-	definition = function(n, alpha, beta, a, b) {
+	definition = function(n, a, b, alpha, beta) {
 		y <- rgamma(n, shape = alpha, rate = beta)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -87,8 +92,8 @@ setMethod(
 
 #' @title Random Truncated Log-Normal
 #' @param n sample size
-#' @param mu mean of un-truncated distribution
-#' @param sigma standard deviation of un-truncated distribution
+#' @param mulog mean of un-truncated distribution
+#' @param sigmalog standard deviation of un-truncated distribution
 #' @param a point of left truncation
 #' @param b point of right truncation
 #' @return A sample of size n drawn from a truncated log-normal distribution
