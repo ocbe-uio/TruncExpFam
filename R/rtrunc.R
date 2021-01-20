@@ -1,7 +1,21 @@
 #' @title The Truncated Exponential Family
-#' @description Random generation for
-#' @return
+#' @description Random generation for the truncated exponential family distributions.
+#' @param n sample size
+#' @param trials number of trials
+#' @param probs probability of success on each trial
+#' @param alpha shape of "parent" distribution
+#' @param beta rate of "parent" distribution
+#' @param a point of left truncation
+#' @param b point of right truncation
+#' @return A sample of size n drawn from a truncated distribution
+#' @note The effective sample size is reduced due to truncation.
+#' @author René Holst, Waldir Leôncio
+#' @examples
+#' x <- rtrunc(n=15, prob=.4, a=5, b=10, trials=10) # Binomial
+#' x # whole object
+#' x@sample # sample (probably smaller than 15 due to the a and b restrictions)
 #' @export
+# TODO: replace example with get/set functions
 setGeneric(
 	name = "rtrunc",
 	def  = function(
@@ -9,7 +23,8 @@ setGeneric(
 		trials, prob,
 		alfa, beta,
 		mu,
-		a, b, ...) standardGeneric("rtrunc")
+		a, b
+	) standardGeneric("rtrunc")
 )
 
 # n: Sample size
@@ -50,7 +65,7 @@ setMethod(
 			y <- y[y <= b]
 		}
 		y <- new(
-			"rtrunc-binomial", n=as.integer(n), a=a, b=b, r=as.integer(y),
+			"rtrunc-binomial", n=as.integer(n), a=a, b=b, sample=as.integer(y),
 			trials=trials, prob=prob
 		)
 		return(y)
