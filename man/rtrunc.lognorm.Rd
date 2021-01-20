@@ -2,7 +2,7 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc.lognorm}
 \alias{rtrunc.lognorm}
-\title{Random Truncated Gamma}
+\title{Random Truncated Log-Normal}
 \usage{
 rtrunc.lognorm(n, mulog, sigmalog, a, b)
 }
@@ -13,27 +13,17 @@ rtrunc.lognorm(n, mulog, sigmalog, a, b)
 
 \item{b}{point of right truncation}
 
-\item{alpha}{shape of "parent" distribution}
-
-\item{beta}{rate of "parent" distribution}
-
 \item{mu}{mean of un-truncated distribution}
 
 \item{sigma}{standard deviation of un-truncated distribution}
 }
 \value{
-A sample of size n drawn from a truncated gamma distribution
-
 A sample of size n drawn from a truncated log-normal distribution
 }
 \description{
-Random Truncated Gamma
-
 Random Truncated Log-Normal
 }
 \note{
-The effective sample size is reduced due to truncation.
-
 The effective sample size is reduced due to truncation.
 }
 \examples{
@@ -44,7 +34,5 @@ hist(
 )
 }
 \author{
-René Holst
-
 René Holst
 }

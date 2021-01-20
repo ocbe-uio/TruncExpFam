@@ -4,12 +4,14 @@
 \alias{rtrunc}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, trials, prob, alfa, beta, mu, a, b)
+rtrunc(n, trials, prob, alpha, beta, mu, a, b)
 }
 \arguments{
 \item{n}{sample size}
 
 \item{trials}{number of trials}
+
+\item{alpha}{shape of "parent" distribution}
 
 \item{beta}{rate of "parent" distribution}
 
@@ -18,8 +20,6 @@ rtrunc(n, trials, prob, alfa, beta, mu, a, b)
 \item{b}{point of right truncation}
 
 \item{probs}{probability of success on each trial}
-
-\item{alpha}{shape of "parent" distribution}
 }
 \value{
 A sample of size n drawn from a truncated distribution
@@ -31,9 +31,10 @@ Random generation for the truncated exponential family distributions.
 The effective sample size is reduced due to truncation.
 }
 \examples{
-x <- rtrunc(n=15, prob=.4, a=5, b=10, trials=10) # Binomial
+x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10) # Binomial
 x # whole object
-x@sample # sample (probably smaller than 15 due to the a and b restrictions)
+sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
+plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 }
 \author{
 René Holst, Waldir Leôncio
