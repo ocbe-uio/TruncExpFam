@@ -1,5 +1,5 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
-##   Functions related to the Binomial distribution   ##
+##   Functions related to the Binomial distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 density.trunc.binomial <- function(y, eta, a = 0, b, ...) {
