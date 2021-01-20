@@ -13,7 +13,7 @@
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
 #' @examples
 #' # Normal
-#' sample.norm <- rtrunc.norm(n = 10000, mu = 2, sigma = 1.5, a = -1)
+#' sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)@sample
 #' ml.estimation.trunc.dist(
 #'   sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
 #' )

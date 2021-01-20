@@ -35,6 +35,14 @@ setClass(
 		sigmalog = "numeric"
 	)
 )
+setClass(
+	Class = "rtrunc-norm",
+	contains = "rtrunc",
+	slots = list(
+		mu = "numeric",
+		sigma = "numeric"
+	)
+)
 
 # ======================================================== #
 # Validating                                               #

@@ -9,7 +9,8 @@
 #' @param beta rate of "parent" distribution
 #' @param mulog mean of un-truncated distribution
 #' @param sigmalog standard deviation of un-truncated distribution
-#' @param mu mean of un-truncated distribution
+#' @param mu mean of parent distribution
+#' @param sigma standard deviation is parent distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
 #' @author René Holst, Waldir Leôncio
@@ -30,6 +31,10 @@
 #'   sample.lognorm, nclass = 35, xlim = c(0, 60), freq = FALSE,
 #'    ylim = c(0, 0.15)
 #' )
+#'
+#' # Normal distribution
+#' sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)@sample
+#' hist(sample.norm, nclass = 25)
 #' @export
 
 # TODO: replace "@" in examples with get/set functions
@@ -41,7 +46,7 @@ setGeneric(
 		trials, prob,
 		alpha, beta,
 		mulog, sigmalog,
-		mu
+		mu, sigma
 	) standardGeneric("rtrunc")
 )
 
@@ -59,7 +64,8 @@ setMethod(
 		beta   = "missing",
 		mulog = "missing",
 		sigmalog = "missing",
-		mu     = "missing"
+		mu     = "missing",
+		sigma  = "missing"
 	),
 	definition = function(n, a, b, trials, prob) {
 		y <- rbinom(n, trials, prob)
@@ -91,7 +97,8 @@ setMethod(
 		prob   = "missing",
 		mulog = "missing",
 		sigmalog = "missing",
-		mu     = "missing"
+		mu     = "missing",
+		sigma  = "missing"
 	),
 	definition = function(n, a, b, alpha, beta) {
 		y <- rgamma(n, shape = alpha, rate = beta)
@@ -124,7 +131,8 @@ setMethod(
 		beta   = "missing",
 		mulog  = "numeric",
 		sigmalog = "numeric",
-		mu     = "missing"
+		mu     = "missing",
+		sigma  = "missing"
 	),
 	definition = function(n, a, b, mulog, sigmalog) {
 		y <- rlnorm(n, mulog, sigmalog)
@@ -144,28 +152,38 @@ setMethod(
 )
 
 #' @title Random Truncated Normal
-#' @param n sample size
-#' @param mu mean of "parent" distribution
-#' @param sigma standard deviation of "parent" distribution
-#' @param a point of left truncation
-#' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated normal distribution
-#' @note The effective sample size is reduced due to truncation.
-#' @author René Holst
-#' @examples
-#' sample.norm <- rtrunc.norm(n=10000,mu=2,sigma=1.5,a=-1)
-#' hist(sample.norm, nclass = 25)
-#' @export
-rtrunc.norm <- function(n, mu, sigma, a, b) {
-	y <- rnorm(n, mu, sigma)
-	if (!missing(a)) {
-		y <- y[y >= a]
+#' @inherit rtrunc
+setMethod(
+	f = "rtrunc",
+	signature(
+		n      = "numeric",
+		a      = "numeric",
+		b      = "ANY",
+		trials = "missing",
+		prob   = "missing",
+		alpha  = "missing",
+		beta   = "missing",
+		mulog  = "missing",
+		sigmalog = "missing",
+		mu     = "numeric",
+		sigma  = "numeric"
+	),
+	definition = function(n, a, b, mu, sigma) {
+		y <- rnorm(n, mu, sigma)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		} else {
+			b <- Inf
+		}
+		y <- new("rtrunc-norm", n=as.integer(n), a=a, b=b, sample=y,
+			mu=mu, sigma=sigma
+		)
+		return(y)
 	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	return(y)
-}
+)
 
 #' @title Random Truncated Poisson
 #' @param n sample size

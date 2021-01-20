@@ -3,7 +3,6 @@
 export(ml.estimation.trunc.dist)
 export(parameters2natural.gamma)
 export(rtrunc)
-export(rtrunc.norm)
 export(rtrunc.pois)
 importFrom(methods,new)
 importFrom(stats,dbinom)

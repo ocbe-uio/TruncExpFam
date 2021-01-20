@@ -1,7 +1,7 @@
 context("Normal distribution")
 
 set.seed(117)
-sample.norm <- rtrunc.norm(n = 10000, mu = 2, sigma = 1.5, a = -1)
+sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)@sample
 ml_gaussian <- ml.estimation.trunc.dist(
 	sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
 )
