@@ -1,79 +1,99 @@
 #' @title The Truncated Exponential Family
-#' @description Random generation for
-#' @param
-#' @return
-#' @author Waldir Leoncio
-#' @export
-rtrunc <- function(n, family, ...) {
-	# ======================================================== #
-	# Validating                                               #
-	# ======================================================== #
-	family <- tolower(family)
-	valid_distros <- c(
-		"binomial", "gamma", "log-gamma", "log-normal", "normal", "poisson"
-	)
-	if (!(family %in% valid_distros)) {
-		stop(
-			"Invalid distribution family. Please choose from the list below:\n",
-			valid_distros
-		)
-	}
-
-	# ======================================================== #
-	# Dispatching functions                                    #
-	# ======================================================== #
-	if (family == "binomial") {
-		rtrunc.binomial(n, ...)
-	}
-}
-
-rtrunc.binomial <- function(n, prob, a, b, ...) {
-	# TODO: develop
-	# n: Sample size
-	# prob: probability of success on each trial in the "parent" distribution
-	# a, b: points of left and right truncation
-	# # OBS: a, and b are included in the domain
-	# returns a sample of size n drawn from a truncated binomialson distribution
-	# Note the effective sample size is reduced due to truncation
-	y <- rbinom(n, ..., prob)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- c("binomial", "rtrunc")
-	return(y)
-}
-
-#' @title Random Truncated Gamma
+#' @description Random generation for the truncated exponential family distributions.
 #' @param n sample size
-#' @param alpha shape of "parent" distribution
-#' @param beta rate of "parent" distribution
 #' @param a point of left truncation
 #' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated gamma distribution
+#' @param trials number of trials
+#' @param prob probability of success on each trial
+#' @param alpha shape of "parent" distribution
+#' @param beta rate of "parent" distribution
+#' @param mu mean of un-truncated distribution
+#' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
-#' @author René Holst
+#' @author René Holst, Waldir Leôncio
+#' @importFrom methods new
 #' @examples
-#' sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
-#' hist(sample.gamma,nclass=15)
+#' x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10) # Binomial
+#' x # whole object
+#' sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
+#' plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 #' @export
-rtrunc.gamma <- function(n, alpha, beta, a, b) {
-	y <- rgamma(n, shape = alpha, rate = beta)
-	if (!missing(a)) {
-		y <- y[y >= a]
+# TODO: replace example with get/set functions
+setGeneric(
+	name = "rtrunc",
+	def  = function(
+		n, a, b,
+		trials, prob,
+		alpha, beta,
+		mu
+	) standardGeneric("rtrunc")
+)
+
+#' @title Method containing the parameters for the truncated binomial distribution
+#' @inherit rtrunc
+setMethod(
+	f = "rtrunc",
+	signature(
+		n      = "numeric",
+		a      = "numeric",
+		b      = "numeric",
+		trials = "numeric",
+		prob   = "numeric",
+		alpha   = "missing",
+		beta   = "missing",
+		mu     = "missing"
+	),
+	definition = function(n, a, b, trials, prob) {
+		y <- rbinom(n, trials, prob)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		}
+		y <- new(
+			"rtrunc-binomial", n=as.integer(n), a=a, b=b, sample=as.integer(y),
+			trials=trials, prob=prob
+		)
+		return(y)
 	}
-	if (!missing(b)) {
-		y <- y[y <= b]
+)
+
+#' @title Method containing the parameters for the truncated gamma distribution
+#' @inherit rtrunc
+setMethod(
+	f = "rtrunc",
+	signature(
+		n      = "numeric",
+		a      = "numeric",
+		b      = "ANY",
+		alpha  = "numeric",
+		beta   = "numeric",
+		trials = "missing",
+		prob   = "missing",
+		mu     = "missing"
+	),
+	definition = function(n, a, b, alpha, beta) {
+		y <- rgamma(n, shape = alpha, rate = beta)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		} else {
+			b <- Inf
+		}
+		y <- new("rtrunc-gamma", n=as.integer(n), a=a, b=b, sample=y,
+			alpha=alpha, beta=beta
+		)
+		return(y)
 	}
-	return(y)
-}
+)
 
 #' @title Random Truncated Log-Normal
 #' @param n sample size
-#' @param mu mean of un-truncated distribution
-#' @param sigma standard deviation of un-truncated distribution
+#' @param mulog mean of un-truncated distribution
+#' @param sigmalog standard deviation of un-truncated distribution
 #' @param a point of left truncation
 #' @param b point of right truncation
 #' @return A sample of size n drawn from a truncated log-normal distribution
@@ -86,8 +106,8 @@ rtrunc.gamma <- function(n, alpha, beta, a, b) {
 #'    ylim = c(0, 0.15)
 #' )
 #' @export
-rtrunc.lognorm <- function(n, mu, sigma, a, b) {
-	y <- rlnorm(n, mu, sigma)
+rtrunc.lognorm <- function(n, mulog, sigmalog, a, b) {
+	y <- rlnorm(n, mulog, sigmalog)
 	if (!missing(a)) {
 		y <- y[y >= a]
 	}

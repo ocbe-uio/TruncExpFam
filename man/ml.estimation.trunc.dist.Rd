@@ -56,7 +56,7 @@ ml.estimation.trunc.dist(
 )
 
 # Gamma
-sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
+sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 ml.estimation.trunc.dist(
   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma"
 )
