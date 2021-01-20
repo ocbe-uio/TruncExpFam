@@ -50,7 +50,7 @@ ml_lognormal <- ml.estimation.trunc.dist(
 )
 
 # Poisson
-sample.pois <- rtrunc.pois(1000, 10, 4)
+sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
 ml.estimation.trunc.dist(
   sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"
 )

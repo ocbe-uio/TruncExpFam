@@ -35,7 +35,7 @@ test_that("rtrunc.norm works", {
 context("Poisson distribution")
 
 set.seed(117)
-sample.pois <- rtrunc.pois(1000, 10, 4)
+sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
 hist(sample.pois)
 ml_poisson <- ml.estimation.trunc.dist(
 	sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"

@@ -43,6 +43,13 @@ setClass(
 		sigma = "numeric"
 	)
 )
+setClass(
+	Class = "rtrunc-pois",
+	contains = "rtrunc",
+	slots = list(
+		lambda = "numeric"
+	)
+)
 
 # ======================================================== #
 # Validating                                               #

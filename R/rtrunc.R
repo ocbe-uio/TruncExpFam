@@ -11,6 +11,7 @@
 #' @param sigmalog standard deviation of un-truncated distribution
 #' @param mu mean of parent distribution
 #' @param sigma standard deviation is parent distribution
+#' @param lambda mean and var of "parent" distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
 #' @author René Holst, Waldir Leôncio
@@ -35,6 +36,10 @@
 #' # Normal distribution
 #' sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)@sample
 #' hist(sample.norm, nclass = 25)
+#'
+#' # Poisson distribution
+#' sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
+#' hist(sample.pois)
 #' @export
 
 # TODO: replace "@" in examples with get/set functions
@@ -46,7 +51,8 @@ setGeneric(
 		trials, prob,
 		alpha, beta,
 		mulog, sigmalog,
-		mu, sigma
+		mu, sigma,
+		lambda
 	) standardGeneric("rtrunc")
 )
 
@@ -65,7 +71,8 @@ setMethod(
 		mulog = "missing",
 		sigmalog = "missing",
 		mu     = "missing",
-		sigma  = "missing"
+		sigma  = "missing",
+		lambda = "missing"
 	),
 	definition = function(n, a, b, trials, prob) {
 		y <- rbinom(n, trials, prob)
@@ -98,7 +105,8 @@ setMethod(
 		mulog = "missing",
 		sigmalog = "missing",
 		mu     = "missing",
-		sigma  = "missing"
+		sigma  = "missing",
+		lambda = "missing"
 	),
 	definition = function(n, a, b, alpha, beta) {
 		y <- rgamma(n, shape = alpha, rate = beta)
@@ -132,7 +140,8 @@ setMethod(
 		mulog  = "numeric",
 		sigmalog = "numeric",
 		mu     = "missing",
-		sigma  = "missing"
+		sigma  = "missing",
+		lambda = "missing"
 	),
 	definition = function(n, a, b, mulog, sigmalog) {
 		y <- rlnorm(n, mulog, sigmalog)
@@ -166,7 +175,8 @@ setMethod(
 		mulog  = "missing",
 		sigmalog = "missing",
 		mu     = "numeric",
-		sigma  = "numeric"
+		sigma  = "numeric",
+		lambda = "missing"
 	),
 	definition = function(n, a, b, mu, sigma) {
 		y <- rnorm(n, mu, sigma)
@@ -186,24 +196,37 @@ setMethod(
 )
 
 #' @title Random Truncated Poisson
-#' @param n sample size
-#' @param lambda mean and var of "parent" distribution
-#' @param a point of left truncation
-#' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated Poisson distribution
-#' @note The effective sample size is reduced due to truncation. a, and b are included in the domain
-#' @author René Holst
-#' @examples
-#' sample.pois <- rtrunc.pois(1000, 10, 4)
-#' hist(sample.pois)
-#' @export
-rtrunc.pois <- function(n, lambda, a, b) {
-	y <- rpois(n, lambda)
-	if (!missing(a)) {
-		y <- y[y >= a]
+#' @inherit rtrunc
+setMethod(
+	f = "rtrunc",
+	signature(
+		n      = "numeric",
+		a      = "numeric",
+		b      = "ANY",
+		trials = "missing",
+		prob   = "missing",
+		alpha  = "missing",
+		beta   = "missing",
+		mulog  = "missing",
+		sigmalog = "missing",
+		mu     = "missing",
+		sigma  = "missing",
+		lambda = "numeric"
+	),
+	definition = function(n, a, b, lambda) {
+		y <- rpois(n, lambda)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		} else {
+			b <- Inf
+		}
+		y <- new(
+			"rtrunc-pois", n=as.integer(n), a=a, b=b, sample=y,
+			lambda=lambda
+		)
+		return(y)
 	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	return(y)
-}
+)
