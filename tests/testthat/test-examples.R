@@ -13,7 +13,7 @@ test_that("rtrunc.norm works", {
 context("Log-normal distribution")
 
 set.seed(117)
-sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
+sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)@sample
 
 # TODO: export density.* functions as S3 methods
 # y <- seq(-3, 60, length = 200)

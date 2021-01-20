@@ -7,29 +7,45 @@
 #' @param prob probability of success on each trial
 #' @param alpha shape of "parent" distribution
 #' @param beta rate of "parent" distribution
+#' @param mulog mean of un-truncated distribution
+#' @param sigmalog standard deviation of un-truncated distribution
 #' @param mu mean of un-truncated distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
 #' @author René Holst, Waldir Leôncio
 #' @importFrom methods new
 #' @examples
-#' x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10) # Binomial
-#' x # whole object
+#' # Truncated binomial distribution
+#' x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10)
+#' str(x) # whole object
 #' sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
 #' plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
+#'
+#' # TODO: add example from gamma (see old commits)
+#'
+#' # Truncated Log-Normal distribution
+#' sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)@sample
+#'
+#' hist(
+#'   sample.lognorm, nclass = 35, xlim = c(0, 60), freq = FALSE,
+#'    ylim = c(0, 0.15)
+#' )
 #' @export
-# TODO: replace example with get/set functions
+
+# TODO: replace "@" in examples with get/set functions
+
 setGeneric(
 	name = "rtrunc",
 	def  = function(
 		n, a, b,
 		trials, prob,
 		alpha, beta,
+		mulog, sigmalog,
 		mu
 	) standardGeneric("rtrunc")
 )
 
-#' @title Method containing the parameters for the truncated binomial distribution
+#' @title Random Truncated Binomial
 #' @inherit rtrunc
 setMethod(
 	f = "rtrunc",
@@ -41,6 +57,8 @@ setMethod(
 		prob   = "numeric",
 		alpha   = "missing",
 		beta   = "missing",
+		mulog = "missing",
+		sigmalog = "missing",
 		mu     = "missing"
 	),
 	definition = function(n, a, b, trials, prob) {
@@ -59,7 +77,7 @@ setMethod(
 	}
 )
 
-#' @title Method containing the parameters for the truncated gamma distribution
+#' @title Random Truncated Gamma
 #' @inherit rtrunc
 setMethod(
 	f = "rtrunc",
@@ -71,6 +89,8 @@ setMethod(
 		beta   = "numeric",
 		trials = "missing",
 		prob   = "missing",
+		mulog = "missing",
+		sigmalog = "missing",
 		mu     = "missing"
 	),
 	definition = function(n, a, b, alpha, beta) {
@@ -91,31 +111,37 @@ setMethod(
 )
 
 #' @title Random Truncated Log-Normal
-#' @param n sample size
-#' @param mulog mean of un-truncated distribution
-#' @param sigmalog standard deviation of un-truncated distribution
-#' @param a point of left truncation
-#' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated log-normal distribution
-#' @note The effective sample size is reduced due to truncation.
-#' @author René Holst
-#' @examples
-#' sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
-#' hist(
-#'   sample.lognorm, nclass = 35, xlim = c(0, 60), freq = FALSE,
-#'    ylim = c(0, 0.15)
-#' )
-#' @export
-rtrunc.lognorm <- function(n, mulog, sigmalog, a, b) {
-	y <- rlnorm(n, mulog, sigmalog)
-	if (!missing(a)) {
-		y <- y[y >= a]
+#' @inherit rtrunc
+setMethod(
+	f = "rtrunc",
+	signature(
+		n      = "numeric",
+		a      = "numeric",
+		b      = "ANY",
+		trials = "missing",
+		prob   = "missing",
+		alpha  = "missing",
+		beta   = "missing",
+		mulog  = "numeric",
+		sigmalog = "numeric",
+		mu     = "missing"
+	),
+	definition = function(n, a, b, mulog, sigmalog) {
+		y <- rlnorm(n, mulog, sigmalog)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		} else {
+			b <- Inf
+		}
+		y <- new("rtrunc-lognorm", n=as.integer(n), a=a, b=b, sample=y,
+			mulog=mulog, sigmalog=sigmalog
+		)
+		return(y)
 	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	return(y)
-}
+)
 
 #' @title Random Truncated Normal
 #' @param n sample size

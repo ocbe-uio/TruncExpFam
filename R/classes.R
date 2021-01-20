@@ -27,6 +27,14 @@ setClass(
 		beta  = "numeric"
 	)
 )
+setClass(
+	Class = "rtrunc-lognorm",
+	contains = "rtrunc",
+	slots = list(
+		mulog = "numeric",
+		sigmalog = "numeric"
+	)
+)
 
 # ======================================================== #
 # Validating                                               #

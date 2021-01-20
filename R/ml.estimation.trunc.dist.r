@@ -19,7 +19,7 @@
 #' )
 #'
 #' # Log-Normal
-#' sample.lognorm <- rtrunc.lognorm(n = 100000, mu = 2.5, sigma = 0.5, a = 7)
+#' sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)@sample
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #'   family = "LogNormal"
