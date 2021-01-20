@@ -19,6 +19,14 @@ setClass(
 		prob   = "numeric"
 	)
 )
+setClass(
+	Class = "rtrunc-gamma",
+	contains = "rtrunc",
+	slots = list(
+		alpha = "numeric",
+		beta  = "numeric"
+	)
+)
 
 # ======================================================== #
 # Validating                                               #

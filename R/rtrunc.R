@@ -21,39 +21,22 @@ setGeneric(
 	def  = function(
 		n,
 		trials, prob,
-		alfa, beta,
+		alpha, beta,
 		mu,
 		a, b
 	) standardGeneric("rtrunc")
 )
 
-# n: Sample size
-# prob: probability of success on each trial in the "parent" distribution
-# a, b: points of left and right truncation
-# # OBS: a, and b are included in the domain
-# returns a sample of size n drawn from a truncated binomialson distribution
-# Note the effective sample size is reduced due to truncation
-#' @title Random Truncated Binomial
-#' @param n sample size
-#' @param trials number of trials
-#' @param probs probability of success on each trial
-#' @param a point of left truncation
-#' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated binomial distribution
-#' @note The effective sample size is reduced due to truncation.
-#' @author René Holst, Waldir Leôncio
-#' @examples
-#' rtrunc(n=15L, prob=.4, a=5, b=10, trials=10)
 setMethod(
-	f         = "rtrunc",
+	f = "rtrunc",
 	signature(
 		n      = "numeric",
 		trials = "numeric",
 		prob   = "numeric",
-		alfa   = "missing",
-		beta   = "missing",
 		a      = "numeric",
 		b      = "numeric",
+		alpha   = "missing",
+		beta   = "missing",
 		mu     = "missing"
 	),
 	definition = function(n, trials, prob, a, b) {
@@ -72,29 +55,34 @@ setMethod(
 	}
 )
 
-#' @title Random Truncated Gamma
-#' @param n sample size
-#' @param alpha shape of "parent" distribution
-#' @param beta rate of "parent" distribution
-#' @param a point of left truncation
-#' @param b point of right truncation
-#' @return A sample of size n drawn from a truncated gamma distribution
-#' @note The effective sample size is reduced due to truncation.
-#' @author René Holst
-#' @examples
-#' sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)
-#' hist(sample.gamma,nclass=15)
-#' @export
-rtrunc.gamma <- function(n, alpha, beta, a, b) {
-	y <- rgamma(n, shape = alpha, rate = beta)
-	if (!missing(a)) {
-		y <- y[y >= a]
+setMethod(
+	f = "rtrunc",
+	signature(
+		n      = "numeric",
+		alpha   = "numeric",
+		beta   = "numeric",
+		a      = "numeric",
+		b      = "ANY",
+		trials = "missing",
+		prob   = "missing",
+		mu     = "missing"
+	),
+	definition = function(n, alpha, beta, a, b) {
+		y <- rgamma(n, shape = alpha, rate = beta)
+		if (!missing(a)) {
+			y <- y[y >= a]
+		}
+		if (!missing(b)) {
+			y <- y[y <= b]
+		} else {
+			b <- Inf
+		}
+		y <- new("rtrunc-gamma", n=as.integer(n), a=a, b=b, sample=y,
+			alpha=alpha, beta=beta
+		)
+		return(y)
 	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	return(y)
-}
+)
 
 #' @title Random Truncated Log-Normal
 #' @param n sample size
