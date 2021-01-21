@@ -9,28 +9,24 @@
 \alias{rtrunc,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, a, b, prob, trials, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
+rtrunc(n, size, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda, a, b)
 
-\S4method{rtrunc}{numeric,missing,missing,missing,missing}(n, a, b, prob, trials)
+\S4method{rtrunc}{numeric,missing,missing,missing,missing}(n, size, prob, a, b)
 
-\S4method{rtrunc}{missing,numeric,missing,missing,missing}(n, a, b, alpha, beta)
+\S4method{rtrunc}{missing,numeric,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
 
-\S4method{rtrunc}{missing,missing,numeric,missing,missing}(n, a, b, mulog, sigmalog)
+\S4method{rtrunc}{missing,missing,numeric,missing,missing}(n, mulog, sigmalog, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,numeric,missing}(n, a, b, mu, sigma)
+\S4method{rtrunc}{missing,missing,missing,numeric,missing}(n, mu, sigma, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,numeric}(n, a, b, lambda)
+\S4method{rtrunc}{missing,missing,missing,missing,numeric}(n, lambda, a, b)
 }
 \arguments{
 \item{n}{sample size}
 
-\item{a}{point of left truncation}
-
-\item{b}{point of right truncation}
+\item{size}{number of size}
 
 \item{prob}{probability of success on each trial}
-
-\item{trials}{number of trials}
 
 \item{alpha}{shape of "parent" distribution}
 
@@ -45,6 +41,10 @@ rtrunc(n, a, b, prob, trials, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
 \item{sigma}{standard deviation is parent distribution}
 
 \item{lambda}{mean and var of "parent" distribution}
+
+\item{a}{point of left truncation}
+
+\item{b}{point of right truncation}
 }
 \value{
 A sample of size n drawn from a truncated distribution
@@ -57,7 +57,7 @@ The effective sample size is reduced due to truncation.
 }
 \examples{
 # Truncated binomial distribution
-x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10)
+x <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
 str(x) # whole object
 sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")

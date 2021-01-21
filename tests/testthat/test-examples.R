@@ -73,3 +73,6 @@ test_that("ml.estimation.trunc.dist works", {
 	expect_equal(ml_lognormal, c(mu = 2.5207512, sd = 0.4842092), tol = 1e-6)
 	expect_equivalent(ml_poisson, 10.18402, tol = 1e-5) # TODO: name output lambda
 })
+
+
+# TODO: add tests comparing rgamma with rtrunc.gamma (for same seed, same results) and other distros

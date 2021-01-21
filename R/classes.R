@@ -13,7 +13,7 @@ setClass(
 	slots = list(
 		n = "integer",
 		a = "numeric",
-		b = "numeric",
+		b = "numeric", # TODO: join with a as a length 1+ vector (trunc. points)
 		sample = "numeric"
 	)
 )
@@ -21,7 +21,7 @@ setClass(
 	Class = "Truncated Binomial",
 	contains = "Trunc",
 	slots = list(
-		trials = "numeric",
+		size = "numeric",
 		prob   = "numeric"
 	)
 )

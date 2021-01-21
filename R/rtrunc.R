@@ -9,7 +9,7 @@
 #' @importFrom methods new
 #' @examples
 #' # Truncated binomial distribution
-#' x <- rtrunc(n=1000, prob=0.6, trials=20, a=4, b=10)
+#' x <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
 #' str(x) # whole object
 #' sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
 #' plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
@@ -40,18 +40,19 @@
 setGeneric(
 	name = "rtrunc",
 	def  = function(
-		n, a, b,
-		prob, trials,
+		n,
+		size, prob,
 		alpha, beta,
 		mulog, sigmalog,
 		mu, sigma,
-		lambda
+		lambda,
+		a, b
 	) standardGeneric("rtrunc"),
 	signature = c("prob", "alpha", "mulog", "mu", "lambda")
 )
 
 #' @title Random Truncated Binomial
-#' @param trials number of trials
+#' @param size number of size
 #' @param prob probability of success on each trial
 #' @rdname rtrunc
 setMethod(
@@ -63,8 +64,8 @@ setMethod(
 		mu     = "missing",
 		lambda = "missing"
 	),
-	definition = function(n, a, b, prob, trials) {
-		y <- rbinom(n, trials, prob)
+	definition = function(n, size, prob, a, b) {
+		y <- rbinom(n, size, prob)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -74,7 +75,7 @@ setMethod(
 		y <- new(
 			"Truncated Binomial",
 			n=as.integer(n), a=a, b=b, sample=as.integer(y),
-			trials=trials, prob=prob
+			size=size, prob=prob
 		)
 		return(y)
 	}
@@ -93,7 +94,7 @@ setMethod(
 		mu     = "missing",
 		lambda = "missing"
 	),
-	definition = function(n, a, b, alpha, beta) {
+	definition = function(n, alpha, beta, a=0, b=Inf) {
 		y <- rgamma(n, shape = alpha, rate = beta)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -125,7 +126,7 @@ setMethod(
 		mu     = "missing",
 		lambda = "missing"
 	),
-	definition = function(n, a, b, mulog, sigmalog) {
+	definition = function(n, mulog, sigmalog, a, b) {
 		y <- rlnorm(n, mulog, sigmalog)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -157,7 +158,7 @@ setMethod(
 		mu     = "numeric",
 		lambda = "missing"
 	),
-	definition = function(n, a, b, mu, sigma) {
+	definition = function(n, mu, sigma, a, b) {
 		y <- rnorm(n, mu, sigma)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -188,7 +189,7 @@ setMethod(
 		mu     = "missing",
 		lambda = "numeric"
 	),
-	definition = function(n, a, b, lambda) {
+	definition = function(n, lambda, a, b) {
 		y <- rpois(n, lambda)
 		if (!missing(a)) {
 			y <- y[y >= a]
