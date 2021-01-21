@@ -85,7 +85,8 @@ setMethod(
 			y <- y[y <= b]
 		}
 		y <- new(
-			"rtrunc-binomial", n=as.integer(n), a=a, b=b, sample=as.integer(y),
+			"Truncated Binomial",
+			n=as.integer(n), a=a, b=b, sample=as.integer(y),
 			trials=trials, prob=prob
 		)
 		return(y)
@@ -120,7 +121,9 @@ setMethod(
 		} else {
 			b <- Inf
 		}
-		y <- new("rtrunc-gamma", n=as.integer(n), a=a, b=b, sample=y,
+		y <- new(
+			"Truncated Gamma",
+			n=as.integer(n), a=a, b=b, sample=y,
 			alpha=alpha, beta=beta
 		)
 		return(y)
@@ -155,7 +158,9 @@ setMethod(
 		} else {
 			b <- Inf
 		}
-		y <- new("rtrunc-lognorm", n=as.integer(n), a=a, b=b, sample=y,
+		y <- new(
+			"Truncated Lognormal",
+			n=as.integer(n), a=a, b=b, sample=y,
 			mulog=mulog, sigmalog=sigmalog
 		)
 		return(y)
@@ -190,7 +195,9 @@ setMethod(
 		} else {
 			b <- Inf
 		}
-		y <- new("rtrunc-norm", n=as.integer(n), a=a, b=b, sample=y,
+		y <- new(
+			"Truncated Normal",
+			n=as.integer(n), a=a, b=b, sample=y,
 			mu=mu, sigma=sigma
 		)
 		return(y)
@@ -226,7 +233,8 @@ setMethod(
 			b <- Inf
 		}
 		y <- new(
-			"rtrunc-pois", n=as.integer(n), a=a, b=b, sample=y,
+			"Truncated Poisson",
+			n=as.integer(n), a=a, b=b, sample=y,
 			lambda=lambda
 		)
 		return(y)

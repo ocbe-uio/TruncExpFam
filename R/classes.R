@@ -3,7 +3,7 @@
 # ======================================================== #
 
 setClass(
-	Class = "rtrunc",
+	Class = "Trunc",
 	slots = list(
 		n = "integer",
 		a = "numeric",
@@ -12,40 +12,40 @@ setClass(
 	)
 )
 setClass(
-	Class = "rtrunc-binomial",
-	contains = "rtrunc",
+	Class = "Truncated Binomial",
+	contains = "Trunc",
 	slots = list(
 		trials = "numeric",
 		prob   = "numeric"
 	)
 )
 setClass(
-	Class = "rtrunc-gamma",
-	contains = "rtrunc",
+	Class = "Truncated Gamma",
+	contains = "Trunc",
 	slots = list(
 		alpha = "numeric",
 		beta  = "numeric"
 	)
 )
 setClass(
-	Class = "rtrunc-lognorm",
-	contains = "rtrunc",
+	Class = "Truncated Lognormal",
+	contains = "Trunc",
 	slots = list(
 		mulog = "numeric",
 		sigmalog = "numeric"
 	)
 )
 setClass(
-	Class = "rtrunc-norm",
-	contains = "rtrunc",
+	Class = "Truncated Normal",
+	contains = "Trunc",
 	slots = list(
 		mu = "numeric",
 		sigma = "numeric"
 	)
 )
 setClass(
-	Class = "rtrunc-pois",
-	contains = "rtrunc",
+	Class = "Truncated Poisson",
+	contains = "Trunc",
 	slots = list(
 		lambda = "numeric"
 	)
@@ -56,7 +56,7 @@ setClass(
 # ======================================================== #
 
 # setValidity(
-# 	Class = "rtrunc",
+# 	Class = "Trunc",
 # 	method = function(n, a, b, r) {
 # 		if (n > 0) {
 # 			TRUE
