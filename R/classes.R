@@ -1,7 +1,8 @@
 # ======================================================== #
 # Defining classes                                         #
 # ======================================================== #
-
+setOldClass("integer")
+setOldClass("numeric")
 setClass(
 	Class = "Trunc",
 	slots = list(

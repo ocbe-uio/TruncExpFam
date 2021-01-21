@@ -14,7 +14,7 @@
 #' @param lambda mean and var of "parent" distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
-#' @author René Holst, Waldir Leôncio
+#' @author René Holst
 #' @importFrom methods new
 #' @examples
 #' # Truncated binomial distribution

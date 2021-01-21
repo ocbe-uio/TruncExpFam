@@ -68,5 +68,5 @@ sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
 hist(sample.pois)
 }
 \author{
-René Holst, Waldir Leôncio
+René Holst
 }
