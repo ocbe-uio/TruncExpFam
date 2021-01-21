@@ -4,7 +4,7 @@
 \alias{rtrunc}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, a, b, trials, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
+rtrunc(n, a, b, prob, trials, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
 }
 \arguments{
 \item{n}{sample size}
@@ -13,9 +13,9 @@ rtrunc(n, a, b, trials, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
 
 \item{b}{point of right truncation}
 
-\item{trials}{number of trials}
-
 \item{prob}{probability of success on each trial}
+
+\item{trials}{number of trials}
 
 \item{alpha}{shape of "parent" distribution}
 

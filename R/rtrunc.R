@@ -50,13 +50,13 @@ setGeneric(
 	name = "rtrunc",
 	def  = function(
 		n, a, b,
-		trials, prob,
+		prob, trials,
 		alpha, beta,
 		mulog, sigmalog,
 		mu, sigma,
 		lambda
 	) standardGeneric("rtrunc"),
-	signature = c("trials", "alpha", "mulog", "mu", "lambda")
+	signature = c("prob", "alpha", "mulog", "mu", "lambda")
 )
 
 #' @title Random Truncated Binomial
@@ -64,13 +64,13 @@ setGeneric(
 setMethod(
 	f = "rtrunc",
 	signature(
-		trials = "numeric",
+		prob = "numeric",
 		alpha   = "missing",
 		mulog = "missing",
 		mu     = "missing",
 		lambda = "missing"
 	),
-	definition = function(n, a, b, trials, prob) {
+	definition = function(n, a, b, prob, trials) {
 		y <- rbinom(n, trials, prob)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -92,8 +92,8 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
+		prob = "missing",
 		alpha  = "numeric",
-		trials = "missing",
 		mulog = "missing",
 		mu     = "missing",
 		lambda = "missing"
@@ -122,7 +122,7 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		trials = "missing",
+		prob = "missing",
 		alpha  = "missing",
 		mulog  = "numeric",
 		mu     = "missing",
@@ -152,7 +152,7 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		trials = "missing",
+		prob = "missing",
 		alpha  = "missing",
 		mulog  = "missing",
 		mu     = "numeric",
@@ -182,7 +182,7 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		trials = "missing",
+		prob = "missing",
 		alpha  = "missing",
 		mulog  = "missing",
 		mu     = "missing",

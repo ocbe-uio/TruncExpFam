@@ -4,7 +4,7 @@
 \alias{rtrunc,numeric,missing,missing,missing,missing-method}
 \title{Random Truncated Binomial}
 \usage{
-\S4method{rtrunc}{numeric,missing,missing,missing,missing}(n, a, b, trials, prob)
+\S4method{rtrunc}{numeric,missing,missing,missing,missing}(n, a, b, prob, trials)
 }
 \arguments{
 \item{n}{sample size}
@@ -13,9 +13,9 @@
 
 \item{b}{point of right truncation}
 
-\item{trials}{number of trials}
-
 \item{prob}{probability of success on each trial}
+
+\item{trials}{number of trials}
 }
 \value{
 A sample of size n drawn from a truncated distribution
