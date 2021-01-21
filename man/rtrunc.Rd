@@ -47,8 +47,6 @@ str(x) # whole object
 sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
-# TODO: add example from gamma (see old commits)
-
 # Truncated Log-Normal distribution
 sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)@sample
 
@@ -60,6 +58,10 @@ hist(
 # Normal distribution
 sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)@sample
 hist(sample.norm, nclass = 25)
+
+# Gamma distribution
+sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)@sample
+hist(sample.gamma, nclass = 15)
 
 # Poisson distribution
 sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
