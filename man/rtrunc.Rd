@@ -60,7 +60,7 @@ sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)@sample
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)@sample
+sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution

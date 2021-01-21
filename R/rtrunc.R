@@ -36,7 +36,7 @@
 #' hist(sample.norm, nclass = 25)
 #'
 #' # Gamma distribution
-#' sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)@sample
+#' sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 #' hist(sample.gamma, nclass = 15)
 #'
 #' # Poisson distribution
@@ -55,7 +55,8 @@ setGeneric(
 		mulog, sigmalog,
 		mu, sigma,
 		lambda
-	) standardGeneric("rtrunc")
+	) standardGeneric("rtrunc"),
+	signature = c("trials", "alpha", "mulog", "mu", "lambda")
 )
 
 #' @title Random Truncated Binomial
@@ -63,17 +64,10 @@ setGeneric(
 setMethod(
 	f = "rtrunc",
 	signature(
-		n      = "numeric",
-		a      = "numeric",
-		b      = "numeric",
 		trials = "numeric",
-		prob   = "numeric",
 		alpha   = "missing",
-		beta   = "missing",
 		mulog = "missing",
-		sigmalog = "missing",
 		mu     = "missing",
-		sigma  = "missing",
 		lambda = "missing"
 	),
 	definition = function(n, a, b, trials, prob) {
@@ -98,17 +92,10 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		n      = "numeric",
-		a      = "numeric",
-		b      = "ANY",
 		alpha  = "numeric",
-		beta   = "numeric",
 		trials = "missing",
-		prob   = "missing",
 		mulog = "missing",
-		sigmalog = "missing",
 		mu     = "missing",
-		sigma  = "missing",
 		lambda = "missing"
 	),
 	definition = function(n, a, b, alpha, beta) {
@@ -135,17 +122,10 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		n      = "numeric",
-		a      = "numeric",
-		b      = "ANY",
 		trials = "missing",
-		prob   = "missing",
 		alpha  = "missing",
-		beta   = "missing",
 		mulog  = "numeric",
-		sigmalog = "numeric",
 		mu     = "missing",
-		sigma  = "missing",
 		lambda = "missing"
 	),
 	definition = function(n, a, b, mulog, sigmalog) {
@@ -172,17 +152,10 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		n      = "numeric",
-		a      = "numeric",
-		b      = "ANY",
 		trials = "missing",
-		prob   = "missing",
 		alpha  = "missing",
-		beta   = "missing",
 		mulog  = "missing",
-		sigmalog = "missing",
 		mu     = "numeric",
-		sigma  = "numeric",
 		lambda = "missing"
 	),
 	definition = function(n, a, b, mu, sigma) {
@@ -209,17 +182,10 @@ setMethod(
 setMethod(
 	f = "rtrunc",
 	signature(
-		n      = "numeric",
-		a      = "numeric",
-		b      = "ANY",
 		trials = "missing",
-		prob   = "missing",
 		alpha  = "missing",
-		beta   = "missing",
 		mulog  = "missing",
-		sigmalog = "missing",
 		mu     = "missing",
-		sigma  = "missing",
 		lambda = "numeric"
 	),
 	definition = function(n, a, b, lambda) {
