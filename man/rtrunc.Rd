@@ -4,7 +4,7 @@
 \alias{rtrunc}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, a, b, trials, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
+rtrunc(n, a, b, prob, trials, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
 }
 \arguments{
 \item{n}{sample size}
@@ -13,9 +13,9 @@ rtrunc(n, a, b, trials, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
 
 \item{b}{point of right truncation}
 
-\item{trials}{number of trials}
-
 \item{prob}{probability of success on each trial}
+
+\item{trials}{number of trials}
 
 \item{alpha}{shape of "parent" distribution}
 
@@ -60,7 +60,7 @@ sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)@sample
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc.gamma(n = 10000, alpha = 6, beta = 2, a = 2)@sample
+sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution
