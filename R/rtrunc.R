@@ -3,15 +3,6 @@
 #' @param n sample size
 #' @param a point of left truncation
 #' @param b point of right truncation
-#' @param trials number of trials
-#' @param prob probability of success on each trial
-#' @param alpha shape of "parent" distribution
-#' @param beta rate of "parent" distribution
-#' @param mulog mean of un-truncated distribution
-#' @param sigmalog standard deviation of un-truncated distribution
-#' @param mu mean of parent distribution
-#' @param sigma standard deviation is parent distribution
-#' @param lambda mean and var of "parent" distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
 #' @author René Holst
@@ -60,7 +51,9 @@ setGeneric(
 )
 
 #' @title Random Truncated Binomial
-#' @inherit rtrunc
+#' @param trials number of trials
+#' @param prob probability of success on each trial
+#' @rdname rtrunc
 setMethod(
 	f = "rtrunc",
 	signature(
@@ -88,7 +81,9 @@ setMethod(
 )
 
 #' @title Random Truncated Gamma
-#' @inherit rtrunc
+#' @rdname rtrunc
+#' @param alpha shape of "parent" distribution
+#' @param beta rate of "parent" distribution
 setMethod(
 	f = "rtrunc",
 	signature(
@@ -118,7 +113,9 @@ setMethod(
 )
 
 #' @title Random Truncated Log-Normal
-#' @inherit rtrunc
+#' @rdname rtrunc
+#' @param mulog mean of un-truncated distribution
+#' @param sigmalog standard deviation of un-truncated distribution
 setMethod(
 	f = "rtrunc",
 	signature(
@@ -148,7 +145,9 @@ setMethod(
 )
 
 #' @title Random Truncated Normal
-#' @inherit rtrunc
+#' @rdname rtrunc
+#' @param mu mean of parent distribution
+#' @param sigma standard deviation is parent distribution
 setMethod(
 	f = "rtrunc",
 	signature(
@@ -178,7 +177,8 @@ setMethod(
 )
 
 #' @title Random Truncated Poisson
-#' @inherit rtrunc
+#' @rdname rtrunc
+#' @param lambda mean and var of "parent" distribution
 setMethod(
 	f = "rtrunc",
 	signature(

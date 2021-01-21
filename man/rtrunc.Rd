@@ -2,9 +2,24 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc}
 \alias{rtrunc}
+\alias{rtrunc,numeric,missing,missing,missing,missing-method}
+\alias{rtrunc,missing,numeric,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,numeric,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,numeric,missing-method}
+\alias{rtrunc,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
 rtrunc(n, a, b, prob, trials, alpha, beta, mulog, sigmalog, mu, sigma, lambda)
+
+\S4method{rtrunc}{numeric,missing,missing,missing,missing}(n, a, b, prob, trials)
+
+\S4method{rtrunc}{missing,numeric,missing,missing,missing}(n, a, b, alpha, beta)
+
+\S4method{rtrunc}{missing,missing,numeric,missing,missing}(n, a, b, mulog, sigmalog)
+
+\S4method{rtrunc}{missing,missing,missing,numeric,missing}(n, a, b, mu, sigma)
+
+\S4method{rtrunc}{missing,missing,missing,missing,numeric}(n, a, b, lambda)
 }
 \arguments{
 \item{n}{sample size}

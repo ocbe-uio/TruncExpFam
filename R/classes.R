@@ -3,6 +3,11 @@
 # ======================================================== #
 setOldClass("integer")
 setOldClass("numeric")
+
+#' @slot n sample size
+#' @slot a point of left truncation
+#' @slot b point of right truncation
+#' @slot sample sample elements
 setClass(
 	Class = "Trunc",
 	slots = list(
