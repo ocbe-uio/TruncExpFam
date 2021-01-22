@@ -84,3 +84,36 @@ test_that("ml.estimation.trunc.dist works", {
 
 
 # TODO: add tests comparing rgamma with rtrunc.gamma (for same seed, same results) and other distros
+
+context("Matching output of stats::r*")
+
+test_that("stats::rnorm", {
+	expect_setequal(
+		object   = {set.seed(1); rnorm(500, mean=1, sd=3)},
+		expected = {set.seed(1); rtrunc(500, mu=1, sigma=3)}
+	)
+})
+test_that("stats::rbinom", {
+	expect_setequal(
+		object   = {set.seed(1); rbinom(500, size=10, prob=.3)},
+		expected = {set.seed(1); rtrunc(500, size=10, prob=.3)}
+	)
+})
+test_that("stats::rgamma", {
+	expect_setequal(
+		object   = {set.seed(1); rgamma(500, shape=4, rate=5)},
+		expected = {set.seed(1); rtrunc(500, alpha=4, beta=5)}
+	)
+})
+test_that("stats::rlnorm", {
+	expect_setequal(
+		object   = {set.seed(1); rlnorm(500, meanlog=7, sdlog=2)},
+		expected = {set.seed(1); rtrunc(500, mulog=7, sigmalog=2)}
+	)
+})
+test_that("stats::rpois", {
+	expect_setequal(
+		object   = {set.seed(1); rpois(500, lambda=72)},
+		expected = {set.seed(1); rtrunc(500, lambda=72)}
+	)
+})
