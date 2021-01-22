@@ -12,6 +12,7 @@ ml.estimation.trunc.dist(
   tol = 1e-05,
   max.it = 25,
   delta = 0.33,
+  print.iter = TRUE,
   ...
 )
 }
@@ -30,35 +31,44 @@ ml.estimation.trunc.dist(
 
 \item{delta}{#TODO: describe}
 
+\item{print.iter}{Print information about each iteration?}
+
 \item{...}{other parameters passed to the get.y.seq subfunctions}
 }
 \description{
 ML-estimation of the parameters of the distribution of the specified family, truncated at y.min and y.max
 }
+\note{
+\code{print.iter} can be \code{TRUE}, \code{FALSE} or an integer indicating an interval for printing every \code{X} iterations.
+}
 \examples{
 # Normal
 sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)@sample
 ml.estimation.trunc.dist(
-  sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
+  sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
+  print.iter = TRUE
 )
 
 # Log-Normal
 sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)@sample
 ml_lognormal <- ml.estimation.trunc.dist(
   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
-  family = "LogNormal"
+  family = "LogNormal", print.iter = FALSE
 )
+ml_lognormal
 
 # Poisson
 sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
 ml.estimation.trunc.dist(
-  sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"
+  sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson",
+  print.iter = 5
 )
 
 # Gamma
 sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 ml.estimation.trunc.dist(
-  sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma"
+  sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
+  print.iter = 10
 )
 }
 \references{
