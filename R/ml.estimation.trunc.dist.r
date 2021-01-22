@@ -68,7 +68,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 
 	# Some initialisations
 	if (family == "Gaussian") {
-		cat("Normal\n")
+		if (as.numeric(print.iter) > 0) message("Normal\n")
 		init.parms <- init.parms.norm
 		sufficient.T <- sufficient.T.norm
 		average.T <- average.T.norm
@@ -80,7 +80,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		cont.dist <- T
 	}
 	if (family == "LogNormal") {
-		cat("Log Normal\n")
+		if (as.numeric(print.iter) > 0) message("Log Normal\n")
 		init.parms <- init.parms.lognorm
 		sufficient.T <- sufficient.T.lognorm
 		average.T <- average.T.lognorm
@@ -92,7 +92,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		cont.dist <- T
 	}
 	if (family == "Gamma") {
-		cat("Gamma\n")
+		if (as.numeric(print.iter) > 0) message("Gamma\n")
 		init.parms <- init.parms.gamma
 		sufficient.T <- sufficient.T.gamma
 		average.T <- average.T.gamma
@@ -104,7 +104,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		cont.dist <- T
 	}
 	if (family == "Poisson") {
-		cat("Poisson\n")
+		if (as.numeric(print.iter) > 0) message("Poisson\n")
 		init.parms <- init.parms.pois
 		sufficient.T <- sufficient.T.pois
 		average.T <- average.T.pois
@@ -116,7 +116,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		cont.dist <- F
 	}
 	if (family == "Binomial") {
-		cat("Binomial\n")
+		if (as.numeric(print.iter) > 0) message("Binomial\n")
 		init.parms <- init.parms.binomial
 		sufficient.T <- sufficient.T.binomial
 		average.T <- average.T.binomial
