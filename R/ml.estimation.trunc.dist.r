@@ -5,7 +5,7 @@
 #' @param y.max Upper bound for y
 #' @param family Distribution family (Gaussian, LogNormal, Gamma, Poisson, Binomial)
 #' @param tol Error tolerance for parameter estimation
-#' @param delta #TODO: describe
+#' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
 #' @param print.iter Print information about each iteration?
 #' @param ... other parameters passed to the get.y.seq subfunctions

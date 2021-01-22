@@ -29,7 +29,7 @@ ml.estimation.trunc.dist(
 
 \item{max.it}{Maximum number of iterations}
 
-\item{delta}{#TODO: describe}
+\item{delta}{Indirectly, the difference between consecutive iterations to compare with the error tolerance}
 
 \item{print.iter}{Print information about each iteration?}
 
