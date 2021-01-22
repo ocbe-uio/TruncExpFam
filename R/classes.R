@@ -56,11 +56,6 @@ setClass(
 		lambda = "numeric"
 	)
 )
-setClass("Truncated Binomial sample",  list(sample = "integer"))
-setClass("Truncated Gamma sample",     list(sample = "numeric"))
-setClass("Truncated Lognormal sample", list(sample = "numeric"))
-setClass("Truncated Normal sample",    list(sample = "numeric"))
-setClass("Truncated Poisson sample",   list(sample = "integer"))
 
 # ======================================================== #
 # Validating                                               #
