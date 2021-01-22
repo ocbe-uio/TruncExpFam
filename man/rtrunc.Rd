@@ -57,13 +57,13 @@ The effective sample size is reduced due to truncation.
 }
 \examples{
 # Truncated binomial distribution
-x <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
-str(x) # whole object
-sample.binom <- x@sample # sample (probably smaller than 15 due to a and b)
+sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
+sample.binom
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
-sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)@sample
+sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)
+summary(sample.lognorm)
 
 hist(
   sample.lognorm, nclass = 35, xlim = c(0, 60), freq = FALSE,
@@ -71,16 +71,18 @@ hist(
 )
 
 # Normal distribution
-sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)@sample
+sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)
+head(sample.norm)
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
+sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution
-sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
-hist(sample.pois)
+sample.pois <- rtrunc(n=1000, lambda=10, a=4)
+sample.pois
+plot(table(sample.pois))
 }
 \author{
 René Holst
