@@ -3,7 +3,8 @@ context("Normal distribution")
 set.seed(117)
 sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)@sample
 ml_gaussian <- ml.estimation.trunc.dist(
-	sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian"
+	sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
+	print.iter = FALSE
 )
 
 test_that("rtrunc.norm works", {
@@ -22,7 +23,7 @@ sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)@sample
 
 ml_lognormal <- ml.estimation.trunc.dist(
 	sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
-	family = "LogNormal"
+	family = "LogNormal", print.iter = FALSE
 )
 eta.hat <- parameters2natural.gamma(ml_lognormal)
 
@@ -38,7 +39,8 @@ set.seed(117)
 sample.pois <- rtrunc(n=1000, lambda=10, a=4)@sample
 hist(sample.pois)
 ml_poisson <- ml.estimation.trunc.dist(
-	sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson"
+	sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson",
+	print.iter = FALSE
 )
 
 test_that("rtrunc.pois works", {
@@ -59,7 +61,8 @@ set.seed(117)
 sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)@sample
 
 ml_gamma <- ml.estimation.trunc.dist(
-	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma"
+	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
+	print.iter = FALSE
 )
 
 test_that("rtrunc.gamma works", {
