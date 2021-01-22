@@ -7,7 +7,9 @@
 #' @param tol Error tolerance for parameter estimation
 #' @param delta #TODO: describe
 #' @param max.it Maximum number of iterations
+#' @param print.iter Print information about each iteration?
 #' @param ... other parameters passed to the get.y.seq subfunctions
+#' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
 #' @author René Holst
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
@@ -38,7 +40,7 @@
 #' )
 #' @export
 # TODO: add option to suppress output
-ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gaussian", tol = 1e-5, max.it = 25, delta = 0.33, ...) {
+ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gaussian", tol = 1e-5, max.it = 25, delta = 0.33, print.iter = TRUE, ...) {
 	get.T.minus.E.T <- function(eta) {
 		# Calculates T.bar-E(T|eta_j) by numerical integration
 		delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
@@ -135,7 +137,14 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		eta.j <- eta.j + delta.eta.j.plus.1
 		delta.L2 <- sum(delta.eta.j.plus.1^2)
 		it <- it + 1
-		cat("it: ", it, "tol: ", delta.L2, " - parm: ", round(parm.j, 3), "\n")
+		if (print.iter) {
+			if (it %% as.numeric(print.iter) == 0) {
+				cat(
+					"it: ", it, "tol: ", delta.L2, " - parm: ",
+					round(parm.j, 3), "\n"
+				)
+			}
+		}
 	}
 	parm <- natural2parameters(eta.j)
 	return(parm)

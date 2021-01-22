@@ -12,6 +12,7 @@ ml.estimation.trunc.dist(
   tol = 1e-05,
   max.it = 25,
   delta = 0.33,
+  print.iter = TRUE,
   ...
 )
 }
@@ -30,10 +31,15 @@ ml.estimation.trunc.dist(
 
 \item{delta}{#TODO: describe}
 
+\item{print.iter}{Print information about each iteration?}
+
 \item{...}{other parameters passed to the get.y.seq subfunctions}
 }
 \description{
 ML-estimation of the parameters of the distribution of the specified family, truncated at y.min and y.max
+}
+\note{
+\code{print.iter} can be \code{TRUE}, \code{FALSE} or an integer indicating an interval for printing every \code{X} iterations.
 }
 \examples{
 # Normal
