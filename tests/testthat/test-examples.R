@@ -50,10 +50,16 @@ test_that("rtrunc.pois works", {
 context("Binomial distribution")
 
 set.seed(117)
-# NOT WORKING YET
-sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)@sample
-# ml.estimation.trunc.dist(sample.binom, y.min = 4, max.it = 500, delta = 0.33, family = "Binomial", nsize = 10)
 # FIXME: ml.estimation.trunc.dist not working for binomial
+sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)@sample
+ml_binom <- ml.estimation.trunc.dist(
+	sample.binom, y.min = 4, max.it = 500, delta = 0.33, family = "Binomial",
+	nsize = 10, print.iter = FALSE
+)
+
+test_that("ML estimation for binomial works", {
+
+})
 
 context("Gamma distribution")
 
