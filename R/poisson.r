@@ -39,7 +39,7 @@ density.pois <- function(y, eta) {
 natural2parameters.pois <- function(eta) {
 	# eta: The natural parameters in a Poisson distribution
 	# returns (mu,sigma)
-	return(lambda = exp(eta))
+	return(c(lambda = exp(eta)))
 }
 
 parameters2natural.pois <- function(parms) {
