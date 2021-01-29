@@ -48,9 +48,10 @@ setGeneric(
 		mulog, sigmalog,
 		mu, sigma,
 		lambda,
+		df,
 		a, b
 	) standardGeneric("rtrunc"),
-	signature = c("prob", "alpha", "mulog", "mu", "lambda")
+	signature = c("prob", "alpha", "mulog", "mu", "lambda","df")
 )
 
 #' @title Random Truncated Binomial
@@ -64,7 +65,8 @@ setMethod(
 		alpha   = "missing",
 		mulog = "missing",
 		mu     = "missing",
-		lambda = "missing"
+		lambda = "missing",
+		df     = "missing"
 	),
 	definition = function(n, size, prob, a, b) {
 		y <- rbinom(n, size, prob)
@@ -90,7 +92,8 @@ setMethod(
 		alpha  = "numeric",
 		mulog = "missing",
 		mu     = "missing",
-		lambda = "missing"
+		lambda = "missing",
+		df     = "missing"
 	),
 	definition = function(n, alpha, beta, a=0, b=Inf) {
 		y <- rgamma(n, shape = alpha, rate = beta)
@@ -118,8 +121,9 @@ setMethod(
 		alpha  = "missing",
 		mulog  = "numeric",
 		mu     = "missing",
-		lambda = "missing"
-	),
+		lambda = "missing",
+		df     = "missing"
+  ),
 	definition = function(n, mulog, sigmalog, a, b) {
 		y <- rlnorm(n, mulog, sigmalog)
 		if (!missing(a)) {
@@ -146,7 +150,8 @@ setMethod(
 		alpha  = "missing",
 		mulog  = "missing",
 		mu     = "numeric",
-		lambda = "missing"
+		lambda = "missing",
+		df     = "missing"
 	),
 	definition = function(n, mu, sigma, a, b) {
 		y <- rnorm(n, mu, sigma)
@@ -173,7 +178,8 @@ setMethod(
 		alpha  = "missing",
 		mulog  = "missing",
 		mu     = "missing",
-		lambda = "numeric"
+		lambda = "numeric",
+		df     = "missing"
 	),
 	definition = function(n, lambda, a, b) {
 		y <- rpois(n, lambda)
@@ -188,4 +194,60 @@ setMethod(
 		class(y) <- "rtrunc-poisson"
 		return(y)
 	}
+)
+
+#' @title Random Truncated Bernoulli
+#' @rdname rtrunc
+#' @param prob mean of "parent" distribution
+setMethod(
+  f = "rtrunc",
+  signature(
+    prob = "numeric",
+    alpha  = "missing",
+    mulog  = "missing",
+    mu     = "missing",
+    lambda = "missing",
+    df     = "missing"
+  ),
+  definition = function(n, prob, a, b) {
+    y <- rbinom(n, 1, prob)
+    if (!missing(a)) {
+      y <- y[y >= a]
+    }
+    if (!missing(b)) {
+      y <- y[y <= b]
+    } else {
+      b <- 1
+    }
+    class(y) <- "rtrunc-bernoulli"
+    return(y)
+  }
+)
+
+#' @title Random Truncated ChiSquare
+#' @rdname rtrunc
+#' @param df degrees of freedom for "parent" distribution
+setMethod(
+  f = "rtrunc",
+  signature(
+    prob = "missing",
+    alpha  = "missing",
+    mulog  = "missing",
+    mu     = "missing",
+    lambda = "missing",
+    df=    "numeric"
+  ),
+  definition = function(n, df, a, b) {
+    y <- rchisq(n, df)
+    if (!missing(a)) {
+      y <- y[y >= a]
+    }
+    if (!missing(b)) {
+      y <- y[y <= b]
+    } else {
+      b <- Inf
+    }
+    class(y) <- "rtrunc-chisq"
+    return(y)
+  }
 )
