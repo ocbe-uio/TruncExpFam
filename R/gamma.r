@@ -1,5 +1,5 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
-##   Functions related to the Gamma distribution    ##
+##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 density.trunc.gamma <- function(y, eta, a, b) {

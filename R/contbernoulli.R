@@ -1,6 +1,6 @@
-## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
-##   Functions related to the Chi Square distribution    ##
-## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
+## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
+##   Functions related to the continuous Bernoulli distribution  ##
+## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 
 # The two functions 'dcontbern' and 'pcontbern' below act in support of the 

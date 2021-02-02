@@ -12,7 +12,7 @@ density.trunc.beta <- function(y, eta, a, b) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- pbeta(b, shape = parm[1], shape2 = parm[2])
+		F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
 	} else {
 		F.b <- 1
 	}
