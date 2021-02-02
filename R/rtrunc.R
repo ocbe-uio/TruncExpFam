@@ -39,6 +39,21 @@
 
 # TODO: replace "@" in examples with get/set functions
 
+# Sampling function for a continuous bernoulli distribution
+# This distribution is not implemented in Base R
+# Used in the sampling of the truncated continuous bernoulli
+rcontbernoulli=function(n,lambda){
+  if ((lambda<0)|(lambda>1))
+    stop("lambda")
+  # issue a warning similar to the result from the call >rbinom(10,3,-0.1)   
+  u=runif(n)
+  if (lambda==0.5)
+    return(u)
+  x=log(1+(2*lambda-1)*u/(1-lambda))/(log(lambda/(1-lambda))) # The inverse of the CDF for a cont. bernoulli distribution
+  return(x)
+}
+
+
 setGeneric(
 	name = "rtrunc",
 	def  = function(
@@ -49,7 +64,8 @@ setGeneric(
 		mu, sigma,
 		lambda,
 		df,
-		a, b
+		a, b,
+		mean, shape
 	) standardGeneric("rtrunc"),
 	signature = c("prob", "alpha", "mulog", "mu", "lambda","df")
 )
@@ -66,7 +82,8 @@ setMethod(
 		mulog = "missing",
 		mu     = "missing",
 		lambda = "missing",
-		df     = "missing"
+		df     = "missing",
+		mean, shape= "missing"
 	),
 	definition = function(n, size, prob, a, b) {
 		y <- rbinom(n, size, prob)
@@ -196,21 +213,22 @@ setMethod(
 	}
 )
 
-#' @title Random Truncated Bernoulli
+
+#' @title Random Truncated Continuous Bernoulli
 #' @rdname rtrunc
 #' @param prob mean of "parent" distribution
 setMethod(
   f = "rtrunc",
   signature(
-    prob = "numeric",
+    prob = "missing",
     alpha  = "missing",
     mulog  = "missing",
     mu     = "missing",
-    lambda = "missing",
+    lambda = "numeric",
     df     = "missing"
   ),
-  definition = function(n, prob, a, b) {
-    y <- rbinom(n, 1, prob)
+  definition = function(n, lambda, a, b) {
+    y <- rcontbernoulli(n,lambda)
     if (!missing(a)) {
       y <- y[y >= a]
     }

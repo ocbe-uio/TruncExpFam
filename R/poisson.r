@@ -20,7 +20,7 @@ density.trunc.pois <- function(y, eta, a = 0, b) {
 
 init.parms.pois <- function(y) {
 	# Returns empirical parameter estimate for lambda
-	parm <- mean(y) + 5
+	return(mean(y))
 }
 
 sufficient.T.pois <- function(y) {
