@@ -233,6 +233,7 @@ setMethod(
 #' @title Random Truncated ChiSquare
 #' @rdname rtrunc
 #' @param df degrees of freedom for "parent" distribution
+#' @importFrom stats dchisq pchisq rchisq
 setMethod(
   f = "rtrunc",
   signature(
