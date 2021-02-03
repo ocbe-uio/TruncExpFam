@@ -2,31 +2,50 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc}
 \alias{rtrunc}
-\alias{rtrunc,numeric,missing,missing,missing,missing-method}
-\alias{rtrunc,missing,numeric,missing,missing,missing-method}
-\alias{rtrunc,missing,missing,numeric,missing,missing-method}
-\alias{rtrunc,missing,missing,missing,numeric,missing-method}
-\alias{rtrunc,missing,missing,missing,missing,numeric-method}
+\alias{rtrunc,numeric,missing,missing,missing,missing,missing-method}
+\alias{rtrunc,missing,numeric,missing,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,numeric,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,numeric,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,missing,numeric,missing-method}
+\alias{rtrunc,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, size, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda, a, b)
+rtrunc(
+  n,
+  size,
+  prob,
+  alpha,
+  beta,
+  mulog,
+  sigmalog,
+  mu,
+  sigma,
+  lambda,
+  df,
+  a,
+  b
+)
 
-\S4method{rtrunc}{numeric,missing,missing,missing,missing}(n, size, prob, a, b)
+\S4method{rtrunc}{numeric,missing,missing,missing,missing,missing}(n, prob, a, b)
 
-\S4method{rtrunc}{missing,numeric,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
+\S4method{rtrunc}{missing,numeric,missing,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
 
-\S4method{rtrunc}{missing,missing,numeric,missing,missing}(n, mulog, sigmalog, a, b)
+\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,numeric,missing}(n, mu, sigma, a, b)
+\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing}(n, mu, sigma, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,numeric}(n, lambda, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
+
+\S4method{rtrunc}{numeric,missing,missing,missing,missing,missing}(n, prob, a, b)
+
+\S4method{rtrunc}{missing,missing,missing,missing,missing,numeric}(n, df, a, b)
 }
 \arguments{
 \item{n}{sample size}
 
 \item{size}{number of size}
 
-\item{prob}{probability of success on each trial}
+\item{prob}{mean of "parent" distribution}
 
 \item{alpha}{shape of "parent" distribution}
 
@@ -41,6 +60,8 @@ rtrunc(n, size, prob, alpha, beta, mulog, sigmalog, mu, sigma, lambda, a, b)
 \item{sigma}{standard deviation is parent distribution}
 
 \item{lambda}{mean and var of "parent" distribution}
+
+\item{df}{degrees of freedom for "parent" distribution}
 
 \item{a}{point of left truncation}
 
