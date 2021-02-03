@@ -2,12 +2,13 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc}
 \alias{rtrunc}
-\alias{rtrunc,numeric,missing,missing,missing,missing,missing-method}
-\alias{rtrunc,missing,numeric,missing,missing,missing,missing-method}
-\alias{rtrunc,missing,missing,numeric,missing,missing,missing-method}
-\alias{rtrunc,missing,missing,missing,numeric,missing,missing-method}
-\alias{rtrunc,missing,missing,missing,missing,numeric,missing-method}
-\alias{rtrunc,missing,missing,missing,missing,missing,numeric-method}
+\alias{rtrunc,numeric,numeric,missing,missing,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,numeric,missing,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,numeric,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,missing,numeric,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,missing,missing,numeric,missing-method}
+\alias{rtrunc,numeric,missing,missing,missing,missing,missing,missing-method}
+\alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
 rtrunc(
@@ -26,19 +27,19 @@ rtrunc(
   b
 )
 
-\S4method{rtrunc}{numeric,missing,missing,missing,missing,missing}(n, prob, a, b)
+\S4method{rtrunc}{numeric,numeric,missing,missing,missing,missing,missing}(n, size, prob, a, b)
 
-\S4method{rtrunc}{missing,numeric,missing,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
+\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
 
-\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
+\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing}(n, mu, sigma, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mu, sigma, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
 
-\S4method{rtrunc}{numeric,missing,missing,missing,missing,missing}(n, prob, a, b)
+\S4method{rtrunc}{numeric,missing,missing,missing,missing,missing,missing}(n, prob, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,missing,numeric}(n, df, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,missing,missing,numeric}(n, df, a, b)
 }
 \arguments{
 \item{n}{sample size}
