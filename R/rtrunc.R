@@ -51,7 +51,7 @@ setGeneric(
 		df,
 		a, b
 	) standardGeneric("rtrunc"),
-	signature = c("prob", "alpha", "mulog", "mu", "lambda","df")
+	signature = c("prob", "size", "alpha", "mulog", "mu", "lambda","df")
 )
 
 #' @title Random Truncated Binomial
@@ -62,6 +62,7 @@ setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "numeric",
+		size = "numeric",
 		alpha   = "missing",
 		mulog = "missing",
 		mu     = "missing",
@@ -89,6 +90,7 @@ setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
+		size = "missing",
 		alpha  = "numeric",
 		mulog = "missing",
 		mu     = "missing",
@@ -118,6 +120,7 @@ setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
+		size = "missing",
 		alpha  = "missing",
 		mulog  = "numeric",
 		mu     = "missing",
@@ -147,6 +150,7 @@ setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
+		size = "missing",
 		alpha  = "missing",
 		mulog  = "missing",
 		mu     = "numeric",
@@ -175,6 +179,7 @@ setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
+		size = "missing",
 		alpha  = "missing",
 		mulog  = "missing",
 		mu     = "missing",
@@ -203,6 +208,7 @@ setMethod(
   f = "rtrunc",
   signature(
     prob = "numeric",
+	size = "missing",
     alpha  = "missing",
     mulog  = "missing",
     mu     = "missing",
@@ -231,6 +237,7 @@ setMethod(
   f = "rtrunc",
   signature(
     prob = "missing",
+	size = "missing",
     alpha  = "missing",
     mulog  = "missing",
     mu     = "missing",
