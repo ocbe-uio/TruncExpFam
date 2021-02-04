@@ -20,10 +20,10 @@ density.trunc.invgauss <- function(y, eta, a = -Inf, b = Inf) {
 }
 
 init.parms.invgauss <- function(y) {
-	# Returns empirical parameter estimates mu and shape
-  mu=mean(y)
-  shp=1/(mean(1/y)-1/mu)
-	return(c(mean = mu, shape = shp))
+	# Returns empirical parameter estimates mean and shape
+  mean=mean(y)
+  shp=1/(mean(1/y)-1/mean)
+	return(c(mean = mean, shape = shp))
 }
 
 sufficient.T.invgauss <- function(y) {
@@ -49,8 +49,8 @@ parameters2natural.invgauss <- function(parms) {
 get.y.seq.invgauss <- function(y, y.min, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	shape <- var(y, na.rm = T)^0.5
-	lo <- max(max(0,y.min), mu - 3.5 * sd)
-	hi <- min(y.max, mu + 3.5 * sd)
+	lo <- max(max(0,y.min), mean - 3.5 * sd)
+	hi <- min(y.max, mean + 3.5 * sd)
 	return(seq(lo, hi, length = n))
 }
 
@@ -58,6 +58,6 @@ get.grad.E.T.inv.invgauss <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   sqrt.eta1=sqrt(eta[1]); sqrt.eta2=sqrt(eta[2])
-	return(A = solve(0.5 * matrix(c(-sqrt.eta2/sqrt.eta1^3, 1/(sqrt.eta1*sqrt.eta2), 1/(sqrt.eta1*sqrt.eta2), 
+	return(A = solve(0.5 * matrix(c(-sqrt.eta2/sqrt.eta1^3, 1/(sqrt.eta1*sqrt.eta2), 1/(sqrt.eta1*sqrt.eta2),
 	                                -sqrt.eta1/sqrt.eta2^3+1/sqrt.eta2^2), ncol = 2)))
 }

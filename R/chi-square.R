@@ -20,7 +20,7 @@ density.trunc.chisq <- function(y, eta, a, b) {
 }
 
 init.parms.gamma <- function(y) {
-	# Returns  parameter estimates mu and sd
+	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
 	a <- amean^2 / avar
@@ -61,10 +61,10 @@ parameters2natural.gamma <- function(parms) {
 
 get.y.seq.gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 	# Bør chekkes
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
-	lo <- max(y.min, mu - 5 * sd)
-	hi <- min(y.max, mu + 5 * sd)
+	lo <- max(y.min, mean - 5 * sd)
+	hi <- min(y.max, mean + 5 * sd)
 	return(seq(lo, hi, length = n))
 }
 

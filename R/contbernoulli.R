@@ -3,11 +3,11 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 
-# The two functions 'dcontbern' and 'pcontbern' below act in support of the 
-# truncated continuous bernoulli distribution, as base R does not include 
-# this distribution 
+# The two functions 'dcontbern' and 'pcontbern' below act in support of the
+# truncated continuous bernoulli distribution, as base R does not include
+# this distribution
 dcontbern <- function(x,lambda){
-  if (x<0)|(x>1)
+  if ((x<0)|(x>1))
     return(0)
   if (lambda==0.5)
     norm.const=2
@@ -69,10 +69,10 @@ parameters2natural.contbern <- function(parms) {
 }
 
 get.y.seq.contbern <- function(y, y.min = 0, y.max, n = 100) {
-  mu <- mean(y, na.rm = T)
+  mean <- mean(y, na.rm = T)
   var.y <- var(y, na.rm = T)
   lo <- max(round(y.min), 0)
-  hi <- min(y.max, round(mu + 10 * sqrt(var.y)),1)
+  hi <- min(y.max, round(mean + 10 * sqrt(var.y)),1)
   return(	return(seq(lo, hi, length = n))
   )
 }

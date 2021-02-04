@@ -36,24 +36,7 @@
 #' sample.pois
 #' plot(table(sample.pois))
 #' @export
-
 # TODO: replace "@" in examples with get/set functions
-
-# Sampling function for a continuous bernoulli distribution
-# This distribution is not implemented in Base R
-# Used in the sampling of the truncated continuous bernoulli
-rcontbernoulli=function(n,lambda){
-  if ((lambda<0)|(lambda>1))
-    stop("lambda")
-  # issue a warning similar to the result from the call >rbinom(10,3,-0.1)   
-  u=runif(n)
-  if (lambda==0.5)
-    return(u)
-  x=log(1+(2*lambda-1)*u/(1-lambda))/(log(lambda/(1-lambda))) # The inverse of the CDF for a cont. bernoulli distribution
-  return(x)
-}
-
-
 setGeneric(
 	name = "rtrunc",
 	def  = function(
@@ -64,11 +47,25 @@ setGeneric(
 		mean, sd,
 		lambda,
 		df,
-		a, b,
-		mean, shape
+		a, b
 	) standardGeneric("rtrunc"),
 	signature = c("prob", "size", "shape", "meanlog", "mean", "lambda","df")
 )
+
+# Sampling function for a continuous bernoulli distribution
+# This distribution is not implemented in Base R
+# Used in the sampling of the truncated continuous bernoulli
+rcontbernoulli=function(n,lambda){
+  if ((lambda<0)|(lambda>1))
+    stop("lambda")
+  # issue a warning similar to the result from the call >rbinom(10,3,-0.1)
+  u=runif(n)
+  if (lambda==0.5)
+    return(u)
+  x=log(1+(2*lambda-1)*u/(1-lambda))/(log(lambda/(1-lambda))) # The inverse of the CDF for a cont. bernoulli distribution
+  return(x)
+}
+
 
 #' @title Random Truncated Binomial
 #' @param size number of size
@@ -83,8 +80,7 @@ setMethod(
 		meanlog = "missing",
 		mean     = "missing",
 		lambda = "missing",
-		df     = "missing",
-		mean, shape= "missing"
+		df     = "missing"
 	),
 	definition = function(n, size, prob, a, b) {
 		y <- rbinom(n, size, prob)
@@ -203,7 +199,7 @@ setMethod(
 		lambda = "numeric",
 		df     = "missing"
 	),
-	definition = function(n, lambda, a, b) {
+	definition = function(n, lambda, a, b) {  # FIXME: same signature as ContBer
 		y <- rpois(n, lambda)
 		if (!missing(a)) {
 			y <- y[y >= a]
@@ -221,19 +217,19 @@ setMethod(
 
 #' @title Random Truncated Continuous Bernoulli
 #' @rdname rtrunc
-#' @param prob mean of "parent" distribution
+#' @param lambda mean of "parent" distribution
 setMethod(
   f = "rtrunc",
   signature(
-    prob = "numeric",
+    prob = "missing",
   	size = "missing",
     shape  = "missing",
     meanlog  = "missing",
     mean     = "missing",
-    lambda = "missing",
+    lambda = "numeric",
     df     = "missing"
   ),
-  definition = function(n, lambda, a, b) {
+  definition = function(n, lambda, a, b) { # FIXME: same signature as Poisson!
     y <- rcontbernoulli(n,lambda)
     if (!missing(a)) {
       y <- y[y >= a]

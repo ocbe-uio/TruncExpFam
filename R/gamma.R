@@ -20,7 +20,7 @@ density.trunc.gamma <- function(y, eta, a, b) {
 }
 
 init.parms.gamma <- function(y) {
-	# Returns  parameter estimates mu and sd
+	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
 	shp <- amean^2 / avar
@@ -37,11 +37,7 @@ average.T.gamma <- function(y) {
 
 natural2parameters.gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
-<<<<<<< HEAD:R/gamma.r
-	# returns (alpha,beta)
-=======
 	# returns (shape,rate)
->>>>>>> 3849f9e2e5f501f433fdf8e8f03d2a0bdb76e452:R/gamma.R
 	return(c(shape = eta[1] + 1, rate = -eta[2]))
 }
 
@@ -60,15 +56,15 @@ natural2parameters.gamma <- function(eta) {
 parameters2natural.gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution
 	# returns the natural parameters
-  return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2])) 
+  return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
 }
 
 get.y.seq.gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 	# Bør chekkes
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
-	lo <- max(y.min, mu - 5 * sd)
-	hi <- min(y.max, mu + 5 * sd)
+	lo <- max(y.min, mean - 5 * sd)
+	hi <- min(y.max, mean + 5 * sd)
 	return(seq(lo, hi, length = n))
 }
 

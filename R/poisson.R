@@ -39,7 +39,7 @@ average.T.pois <- function(y) {
 
 natural2parameters.pois <- function(eta) {
 	# eta: The natural parameters in a Poisson distribution
-	# returns (mu,sigma)
+	# returns (mean,sigma)
 	return(c(lambda = exp(eta)))
 }
 
@@ -56,9 +56,9 @@ get.grad.E.T.inv.pois <- function(eta) {
 }
 
 get.y.seq.pois <- function(y, y.min = 0, y.max, n = 100) {
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
-	hi <- min(y.max, round(mu + 10 * sqrt(var.y)))
+	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
 	return(lo:hi)
 }

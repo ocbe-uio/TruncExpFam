@@ -1,7 +1,7 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
- 
+
 density.trunc.chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
@@ -50,10 +50,10 @@ get.grad.E.T.inv.chisq <- function(eta) {
 }
 
 get.y.seq.chisq <- function(y, y.min = 0, y.max, n = 100) {
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
-	hi <- min(y.max, round(mu + 10 * sqrt(var.y)))
+	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
 	return(	return(seq(lo, hi, length = n))
 )
 }
