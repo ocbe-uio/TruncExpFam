@@ -37,8 +37,8 @@ setClass(
 	Class = "Truncated Lognormal",
 	contains = "Trunc",
 	slots = list(
-		mulog = "numeric",
-		sigmalog = "numeric"
+		meanlog = "numeric",
+		sdlog = "numeric"
 	)
 )
 setClass(

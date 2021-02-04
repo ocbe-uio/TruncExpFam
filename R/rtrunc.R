@@ -14,7 +14,7 @@
 #' plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 #'
 #' # Truncated Log-Normal distribution
-#' sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)
+#' sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7)
 #' summary(sample.lognorm)
 #'
 #' hist(
@@ -45,13 +45,13 @@ setGeneric(
 		n,
 		size, prob,
 		shape, rate,
-		mulog, sigmalog,
+		meanlog, sdlog,
 		mean, sd,
 		lambda,
 		df,
 		a, b
 	) standardGeneric("rtrunc"),
-	signature = c("prob", "size", "shape", "mulog", "mean", "lambda","df")
+	signature = c("prob", "size", "shape", "meanlog", "mean", "lambda","df")
 )
 
 #' @title Random Truncated Binomial
@@ -64,7 +64,7 @@ setMethod(
 		prob = "numeric",
 		size = "numeric",
 		shape   = "missing",
-		mulog = "missing",
+		meanlog = "missing",
 		mean     = "missing",
 		lambda = "missing",
 		df     = "missing"
@@ -92,7 +92,7 @@ setMethod(
 		prob = "missing",
 		size = "missing",
 		shape  = "numeric",
-		mulog = "missing",
+		meanlog = "missing",
 		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
@@ -114,21 +114,21 @@ setMethod(
 
 #' @title Random Truncated Log-Normal
 #' @rdname rtrunc
-#' @param mulog mean of un-truncated distribution
-#' @param sigmalog standard deviation of un-truncated distribution
+#' @param meanlog mean of un-truncated distribution
+#' @param sdlog standard deviation of un-truncated distribution
 setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
 		size = "missing",
 		shape  = "missing",
-		mulog  = "numeric",
+		meanlog  = "numeric",
 		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
   ),
-	definition = function(n, mulog, sigmalog, a, b) {
-		y <- rlnorm(n, mulog, sigmalog)
+	definition = function(n, meanlog, sdlog, a, b) {
+		y <- rlnorm(n, meanlog, sdlog)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -152,7 +152,7 @@ setMethod(
 		prob = "missing",
 		size = "missing",
 		shape  = "missing",
-		mulog  = "missing",
+		meanlog  = "missing",
 		mean   = "numeric",
 		lambda = "missing",
 		df     = "missing"
@@ -181,7 +181,7 @@ setMethod(
 		prob = "missing",
 		size = "missing",
 		shape  = "missing",
-		mulog  = "missing",
+		meanlog  = "missing",
 		mean     = "missing",
 		lambda = "numeric",
 		df     = "missing"
@@ -210,7 +210,7 @@ setMethod(
     prob = "numeric",
 	size = "missing",
     shape  = "missing",
-    mulog  = "missing",
+    meanlog  = "missing",
     mean     = "missing",
     lambda = "missing",
     df     = "missing"
@@ -240,7 +240,7 @@ setMethod(
     prob = "missing",
 	size = "missing",
     shape  = "missing",
-    mulog  = "missing",
+    meanlog  = "missing",
     mean     = "missing",
     lambda = "missing",
     df=    "numeric"

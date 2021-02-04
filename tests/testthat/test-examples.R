@@ -7,7 +7,7 @@ context("Sampling with rtrunc")
 set.seed(117)
 sample.norm <- rtrunc(n = 10000, mean= 2, sd= 1.5, a = -1)
 set.seed(117)
-sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)
+sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7)
 set.seed(117)
 sample.pois <- rtrunc(n=1000, lambda=10, a=4)
 set.seed(117)
@@ -44,7 +44,7 @@ test_that("Output of rtrunc matches stats::r*", {
 	)
 	expect_setequal(
 		object   = {set.seed(1); rlnorm(500, meanlog=7, sdlog=2)},
-		expected = {set.seed(1); rtrunc(500, mulog=7, sigmalog=2)}
+		expected = {set.seed(1); rtrunc(500, meanlog=7, sdlog=2)}
 	)
 	expect_setequal(
 		object   = {set.seed(1); rpois(500, lambda=72)},

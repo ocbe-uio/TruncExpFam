@@ -11,13 +11,13 @@
 \alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, size, prob, shape, rate, mulog, sigmalog, mean, sd, lambda, df, a, b)
+rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
 
 \S4method{rtrunc}{numeric,numeric,missing,missing,missing,missing,missing}(n, size, prob, a, b)
 
 \S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, shape, rate, a = 0, b = Inf)
 
-\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
+\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, meanlog, sdlog, a, b)
 
 \S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mean, sd, a, b)
 
@@ -38,9 +38,9 @@ rtrunc(n, size, prob, shape, rate, mulog, sigmalog, mean, sd, lambda, df, a, b)
 
 \item{rate}{rate of "parent" distribution}
 
-\item{mulog}{mean of un-truncated distribution}
+\item{meanlog}{mean of un-truncated distribution}
 
-\item{sigmalog}{standard deviation of un-truncated distribution}
+\item{sdlog}{standard deviation of un-truncated distribution}
 
 \item{mean}{mean of parent distribution}
 
@@ -70,7 +70,7 @@ sample.binom
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
-sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)
+sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7)
 summary(sample.lognorm)
 
 hist(
