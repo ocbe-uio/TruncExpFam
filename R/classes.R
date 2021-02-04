@@ -29,24 +29,24 @@ setClass(
 	Class = "Truncated Gamma",
 	contains = "Trunc",
 	slots = list(
-		alpha = "numeric",
-		beta  = "numeric"
+		shape = "numeric",
+		rate  = "numeric"
 	)
 )
 setClass(
 	Class = "Truncated Lognormal",
 	contains = "Trunc",
 	slots = list(
-		mulog = "numeric",
-		sigmalog = "numeric"
+		meanlog = "numeric",
+		sdlog = "numeric"
 	)
 )
 setClass(
 	Class = "Truncated Normal",
 	contains = "Trunc",
 	slots = list(
-		mu = "numeric",
-		sigma = "numeric"
+		mean = "numeric",
+		sd = "numeric"
 	)
 )
 setClass(

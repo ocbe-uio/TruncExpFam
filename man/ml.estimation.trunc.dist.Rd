@@ -43,14 +43,14 @@ ML-estimation of the parameters of the distribution of the specified family, tru
 }
 \examples{
 # Normal
-sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)
+sample.norm <- rtrunc(n = 10000, mean= 2, sd= 1.5, a = -1)
 ml.estimation.trunc.dist(
   sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
   print.iter = TRUE
 )
 
 # Log-Normal
-sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)
+sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7)
 ml_lognormal <- ml.estimation.trunc.dist(
   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
   family = "LogNormal", print.iter = FALSE
@@ -65,7 +65,7 @@ ml.estimation.trunc.dist(
 )
 
 # Gamma
-sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 ml.estimation.trunc.dist(
   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
   print.iter = 10

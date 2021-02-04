@@ -9,7 +9,7 @@ parameters2natural.gamma(parms)
 parameters2natural.gamma(parms)
 }
 \arguments{
-\item{parms}{The parameters alpha and beta in a gamma distribution}
+\item{parms}{The parameters shape and rate in a gamma distribution}
 }
 \value{
 The natural parameters
@@ -22,13 +22,13 @@ Convert parameters to Natural Gamma
 Convert parameters to Natural Gamma
 }
 \examples{
-sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)
+sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7)
 ml_lognormal <- ml.estimation.trunc.dist(
   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
   family = "LogNormal"
 )
 eta.hat <- parameters2natural.gamma(ml_lognormal)
-sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)
+sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7)
 ml_lognormal <- ml.estimation.trunc.dist(
   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
   family = "LogNormal"

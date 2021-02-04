@@ -11,29 +11,15 @@
 \alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(
-  n,
-  size,
-  prob,
-  alpha,
-  beta,
-  mulog,
-  sigmalog,
-  mu,
-  sigma,
-  lambda,
-  df,
-  a,
-  b
-)
+rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
 
 \S4method{rtrunc}{numeric,numeric,missing,missing,missing,missing,missing}(n, size, prob, a, b)
 
-\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
+\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, shape, rate, a = 0, b = Inf)
 
-\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
+\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, meanlog, sdlog, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mu, sigma, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mean, sd, a, b)
 
 \S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
 
@@ -48,17 +34,17 @@ rtrunc(
 
 \item{prob}{mean of "parent" distribution}
 
-\item{alpha}{shape of "parent" distribution}
+\item{shape}{shape of "parent" distribution}
 
-\item{beta}{rate of "parent" distribution}
+\item{rate}{rate of "parent" distribution}
 
-\item{mulog}{mean of un-truncated distribution}
+\item{meanlog}{mean of un-truncated distribution}
 
-\item{sigmalog}{standard deviation of un-truncated distribution}
+\item{sdlog}{standard deviation of un-truncated distribution}
 
-\item{mu}{mean of parent distribution}
+\item{mean}{mean of parent distribution}
 
-\item{sigma}{standard deviation is parent distribution}
+\item{sd}{standard deviation is parent distribution}
 
 \item{lambda}{mean and var of "parent" distribution}
 
@@ -84,7 +70,7 @@ sample.binom
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
-sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)
+sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7)
 summary(sample.lognorm)
 
 hist(
@@ -93,12 +79,12 @@ hist(
 )
 
 # Normal distribution
-sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)
+sample.norm <- rtrunc(n=10000,mean=2,sd=1.5,a=-1)
 head(sample.norm)
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution

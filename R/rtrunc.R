@@ -14,7 +14,7 @@
 #' plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 #'
 #' # Truncated Log-Normal distribution
-#' sample.lognorm <- rtrunc(n=100000, mulog=2.5, sigmalog=0.5, a=7)
+#' sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7)
 #' summary(sample.lognorm)
 #'
 #' hist(
@@ -23,12 +23,12 @@
 #' )
 #'
 #' # Normal distribution
-#' sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)
+#' sample.norm <- rtrunc(n=10000,mean=2,sd=1.5,a=-1)
 #' head(sample.norm)
 #' hist(sample.norm, nclass = 25)
 #'
 #' # Gamma distribution
-#' sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 #' hist(sample.gamma, nclass = 15)
 #'
 #' # Poisson distribution
@@ -44,14 +44,14 @@ setGeneric(
 	def  = function(
 		n,
 		size, prob,
-		alpha, beta,
-		mulog, sigmalog,
-		mu, sigma,
+		shape, rate,
+		meanlog, sdlog,
+		mean, sd,
 		lambda,
 		df,
 		a, b
 	) standardGeneric("rtrunc"),
-	signature = c("prob", "size", "alpha", "mulog", "mu", "lambda","df")
+	signature = c("prob", "size", "shape", "meanlog", "mean", "lambda","df")
 )
 
 #' @title Random Truncated Binomial
@@ -63,9 +63,9 @@ setMethod(
 	signature(
 		prob = "numeric",
 		size = "numeric",
-		alpha   = "missing",
-		mulog = "missing",
-		mu     = "missing",
+		shape   = "missing",
+		meanlog = "missing",
+		mean     = "missing",
 		lambda = "missing",
 		df     = "missing"
 	),
@@ -84,21 +84,21 @@ setMethod(
 
 #' @title Random Truncated Gamma
 #' @rdname rtrunc
-#' @param alpha shape of "parent" distribution
-#' @param beta rate of "parent" distribution
+#' @param shape shape of "parent" distribution
+#' @param rate rate of "parent" distribution
 setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "numeric",
-		mulog = "missing",
-		mu     = "missing",
+		shape  = "numeric",
+		meanlog = "missing",
+		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
 	),
-	definition = function(n, alpha, beta, a=0, b=Inf) {
-		y <- rgamma(n, shape = alpha, rate = beta)
+	definition = function(n, shape, rate, a=0, b=Inf) {
+		y <- rgamma(n, shape = shape, rate = rate)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -114,21 +114,21 @@ setMethod(
 
 #' @title Random Truncated Log-Normal
 #' @rdname rtrunc
-#' @param mulog mean of un-truncated distribution
-#' @param sigmalog standard deviation of un-truncated distribution
+#' @param meanlog mean of un-truncated distribution
+#' @param sdlog standard deviation of un-truncated distribution
 setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "missing",
-		mulog  = "numeric",
-		mu     = "missing",
+		shape  = "missing",
+		meanlog  = "numeric",
+		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
   ),
-	definition = function(n, mulog, sigmalog, a, b) {
-		y <- rlnorm(n, mulog, sigmalog)
+	definition = function(n, meanlog, sdlog, a, b) {
+		y <- rlnorm(n, meanlog, sdlog)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -144,21 +144,21 @@ setMethod(
 
 #' @title Random Truncated Normal
 #' @rdname rtrunc
-#' @param mu mean of parent distribution
-#' @param sigma standard deviation is parent distribution
+#' @param mean mean of parent distribution
+#' @param sd standard deviation is parent distribution
 setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "missing",
-		mulog  = "missing",
-		mu     = "numeric",
+		shape  = "missing",
+		meanlog  = "missing",
+		mean   = "numeric",
 		lambda = "missing",
 		df     = "missing"
 	),
-	definition = function(n, mu, sigma, a, b) {
-		y <- rnorm(n, mu, sigma)
+	definition = function(n, mean, sd, a, b) {
+		y <- rnorm(n, mean, sd)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -180,9 +180,9 @@ setMethod(
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "missing",
-		mulog  = "missing",
-		mu     = "missing",
+		shape  = "missing",
+		meanlog  = "missing",
+		mean     = "missing",
 		lambda = "numeric",
 		df     = "missing"
 	),
@@ -209,9 +209,9 @@ setMethod(
   signature(
     prob = "numeric",
 	size = "missing",
-    alpha  = "missing",
-    mulog  = "missing",
-    mu     = "missing",
+    shape  = "missing",
+    meanlog  = "missing",
+    mean     = "missing",
     lambda = "missing",
     df     = "missing"
   ),
@@ -239,9 +239,9 @@ setMethod(
   signature(
     prob = "missing",
 	size = "missing",
-    alpha  = "missing",
-    mulog  = "missing",
-    mu     = "missing",
+    shape  = "missing",
+    meanlog  = "missing",
+    mean     = "missing",
     lambda = "missing",
     df=    "numeric"
   ),
