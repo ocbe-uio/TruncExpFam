@@ -34,12 +34,12 @@ average.T.norm <- function(y) {
 
 natural2parameters.norm <- function(eta) {
 	# eta: The natural parameters in a normal distribution
-	# returns (mu,sigma)
+	# returns (mean,sigma)
 	return(c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2])))
 }
 
 parameters2natural.norm <- function(parms) {
-	# parms: The parameters mu and sd in a normal distribution
+	# parms: The parameters mean and sd in a normal distribution
 	# returns the natural parameters
 	return(c(eta.1 = parms[1], eta.2 = -0.5) / parms[2]^2)
 }
