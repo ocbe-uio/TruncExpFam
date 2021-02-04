@@ -20,7 +20,7 @@ density.trunc.pois <- function(y, eta, a = 0, b) {
 
 init.parms.pois <- function(y) {
 	# Returns empirical parameter estimate for lambda
-	parm <- mean(y) + 5
+	return(mean(y))
 }
 
 sufficient.T.pois <- function(y) {
@@ -31,10 +31,11 @@ average.T.pois <- function(y) {
 	return(mean(y))
 }
 
-density.pois <- function(y, eta) {
-	parms <- exp(eta)
-	dpois(y, parms)
-}
+# Is this function used anywhere?
+#density.pois <- function(y, eta) {
+#	parms <- exp(eta)
+#	dpois(y, parms)
+#}
 
 natural2parameters.pois <- function(eta) {
 	# eta: The natural parameters in a Poisson distribution

@@ -21,7 +21,7 @@ density.trunc.norm <- function(y, eta, a = -Inf, b = Inf) {
 
 init.parms.norm <- function(y) {
 	# Returns empirical parameter estimates mu and sd
-	parm <- c(mean= mean(y), sd = sqrt(var(y)))
+	return(c(mean = mean(y), sd = sqrt(var(y))))
 }
 
 sufficient.T.norm <- function(y) {
@@ -34,18 +34,18 @@ average.T.norm <- function(y) {
 
 natural2parameters.norm <- function(eta) {
 	# eta: The natural parameters in a normal distribution
-	# returns (mu,sigma)
-	return(c(mean= -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2])))
+	# returns (mean,sigma)
+	return(c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2])))
 }
 
 parameters2natural.norm <- function(parms) {
-	# parms: The parameters mu and sd in a normal distribution
+	# parms: The parameters mean and sd in a normal distribution
 	# returns the natural parameters
 	return(c(eta.1 = parms[1], eta.2 = -0.5) / parms[2]^2)
 }
 
 get.y.seq.norm <- function(y, y.min, y.max, n = 100) {
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
 	lo <- max(y.min, mu - 3.5 * sd)
 	hi <- min(y.max, mu + 3.5 * sd)
