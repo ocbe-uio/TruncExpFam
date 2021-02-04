@@ -58,7 +58,7 @@ setGeneric(
 rcontbernoulli=function(n,lambda){
   if ((lambda<0)|(lambda>1))
     stop("lambda")
-  # issue a warning similar to the result from the call >rbinom(10,3,-0.1)
+  # TODO: issue a warning similar to the result from the call >rbinom(10,3,-0.1)
   u=runif(n)
   if (lambda==0.5)
     return(u)
