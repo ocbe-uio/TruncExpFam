@@ -22,7 +22,7 @@ density.trunc.invgamma <- function(y, eta, a, b) {
 }
 
 init.parms.invgamma <- function(y) {
-	# Returns  parameter estimates mu and sd
+	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
 	alpha <- amean^2/avar+2
@@ -31,7 +31,7 @@ init.parms.invgamma <- function(y) {
 }
 
 sufficient.T.invgamma <- function(y) {
-	return(suff.T = cbind(log(y), 1/y)
+	return(suff.T = cbind(log(y), 1/y))
 }
 
 average.T.invgamma <- function(y) {
@@ -52,10 +52,10 @@ parameters2natural.invgamma <- function(parms) {
 
 get.y.seq.invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
 	# needs chekking
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
-	lo <- max(y.min, mu - 5 * sd,1e-10)
-	hi <- min(y.max, mu + 5 * sd)
+	lo <- max(y.min, mean - 5 * sd,1e-10)
+	hi <- min(y.max, mean + 5 * sd)
 	return(seq(lo, hi, length = n))
 }
 
@@ -63,5 +63,5 @@ get.grad.E.T.inv.invgamma <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A.11=sum(1/(((0:10000)+eta[1]+1))^2)
-	return(A = solve(matrix(c(A.11,-1/eta[2] ,-1/eta[2], (eta[1]+1)/eta[2]^2, ncol = 2)))
+	return(A = solve(matrix(c(A.11,-1/eta[2] ,-1/eta[2], (eta[1]+1)/eta[2]^2, ncol = 2))))
 }

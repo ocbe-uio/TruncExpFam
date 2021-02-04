@@ -1,6 +1,6 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 ##   Functions related to the Beta distribution      ##
-##         Variant 1                                 ##  
+##         Variant 1                                 ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 density.trunc.beta <- function(y, eta, a, b) {
@@ -21,7 +21,7 @@ density.trunc.beta <- function(y, eta, a, b) {
 }
 
 init.parms.beta <- function(y) {
-	# Returns  parameter estimates mu and sd
+	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
 	alpha <- amean^2*(1-amean)/avar-amean
@@ -63,10 +63,10 @@ parameters2natural.beta <- function(parms) {
 
 get.y.seq.beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	# needs chekking
-	mu <- mean(y, na.rm = T)
+	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
-	lo <- max(y.min, mu - 5 * sd)
-	hi <- min(y.max, mu + 5 * sd)
+	lo <- max(y.min, mean - 5 * sd)
+	hi <- min(y.max, mean + 5 * sd)
 	return(seq(lo, hi, length = n))
 }
 
@@ -76,5 +76,5 @@ get.grad.E.T.inv.beta <- function(eta) {
   term.1=sum(1/(((1:10000)+eta[1]))^2)
   term.2=sum(1/(((1:10000)+eta[2]))^2)
   term.12=sum(1/(((1:10000)+eta[1]+eta[2]))^2)
-	return(A = solve(matrix(c(term.1-term.12,-term.12 ,-term.12, term.2-term.12, ncol = 2)))
+  return(A = solve(matrix(c(term.1-term.12,-term.12 ,-term.12, term.2-term.12, ncol = 2))))
 }

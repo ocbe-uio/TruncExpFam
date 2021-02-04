@@ -7,7 +7,6 @@
 \alias{rtrunc,missing,missing,missing,numeric,missing,missing,missing-method}
 \alias{rtrunc,missing,missing,missing,missing,numeric,missing,missing-method}
 \alias{rtrunc,missing,missing,missing,missing,missing,numeric,missing-method}
-\alias{rtrunc,numeric,missing,missing,missing,missing,missing,missing-method}
 \alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
@@ -23,7 +22,7 @@ rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
 
 \S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
 
-\S4method{rtrunc}{numeric,missing,missing,missing,missing,missing,missing}(n, prob, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
 
 \S4method{rtrunc}{missing,missing,missing,missing,missing,missing,numeric}(n, df, a, b)
 }
@@ -32,7 +31,7 @@ rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
 
 \item{size}{number of size}
 
-\item{prob}{mean of "parent" distribution}
+\item{prob}{probability of success on each trial}
 
 \item{shape}{shape of "parent" distribution}
 
@@ -46,7 +45,7 @@ rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
 
 \item{sd}{standard deviation is parent distribution}
 
-\item{lambda}{mean and var of "parent" distribution}
+\item{lambda}{mean of "parent" distribution}
 
 \item{df}{degrees of freedom for "parent" distribution}
 

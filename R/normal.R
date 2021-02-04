@@ -20,7 +20,7 @@ density.trunc.norm <- function(y, eta, a = -Inf, b = Inf) {
 }
 
 init.parms.norm <- function(y) {
-	# Returns empirical parameter estimates mu and sd
+	# Returns empirical parameter estimates mean and sd
 	return(c(mean = mean(y), sd = sqrt(var(y))))
 }
 
@@ -47,8 +47,8 @@ parameters2natural.norm <- function(parms) {
 get.y.seq.norm <- function(y, y.min, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
-	lo <- max(y.min, mu - 3.5 * sd)
-	hi <- min(y.max, mu + 3.5 * sd)
+	lo <- max(y.min, mean - 3.5 * sd)
+	hi <- min(y.max, mean + 3.5 * sd)
 	return(seq(lo, hi, length = n))
 }
 

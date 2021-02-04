@@ -28,8 +28,8 @@ density.trunc.lognorm <- function(y, eta, a = -Inf, b = Inf) {
 }
 
 init.parms.lognorm <- function(y) {
-	# Y~LN(mu,sigma) => X=log(Y)~N(mu,sigma)
-	# Returns empirical parameter estimates for mu and sd
+	# Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)
+	# Returns empirical parameter estimates for mean and sd
 	# browser()
 	x <- log(y)
 	parm <- c(mean= mean(x), sd = sqrt(var(x)))
@@ -37,9 +37,9 @@ init.parms.lognorm <- function(y) {
 
 get.y.seq.lognorm <- function(y, y.min, y.max, n = 100) {
 	x <- log(y)
-	mu <- mean(x, na.rm = T)
+	mean <- mean(x, na.rm = T)
 	sd <- var(x, na.rm = T)^0.5
-	lo <- max(y.min, exp(mu - 3.5 * sd))
-	hi <- min(y.max, exp(mu + 3.5 * sd))
+	lo <- max(y.min, exp(mean - 3.5 * sd))
+	hi <- min(y.max, exp(mean + 3.5 * sd))
 	return(seq(lo, hi, length = n))
 }
