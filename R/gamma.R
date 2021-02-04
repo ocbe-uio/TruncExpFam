@@ -1,5 +1,5 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
-##   Functions related to the Gamma distribution    ##
+##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 density.trunc.gamma <- function(y, eta, a, b) {
@@ -23,8 +23,8 @@ init.parms.gamma <- function(y) {
 	# Returns  parameter estimates mu and sd
 	amean <- mean(y)
 	avar <- var(y)
-	a <- amean^2 / avar
-	parm <- c(shape = a, rate = a / amean)
+	shp <- amean^2 / avar
+	return(c(shape = shp, rate = shp / amean))
 }
 
 sufficient.T.gamma <- function(y) {
@@ -37,7 +37,11 @@ average.T.gamma <- function(y) {
 
 natural2parameters.gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
+<<<<<<< HEAD:R/gamma.r
+	# returns (alpha,beta)
+=======
 	# returns (shape,rate)
+>>>>>>> 3849f9e2e5f501f433fdf8e8f03d2a0bdb76e452:R/gamma.R
 	return(c(shape = eta[1] + 1, rate = -eta[2]))
 }
 
@@ -56,7 +60,7 @@ natural2parameters.gamma <- function(eta) {
 parameters2natural.gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution
 	# returns the natural parameters
-	return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
+  return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2])) 
 }
 
 get.y.seq.gamma <- function(y, y.min = 1e-6, y.max, n = 100) {

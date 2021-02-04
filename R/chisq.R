@@ -2,11 +2,9 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
  
-# Inserted line
-
 density.trunc.chisq <- function(y, eta, a = 0, b) {
-	parm <- 2(eta+1)
-	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, parm))
+	df <- natural2parameters.chisq(eta)
+	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {
 	  F.a <- pchisq(a, parm)
 	} else {
@@ -22,7 +20,7 @@ density.trunc.chisq <- function(y, eta, a = 0, b) {
 
 init.parms.chisq <- function(y) {
 	# Returns empirical parameter estimate for df
-	parm <- mean(y)
+	return(mean(y))
 }
 
 sufficient.T.chisq <- function(y) {
@@ -33,15 +31,10 @@ average.T.chisq <- function(y) {
 	return(mean(y))
 }
 
-#density.chisq <- function(y, eta) {
-#	parms <- 2*(eta+1)
-#	dchisq(y, parms)
-#}
-
 natural2parameters.chisq <- function(eta) {
 	# eta: The natural parameters in a Chi Square distribution
-	# returns (mu,sigma)
-	return(c(df = 2*(eta+1)))
+	# returns df
+	return(c(parms = 2*(eta+1)))
 }
 
 parameters2natural.chisq <- function(parms) {

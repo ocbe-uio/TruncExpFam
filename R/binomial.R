@@ -26,7 +26,7 @@ density.trunc.binomial <- function(y, eta, a = 0, b, ...) {
 
 init.parms.binomial <- function(y, ...) {
 	# Returns empirical parameter estimate for lambda
-	parm <- mean(y / ...)
+	return(mean(y / ...))
 }
 
 sufficient.T.binomial <- function(y) {
