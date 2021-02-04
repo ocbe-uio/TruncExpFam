@@ -13,7 +13,7 @@ sample.pois <- rtrunc(n=1000, lambda=10, a=4)
 set.seed(117)
 sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
 set.seed(117)
-sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 
 # TODO: export density.* functions as S3 methods
 # y <- seq(-3, 60, length = 200)
@@ -40,7 +40,7 @@ test_that("Output of rtrunc matches stats::r*", {
 	)
 	expect_setequal(
 		object   = {set.seed(1); rgamma(500, shape=4, rate=5)},
-		expected = {set.seed(1); rtrunc(500, alpha=4, beta=5)}
+		expected = {set.seed(1); rtrunc(500, shape=4, rate=5)}
 	)
 	expect_setequal(
 		object   = {set.seed(1); rlnorm(500, meanlog=7, sdlog=2)},
@@ -91,7 +91,7 @@ test_that("ml.estimation.trunc.dist works", {
 	expect_equal(ml_lognormal, c(mean= 2.5207512, sd = 0.4842092), tol = 1e-6)
 	expect_equal(ml_poisson, c(lambda = 10.18402), tol = 1e-5)
 	# TODO: add unit test for ml_binom (depends on #19)
-	expect_equal(ml_gamma, c(alpha = 6.520333, beta = 2.109503), tol = 1e-5)
+	expect_equal(ml_gamma, c(shape = 6.520333, rate = 2.109503), tol = 1e-5)
 })
 
 # ======================================================== #

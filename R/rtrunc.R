@@ -28,7 +28,7 @@
 #' hist(sample.norm, nclass = 25)
 #'
 #' # Gamma distribution
-#' sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 #' hist(sample.gamma, nclass = 15)
 #'
 #' # Poisson distribution
@@ -44,14 +44,14 @@ setGeneric(
 	def  = function(
 		n,
 		size, prob,
-		alpha, beta,
+		shape, rate,
 		mulog, sigmalog,
 		mean, sd,
 		lambda,
 		df,
 		a, b
 	) standardGeneric("rtrunc"),
-	signature = c("prob", "size", "alpha", "mulog", "mean", "lambda","df")
+	signature = c("prob", "size", "shape", "mulog", "mean", "lambda","df")
 )
 
 #' @title Random Truncated Binomial
@@ -63,7 +63,7 @@ setMethod(
 	signature(
 		prob = "numeric",
 		size = "numeric",
-		alpha   = "missing",
+		shape   = "missing",
 		mulog = "missing",
 		mean     = "missing",
 		lambda = "missing",
@@ -84,21 +84,21 @@ setMethod(
 
 #' @title Random Truncated Gamma
 #' @rdname rtrunc
-#' @param alpha shape of "parent" distribution
-#' @param beta rate of "parent" distribution
+#' @param shape shape of "parent" distribution
+#' @param rate rate of "parent" distribution
 setMethod(
 	f = "rtrunc",
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "numeric",
+		shape  = "numeric",
 		mulog = "missing",
 		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
 	),
-	definition = function(n, alpha, beta, a=0, b=Inf) {
-		y <- rgamma(n, shape = alpha, rate = beta)
+	definition = function(n, shape, rate, a=0, b=Inf) {
+		y <- rgamma(n, shape = shape, rate = rate)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -121,7 +121,7 @@ setMethod(
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "missing",
+		shape  = "missing",
 		mulog  = "numeric",
 		mean   = "missing",
 		lambda = "missing",
@@ -151,7 +151,7 @@ setMethod(
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "missing",
+		shape  = "missing",
 		mulog  = "missing",
 		mean   = "numeric",
 		lambda = "missing",
@@ -180,7 +180,7 @@ setMethod(
 	signature(
 		prob = "missing",
 		size = "missing",
-		alpha  = "missing",
+		shape  = "missing",
 		mulog  = "missing",
 		mean     = "missing",
 		lambda = "numeric",
@@ -209,7 +209,7 @@ setMethod(
   signature(
     prob = "numeric",
 	size = "missing",
-    alpha  = "missing",
+    shape  = "missing",
     mulog  = "missing",
     mean     = "missing",
     lambda = "missing",
@@ -239,7 +239,7 @@ setMethod(
   signature(
     prob = "missing",
 	size = "missing",
-    alpha  = "missing",
+    shape  = "missing",
     mulog  = "missing",
     mean     = "missing",
     lambda = "missing",

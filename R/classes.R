@@ -29,8 +29,8 @@ setClass(
 	Class = "Truncated Gamma",
 	contains = "Trunc",
 	slots = list(
-		alpha = "numeric",
-		beta  = "numeric"
+		shape = "numeric",
+		rate  = "numeric"
 	)
 )
 setClass(

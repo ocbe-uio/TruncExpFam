@@ -11,11 +11,11 @@
 \alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, size, prob, alpha, beta, mulog, sigmalog, mean, sd, lambda, df, a, b)
+rtrunc(n, size, prob, shape, rate, mulog, sigmalog, mean, sd, lambda, df, a, b)
 
 \S4method{rtrunc}{numeric,numeric,missing,missing,missing,missing,missing}(n, size, prob, a, b)
 
-\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, alpha, beta, a = 0, b = Inf)
+\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, shape, rate, a = 0, b = Inf)
 
 \S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
 
@@ -34,9 +34,9 @@ rtrunc(n, size, prob, alpha, beta, mulog, sigmalog, mean, sd, lambda, df, a, b)
 
 \item{prob}{mean of "parent" distribution}
 
-\item{alpha}{shape of "parent" distribution}
+\item{shape}{shape of "parent" distribution}
 
-\item{beta}{rate of "parent" distribution}
+\item{rate}{rate of "parent" distribution}
 
 \item{mulog}{mean of un-truncated distribution}
 
@@ -84,7 +84,7 @@ head(sample.norm)
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution

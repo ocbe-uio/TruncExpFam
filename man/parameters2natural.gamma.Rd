@@ -9,7 +9,7 @@ parameters2natural.gamma(parms)
 parameters2natural.gamma(parms)
 }
 \arguments{
-\item{parms}{The parameters alpha and beta in a gamma distribution}
+\item{parms}{The parameters shape and rate in a gamma distribution}
 }
 \value{
 The natural parameters

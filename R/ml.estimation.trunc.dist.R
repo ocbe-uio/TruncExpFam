@@ -37,7 +37,7 @@
 #' )
 #'
 #' # Gamma
-#' sample.gamma <- rtrunc(n = 10000, alpha = 6, beta = 2, a = 2)
+#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
 #' ml.estimation.trunc.dist(
 #'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
 #'   print.iter = 10

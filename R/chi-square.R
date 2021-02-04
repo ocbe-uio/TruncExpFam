@@ -24,7 +24,7 @@ init.parms.gamma <- function(y) {
 	amean <- mean(y)
 	avar <- var(y)
 	a <- amean^2 / avar
-	parm <- c(alpha = a, beta = a / amean)
+	parm <- c(shape = a, rate = a / amean)
 }
 
 sufficient.T.gamma <- function(y) {
@@ -37,12 +37,12 @@ average.T.gamma <- function(y) {
 
 natural2parameters.gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
-	# returns (alpha,beta)
-	return(c(alpha = eta[1] + 1, beta = -eta[2]))
+	# returns (shape,rate)
+	return(c(shape = eta[1] + 1, rate = -eta[2]))
 }
 
 #' @title Convert parameters to Natural Gamma
-#' @param parms The parameters alpha and beta in a gamma distribution
+#' @param parms The parameters shape and rate in a gamma distribution
 #' @return The natural parameters
 #' @author René Holst
 #' @examples
@@ -54,7 +54,7 @@ natural2parameters.gamma <- function(eta) {
 #' eta.hat <- parameters2natural.gamma(ml_lognormal)
 #' @export
 parameters2natural.gamma <- function(parms) {
-	# parms: The parameters alpha and beta in a gamma distribution
+	# parms: The parameters shape and rate in a gamma distribution
 	# returns the natural parameters
 	return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
 }
