@@ -11,21 +11,7 @@
 \alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(
-  n,
-  size,
-  prob,
-  alpha,
-  beta,
-  mulog,
-  sigmalog,
-  mu,
-  sigma,
-  lambda,
-  df,
-  a,
-  b
-)
+rtrunc(n, size, prob, alpha, beta, mulog, sigmalog, mean, sd, lambda, df, a, b)
 
 \S4method{rtrunc}{numeric,numeric,missing,missing,missing,missing,missing}(n, size, prob, a, b)
 
@@ -33,7 +19,7 @@ rtrunc(
 
 \S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, mulog, sigmalog, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mu, sigma, a, b)
+\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mean, sd, a, b)
 
 \S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
 
@@ -56,9 +42,9 @@ rtrunc(
 
 \item{sigmalog}{standard deviation of un-truncated distribution}
 
-\item{mu}{mean of parent distribution}
+\item{mean}{mean of parent distribution}
 
-\item{sigma}{standard deviation is parent distribution}
+\item{sd}{standard deviation is parent distribution}
 
 \item{lambda}{mean and var of "parent" distribution}
 
@@ -93,7 +79,7 @@ hist(
 )
 
 # Normal distribution
-sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)
+sample.norm <- rtrunc(n=10000,mean=2,sd=1.5,a=-1)
 head(sample.norm)
 hist(sample.norm, nclass = 25)
 

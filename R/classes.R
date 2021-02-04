@@ -45,8 +45,8 @@ setClass(
 	Class = "Truncated Normal",
 	contains = "Trunc",
 	slots = list(
-		mu = "numeric",
-		sigma = "numeric"
+		mean = "numeric",
+		sd = "numeric"
 	)
 )
 setClass(

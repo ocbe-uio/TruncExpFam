@@ -32,7 +32,7 @@ init.parms.lognorm <- function(y) {
 	# Returns empirical parameter estimates for mu and sd
 	# browser()
 	x <- log(y)
-	parm <- c(mu = mean(x), sd = sqrt(var(x)))
+	parm <- c(mean= mean(x), sd = sqrt(var(x)))
 }
 
 get.y.seq.lognorm <- function(y, y.min, y.max, n = 100) {

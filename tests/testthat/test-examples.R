@@ -5,7 +5,7 @@
 context("Sampling with rtrunc")
 
 set.seed(117)
-sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)
+sample.norm <- rtrunc(n = 10000, mean= 2, sd= 1.5, a = -1)
 set.seed(117)
 sample.lognorm <- rtrunc(n = 100000, mulog = 2.5, sigmalog = 0.5, a = 7)
 set.seed(117)
@@ -32,7 +32,7 @@ test_that("rtrunc samples have the expected values", {
 test_that("Output of rtrunc matches stats::r*", {
 	expect_setequal(
 		object   = {set.seed(1); rnorm(500, mean=1, sd=3)},
-		expected = {set.seed(1); rtrunc(500, mu=1, sigma=3)}
+		expected = {set.seed(1); rtrunc(500, mean=1, sd=3)}
 	)
 	expect_setequal(
 		object   = {set.seed(1); rbinom(500, size=10, prob=.3)},
@@ -87,8 +87,8 @@ ml_gamma <- ml.estimation.trunc.dist(
 )
 
 test_that("ml.estimation.trunc.dist works", {
-	expect_equal(ml_gaussian, c(mu = 2.041146, sd = 1.481114), tol = 1e-6)
-	expect_equal(ml_lognormal, c(mu = 2.5207512, sd = 0.4842092), tol = 1e-6)
+	expect_equal(ml_gaussian, c(mean= 2.041146, sd = 1.481114), tol = 1e-6)
+	expect_equal(ml_lognormal, c(mean= 2.5207512, sd = 0.4842092), tol = 1e-6)
 	expect_equal(ml_poisson, c(lambda = 10.18402), tol = 1e-5)
 	# TODO: add unit test for ml_binom (depends on #19)
 	expect_equal(ml_gamma, c(alpha = 6.520333, beta = 2.109503), tol = 1e-5)
@@ -103,5 +103,5 @@ context("Parameter conversion")
 eta.hat <- parameters2natural.gamma(ml_lognormal)
 
 test_that("Converting parameters", {
-	expect_equal(eta.hat, c(eta.1.mu = 1.5207, eta.2.sd = -0.4842), tol = 1e-3)
+	expect_equal(eta.hat, c(eta.1.mean= 1.5207, eta.2.sd = -0.4842), tol = 1e-3)
 })

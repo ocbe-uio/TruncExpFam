@@ -23,7 +23,7 @@
 #' )
 #'
 #' # Normal distribution
-#' sample.norm <- rtrunc(n=10000,mu=2,sigma=1.5,a=-1)
+#' sample.norm <- rtrunc(n=10000,mean=2,sd=1.5,a=-1)
 #' head(sample.norm)
 #' hist(sample.norm, nclass = 25)
 #'
@@ -46,12 +46,12 @@ setGeneric(
 		size, prob,
 		alpha, beta,
 		mulog, sigmalog,
-		mu, sigma,
+		mean, sd,
 		lambda,
 		df,
 		a, b
 	) standardGeneric("rtrunc"),
-	signature = c("prob", "size", "alpha", "mulog", "mu", "lambda","df")
+	signature = c("prob", "size", "alpha", "mulog", "mean", "lambda","df")
 )
 
 #' @title Random Truncated Binomial
@@ -65,7 +65,7 @@ setMethod(
 		size = "numeric",
 		alpha   = "missing",
 		mulog = "missing",
-		mu     = "missing",
+		mean     = "missing",
 		lambda = "missing",
 		df     = "missing"
 	),
@@ -93,7 +93,7 @@ setMethod(
 		size = "missing",
 		alpha  = "numeric",
 		mulog = "missing",
-		mu     = "missing",
+		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
 	),
@@ -123,7 +123,7 @@ setMethod(
 		size = "missing",
 		alpha  = "missing",
 		mulog  = "numeric",
-		mu     = "missing",
+		mean   = "missing",
 		lambda = "missing",
 		df     = "missing"
   ),
@@ -144,8 +144,8 @@ setMethod(
 
 #' @title Random Truncated Normal
 #' @rdname rtrunc
-#' @param mu mean of parent distribution
-#' @param sigma standard deviation is parent distribution
+#' @param mean mean of parent distribution
+#' @param sd standard deviation is parent distribution
 setMethod(
 	f = "rtrunc",
 	signature(
@@ -153,12 +153,12 @@ setMethod(
 		size = "missing",
 		alpha  = "missing",
 		mulog  = "missing",
-		mu     = "numeric",
+		mean   = "numeric",
 		lambda = "missing",
 		df     = "missing"
 	),
-	definition = function(n, mu, sigma, a, b) {
-		y <- rnorm(n, mu, sigma)
+	definition = function(n, mean, sd, a, b) {
+		y <- rnorm(n, mean, sd)
 		if (!missing(a)) {
 			y <- y[y >= a]
 		}
@@ -182,7 +182,7 @@ setMethod(
 		size = "missing",
 		alpha  = "missing",
 		mulog  = "missing",
-		mu     = "missing",
+		mean     = "missing",
 		lambda = "numeric",
 		df     = "missing"
 	),
@@ -211,7 +211,7 @@ setMethod(
 	size = "missing",
     alpha  = "missing",
     mulog  = "missing",
-    mu     = "missing",
+    mean     = "missing",
     lambda = "missing",
     df     = "missing"
   ),
@@ -241,7 +241,7 @@ setMethod(
 	size = "missing",
     alpha  = "missing",
     mulog  = "missing",
-    mu     = "missing",
+    mean     = "missing",
     lambda = "missing",
     df=    "numeric"
   ),

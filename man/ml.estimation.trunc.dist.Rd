@@ -43,7 +43,7 @@ ML-estimation of the parameters of the distribution of the specified family, tru
 }
 \examples{
 # Normal
-sample.norm <- rtrunc(n = 10000, mu = 2, sigma = 1.5, a = -1)
+sample.norm <- rtrunc(n = 10000, mean= 2, sd= 1.5, a = -1)
 ml.estimation.trunc.dist(
   sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
   print.iter = TRUE
