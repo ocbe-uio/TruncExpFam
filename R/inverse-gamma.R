@@ -4,6 +4,7 @@
 
 require(invgamma)
 
+#' @importFrom invgamma dinvgamma pinvgamma
 density.trunc.invgamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))

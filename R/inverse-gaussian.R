@@ -2,6 +2,7 @@
 ##   Functions related to the inverse gaussian distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom rmutil dinvgauss
 density.trunc.invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, mean = parm[1], shape = parm[2]))
@@ -49,7 +50,7 @@ parameters2natural.invgauss <- function(parms) {
 get.y.seq.invgauss <- function(y, y.min, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	shape <- var(y, na.rm = T)^0.5
-	lo <- max(max(0,y.min), mean - 3.5 * sd)
+	lo <- max(max(0,y.min), mean - 3.5 * sd) # FIXME: sd not defined
 	hi <- min(y.max, mean + 3.5 * sd)
 	return(seq(lo, hi, length = n))
 }

@@ -2,32 +2,41 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc}
 \alias{rtrunc}
-\alias{rtrunc,numeric,numeric,missing,missing,missing,missing,missing-method}
-\alias{rtrunc,missing,missing,numeric,missing,missing,missing,missing-method}
-\alias{rtrunc,missing,missing,missing,numeric,missing,missing,missing-method}
-\alias{rtrunc,missing,missing,missing,missing,numeric,missing,missing-method}
-\alias{rtrunc,missing,missing,missing,missing,missing,numeric,missing-method}
-\alias{rtrunc,missing,missing,missing,missing,missing,missing,numeric-method}
+\alias{rtrunc.binomial}
+\alias{rtrunc.gamma}
+\alias{rtrunc.lognormal}
+\alias{rtrunc.normal}
+\alias{rtrunc.poisson}
+\alias{rtrunc.contbernoulli}
+\alias{rtrunc.chisq}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
+rtrunc(n, family = "gaussian", a, b, ...)
 
-\S4method{rtrunc}{numeric,numeric,missing,missing,missing,missing,missing}(n, size, prob, a, b)
+rtrunc.binomial(n, size, prob, a, b)
 
-\S4method{rtrunc}{missing,missing,numeric,missing,missing,missing,missing}(n, shape, rate, a = 0, b = Inf)
+rtrunc.gamma(n, shape, rate, a = 0, b = Inf)
 
-\S4method{rtrunc}{missing,missing,missing,numeric,missing,missing,missing}(n, meanlog, sdlog, a, b)
+rtrunc.lognormal(n, meanlog, sdlog, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,numeric,missing,missing}(n, mean, sd, a, b)
+rtrunc.normal(n, mean, sd, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
+rtrunc.poisson(n, lambda, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,missing,numeric,missing}(n, lambda, a, b)
+rtrunc.contbernoulli(n, lambda, a, b)
 
-\S4method{rtrunc}{missing,missing,missing,missing,missing,missing,numeric}(n, df, a, b)
+rtrunc.chisq(n, df, a, b)
 }
 \arguments{
 \item{n}{sample size}
+
+\item{family}{distribution family to use}
+
+\item{a}{point of left truncation}
+
+\item{b}{point of right truncation}
+
+\item{...}{individual arguments to each distribution}
 
 \item{size}{number of size}
 
@@ -48,10 +57,6 @@ rtrunc(n, size, prob, shape, rate, meanlog, sdlog, mean, sd, lambda, df, a, b)
 \item{lambda}{mean of "parent" distribution}
 
 \item{df}{degrees of freedom for "parent" distribution}
-
-\item{a}{point of left truncation}
-
-\item{b}{point of right truncation}
 }
 \value{
 A sample of size n drawn from a truncated distribution
@@ -64,30 +69,32 @@ The effective sample size is reduced due to truncation.
 }
 \examples{
 # Truncated binomial distribution
-sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
+sample.binom <- rtrunc(1000, family="binomial", prob=0.6, size=20, a=4, b=10)
 sample.binom
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
-sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7)
+sample.lognorm <- rtrunc(
+  n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+)
 summary(sample.lognorm)
 
 hist(
   sample.lognorm, nclass = 35, xlim = c(0, 60), freq = FALSE,
-   ylim = c(0, 0.15)
+  ylim = c(0, 0.15)
 )
 
 # Normal distribution
-sample.norm <- rtrunc(n=10000,mean=2,sd=1.5,a=-1)
+sample.norm <- rtrunc(n=10000, mean=2, sd=1.5, a=-1)
 head(sample.norm)
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
+sample.gamma <- rtrunc(n=10000, family="gamma", shape=6, rate=2, a=2)
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution
-sample.pois <- rtrunc(n=1000, lambda=10, a=4)
+sample.pois <- rtrunc(n=1000, family="poisson", lambda=10, a=4)
 sample.pois
 plot(table(sample.pois))
 }

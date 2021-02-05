@@ -2,6 +2,7 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom stats dnbinom pnbinom
 density.trunc.nbinom <- function(y, eta, a = 0, b, ...) {
   my.dnbinom <- function(nsize) {
     dnbinom(y, size = nsize, prob = proba)
@@ -54,7 +55,7 @@ get.grad.E.T.inv.nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
   p=exp(eta)
-	return(A = (1-p)^2/(r*p))
+	return(A = (1-p)^2/(r*p)) # FIXME: r not defined
 }
 
 get.y.seq.nbinom <- function(y, y.min = 0, y.max, n = 100) {
