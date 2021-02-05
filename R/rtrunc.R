@@ -36,240 +36,179 @@
 #' sample.pois
 #' plot(table(sample.pois))
 #' @export
-# TODO: replace "@" in examples with get/set functions
-setGeneric(
-	name = "rtrunc",
-	def  = function(
-		n,
-		size, prob,
-		shape, rate,
-		meanlog, sdlog,
-		mean, sd,
-		lambda,
-		df,
-		a, b
-	) standardGeneric("rtrunc"),
-	signature = c("prob", "size", "shape", "meanlog", "mean", "lambda","df")
-)
+rtrunc <- function(n, family="gaussian", ...) {
+	# ======================================================== #
+	# Validating                                               #
+	# ======================================================== #
+	family <- tolower(family)
+	valid_distros <- c(
+		"binomial", "gamma", "log-gamma", "log-normal", "gaussian", "poisson", "contbernoulli", "chisq"
+	)
+	if (!(family %in% valid_distros)) {
+		stop(
+			"Invalid distribution family. Please choose from the list below:\n",
+			paste(valid_distros, collapse=", ")
+		)
+	}
 
-# Sampling function for a continuous bernoulli distribution
-# This distribution is not implemented in Base R
-# Used in the sampling of the truncated continuous bernoulli
-rcontbernoulli=function(n,lambda){
-  if ((lambda<0)|(lambda>1))
-    stop("lambda")
-  # TODO: issue a warning similar to the result from the call >rbinom(10,3,-0.1)
-  u=runif(n)
-  if (lambda==0.5)
-    return(u)
-  x=log(1+(2*lambda-1)*u/(1-lambda))/(log(lambda/(1-lambda))) # The inverse of the CDF for a cont. bernoulli distribution
-  return(x)
+	# ======================================================== #
+	# Dispatching functions                                    #
+	# ======================================================== #
+	# TODO: Replace if-despatching with 1) create new class 2) regular dispatching (inspiration: https://stackoverflow.com/a/66025891/1169233)
+	# TODO: add parameter cheking here?
+	if (family == "binomial") {
+		rtrunc.binomial(n, ...)
+	} else if (family == "gamma") {
+		rtrunc.gamma(n, ...)
+	} else if (family == "log-normal") {
+		rtrunc.lognormal(n, ...)
+	} else if (family == "contbernoulli") {
+		rtrunc.contbernoulli(n, ...)
+	} else if (family == "chisq") {
+		rtrunc.chisq(n, ...)
+	} else if (family == "poisson") {
+		rtrunc.poisson(n, ...)
+	} else if (family == "gaussian") {
+		rtrunc.normal(n, ...)
+	} else {
+		stop("rtrunc method for family=", family, " not yet implemented.")
+	}
 }
-
 
 #' @title Random Truncated Binomial
 #' @param size number of size
 #' @param prob probability of success on each trial
-#' @rdname rtrunc
-setMethod(
-	f = "rtrunc",
-	signature(
-		prob = "numeric",
-		size = "numeric",
-		shape   = "missing",
-		meanlog = "missing",
-		mean     = "missing",
-		lambda = "missing",
-		df     = "missing"
-	),
-	definition = function(n, size, prob, a, b) {
-		y <- rbinom(n, size, prob)
-		if (!missing(a)) {
-			y <- y[y >= a]
-		}
-		if (!missing(b)) {
-			y <- y[y <= b]
-		}
-		class(y) <- "rtrunc-binomial"
-		return(y)
+rtrunc.binomial <- function(n, size, prob, a, b) {
+	y <- rbinom(n, size, prob)
+	if (!missing(a)) {
+		y <- y[y >= a]
 	}
-)
+	if (!missing(b)) {
+		y <- y[y <= b]
+	}
+	class(y) <- "rtrunc-binomial"
+	return(y)
+}
 
 #' @title Random Truncated Gamma
 #' @rdname rtrunc
 #' @param shape shape of "parent" distribution
 #' @param rate rate of "parent" distribution
-setMethod(
-	f = "rtrunc",
-	signature(
-		prob = "missing",
-		size = "missing",
-		shape  = "numeric",
-		meanlog = "missing",
-		mean   = "missing",
-		lambda = "missing",
-		df     = "missing"
-	),
-	definition = function(n, shape, rate, a=0, b=Inf) {
-		y <- rgamma(n, shape = shape, rate = rate)
-		if (!missing(a)) {
-			y <- y[y >= a]
-		}
-		if (!missing(b)) {
-			y <- y[y <= b]
-		} else {
-			b <- Inf
-		}
-		class(y) <- "rtrunc-gamma"
-		return(y)
+rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
+	y <- rgamma(n, shape = shape, rate = rate)
+	if (!missing(a)) {
+		y <- y[y >= a]
 	}
-)
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-gamma"
+	return(y)
+}
 
 #' @title Random Truncated Log-Normal
 #' @rdname rtrunc
 #' @param meanlog mean of un-truncated distribution
 #' @param sdlog standard deviation of un-truncated distribution
-setMethod(
-	f = "rtrunc",
-	signature(
-		prob = "missing",
-		size = "missing",
-		shape  = "missing",
-		meanlog  = "numeric",
-		mean   = "missing",
-		lambda = "missing",
-		df     = "missing"
-  ),
-	definition = function(n, meanlog, sdlog, a, b) {
-		y <- rlnorm(n, meanlog, sdlog)
-		if (!missing(a)) {
-			y <- y[y >= a]
-		}
-		if (!missing(b)) {
-			y <- y[y <= b]
-		} else {
-			b <- Inf
-		}
-		class(y) <- "rtrunc-lognormal"
-		return(y)
+rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
+	y <- rlnorm(n, meanlog, sdlog)
+	if (!missing(a)) {
+		y <- y[y >= a]
 	}
-)
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-lognormal"
+	return(y)
+}
 
 #' @title Random Truncated Normal
 #' @rdname rtrunc
 #' @param mean mean of parent distribution
 #' @param sd standard deviation is parent distribution
-setMethod(
-	f = "rtrunc",
-	signature(
-		prob = "missing",
-		size = "missing",
-		shape  = "missing",
-		meanlog  = "missing",
-		mean   = "numeric",
-		lambda = "missing",
-		df     = "missing"
-	),
-	definition = function(n, mean, sd, a, b) {
-		y <- rnorm(n, mean, sd)
-		if (!missing(a)) {
-			y <- y[y >= a]
-		}
-		if (!missing(b)) {
-			y <- y[y <= b]
-		} else {
-			b <- Inf
-		}
-		class(y) <- "rtrunc-normal"
-		return(y)
+rtrunc.normal <- function(n, mean, sd, a, b) {
+	y <- rnorm(n, mean, sd)
+	if (!missing(a)) {
+		y <- y[y >= a]
 	}
-)
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-normal"
+	return(y)
+}
 
 #' @title Random Truncated Poisson
 #' @rdname rtrunc
 #' @param lambda mean and var of "parent" distribution
-setMethod(
-	f = "rtrunc",
-	signature(
-		prob = "missing",
-		size = "missing",
-		shape  = "missing",
-		meanlog  = "missing",
-		mean     = "missing",
-		lambda = "numeric",
-		df     = "missing"
-	),
-	definition = function(n, lambda, a, b) {  # FIXME: same signature as ContBer
-		y <- rpois(n, lambda)
-		if (!missing(a)) {
-			y <- y[y >= a]
-		}
-		if (!missing(b)) {
-			y <- y[y <= b]
-		} else {
-			b <- Inf
-		}
-		class(y) <- "rtrunc-poisson"
-		return(y)
+rtrunc.poisson <- function(n, lambda, a, b) {
+	y <- rpois(n, lambda)
+	if (!missing(a)) {
+		y <- y[y >= a]
 	}
-)
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-poisson"
+	return(y)
+}
 
 
 #' @title Random Truncated Continuous Bernoulli
 #' @rdname rtrunc
 #' @param lambda mean of "parent" distribution
-setMethod(
-  f = "rtrunc",
-  signature(
-    prob = "missing",
-  	size = "missing",
-    shape  = "missing",
-    meanlog  = "missing",
-    mean     = "missing",
-    lambda = "numeric",
-    df     = "missing"
-  ),
-  definition = function(n, lambda, a, b) { # FIXME: same signature as Poisson!
-    y <- rcontbernoulli(n,lambda)
-    if (!missing(a)) {
-      y <- y[y >= a]
-    }
-    if (!missing(b)) {
-      y <- y[y <= b]
-    } else {
-      b <- 1
-    }
-    class(y) <- "rtrunc-bernoulli"
-    return(y)
-  }
-)
+rtrunc.contbernoulli <- function(n, lambda, a, b) {
+	# Sampling function for a continuous bernoulli distribution
+	# This distribution is not implemented in Base R
+	# Used in the sampling of the truncated continuous bernoulli
+	rcontbernoulli <- function(n, lambda){
+		if ((lambda < 0) | (lambda > 1)) {
+			stop("lambda must be in (0, 1)")
+		}
+		# TODO: issue a warning similar to the result from the call >rbinom(10,3,-0.1)
+		u <- runif(n)
+		if (lambda == 0.5) {
+			return(u)
+		}
+		x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / (log(lambda / (1 - lambda))) # The inverse of the CDF for a cont. bernoulli distribution
+		class(x) <- "rtrunc-contbernoulli"
+		return(x)
+	}
+	y <- rcontbernoulli(n, lambda)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- 1
+	}
+	class(y) <- "rtrunc-contbernoulli"
+	return(y)
+}
 
 #' @title Random Truncated ChiSquare
 #' @rdname rtrunc
 #' @param df degrees of freedom for "parent" distribution
 #' @importFrom stats dchisq pchisq rchisq
-setMethod(
-  f = "rtrunc",
-  signature(
-    prob = "missing",
-	  size = "missing",
-    shape  = "missing",
-    meanlog  = "missing",
-    mean     = "missing",
-    lambda = "missing",
-    df=    "numeric"
-  ),
-  definition = function(n, df, a, b) {
-    y <- rchisq(n, df)
-    if (!missing(a)) {
-      y <- y[y >= a]
-    }
-    if (!missing(b)) {
-      y <- y[y <= b]
-    } else {
-      b <- Inf
-    }
-    class(y) <- "rtrunc-chisq"
-    return(y)
-  }
-)
+rtrunc.chisq <- function(n, df, a, b) {
+	y <- rchisq(n, df)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-chisq"
+	return(y)
+}
