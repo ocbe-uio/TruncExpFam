@@ -2,6 +2,24 @@
 ##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @title Random Truncated Gamma
+#' @param shape shape of "parent" distribution
+#' @param rate rate of "parent" distribution
+#' @rdname rtrunc
+rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
+	y <- rgamma(n, shape = shape, rate = rate)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-gamma"
+	return(y)
+}
+
 density.trunc.gamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.gamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))

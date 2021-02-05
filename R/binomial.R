@@ -2,6 +2,22 @@
 ##   Functions related to the Binomial distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @title Random Truncated Binomial
+#' @param size number of size
+#' @param prob probability of success on each trial
+#' @rdname rtrunc
+rtrunc.binomial <- function(n, size, prob, a, b) {
+	y <- rbinom(n, size, prob)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	}
+	class(y) <- "rtrunc-binomial"
+	return(y)
+}
+
 density.trunc.binomial <- function(y, eta, a = 0, b, ...) {
 	my.dbinom <- function(nsize) {
 		dbinom(y, size = nsize, prob = proba)
