@@ -2,6 +2,7 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom stats dexp pexp
 density.trunc.exp <- function(y, eta, a = 0, b) {
 	rate <- natural2parameters.exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
@@ -11,7 +12,7 @@ density.trunc.exp <- function(y, eta, a = 0, b) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- pexp(b, parm)
+		F.b <- pexp(b, parm) # FIXME: parm is not defined
 	} else {
 		F.b <- 1
 	}

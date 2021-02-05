@@ -6,7 +6,7 @@ density.trunc.chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {
-	  F.a <- pchisq(a, parm)
+	  F.a <- pchisq(a, parm) # FIXME: parm is not defined
 	} else {
 		F.a <- 0
 	}

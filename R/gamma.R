@@ -46,7 +46,7 @@ natural2parameters.gamma <- function(eta) {
 #' @return The natural parameters
 #' @author René Holst
 #' @examples
-#' sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7)
+#' sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7, family="log-normal")
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #'   family = "LogNormal"

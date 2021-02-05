@@ -2,6 +2,7 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc}
 \alias{rtrunc}
+\alias{rtrunc.binomial}
 \alias{rtrunc.gamma}
 \alias{rtrunc.lognormal}
 \alias{rtrunc.normal}
@@ -10,7 +11,9 @@
 \alias{rtrunc.chisq}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc(n, family = "gaussian", ...)
+rtrunc(n, family = "gaussian", a, b, ...)
+
+rtrunc.binomial(n, size, prob, a, b)
 
 rtrunc.gamma(n, shape, rate, a = 0, b = Inf)
 
@@ -27,13 +30,21 @@ rtrunc.chisq(n, df, a, b)
 \arguments{
 \item{n}{sample size}
 
-\item{shape}{shape of "parent" distribution}
-
-\item{rate}{rate of "parent" distribution}
+\item{family}{distribution family to use}
 
 \item{a}{point of left truncation}
 
 \item{b}{point of right truncation}
+
+\item{...}{individual arguments to each distribution}
+
+\item{size}{number of size}
+
+\item{prob}{probability of success on each trial}
+
+\item{shape}{shape of "parent" distribution}
+
+\item{rate}{rate of "parent" distribution}
 
 \item{meanlog}{mean of un-truncated distribution}
 
@@ -58,30 +69,32 @@ The effective sample size is reduced due to truncation.
 }
 \examples{
 # Truncated binomial distribution
-sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10)
+sample.binom <- rtrunc(1000, family="binomial", prob=0.6, size=20, a=4, b=10)
 sample.binom
 plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
-sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7)
+sample.lognorm <- rtrunc(
+  n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+)
 summary(sample.lognorm)
 
 hist(
   sample.lognorm, nclass = 35, xlim = c(0, 60), freq = FALSE,
-   ylim = c(0, 0.15)
+  ylim = c(0, 0.15)
 )
 
 # Normal distribution
-sample.norm <- rtrunc(n=10000,mean=2,sd=1.5,a=-1)
+sample.norm <- rtrunc(n=10000, mean=2, sd=1.5, a=-1)
 head(sample.norm)
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
+sample.gamma <- rtrunc(n=10000, family="gamma", shape=6, rate=2, a=2)
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution
-sample.pois <- rtrunc(n=1000, lambda=10, a=4)
+sample.pois <- rtrunc(n=1000, family="poisson", lambda=10, a=4)
 sample.pois
 plot(table(sample.pois))
 }

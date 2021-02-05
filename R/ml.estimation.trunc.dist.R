@@ -15,14 +15,16 @@
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
 #' @examples
 #' # Normal
-#' sample.norm <- rtrunc(n = 10000, mean= 2, sd= 1.5, a = -1)
+#' sample.norm <- rtrunc(n=10000, mean=2, sd=1.5, a=-1)
 #' ml.estimation.trunc.dist(
 #'   sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
 #'   print.iter = TRUE
 #' )
 #'
 #' # Log-Normal
-#' sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7)
+#' sample.lognorm <- rtrunc(
+#'   n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+#' )
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #'   family = "LogNormal", print.iter = FALSE
@@ -30,14 +32,14 @@
 #' ml_lognormal
 #'
 #' # Poisson
-#' sample.pois <- rtrunc(n=1000, lambda=10, a=4)
+#' sample.pois <- rtrunc(n=1000, lambda=10, a=4, family="poisson")
 #' ml.estimation.trunc.dist(
 #'   sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson",
 #'   print.iter = 5
 #' )
 #'
 #' # Gamma
-#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2)
+#' sample.gamma <- rtrunc(n=10000, shape=6, rate=2, a=2, family="gamma")
 #' ml.estimation.trunc.dist(
 #'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
 #'   print.iter = 10
