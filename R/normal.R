@@ -2,6 +2,24 @@
 ##   Functions related to the normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @title Random Truncated Normal
+#' @rdname rtrunc
+#' @param mean mean of parent distribution
+#' @param sd standard deviation is parent distribution
+rtrunc.normal <- function(n, mean, sd, a, b) {
+	y <- rnorm(n, mean, sd)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-normal"
+	return(y)
+}
+
 density.trunc.norm <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.norm(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dnorm(y, mean = parm[1], sd = parm[2]))

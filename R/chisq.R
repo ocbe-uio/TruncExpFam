@@ -2,6 +2,24 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @title Random Truncated ChiSquare
+#' @rdname rtrunc
+#' @param df degrees of freedom for "parent" distribution
+#' @importFrom stats dchisq pchisq rchisq
+rtrunc.chisq <- function(n, df, a, b) {
+	y <- rchisq(n, df)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-chisq"
+	return(y)
+}
+
 density.trunc.chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))

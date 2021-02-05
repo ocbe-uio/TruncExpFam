@@ -2,6 +2,24 @@
 ##   Functions related to the Log Normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @title Random Truncated Log-Normal
+#' @rdname rtrunc
+#' @param meanlog mean of un-truncated distribution
+#' @param sdlog standard deviation of un-truncated distribution
+rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
+	y <- rlnorm(n, meanlog, sdlog)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	} else {
+		b <- Inf
+	}
+	class(y) <- "rtrunc-lognormal"
+	return(y)
+}
+
 sufficient.T.lognorm <- function(y) {
 	return(suff.T = cbind(log(y), log(y)^2))
 }
