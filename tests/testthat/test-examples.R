@@ -31,6 +31,8 @@ test_that("rtrunc samples have the expected values", {
 	expect_equal(head(sample.gamma, 3), c(3.4673, 2.8549, 3.6220), tol = 1e-4)
 })
 
+# TODO: add tests to check if a and b limits are working
+
 test_that("Output of rtrunc matches stats::r*", {
 	expect_setequal(
 		object   = {set.seed(1); rnorm(500, mean=1, sd=3)},
