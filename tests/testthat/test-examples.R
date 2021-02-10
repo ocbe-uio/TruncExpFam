@@ -71,7 +71,7 @@ ml_gaussian <- ml.estimation.trunc.dist(
 	print.iter = FALSE
 )
 ml_lognormal <- ml.estimation.trunc.dist(
-	sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
+	sample.lognorm, max.it = 500, tol = 1e-10, delta = 0.3,
 	family = "LogNormal", print.iter = FALSE
 )
 ml_poisson <- ml.estimation.trunc.dist(
@@ -84,7 +84,7 @@ ml_poisson <- ml.estimation.trunc.dist(
 # 	nsize = 10, print.iter = FALSE
 # )
 ml_gamma <- ml.estimation.trunc.dist(
-	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
+	sample.gamma, y.min = 0.1, max.it = 1500, delta = 0.3, family = "Gamma",
 	print.iter = FALSE
 )
 
@@ -105,5 +105,5 @@ context("Parameter conversion")
 eta.hat <- parameters2natural.gamma(ml_lognormal)
 
 test_that("Converting parameters", {
-	expect_equal(eta.hat, c(eta.1.mean= 1.5207, eta.2.sd = -0.4842), tol = 1e-3)
+	expect_equal(eta.hat, c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 1e-3)
 })
