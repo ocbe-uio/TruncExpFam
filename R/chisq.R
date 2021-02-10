@@ -16,11 +16,11 @@ rtrunc.chisq <- function(n, df, a, b) {
 	} else {
 		b <- Inf
 	}
-	class(y) <- "rtrunc-chisq"
+	class(y) <- "trunc_chisq"
 	return(y)
 }
 
-density.trunc.chisq <- function(y, eta, a = 0, b) {
+dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {

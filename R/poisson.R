@@ -15,11 +15,11 @@ rtrunc.poisson <- function(n, lambda, a, b) {
 	} else {
 		b <- Inf
 	}
-	class(y) <- "rtrunc-poisson"
+	class(y) <- "trunc_poisson"
 	return(y)
 }
 
-density.trunc.pois <- function(y, eta, a = 0, b) {
+dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	parm <- exp(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))
 	if (!missing(a)) {

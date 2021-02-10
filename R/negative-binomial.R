@@ -3,7 +3,8 @@
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats dnbinom pnbinom
-density.trunc.nbinom <- function(y, eta, a = 0, b, ...) {
+dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
+	# TODO: develop rtrunc.nbinom
   my.dnbinom <- function(nsize) {
     dnbinom(y, size = nsize, prob = proba)
   }
