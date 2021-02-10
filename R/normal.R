@@ -16,11 +16,11 @@ rtrunc.normal <- function(n, mean, sd, a, b) {
 	} else {
 		b <- Inf
 	}
-	class(y) <- "rtrunc-normal"
+	class(y) <- "trunc_normal"
 	return(y)
 }
 
-density.trunc.norm <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.norm(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dnorm(y, mean = parm[1], sd = parm[2]))
 	if (!missing(a)) {

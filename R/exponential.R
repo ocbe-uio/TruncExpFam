@@ -3,7 +3,8 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats dexp pexp
-density.trunc.exp <- function(y, eta, a = 0, b) {
+dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
+	# TODO: develop rtrunc.exp?
 	rate <- natural2parameters.exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {

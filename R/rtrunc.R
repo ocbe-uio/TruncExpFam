@@ -73,6 +73,7 @@ rtrunc <- function(n, family="gaussian", a, b, ...) {
 	} else if (family == "poisson") {
 		rtrunc.poisson(n, ...)
 	} else if (family %in% c("gaussian", "normal")) {
+		browser() # TEMP
 		rtrunc.normal(n, ...)
 	} else {
 		stop("rtrunc method for family=", family, " not yet implemented.")

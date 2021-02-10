@@ -16,11 +16,11 @@ rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
 	} else {
 		b <- Inf
 	}
-	class(y) <- "rtrunc-gamma"
+	class(y) <- "trunc_gamma"
 	return(y)
 }
 
-density.trunc.gamma <- function(y, eta, a, b) {
+dtrunc.trunc_gamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.gamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {

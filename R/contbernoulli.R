@@ -20,7 +20,6 @@ rtrunc.contbernoulli <- function(n, lambda, a, b) {
 			return(u)
 		}
 		x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / (log(lambda / (1 - lambda))) # The inverse of the CDF for a cont. bernoulli distribution
-		class(x) <- "rtrunc-contbernoulli"
 		return(x)
 	}
 	y <- rcontbernoulli(n, lambda)
@@ -32,7 +31,7 @@ rtrunc.contbernoulli <- function(n, lambda, a, b) {
 	} else {
 		b <- 1
 	}
-	class(y) <- "rtrunc-contbernoulli"
+	class(y) <- "trunc_contbern"
 	return(y)
 }
 
@@ -59,7 +58,7 @@ pcontbern <- function(x,lambda){
 }
 
 
-density.trunc.contbern <- function(y, eta, a = 0, b) {
+dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
 	lambda <- natural2parameters.contbern(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda=lambda))
 	if (!missing(a)) {

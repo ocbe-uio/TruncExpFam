@@ -4,7 +4,7 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats dbeta pbeta
-density.trunc.beta <- function(y, eta, a, b) {
+dtrunc.trunc_beta <- function(y, eta, a, b) {
 	parm <- natural2parameters.beta(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dbeta(y, shape1 = parm[1], shape2 = parm[2]))
 	if (!missing(a)) {

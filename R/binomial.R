@@ -14,11 +14,11 @@ rtrunc.binomial <- function(n, size, prob, a, b) {
 	if (!missing(b)) {
 		y <- y[y <= b]
 	}
-	class(y) <- "rtrunc-binomial"
+	class(y) <- "trunc_binomial"
 	return(y)
 }
 
-density.trunc.binomial <- function(y, eta, a = 0, b, ...) {
+dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	my.dbinom <- function(nsize) {
 		dbinom(y, size = nsize, prob = proba)
 	}
