@@ -67,24 +67,24 @@ context("Matching output of stats::r*")
 context("ML estimation")
 
 ml_gaussian <- ml.estimation.trunc.dist(
-	sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
+	sample.norm, y.min = -1, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
 ml_lognormal <- ml.estimation.trunc.dist(
 	sample.lognorm, max.it = 500, tol = 1e-10, delta = 0.3,
-	family = "LogNormal", print.iter = FALSE
+	print.iter = FALSE
 )
 ml_poisson <- ml.estimation.trunc.dist(
-	sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson",
+	sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
 # FIXME: ml.estimation.trunc.dist not working for binomial (#19)
 # ml_binom <- ml.estimation.trunc.dist(
-# 	sample.binom, y.min = 4, max.it = 500, delta = 0.33, family = "Binomial",
+# 	sample.binom, y.min = 4, max.it = 500, delta = 0.33,
 # 	nsize = 10, print.iter = FALSE
 # )
 ml_gamma <- ml.estimation.trunc.dist(
-	sample.gamma, y.min = 0.1, max.it = 1500, delta = 0.3, family = "Gamma",
+	sample.gamma, y.min = 0.1, max.it = 1500, delta = 0.3,
 	print.iter = FALSE
 )
 
