@@ -3,7 +3,6 @@
 #' @param y Sequence spanning the domain of the truncated distribution
 #' @param y.min Lower bound for y
 #' @param y.max Upper bound for y
-#' @param family Distribution family (Gaussian, LogNormal, Gamma, Poisson, Binomial)
 #' @param tol Error tolerance for parameter estimation
 #' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
@@ -13,11 +12,12 @@
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
 #' @author René Holst
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
+#' @importFrom methods is
 #' @examples
 #' # Normal
 #' sample.norm <- rtrunc(n=10000, mean=2, sd=1.5, a=-1)
 #' ml.estimation.trunc.dist(
-#'   sample.norm, y.min = -1, max.it = 500, delta = 0.33, family = "Gaussian",
+#'   sample.norm, y.min = -1, max.it = 500, delta = 0.33,
 #'   print.iter = TRUE
 #' )
 #'
@@ -27,26 +27,26 @@
 #' )
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
-#'   family = "LogNormal", print.iter = FALSE
+#'   print.iter = FALSE
 #' )
 #' ml_lognormal
 #'
 #' # Poisson
-#' sample.pois <- rtrunc(n=1000, lambda=10, a=4, family="poisson")
+#' sample.pois <- rtrunc(n=1000, lambda=10, a=4, family="Poisson")
 #' ml.estimation.trunc.dist(
-#'   sample.pois, y.min = 4, max.it = 500, delta = 0.33, family = "Poisson",
+#'   sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 #'   print.iter = 5
 #' )
 #'
 #' # Gamma
-#' sample.gamma <- rtrunc(n=10000, shape=6, rate=2, a=2, family="gamma")
+#' sample.gamma <- rtrunc(n=10000, shape=6, rate=2, a=2, family="Gamma")
 #' ml.estimation.trunc.dist(
-#'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3, family = "Gamma",
+#'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3,
 #'   print.iter = 10
 #' )
 #' @export
 # TODO: add option to suppress output
-ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gaussian", tol = 1e-5, max.it = 25, delta = 0.33, print.iter = TRUE, ...) {
+ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = TRUE, ...) {
 	get.T.minus.E.T <- function(eta) {
 		# Calculates T.bar-E(T|eta_j) by numerical integration
 		delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
@@ -69,7 +69,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 	}
 
 	# Some initialisations
-	if (family == "Gaussian") {
+	if (is(y, "rtrunc-normal")) {
 		if (as.numeric(print.iter) > 0) message("Normal\n")
 		init.parms <- init.parms.norm
 		sufficient.T <- sufficient.T.norm
@@ -81,7 +81,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		get.y.seq <- get.y.seq.norm
 		cont.dist <- T
 	}
-	if (family == "LogNormal") {
+	if (is(y, "rtrunc-lognormal")) {
 		if (as.numeric(print.iter) > 0) message("Log Normal\n")
 		init.parms <- init.parms.lognorm
 		sufficient.T <- sufficient.T.lognorm
@@ -93,7 +93,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		get.y.seq <- get.y.seq.lognorm
 		cont.dist <- T
 	}
-	if (family == "Gamma") {
+	if (is(y, "rtrunc-gamma")) {
 		if (as.numeric(print.iter) > 0) message("Gamma\n")
 		init.parms <- init.parms.gamma
 		sufficient.T <- sufficient.T.gamma
@@ -105,7 +105,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		get.y.seq <- get.y.seq.gamma
 		cont.dist <- T
 	}
-	if (family == "Poisson") {
+	if (is(y, "rtrunc-poisson")) {
 		if (as.numeric(print.iter) > 0) message("Poisson\n")
 		init.parms <- init.parms.pois
 		sufficient.T <- sufficient.T.pois
@@ -117,7 +117,7 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, family = "Gau
 		get.y.seq <- get.y.seq.pois
 		cont.dist <- F
 	}
-	if (family == "Binomial") {
+	if (is(y, "rtrunc-binomial")) {
 		if (as.numeric(print.iter) > 0) message("Binomial\n")
 		init.parms <- init.parms.binomial
 		sufficient.T <- sufficient.T.binomial
