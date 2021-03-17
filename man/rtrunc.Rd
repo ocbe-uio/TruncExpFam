@@ -26,7 +26,7 @@ rtrunc.normal(n, mean, sd, a, b)
 
 rtrunc.poisson(n, lambda, a, b)
 
-rtrunc(n, family = "gaussian", a, b, ...)
+rtrunc(n, family = "gaussian", ...)
 }
 \arguments{
 \item{n}{sample size}
