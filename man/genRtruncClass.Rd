@@ -7,7 +7,11 @@
 genRtruncClass(n, family, parms)
 }
 \arguments{
-\item{...}{parameter list passed to \code{rtrunc}}
+\item{n}{sample size}
+
+\item{family}{distribution family}
+
+\item{parms}{list of parameters passed to rtrunc (through the \code{...} element)}
 }
 \value{
 A character string.

@@ -1,6 +1,8 @@
 #' @title Generates an rtrunc-dispatchable class
 #' @description Matches a list of arguments to an rtrunc method
-#' @param ... parameter list passed to `rtrunc`
+#' @param n sample size
+#' @param family distribution family
+#' @param parms list of parameters passed to rtrunc (through the `...` element)
 #' @return A character string.
 #' @author Waldir Leoncio
 genRtruncClass <- function(n, family, parms) {
