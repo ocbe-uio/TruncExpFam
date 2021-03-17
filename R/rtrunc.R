@@ -40,7 +40,7 @@
 #' sample.pois
 #' plot(table(sample.pois))
 #' @export
-rtrunc <- function(n, family="gaussian", a, b, ...) {
+rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	# Validating                                               #
 	# ======================================================== #

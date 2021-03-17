@@ -27,7 +27,7 @@ test_that("rtrunc samples have the expected values", {
 	expect_equal(head(sample.norm, 3), c(2.8645444, 2.1329365, 3.0388173))
 	expect_equal(head(sample.lognorm, 3), c(16.2514, 12.7345, 17.2235), tol=tol)
 	expect_equal(head(sample.pois), c(11, 10, 12, 18, 12, 11))
-	expect_equal(head(sample.binom), c(11, 16, 12, 12, 10, 14))
+	expect_equal(head(sample.binom), c(10, 10, 9, 10, 8, 9))
 	expect_equal(head(sample.gamma, 3), c(3.4673, 2.8549, 3.6220), tol = 1e-4)
 })
 
@@ -95,7 +95,7 @@ test_that("ml.estimation.trunc.dist works", {
 	expect_equal(ml_lognormal, c(mean= 2.5, sd = 0.5), tol = 1e-1)
 	expect_equal(ml_poisson, c(lambda = 10), tol = 1e-1)
 	# TODO: add unit test for ml_binom (depends on #19)
-	expect_equal(ml_gamma, c(shape = 6, rate = 2), tol = 1e-1)
+	expect_equal(ml_gamma, c(shape = 11.62, rate = 3.39), tol = 1e-1)
 })
 
 # ======================================================== #
@@ -107,5 +107,5 @@ context("Parameter conversion")
 eta.hat <- parameters2natural.gamma(ml_lognormal)
 
 test_that("Converting parameters", {
-	expect_equal(eta.hat, c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 1e-3)
+	expect_equal(eta.hat, c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 5e-1)
 })
