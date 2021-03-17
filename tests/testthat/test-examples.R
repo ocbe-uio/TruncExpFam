@@ -31,6 +31,19 @@ test_that("rtrunc samples have the expected values", {
 	expect_equal(head(sample.gamma, 3), c(3.4673, 2.8549, 3.6220), tol = 1e-4)
 })
 
+test_that("Truncation limits are observed", {
+	expect_true(all(sample.norm >= -1))
+	expect_true(all(sample.lognorm >= -1))
+	expect_true(all(sample.pois >= 4))
+	expect_true(all(sample.binom >= 4) & all(sample.binom <= 10))
+	expect_true(all(sample.gamma >= 2))
+})
+
+# ======================================================== #
+# Matching output                                          #
+# ======================================================== #
+
+context("Matching output of stats::r*")
 
 test_that("Output of rtrunc matches stats::r*", {
 	expect_setequal(
@@ -54,20 +67,6 @@ test_that("Output of rtrunc matches stats::r*", {
 		expected = {set.seed(1); rtrunc(500, lambda=72, family="poisson")}
 	)
 })
-
-test_that("Truncation limits are observed", {
-	expect_true(all(sample.norm >= -1))
-	expect_true(all(sample.lognorm >= -1))
-	expect_true(all(sample.pois >= 4))
-	expect_true(all(sample.binom >= 4) & all(sample.binom <= 10))
-	expect_true(all(sample.gamma >= 2))
-})
-
-# ======================================================== #
-# Matching output                                          #
-# ======================================================== #
-
-context("Matching output of stats::r*")
 
 # ======================================================== #
 # ML estimation                                            #
