@@ -9,8 +9,9 @@ genRtruncClass <- function(n, family, parms) {
 	parms <- parms[!(parms %in% c("a", "b"))]
 
 	# Validating --------------------------------------------- #
-	is_family_parms_valid <- validateFamilyParms(family, parms)
-	if (is_family_parms_valid) {
+	validation_family_parms <- validateFamilyParms(family, parms)
+	if (validation_family_parms$is_valid) {
+		family <- validation_family_parms$family_name
 		return(family)
 	}
 }
@@ -18,7 +19,7 @@ genRtruncClass <- function(n, family, parms) {
 validateFamilyParms <- function(family, parms, verbose=FALSE) {
 	valid_fam_parm <- list(
 		normal = list(
-			family = c("gaussian", "normal"),
+			family = c("normal", "gaussian"),
 			parms  = c("mean", "sd")
 		),
 		poisson = list(
@@ -34,7 +35,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			parms  = c("shape", "rate")
 		),
 		lognormal = list(
-			family = c("log-normal", "lognormal"),
+			family = c("lognormal", "log-normal"),
 			parms  = c("meanlog", "sdlog")
 		),
 		contbernoulli = list(
@@ -51,6 +52,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 		if (any(family == valid_fam_parm[[fam]]$family)) {
 			if(verbose) message("Matched family: ", family)
 			matched$family <- TRUE
+			family <- valid_fam_parm[[fam]]$family[1] # use standard family name
 			parms_text <- paste(parms, collapse=", ")
 			parms_expected <- valid_fam_parm[[fam]]$parms
 			parms_expected_text <- paste(parms_expected, collapse=", ")
@@ -67,5 +69,5 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			}
 		}
 	}
-	return(all(unlist(matched)))
+	return(list(is_valid = all(unlist(matched)), family_name = family))
 }
