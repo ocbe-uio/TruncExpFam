@@ -1,5 +1,5 @@
 #' @title The Truncated Exponential Family
-#' @description Random generation for the truncated exponential family distributions.
+#' @description Random generation for the truncated exponential family distributions. Please ferer to the "Details" and "Examples" section for more information on how to use this function.
 #' @param n sample size
 #' @param a point of left truncation
 #' @param b point of right truncation
@@ -7,7 +7,8 @@
 #' @param ... individual arguments to each distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
-#' @author René Holst
+#' @author René Holst, Waldir Leôncio
+#' @details The best way to use this function is by calling the `rtrunc` generic with the `family` parameter of your choice. You can also specifically call one of the methods (e.g. `rtrunc.poisson(10, lambda=3)` instead of `rtrunc(10, family="poisson", lambda=3)), but the latter is more flexible (i.e., easily programmable) and more robust (i.e., it contains better error handling and validation procedures).
 #' @importFrom methods new
 #' @examples
 #' # Truncated binomial distribution
@@ -46,7 +47,8 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	family <- tolower(family)
 	valid_distros <- c(
-		"binomial", "gamma", "log-gamma", "log-normal", "gaussian", "poisson", "contbernoulli", "chisq"
+		"binomial", "gamma", "log-gamma", "loggamma", "log-normal", "lognormal",
+		"gaussian", "normal", "poisson", "contbernoulli", "chisq"
 	)
 	if (!(family %in% valid_distros)) {
 		stop(
@@ -58,30 +60,11 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	# Dispatching functions                                    #
 	# ======================================================== #
-	# TODO: Replace if-despatching with 1) create new class 2) regular dispatching (inspiration: https://stackoverflow.com/a/66025891/1169233)
-	# TODO: add parameter cheking here?
-	if (family == "binomial") {
-		message("Sampling from the truncated binomial distribution")
-		rtrunc.binomial(n, ...)
-	} else if (family == "gamma") {
-		message("Sampling from the truncated gamma distribution")
-		rtrunc.gamma(n, ...)
-	} else if (family == "log-normal") {
-		message("Sampling from the truncated log-normal distribution")
-		rtrunc.lognormal(n, ...)
-	} else if (family == "contbernoulli") {
-		message("Sampling from the truncated continuous Bernoulli distribution")
-		rtrunc.contbernoulli(n, ...)
-	} else if (family == "chisq") {
-		message("Sampling from the truncated chi-squared distribution")
-		rtrunc.chisq(n, ...)
-	} else if (family == "poisson") {
-		message("Sampling from the truncated Poisson distribution")
-		rtrunc.poisson(n, ...)
-	} else if (family %in% c("gaussian", "normal")) {
-		message("Sampling from the truncated normal distribution")
-		rtrunc.normal(n, ...)
-	} else {
-		stop("rtrunc method for family=", family, " not yet implemented.")
-	}
+	trunc_class <- genRtruncClass(n, family, names(list(...)))
+	class(n) <- trunc_class
+	rtrunc.generic(n, ...)
+}
+
+rtrunc.generic <- function(n, ...) {
+	UseMethod("rtrunc", n)
 }
