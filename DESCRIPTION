@@ -1,6 +1,6 @@
 Package: TruncExpFam
 Title: Truncated Exponential Family
-Version: 0.0.0.9008
+Version: 0.0.0.9036
 Authors@R:
 	c(
 		person(
