@@ -46,7 +46,8 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	family <- tolower(family)
 	valid_distros <- c(
-		"binomial", "gamma", "log-gamma", "log-normal", "gaussian", "poisson", "contbernoulli", "chisq"
+		"binomial", "gamma", "log-gamma", "loggamma", "log-normal", "lognormal",
+		"gaussian", "normal", "poisson", "contbernoulli", "chisq"
 	)
 	if (!(family %in% valid_distros)) {
 		stop(
@@ -59,14 +60,14 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# Dispatching functions                                    #
 	# ======================================================== #
 	# TODO: Replace if-despatching with 1) create new class 2) regular dispatching (inspiration: https://stackoverflow.com/a/66025891/1169233)
-	# TODO: add parameter cheking here?
+	trunc_class <- genRtruncClass(n, family, names(list(...)))
 	if (family == "binomial") {
 		message("Sampling from the truncated binomial distribution")
 		rtrunc.binomial(n, ...)
 	} else if (family == "gamma") {
 		message("Sampling from the truncated gamma distribution")
 		rtrunc.gamma(n, ...)
-	} else if (family == "log-normal") {
+	} else if (family %in% c("lognormal", "log-normal")) {
 		message("Sampling from the truncated log-normal distribution")
 		rtrunc.lognormal(n, ...)
 	} else if (family == "contbernoulli") {
