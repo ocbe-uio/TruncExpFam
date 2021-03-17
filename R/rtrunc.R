@@ -61,18 +61,25 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# TODO: Replace if-despatching with 1) create new class 2) regular dispatching (inspiration: https://stackoverflow.com/a/66025891/1169233)
 	# TODO: add parameter cheking here?
 	if (family == "binomial") {
+		message("Sampling from the truncated binomial distribution")
 		rtrunc.binomial(n, ...)
 	} else if (family == "gamma") {
+		message("Sampling from the truncated gamma distribution")
 		rtrunc.gamma(n, ...)
 	} else if (family == "log-normal") {
+		message("Sampling from the truncated log-normal distribution")
 		rtrunc.lognormal(n, ...)
 	} else if (family == "contbernoulli") {
+		message("Sampling from the truncated continuous Bernoulli distribution")
 		rtrunc.contbernoulli(n, ...)
 	} else if (family == "chisq") {
+		message("Sampling from the truncated chi-squared distribution")
 		rtrunc.chisq(n, ...)
 	} else if (family == "poisson") {
+		message("Sampling from the truncated Poisson distribution")
 		rtrunc.poisson(n, ...)
 	} else if (family %in% c("gaussian", "normal")) {
+		message("Sampling from the truncated normal distribution")
 		rtrunc.normal(n, ...)
 	} else {
 		stop("rtrunc method for family=", family, " not yet implemented.")
