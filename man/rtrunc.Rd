@@ -63,7 +63,10 @@ rtrunc(n, family = "gaussian", ...)
 A sample of size n drawn from a truncated distribution
 }
 \description{
-Random generation for the truncated exponential family distributions.
+Random generation for the truncated exponential family distributions. Please ferer to the "Details" and "Examples" section for more information on how to use this function.
+}
+\details{
+The best way to use this function is by calling the \code{rtrunc} generic with the \code{family} parameter of your choice. You can also specifically call one of the methods (e.g. \code{rtrunc.poisson(10, lambda=3)} instead of `rtrunc(10, family="poisson", lambda=3)), but the latter is more flexible (i.e., easily programmable) and more robust (i.e., it contains better error handling and validation procedures).
 }
 \note{
 The effective sample size is reduced due to truncation.
@@ -100,5 +103,5 @@ sample.pois
 plot(table(sample.pois))
 }
 \author{
-René Holst
+René Holst, Waldir Leôncio
 }

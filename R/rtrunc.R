@@ -1,5 +1,5 @@
 #' @title The Truncated Exponential Family
-#' @description Random generation for the truncated exponential family distributions.
+#' @description Random generation for the truncated exponential family distributions. Please ferer to the "Details" and "Examples" section for more information on how to use this function.
 #' @param n sample size
 #' @param a point of left truncation
 #' @param b point of right truncation
@@ -7,7 +7,8 @@
 #' @param ... individual arguments to each distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
-#' @author René Holst
+#' @author René Holst, Waldir Leôncio
+#' @details The best way to use this function is by calling the `rtrunc` generic with the `family` parameter of your choice. You can also specifically call one of the methods (e.g. `rtrunc.poisson(10, lambda=3)` instead of `rtrunc(10, family="poisson", lambda=3)), but the latter is more flexible (i.e., easily programmable) and more robust (i.e., it contains better error handling and validation procedures).
 #' @importFrom methods new
 #' @examples
 #' # Truncated binomial distribution
