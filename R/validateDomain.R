@@ -10,7 +10,7 @@ validateDomain.normal <- function(n, mean, sd, ...) {
 
 validateDomain.poisson <- function(n, lambda, ...) {
 	if (lambda < 0) {
-		stop("Invalid domain. lambda must be a natural number.")
+		stop("Invalid domain. lambda must be non-negative.")
 	}
 }
 
