@@ -62,6 +62,7 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	trunc_class <- genRtruncClass(n, family, names(list(...)))
 	class(n) <- trunc_class
+	validateDomain(n, ...)
 	rtrunc.generic(n, ...)
 }
 
