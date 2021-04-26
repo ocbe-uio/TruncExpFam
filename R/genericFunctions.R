@@ -33,8 +33,12 @@ init.parms <- function(y) {
 #' @return Distribution parameters
 #' @export
 #' @examples
-#' # samp <- rtrunc(n=100, lambda=20, family="Poisson")
-#' # TruncExpFam:::natural2parameters()
+#' samp <- rtrunc(n=100, lambda=2, family="Poisson")
+#' TruncExpFam:::natural2parameters(TruncExpFam:::init.parms(samp))
+#'
+# ASK: check if natural2parameters should also be called directly from
+# the output of ml.estimation.trunc.dist()
+# ex.: ml <- ml.estimation.trunc.dist(samp); parameters2natural.trunc_gamma(ml)
 natural2parameters <- function(eta) {
 	UseMethod("natural2parameters")
 }
@@ -43,19 +47,13 @@ natural2parameters <- function(eta) {
 #' @param parms A vector of parameters in a distribution distribution
 #' @return The natural parameters
 #' @examples
-#' # Beta distribution
-#' # samp <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7, family="log-normal")
-#' # ml <- ml.estimation.trunc.dist(
-#' #   samp, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3
-#' # )
-#' # eta.hat <- parameters2natural.trunc_beta(ml_lognormal)
-#' #' sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7, family="log-normal")
+#' # Poisson distribution
+#' samp <- rtrunc(n=100, lambda=2, family="Poisson")
+#' TruncExpFam:::parameters2natural(TruncExpFam:::init.parms(samp))
 #'
-#' # Gamma distribution
-#' # ml_lognormal <- ml.estimation.trunc.dist(
-#' #  sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
-#' #)
-#' # eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
+# ASK: check if natural2parameters should also be called directly from
+# the output of ml.estimation.trunc.dist()
+# ex.: ml <- ml.estimation.trunc.dist(samp); parameters2natural.trunc_gamma(ml)
 parameters2natural <- function(parms) {
 	UseMethod("parameters2natural")
 }
