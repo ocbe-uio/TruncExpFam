@@ -9,7 +9,11 @@ dtrunc(y, eta, a, b)
 \arguments{
 \item{y}{output from rtrunc}
 
-\item{...}{arguments to be passed to the methods}
+\item{eta}{Natural parameters}
+
+\item{a}{lower truncation limit}
+
+\item{b}{upper truncation limit}
 }
 \description{
 Calculates the PDF for a given truncated distribution
