@@ -53,7 +53,7 @@ natural2parameters.trunc_beta <- function(eta) {
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3
 #' )
-#' eta.hat <- parameters2natural.beta(ml_lognormal)
+#' eta.hat <- parameters2natural.trunc_beta(ml_lognormal)
 #' @export
 parameters2natural.trunc_beta <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution

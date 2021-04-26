@@ -68,7 +68,7 @@ natural2parameters.trunc_gamma <- function(eta) {
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #' )
-#' eta.hat <- parameters2natural.gamma(ml_lognormal)
+#' eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 #' @export
 parameters2natural.trunc_gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution
