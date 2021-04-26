@@ -23,7 +23,7 @@ dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.invgamma <- function(y) {
+init.parms.trunc_invgamma <- function(y) {
 	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
@@ -32,27 +32,27 @@ init.parms.invgamma <- function(y) {
 	return(c(shape = alpha, rate = beta))
 }
 
-sufficient.T.invgamma <- function(y) {
+sufficient.T.trunc_invgamma <- function(y) {
 	return(suff.T = cbind(log(y), 1/y))
 }
 
-average.T.invgamma <- function(y) {
+average.T.trunc_invgamma <- function(y) {
 	return(apply(cbind(log(y), 1/y), 2, mean))
 }
 
-natural2parameters.invgamma <- function(eta) {
+natural2parameters.trunc_invgamma <- function(eta) {
 	# eta: The natural parameters in a inverse gamma distribution
 	# returns (shape,rate)
 	return(c(shape = -eta[1]-1, rate =-eta[2]))
 }
 
-parameters2natural.invgamma <- function(parms) {
+parameters2natural.trunc_invgamma <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
 	return(c(shape = -parms[1]-1, rate = -parms[2]))
 }
 
-get.y.seq.invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
+get.y.seq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
 	# needs chekking
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
@@ -61,7 +61,7 @@ get.y.seq.invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
 	return(seq(lo, hi, length = n))
 }
 
-get.grad.E.T.inv.invgamma <- function(eta) {
+get.grad.E.T.inv.trunc_invgamma <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A.11=sum(1/(((0:10000)+eta[1]+1))^2)

@@ -71,62 +71,62 @@ ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, m
 	# Some initialisations
 	if (is(y, "trunc_normal")) {
 		if (as.numeric(print.iter) > 0) message("Normal\n")
-		init.parms <- init.parms.norm
-		sufficient.T <- sufficient.T.norm
-		average.T <- average.T.norm
-		natural2parameters <- natural2parameters.norm
-		parameters2natural <- parameters2natural.norm
+		init.parms <- init.parms.trunc_normal
+		sufficient.T <- sufficient.T.trunc_normal
+		average.T <- average.T.trunc_normal
+		natural2parameters <- natural2parameters.trunc_normal
+		parameters2natural <- parameters2natural.trunc_normal
 		density.trunc <- dtrunc.trunc_normal
-		get.grad.E.T.inv <- get.grad.E.T.inv.norm
-		get.y.seq <- get.y.seq.norm
+		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_normal
+		get.y.seq <- get.y.seq.trunc_normal
 		cont.dist <- T
 	}
 	if (is(y, "trunc_lognormal")) {
 		if (as.numeric(print.iter) > 0) message("Log Normal\n")
-		init.parms <- init.parms.lognorm
-		sufficient.T <- sufficient.T.lognorm
-		average.T <- average.T.lognorm
-		natural2parameters <- natural2parameters.norm
-		parameters2natural <- parameters2natural.norm
+		init.parms <- init.parms.trunc_lognormal
+		sufficient.T <- sufficient.T.trunc_lognormal
+		average.T <- average.T.trunc_lognormal
+		natural2parameters <- natural2parameters.trunc_normal
+		parameters2natural <- parameters2natural.trunc_normal
 		density.trunc <- dtrunc.trunc_lognormal
-		get.grad.E.T.inv <- get.grad.E.T.inv.norm
-		get.y.seq <- get.y.seq.lognorm
+		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_normal
+		get.y.seq <- get.y.seq.trunc_lognormal
 		cont.dist <- T
 	}
 	if (is(y, "trunc_gamma")) {
 		if (as.numeric(print.iter) > 0) message("Gamma\n")
-		init.parms <- init.parms.gamma
-		sufficient.T <- sufficient.T.gamma
-		average.T <- average.T.gamma
-		natural2parameters <- natural2parameters.gamma
-		parameters2natural <- parameters2natural.gamma
+		init.parms <- init.parms.trunc_gamma
+		sufficient.T <- sufficient.T.trunc_gamma
+		average.T <- average.T.trunc_gamma
+		natural2parameters <- natural2parameters.trunc_gamma
+		parameters2natural <- parameters2natural.trunc_gamma
 		density.trunc <- dtrunc.trunc_gamma
-		get.grad.E.T.inv <- get.grad.E.T.inv.gamma
-		get.y.seq <- get.y.seq.gamma
+		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_gamma
+		get.y.seq <- get.y.seq.trunc_gamma
 		cont.dist <- T
 	}
 	if (is(y, "trunc_poisson")) {
 		if (as.numeric(print.iter) > 0) message("Poisson\n")
-		init.parms <- init.parms.pois
-		sufficient.T <- sufficient.T.pois
-		average.T <- average.T.pois
-		natural2parameters <- natural2parameters.pois
-		parameters2natural <- parameters2natural.pois
+		init.parms <- init.parms.trunc_poisson
+		sufficient.T <- sufficient.T.trunc_poisson
+		average.T <- average.T.trunc_poisson
+		natural2parameters <- natural2parameters.trunc_poisson
+		parameters2natural <- parameters2natural.trunc_poisson
 		density.trunc <- dtrunc.trunc_poisson
-		get.grad.E.T.inv <- get.grad.E.T.inv.pois
-		get.y.seq <- get.y.seq.pois
+		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_poisson
+		get.y.seq <- get.y.seq.trunc_poisson
 		cont.dist <- F
 	}
 	if (is(y, "trunc_binomial")) {
 		if (as.numeric(print.iter) > 0) message("Binomial\n")
-		init.parms <- init.parms.binomial
-		sufficient.T <- sufficient.T.binomial
-		average.T <- average.T.binomial
-		natural2parameters <- natural2parameters.binomial
-		parameters2natural <- parameters2natural.binomial
+		init.parms <- init.parms.trunc_binomial
+		sufficient.T <- sufficient.T.trunc_binomial
+		average.T <- average.T.trunc_binomial
+		natural2parameters <- natural2parameters.trunc_binomial
+		parameters2natural <- parameters2natural.trunc_binomial
 		density.trunc <- dtrunc.trunc_binomial
-		get.grad.E.T.inv <- get.grad.E.T.inv.binomial
-		get.y.seq <- get.y.seq.binomial
+		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_binomial
+		get.y.seq <- get.y.seq.trunc_binomial
 		cont.dist <- F
 	}
 	T.avg <- average.T(y)

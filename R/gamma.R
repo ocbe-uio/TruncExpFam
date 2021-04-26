@@ -21,7 +21,7 @@ rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
 }
 
 dtrunc.trunc_gamma <- function(y, eta, a, b) {
-	parm <- natural2parameters.gamma(eta)
+	parm <- natural2parameters.trunc_gamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {
 		F.a <- pgamma(a, shape = parm[1], rate = parm[2])
@@ -37,7 +37,7 @@ dtrunc.trunc_gamma <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.gamma <- function(y) {
+init.parms.trunc_gamma <- function(y) {
 	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
@@ -45,15 +45,15 @@ init.parms.gamma <- function(y) {
 	return(c(shape = shp, rate = shp / amean))
 }
 
-sufficient.T.gamma <- function(y) {
+sufficient.T.trunc_gamma <- function(y) {
 	return(suff.T = cbind(log(y), y))
 }
 
-average.T.gamma <- function(y) {
+average.T.trunc_gamma <- function(y) {
 	return(apply(cbind(log(y), y), 2, mean))
 }
 
-natural2parameters.gamma <- function(eta) {
+natural2parameters.trunc_gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
 	# returns (shape,rate)
 	return(c(shape = eta[1] + 1, rate = -eta[2]))
@@ -68,15 +68,15 @@ natural2parameters.gamma <- function(eta) {
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #' )
-#' eta.hat <- parameters2natural.gamma(ml_lognormal)
+#' eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 #' @export
-parameters2natural.gamma <- function(parms) {
+parameters2natural.trunc_gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution
 	# returns the natural parameters
   return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
 }
 
-get.y.seq.gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
+get.y.seq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 	# Bør chekkes
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
@@ -85,7 +85,7 @@ get.y.seq.gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 	return(seq(lo, hi, length = n))
 }
 
-get.grad.E.T.inv.gamma <- function(eta) {
+get.grad.E.T.inv.trunc_gamma <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
 	return(A = solve(matrix(c(-1 / eta[1]^2 + dpsi.dx(eta[1]), -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2), ncol = 2)))

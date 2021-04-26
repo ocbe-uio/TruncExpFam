@@ -27,39 +27,39 @@ dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.nbinom <- function(y) {
+init.parms.trunc_nbinom <- function(y) {
 	# Returns empirical parameter estimate for lambda
 	return(mean(y))
 }
 
-sufficient.T.nbinom <- function(y) {
+sufficient.T.trunc_nbinom <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.nbinom <- function(y) {
+average.T.trunc_nbinom <- function(y) {
 	return(mean(y))
 }
 
-natural2parameters.nbinom <- function(eta) {
+natural2parameters.trunc_nbinom <- function(eta) {
 	# eta: The natural parameters in a negative binomial distribution
 	# returns (mean,sigma)
 	return(c(p = exp(eta)))
 }
 
-parameters2natural.nbinom <- function(parms) {
+parameters2natural.trunc_nbinom <- function(parms) {
 	# parms: The p parameter in a negative binomial distribution
 	# returns the natural parameters
 	return(eta = log(parms))
 }
 
-get.grad.E.T.inv.nbinom <- function(eta) {
+get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
   p=exp(eta)
 	return(A = (1-p)^2/(r*p)) # FIXME: r not defined
 }
 
-get.y.seq.nbinom <- function(y, y.min = 0, y.max, n = 100) {
+get.y.seq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)

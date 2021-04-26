@@ -20,16 +20,16 @@ rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
 	return(y)
 }
 
-sufficient.T.lognorm <- function(y) {
+sufficient.T.trunc_lognormal <- function(y) {
 	return(suff.T = cbind(log(y), log(y)^2))
 }
 
-average.T.lognorm <- function(y) {
-	return(apply(sufficient.T.lognorm(y), 2, mean))
+average.T.trunc_lognormal <- function(y) {
+	return(apply(sufficient.T.trunc_lognormal(y), 2, mean))
 }
 
 dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
-	parm <- natural2parameters.norm(eta)
+	parm <- natural2parameters.trunc_normal(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dlnorm(y, meanlog = parm[1], sdlog = parm[2]))
 	if (!missing(a)) {
 		F.a <- plnorm(a, parm[1], parm[2])
@@ -45,7 +45,7 @@ dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.lognorm <- function(y) {
+init.parms.trunc_lognormal <- function(y) {
 	# Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)
 	# Returns empirical parameter estimates for mean and sd
 	# browser()
@@ -53,7 +53,7 @@ init.parms.lognorm <- function(y) {
 	parm <- c(mean= mean(x), sd = sqrt(var(x)))
 }
 
-get.y.seq.lognorm <- function(y, y.min, y.max, n = 100) {
+get.y.seq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 	x <- log(y)
 	mean <- mean(x, na.rm = T)
 	sd <- var(x, na.rm = T)^0.5

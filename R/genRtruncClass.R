@@ -66,7 +66,8 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 					"The {", parms_text, "} ",
 					"parameter set does not match the ", family, " family. ",
 					"Expected set of parameters: {", parms_expected_text, "}. ",
-					"Please change the family to match the expected ", "parameters or use a different family."
+					"Please change the family to match the expected ",
+					"parameters or use a different family."
 				)
 			}
 		}

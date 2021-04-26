@@ -21,7 +21,7 @@ dtrunc.trunc_beta <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.beta <- function(y) {
+init.parms.trunc_beta <- function(y) {
 	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
 	avar <- var(y)
@@ -30,15 +30,15 @@ init.parms.beta <- function(y) {
 	return(c(shape1 = alpha, shape2 = beta))
 }
 
-sufficient.T.beta <- function(y) {
+sufficient.T.trunc_beta <- function(y) {
 	return(suff.T = cbind(log(y), log(1-y)))
 }
 
-average.T.beta <- function(y) {
+average.T.trunc_beta <- function(y) {
 	return(apply(cbind(log(y), log(1-y)), 2, mean))
 }
 
-natural2parameters.beta <- function(eta) {
+natural2parameters.trunc_beta <- function(eta) {
 	# eta: The natural parameters in a beta distribution
 	# returns (alpha,beta)
 	return(c(shape1 = eta[1], shape2 = eta[2]))
@@ -53,15 +53,15 @@ natural2parameters.beta <- function(eta) {
 #' ml_lognormal <- ml.estimation.trunc.dist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3
 #' )
-#' eta.hat <- parameters2natural.beta(ml_lognormal)
+#' eta.hat <- parameters2natural.trunc_beta(ml_lognormal)
 #' @export
-parameters2natural.beta <- function(parms) {
+parameters2natural.trunc_beta <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
 	return(c(shape1 = parms[1], shape2 = parms[2]))
 }
 
-get.y.seq.beta <- function(y, y.min = 0, y.max=1, n = 100) {
+get.y.seq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	# needs chekking
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
@@ -70,7 +70,7 @@ get.y.seq.beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	return(seq(lo, hi, length = n))
 }
 
-get.grad.E.T.inv.beta <- function(eta) {
+get.grad.E.T.inv.trunc_beta <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   term.1=sum(1/(((1:10000)+eta[1]))^2)

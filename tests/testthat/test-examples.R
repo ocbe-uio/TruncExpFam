@@ -110,7 +110,7 @@ test_that("ml.estimation.trunc.dist works", {
 
 context("Parameter conversion")
 
-eta.hat <- parameters2natural.gamma(ml_lognormal)
+eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 
 test_that("Converting parameters", {
 	expect_equal(eta.hat, c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 5e-1)
