@@ -14,3 +14,8 @@ dtrunc(y, ...)
 \description{
 Calculates the PDF for a given truncated distribution
 }
+\examples{
+y <- rtrunc(50, mean=5, sd=2)
+dtrunc(y, eta=c(0, -1))
+
+}
