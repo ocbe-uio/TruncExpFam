@@ -29,7 +29,9 @@ init.parms.trunc_beta <- function(y) {
 	avar <- var(y)
 	alpha <- amean^2*(1-amean)/avar-amean
 	beta  <- alpha*(1/amean-1)
-	return(c(shape1 = alpha, shape2 = beta))
+	parms <- c(shape1 = alpha, shape2 = beta)
+	class(parms) <- "trunc_beta"
+	return(parms)
 }
 
 sufficient.T.trunc_beta <- function(y) {

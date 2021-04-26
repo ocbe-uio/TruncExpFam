@@ -38,6 +38,7 @@ rtrunc.contbernoulli <- function(n, lambda, a, b) {
 # The two functions 'dcontbern' and 'pcontbern' below act in support of the
 # truncated continuous bernoulli distribution, as base R does not include
 # this distribution
+# ASK: what is the difference between this and dtrunc.trunc_contbern (below)?
 dcontbern <- function(x,lambda){
   if ((x<0)|(x>1))
     return(0)
@@ -77,8 +78,10 @@ dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
 
 init.parms.trunc_contbern <- function(y) {
 	# Returns empirical parameter estimate for the lambda parameter
-  # Note: lambda cannot be expressed in closed form as a function of the mean
-	return(mean(y))
+	# Note: lambda cannot be expressed in closed form as a function of the mean
+	parms <- mean(y)
+	class(parms) <- "trunc_contbern"
+	return(parms)
 }
 
 sufficient.T.trunc_contbern <- function(y) {

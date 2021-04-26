@@ -44,7 +44,9 @@ init.parms.trunc_gamma <- function(y) {
 	amean <- mean(y)
 	avar <- var(y)
 	shp <- amean^2 / avar
-	return(c(shape = shp, rate = shp / amean))
+	parms <- c(shape = shp, rate = shp / amean)
+	class(parms) <- "trunc_gamma"
+	return(parms)
 }
 
 sufficient.T.trunc_gamma <- function(y) {

@@ -39,7 +39,9 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 #' @export
 init.parms.trunc_poisson <- function(y) {
 	# Returns empirical parameter estimate for lambda
-	return(mean(y))
+	parms <- mean(y)
+	class(parms) <- "trunc_poisson"
+	return(parms)
 }
 
 sufficient.T.trunc_poisson <- function(y) {

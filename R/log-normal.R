@@ -52,7 +52,9 @@ init.parms.trunc_lognormal <- function(y) {
 	# Returns empirical parameter estimates for mean and sd
 	# browser()
 	x <- log(y)
-	parm <- c(mean= mean(x), sd = sqrt(var(x)))
+	parms <- c(mean= mean(x), sd = sqrt(var(x)))
+	class(parms) <- "trunc_lognormal"
+	return(parms)
 }
 
 get.y.seq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {

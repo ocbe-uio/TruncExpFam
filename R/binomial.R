@@ -44,7 +44,9 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 #' @export
 init.parms.trunc_binomial <- function(y, ...) {
 	# Returns empirical parameter estimate for lambda
-	return(mean(y / ...))
+	parms <- mean(y / ...)
+	class(parms) <- "trunc_binomial"
+	return(parms)
 }
 
 sufficient.T.trunc_binomial <- function(y) {

@@ -28,7 +28,9 @@ init.parms.trunc_invgamma <- function(y) {
 	avar <- var(y)
 	alpha <- amean^2/avar+2
 	beta  <- (alpha-1)*amean
-	return(c(shape = alpha, rate = beta))
+	parms <- c(shape = alpha, rate = beta)
+	class(parms) <- "trunc_invgamma"
+	return(parms)
 }
 
 sufficient.T.trunc_invgamma <- function(y) {

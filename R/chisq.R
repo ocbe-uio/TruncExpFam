@@ -40,7 +40,9 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 #' @export
 init.parms.trunc_chisq <- function(y) {
 	# Returns empirical parameter estimate for df
-	return(mean(y))
+	parms <- mean(y)
+	class(parms) <- "trunc_chisq"
+	return(parms)
 }
 
 sufficient.T.trunc_chisq <- function(y) {

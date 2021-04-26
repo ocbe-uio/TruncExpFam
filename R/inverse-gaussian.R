@@ -25,9 +25,11 @@ dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 #' @export
 init.parms.trunc_invgauss <- function(y) {
 	# Returns empirical parameter estimates mean and shape
-  mean=mean(y)
-  shp=1/(mean(1/y)-1/mean)
-	return(c(mean = mean, shape = shp))
+	mean=mean(y)
+	shp=1/(mean(1/y)-1/mean)
+	parms <- c(mean = mean, shape = shp)
+	class(parms) <- "trunc_invgauss"
+	return(parms)
 }
 
 sufficient.T.trunc_invgauss <- function(y) {
