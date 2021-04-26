@@ -20,6 +20,7 @@ rtrunc.chisq <- function(n, df, a, b) {
 	return(y)
 }
 
+#' @export
 dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
@@ -36,6 +37,7 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_chisq <- function(y) {
 	# Returns empirical parameter estimate for df
 	return(mean(y))
@@ -49,12 +51,14 @@ average.T.trunc_chisq <- function(y) {
 	return(mean(y))
 }
 
+#' @export
 natural2parameters.trunc_chisq <- function(eta) {
 	# eta: The natural parameters in a Chi Square distribution
 	# returns df
 	return(c(parms = 2*(eta+1)))
 }
 
+#' @export
 parameters2natural.trunc_chisq <- function(parms) {
 	# parms: The parameter lambda in a Chi Square distribution
 	# returns the natural parameters

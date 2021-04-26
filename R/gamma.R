@@ -20,6 +20,7 @@ rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
 	return(y)
 }
 
+#' @export
 dtrunc.trunc_gamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.trunc_gamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))
@@ -37,6 +38,7 @@ dtrunc.trunc_gamma <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_gamma <- function(y) {
 	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
@@ -53,6 +55,7 @@ average.T.trunc_gamma <- function(y) {
 	return(apply(cbind(log(y), y), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
 	# returns (shape,rate)

@@ -28,6 +28,7 @@ average.T.trunc_lognormal <- function(y) {
 	return(apply(sufficient.T.trunc_lognormal(y), 2, mean))
 }
 
+#' @export
 dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.trunc_normal(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dlnorm(y, meanlog = parm[1], sdlog = parm[2]))
@@ -45,6 +46,7 @@ dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_lognormal <- function(y) {
 	# Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)
 	# Returns empirical parameter estimates for mean and sd

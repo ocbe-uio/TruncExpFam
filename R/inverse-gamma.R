@@ -4,6 +4,7 @@
 
 require(invgamma)
 
+#' @export
 #' @importFrom invgamma dinvgamma pinvgamma
 dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	# TODO: develop rtrunc.invgamma?

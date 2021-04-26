@@ -58,6 +58,7 @@ pcontbern <- function(x,lambda){
 }
 
 
+#' @export
 dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
 	lambda <- natural2parameters.contbern(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda=lambda))
@@ -88,12 +89,14 @@ average.T.trunc_contbern <- function(y) {
 	return(mean(y))
 }
 
+#' @export
 natural2parameters.trunc_contbern <- function(eta) {
 	# eta: The natural parameters in a continuous bernoulli distribution distribution
 	# returns rate
 	return(c(lamda = 1/(1+exp(-eta))))
 }
 
+#' @export
 parameters2natural.trunc_contbern <- function(parms) {
 	# parms: The parameter lambda in a continuous bernoulli distribution
 	# returns the natural parameters

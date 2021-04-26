@@ -3,6 +3,7 @@
 ##         Variant 1                                 ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @export
 #' @importFrom stats dbeta pbeta
 dtrunc.trunc_beta <- function(y, eta, a, b) {
 	parm <- natural2parameters.beta(eta)
@@ -21,6 +22,7 @@ dtrunc.trunc_beta <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_beta <- function(y) {
 	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
@@ -38,6 +40,7 @@ average.T.trunc_beta <- function(y) {
 	return(apply(cbind(log(y), log(1-y)), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_beta <- function(eta) {
 	# eta: The natural parameters in a beta distribution
 	# returns (alpha,beta)

@@ -2,6 +2,7 @@
 ##   Functions related to the inverse gaussian distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @export
 #' @importFrom rmutil dinvgauss
 dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	# TODO: develop trunc_invgauss
@@ -21,6 +22,7 @@ dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_invgauss <- function(y) {
 	# Returns empirical parameter estimates mean and shape
   mean=mean(y)
@@ -36,12 +38,14 @@ average.T.trunc_invgauss <- function(y) {
 	return(apply(sufficient.T.invgauss(y), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_invgauss <- function(eta) {
 	# eta: The natural parameters in an inverse gaussian distribution
 	# returns (mean,shape)
 	return(c(mean = sqrt(eta[2] / eta[1]), shape = -2*eta[2]))
 }
 
+#' @export
 parameters2natural.trunc_invgauss <- function(parms) {
 	# parms: The parameters mean and shape in a normal distribution
 	# returns the natural parameters

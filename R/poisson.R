@@ -19,6 +19,7 @@ rtrunc.poisson <- function(n, lambda, a, b) {
 	return(y)
 }
 
+#' @export
 dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	parm <- exp(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))
@@ -35,6 +36,7 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_poisson <- function(y) {
 	# Returns empirical parameter estimate for lambda
 	return(mean(y))
@@ -54,12 +56,14 @@ average.T.trunc_poisson <- function(y) {
 #	dpois(y, parms)
 #}
 
+#' @export
 natural2parameters.trunc_poisson <- function(eta) {
 	# eta: The natural parameters in a Poisson distribution
 	# returns (mean,sigma)
 	return(c(lambda = exp(eta)))
 }
 
+#' @export
 parameters2natural.trunc_poisson <- function(parms) {
 	# parms: The parameter lambda in a Poisson distribution
 	# returns the natural parameters

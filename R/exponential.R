@@ -2,6 +2,7 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @export
 #' @importFrom stats dexp pexp
 dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	# TODO: develop rtrunc.exp?
@@ -20,6 +21,7 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_exp <- function(y) {
 	# Returns empirical parameter estimate for the rate parameter
 	return(mean(y))
@@ -33,12 +35,14 @@ average.T.trunc_exp <- function(y) {
 	return(mean(y))
 }
 
+#' @export
 natural2parameters.trunc_exp <- function(eta) {
 	# eta: The natural parameters in an exponential distribution distribution
 	# returns rate
 	return(c(lamda = -eta))
 }
 
+#' @export
 parameters2natural.trunc_exp <- function(parms) {
 	# parms: The parameter lambda in an exponential distribution
 	# returns the natural parameters
