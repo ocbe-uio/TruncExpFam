@@ -6,7 +6,7 @@
 #' @importFrom stats dexp pexp
 dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	# TODO: develop rtrunc.exp?
-	rate <- natural2parameters.exp(eta)
+	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {
 	  F.a <- pexp(a, rate)

@@ -6,7 +6,7 @@
 #' @export
 #' @importFrom stats dbeta pbeta
 dtrunc.trunc_beta <- function(y, eta, a, b) {
-	parm <- natural2parameters.beta(eta)
+	parm <- natural2parameters.trunc_beta(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dbeta(y, shape1 = parm[1], shape2 = parm[2]))
 	if (!missing(a)) {
 		F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
@@ -47,16 +47,6 @@ natural2parameters.trunc_beta <- function(eta) {
 	return(c(shape1 = eta[1], shape2 = eta[2]))
 }
 
-#' @title Convert parameters to Natural parameters
-#' @param parms The shape1 and shape2 parameters in a beta distribution
-#' @return The natural parameters
-#' @author René Holst
-#' @examples
-#' sample.lognorm <- rtrunc(n=100000, meanlog=2.5, sdlog=0.5, a=7, family="log-normal")
-#' ml_lognormal <- ml.estimation.trunc.dist(
-#'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3
-#' )
-#' eta.hat <- parameters2natural.trunc_beta(ml_lognormal)
 #' @export
 parameters2natural.trunc_beta <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution

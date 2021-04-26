@@ -62,16 +62,6 @@ natural2parameters.trunc_gamma <- function(eta) {
 	return(c(shape = eta[1] + 1, rate = -eta[2]))
 }
 
-#' @title Convert parameters to Natural Gamma
-#' @param parms The parameters shape and rate in a gamma distribution
-#' @return The natural parameters
-#' @author René Holst
-#' @examples
-#' sample.lognorm <- rtrunc(n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7, family="log-normal")
-#' ml_lognormal <- ml.estimation.trunc.dist(
-#'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
-#' )
-#' eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 #' @export
 parameters2natural.trunc_gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution

@@ -6,7 +6,7 @@
 #' @importFrom rmutil dinvgauss
 dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	# TODO: develop trunc_invgauss
-	parm <- natural2parameters.invgauss(eta)
+	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {
 		F.a <- pnorm(a, parm[1], parm[2])
@@ -35,7 +35,7 @@ sufficient.T.trunc_invgauss <- function(y) {
 }
 
 average.T.trunc_invgauss <- function(y) {
-	return(apply(sufficient.T.invgauss(y), 2, mean))
+	return(apply(sufficient.T.trunc_invgauss(y), 2, mean))
 }
 
 #' @export
