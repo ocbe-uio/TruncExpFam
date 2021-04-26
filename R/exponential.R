@@ -20,38 +20,38 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.exp <- function(y) {
+init.parms.trunc_exp <- function(y) {
 	# Returns empirical parameter estimate for the rate parameter
 	return(mean(y))
 }
 
-sufficient.T.exp <- function(y) {
+sufficient.T.trunc_exp <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.exp <- function(y) {
+average.T.trunc_exp <- function(y) {
 	return(mean(y))
 }
 
-natural2parameters.exp <- function(eta) {
+natural2parameters.trunc_exp <- function(eta) {
 	# eta: The natural parameters in an exponential distribution distribution
 	# returns rate
 	return(c(lamda = -eta))
 }
 
-parameters2natural.exp <- function(parms) {
+parameters2natural.trunc_exp <- function(parms) {
 	# parms: The parameter lambda in an exponential distribution
 	# returns the natural parameters
 	return(eta = -parms)
 }
 
-get.grad.E.T.inv.exp <- function(eta) {
+get.grad.E.T.inv.trunc_exp <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	return(A = eta^2)
 }
 
-get.y.seq.exp <- function(y, y.min = 0, y.max, n = 100) {
+get.y.seq.trunc_exp <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)

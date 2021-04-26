@@ -35,44 +35,44 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.pois <- function(y) {
+init.parms.trunc_poisson <- function(y) {
 	# Returns empirical parameter estimate for lambda
 	return(mean(y))
 }
 
-sufficient.T.pois <- function(y) {
+sufficient.T.trunc_poisson <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.pois <- function(y) {
+average.T.trunc_poisson <- function(y) {
 	return(mean(y))
 }
 
 # Is this function used anywhere?
-#density.pois <- function(y, eta) {
+#density.trunc_poisson <- function(y, eta) {
 #	parms <- exp(eta)
 #	dpois(y, parms)
 #}
 
-natural2parameters.pois <- function(eta) {
+natural2parameters.trunc_poisson <- function(eta) {
 	# eta: The natural parameters in a Poisson distribution
 	# returns (mean,sigma)
 	return(c(lambda = exp(eta)))
 }
 
-parameters2natural.pois <- function(parms) {
+parameters2natural.trunc_poisson <- function(parms) {
 	# parms: The parameter lambda in a Poisson distribution
 	# returns the natural parameters
 	return(eta = log(parms))
 }
 
-get.grad.E.T.inv.pois <- function(eta) {
+get.grad.E.T.inv.trunc_poisson <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	return(A = exp(-eta))
 }
 
-get.y.seq.pois <- function(y, y.min = 0, y.max, n = 100) {
+get.y.seq.trunc_poisson <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)

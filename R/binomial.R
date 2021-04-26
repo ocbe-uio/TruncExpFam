@@ -40,44 +40,44 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.binomial <- function(y, ...) {
+init.parms.trunc_binomial <- function(y, ...) {
 	# Returns empirical parameter estimate for lambda
 	return(mean(y / ...))
 }
 
-sufficient.T.binomial <- function(y) {
+sufficient.T.trunc_binomial <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.binomial <- function(y) {
+average.T.trunc_binomial <- function(y) {
 	return(mean(y))
 }
 
-density.binomial <- function(y, eta, ...) {
+density.trunc_binomial <- function(y, eta, ...) {
 	parms <- 1 / (1 + exp(-eta))
 	dbinom(y, ..., parms)
 }
 
-natural2parameters.binomial <- function(eta) {
+natural2parameters.trunc_binomial <- function(eta) {
 	# eta: The natural parameters in a binomial distribution
 	# returns (p)
 	return(p = 1 / (1 + exp(-eta)))
 }
 
-parameters2natural.binomial <- function(parms) {
+parameters2natural.trunc_binomial <- function(parms) {
 	# parms: The probability parameter p in a binomial distribution
 	# returns the natural parameters
 	return(eta = log(parms / (1 - parms)))
 }
 
-get.grad.E.T.inv.binomial <- function(eta, ...) {
+get.grad.E.T.inv.trunc_binomial <- function(eta, ...) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	exp.eta <- exp(eta)
 	return(A = ((1 + exp.eta)^2 / exp.eta) / ...)
 }
 
-get.y.seq.binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
+get.y.seq.trunc_binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
 	nsize <- 0 + ...
 	y.lo <- round(y.min)
 	y.hi <- round(y.max)

@@ -36,38 +36,38 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
-init.parms.chisq <- function(y) {
+init.parms.trunc_chisq <- function(y) {
 	# Returns empirical parameter estimate for df
 	return(mean(y))
 }
 
-sufficient.T.chisq <- function(y) {
+sufficient.T.trunc_chisq <- function(y) {
 	return(suff.T = log(y))
 }
 
-average.T.chisq <- function(y) {
+average.T.trunc_chisq <- function(y) {
 	return(mean(y))
 }
 
-natural2parameters.chisq <- function(eta) {
+natural2parameters.trunc_chisq <- function(eta) {
 	# eta: The natural parameters in a Chi Square distribution
 	# returns df
 	return(c(parms = 2*(eta+1)))
 }
 
-parameters2natural.chisq <- function(parms) {
+parameters2natural.trunc_chisq <- function(parms) {
 	# parms: The parameter lambda in a Chi Square distribution
 	# returns the natural parameters
 	return(eta = parms/2-1)
 }
 
-get.grad.E.T.inv.chisq <- function(eta) {
+get.grad.E.T.inv.trunc_chisq <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	return(A = 1/sum(1/(eta+(1:1000000))^2))
 }
 
-get.y.seq.chisq <- function(y, y.min = 0, y.max, n = 100) {
+get.y.seq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)

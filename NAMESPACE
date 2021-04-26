@@ -2,8 +2,8 @@
 
 export(dtrunc)
 export(ml.estimation.trunc.dist)
-export(parameters2natural.beta)
-export(parameters2natural.gamma)
+export(parameters2natural.trunc_beta)
+export(parameters2natural.trunc_gamma)
 export(rtrunc)
 importFrom(invgamma,dinvgamma)
 importFrom(invgamma,pinvgamma)
