@@ -2,12 +2,11 @@
 ##   Functions related to the inverse gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-require(invgamma)
-
+#' @export
 #' @importFrom invgamma dinvgamma pinvgamma
 dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	# TODO: develop rtrunc.invgamma?
-	parm <- natural2parameters.invgamma(eta)
+	parm <- natural2parameters.trunc_invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {
 		F.a <- pinvgamma(a, shape = parm[1], rate = parm[2])
@@ -15,7 +14,7 @@ dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- pbeta(b, shape = parm[1], shape2 = parm[2])
+		F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
 	} else {
 		F.b <- 1
 	}
@@ -29,7 +28,9 @@ init.parms.trunc_invgamma <- function(y) {
 	avar <- var(y)
 	alpha <- amean^2/avar+2
 	beta  <- (alpha-1)*amean
-	return(c(shape = alpha, rate = beta))
+	parms <- c(shape = alpha, rate = beta)
+	class(parms) <- "trunc_invgamma"
+	return(parms)
 }
 
 sufficient.T.trunc_invgamma <- function(y) {
@@ -40,12 +41,14 @@ average.T.trunc_invgamma <- function(y) {
 	return(apply(cbind(log(y), 1/y), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_invgamma <- function(eta) {
 	# eta: The natural parameters in a inverse gamma distribution
 	# returns (shape,rate)
 	return(c(shape = -eta[1]-1, rate =-eta[2]))
 }
 
+#' @export
 parameters2natural.trunc_invgamma <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters

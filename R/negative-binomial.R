@@ -2,6 +2,7 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @export
 #' @importFrom stats dnbinom pnbinom
 dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 	# TODO: develop rtrunc.nbinom
@@ -27,6 +28,7 @@ dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_nbinom <- function(y) {
 	# Returns empirical parameter estimate for lambda
 	return(mean(y))
@@ -40,12 +42,14 @@ average.T.trunc_nbinom <- function(y) {
 	return(mean(y))
 }
 
+#' @export
 natural2parameters.trunc_nbinom <- function(eta) {
 	# eta: The natural parameters in a negative binomial distribution
 	# returns (mean,sigma)
 	return(c(p = exp(eta)))
 }
 
+#' @export
 parameters2natural.trunc_nbinom <- function(parms) {
 	# parms: The p parameter in a negative binomial distribution
 	# returns the natural parameters

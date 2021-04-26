@@ -18,6 +18,7 @@ rtrunc.binomial <- function(n, size, prob, a, b) {
 	return(y)
 }
 
+#' @export
 dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	my.dbinom <- function(nsize) {
 		dbinom(y, size = nsize, prob = proba)
@@ -40,9 +41,12 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_binomial <- function(y, ...) {
 	# Returns empirical parameter estimate for lambda
-	return(mean(y / ...))
+	parms <- mean(y / ...)
+	class(parms) <- "trunc_binomial"
+	return(parms)
 }
 
 sufficient.T.trunc_binomial <- function(y) {
@@ -58,12 +62,14 @@ density.trunc_binomial <- function(y, eta, ...) {
 	dbinom(y, ..., parms)
 }
 
+#' @export
 natural2parameters.trunc_binomial <- function(eta) {
 	# eta: The natural parameters in a binomial distribution
 	# returns (p)
 	return(p = 1 / (1 + exp(-eta)))
 }
 
+#' @export
 parameters2natural.trunc_binomial <- function(parms) {
 	# parms: The probability parameter p in a binomial distribution
 	# returns the natural parameters

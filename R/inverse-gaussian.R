@@ -2,10 +2,11 @@
 ##   Functions related to the inverse gaussian distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @export
 #' @importFrom rmutil dinvgauss
 dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	# TODO: develop trunc_invgauss
-	parm <- natural2parameters.invgauss(eta)
+	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {
 		F.a <- pnorm(a, parm[1], parm[2])
@@ -21,11 +22,14 @@ dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_invgauss <- function(y) {
 	# Returns empirical parameter estimates mean and shape
-  mean=mean(y)
-  shp=1/(mean(1/y)-1/mean)
-	return(c(mean = mean, shape = shp))
+	mean=mean(y)
+	shp=1/(mean(1/y)-1/mean)
+	parms <- c(mean = mean, shape = shp)
+	class(parms) <- "trunc_invgauss"
+	return(parms)
 }
 
 sufficient.T.trunc_invgauss <- function(y) {
@@ -33,15 +37,17 @@ sufficient.T.trunc_invgauss <- function(y) {
 }
 
 average.T.trunc_invgauss <- function(y) {
-	return(apply(sufficient.T.invgauss(y), 2, mean))
+	return(apply(sufficient.T.trunc_invgauss(y), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_invgauss <- function(eta) {
 	# eta: The natural parameters in an inverse gaussian distribution
 	# returns (mean,shape)
 	return(c(mean = sqrt(eta[2] / eta[1]), shape = -2*eta[2]))
 }
 
+#' @export
 parameters2natural.trunc_invgauss <- function(parms) {
 	# parms: The parameters mean and shape in a normal distribution
 	# returns the natural parameters

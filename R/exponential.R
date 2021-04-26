@@ -2,10 +2,11 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @export
 #' @importFrom stats dexp pexp
 dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	# TODO: develop rtrunc.exp?
-	rate <- natural2parameters.exp(eta)
+	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {
 	  F.a <- pexp(a, rate)
@@ -20,9 +21,12 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_exp <- function(y) {
 	# Returns empirical parameter estimate for the rate parameter
-	return(mean(y))
+	parms <- mean(y)
+	class(parms) <- "trunc_exp"
+	return(parms)
 }
 
 sufficient.T.trunc_exp <- function(y) {
@@ -33,12 +37,14 @@ average.T.trunc_exp <- function(y) {
 	return(mean(y))
 }
 
+#' @export
 natural2parameters.trunc_exp <- function(eta) {
 	# eta: The natural parameters in an exponential distribution distribution
 	# returns rate
 	return(c(lamda = -eta))
 }
 
+#' @export
 parameters2natural.trunc_exp <- function(parms) {
 	# parms: The parameter lambda in an exponential distribution
 	# returns the natural parameters

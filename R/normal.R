@@ -20,6 +20,7 @@ rtrunc.normal <- function(n, mean, sd, a, b) {
 	return(y)
 }
 
+#' @export
 dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.trunc_normal(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dnorm(y, mean = parm[1], sd = parm[2]))
@@ -37,9 +38,12 @@ dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_normal <- function(y) {
 	# Returns empirical parameter estimates mean and sd
-	return(c(mean = mean(y), sd = sqrt(var(y))))
+	parms <- c(mean = mean(y), sd = sqrt(var(y)))
+	class(parms) <- "trunc_normal"
+	return(parms)
 }
 
 sufficient.T.trunc_normal <- function(y) {
@@ -50,12 +54,14 @@ average.T.trunc_normal <- function(y) {
 	return(apply(sufficient.T.trunc_normal(y), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_normal <- function(eta) {
 	# eta: The natural parameters in a normal distribution
 	# returns (mean,sigma)
 	return(c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2])))
 }
 
+#' @export
 parameters2natural.trunc_normal <- function(parms) {
 	# parms: The parameters mean and sd in a normal distribution
 	# returns the natural parameters
