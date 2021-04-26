@@ -2,8 +2,6 @@
 ##   Functions related to the inverse gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-require(invgamma)
-
 #' @export
 #' @importFrom invgamma dinvgamma pinvgamma
 dtrunc.trunc_invgamma <- function(y, eta, a, b) {
@@ -41,12 +39,14 @@ average.T.trunc_invgamma <- function(y) {
 	return(apply(cbind(log(y), 1/y), 2, mean))
 }
 
+#' @export
 natural2parameters.trunc_invgamma <- function(eta) {
 	# eta: The natural parameters in a inverse gamma distribution
 	# returns (shape,rate)
 	return(c(shape = -eta[1]-1, rate =-eta[2]))
 }
 
+#' @export
 parameters2natural.trunc_invgamma <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
