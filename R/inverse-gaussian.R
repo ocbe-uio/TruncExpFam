@@ -6,7 +6,7 @@
 dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	# TODO: develop trunc_invgauss
 	parm <- natural2parameters.invgauss(eta)
-	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, mean = parm[1], shape = parm[2]))
+	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {
 		F.a <- pnorm(a, parm[1], parm[2])
 	} else {
