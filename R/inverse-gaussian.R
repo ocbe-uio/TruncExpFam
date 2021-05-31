@@ -57,7 +57,7 @@ parameters2natural.trunc_invgauss <- function(parms) {
 get.y.seq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	shape <- var(y, na.rm = T)^0.5
-	lo <- max(max(0,y.min), mean - 3.5 * sd) # FIXME: sd not defined
+	lo <- max(max(0,y.min), mean - 3.5 * sd) # FIXME: sd not defined (#41)
 	hi <- min(y.max, mean + 3.5 * sd)
 	return(seq(lo, hi, length = n))
 }

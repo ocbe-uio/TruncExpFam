@@ -14,7 +14,7 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- pexp(b, parm) # FIXME: parm is not defined
+		F.b <- pexp(b, parm) # FIXME: parm is not defined (#41)
 	} else {
 		F.b <- 1
 	}

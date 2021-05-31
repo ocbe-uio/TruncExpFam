@@ -21,7 +21,7 @@ dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- my.pbinom(b, ...)
+		F.b <- my.pbinom(b, ...) #FIXME: my.pbinom not defined (#41)
 	} else {
 		F.b <- 1
 	}
@@ -60,7 +60,7 @@ get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
   p=exp(eta)
-	return(A = (1-p)^2/(r*p)) # FIXME: r not defined
+	return(A = (1-p)^2/(r*p)) # FIXME: r not defined (#41)
 }
 
 get.y.seq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
