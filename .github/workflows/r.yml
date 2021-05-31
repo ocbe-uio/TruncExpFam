@@ -13,35 +13,41 @@ name: R
 # ======================================================== #
 
 on:
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
+	push:
+		branches: [ develop ]
+	pull_request:
+		branches: [ develop ]
+
 # ======================================================== #
 # Determine actions to take                                #
 # ======================================================== #
 
 jobs:
-  build:
-    runs-on: macOS-latest
-    strategy:
-      matrix:
-        r-version: [ '4.1.0' ]
-    steps:
-      - uses: actions/checkout@master
-      - name: Set up R ${{ matrix.r-version }}
-        uses: r-lib/actions/setup-r@master
-        with:
-          r-version: ${{ matrix.r-version }}
-      - name: Install dependencies
-        run: |
-          install.packages(c("remotes", "rcmdcheck"))
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
-      - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript {0}
+	build:
+		runs-on: ${{ matrix.config.os }}
+		name: ${{ matrix.config.os }} ${{ matrix.config.r }}
+		strategy:
+			matrix:
+				config:
+					- {os: windows-latest, r: 'release'}
+					- {os: macOS-latest, r: 'release'}
+					- {os: ubuntu-latest, r: 'release'}
+					- {os: ubuntu-devel, r: 'devel'}
+		steps:
 			# Checking out code -------------------------------------- #
+			- uses: actions/checkout@master
 			# Setting up environment --------------------------------- #
+			- name: Setting up R ${{ matrix.config.r }} on ${{ matrix.config.os }}
+				uses: r-lib/actions/setup-r@master
+				with:
+					r-version: ${{ matrix.config.r }}
 			# Installing dependencies -------------------------------- #
+			- name: Installing dependencies
+				run: |
+					install.packages(c("remotes", "rcmdcheck"))
+					remotes::install_deps(dependencies = TRUE)
+				shell: Rscript {0}
 			# Checking package --------------------------------------- #
+			- name: Checking package
+				run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
+				shell: Rscript {0}
