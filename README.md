@@ -14,6 +14,12 @@ Finally, load the package with `library(TruncExpFam)`. A list of available funct
 
 Further details on installing TruncExpFam can be found on the [Wiki](https://github.com/ocbe-uio/TruncExpFam/wiki/Installing-TruncExpFam).
 
+# Usage
+
+For more information about the package (e.g. suppored distributions), run `?TruncExpFam` after loading the package in your R session.
+
+Are you familiar with the stats package and its `r*` and `d*` functions such as `rnorm()` and `dpois()`? If so, you will feel right at home with `TruncExpFam`, which uses the `rtrunc()` function to generate random numbers and the `dtrunc()` function to generate probability densities.
+
 # Contributing
 
 TruncExpFam is open-source software licensed by the GPL. All contributions are welcome! Please use the [issues page](https://github.com/ocbe-uio/TruncExpFam/issues) to submit any bugs you find or see what other issues have been submitted.
