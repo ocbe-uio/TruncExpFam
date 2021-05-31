@@ -8,11 +8,18 @@
 
 name: R
 
+# ======================================================== #
+# Determines when the action is triggered                  #
+# ======================================================== #
+
 on:
   push:
     branches: [ develop ]
   pull_request:
     branches: [ develop ]
+# ======================================================== #
+# Determine actions to take                                #
+# ======================================================== #
 
 jobs:
   build:
@@ -34,3 +41,7 @@ jobs:
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}
+			# Checking out code -------------------------------------- #
+			# Setting up environment --------------------------------- #
+			# Installing dependencies -------------------------------- #
+			# Checking package --------------------------------------- #
