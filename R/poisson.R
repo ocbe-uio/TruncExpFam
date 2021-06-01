@@ -2,7 +2,6 @@
 ##   Functions related to the Poisson distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Poisson
 #' @rdname rtrunc
 #' @param lambda mean and var of "parent" distribution
 rtrunc.poisson <- function(n, lambda, a, b) {

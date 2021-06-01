@@ -2,7 +2,6 @@
 ##   Functions related to the continuous Bernoulli distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Continuous Bernoulli
 #' @rdname rtrunc
 #' @param lambda mean of "parent" distribution
 #' @author René Holst

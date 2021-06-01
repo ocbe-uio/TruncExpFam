@@ -2,7 +2,6 @@
 ##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Gamma
 #' @param shape shape of "parent" distribution
 #' @param rate rate of "parent" distribution
 #' @rdname rtrunc

@@ -2,7 +2,6 @@
 ##   Functions related to the Binomial distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Binomial
 #' @param size number of size
 #' @param prob probability of success on each trial
 #' @rdname rtrunc

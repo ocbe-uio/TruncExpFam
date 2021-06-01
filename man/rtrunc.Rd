@@ -10,7 +10,7 @@
 \alias{rtrunc.normal}
 \alias{rtrunc.poisson}
 \alias{rtrunc}
-\title{Random Truncated Binomial}
+\title{The Truncated Exponential Family}
 \usage{
 rtrunc.binomial(n, size, prob, a, b)
 
