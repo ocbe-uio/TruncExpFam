@@ -16,12 +16,12 @@ dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
   dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
 
 	if (!missing(a)) {
-		F.a <- my.pbinom(a - 1, ...)
+		F.a <- my.pnbinom(a - 1, ...)
 	} else {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- my.pbinom(b, ...) #FIXME: my.pbinom not defined (#41)
+		F.b <- my.pnbinom(b, ...) # TODO: if output doesn't match stats:: equivalent, the issue is probably here.
 	} else {
 		F.b <- 1
 	}

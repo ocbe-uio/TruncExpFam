@@ -25,12 +25,12 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.trunc_chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {
-	  F.a <- pchisq(a, parm) # FIXME: parm is not defined (#41)
+	  F.a <- pchisq(a, df)
 	} else {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- pchisq(b, parm)
+		F.b <- pchisq(b, df)
 	} else {
 		F.b <- 1
 	}
