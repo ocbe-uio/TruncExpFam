@@ -18,6 +18,8 @@ on:
   pull_request:
     branches: [ develop ]
 
+name: R-CMD-CHECK
+
 # ======================================================== #
 # Determine actions to take                                #
 # ======================================================== #
