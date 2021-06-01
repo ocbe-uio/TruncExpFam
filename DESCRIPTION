@@ -1,6 +1,6 @@
 Package: TruncExpFam
 Title: Truncated Exponential Family
-Version: 0.0.0.9053
+Version: 0.0.0.9054
 Authors@R:
 	c(
 		person(
@@ -12,7 +12,7 @@ Authors@R:
 		person(
 			given = "Waldir",
 			family = "Leoncio",
-			role = "cre",
+			role = c("cre", "aut"),
 			email = "w.l.netto@medisin.uio.no"
 		)
 	)
