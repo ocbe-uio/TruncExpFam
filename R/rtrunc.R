@@ -68,3 +68,55 @@ rtrunc <- function(n, family="gaussian", ...) {
 rtrunc.generic <- function(n, ...) {
 	UseMethod("rtrunc", n)
 }
+
+# ======================================================== #
+# Wrappers for rtrunc methods                              #
+# ======================================================== #
+# rtruncbeta <- rtrunc.beta # TODO: uncomment (#30)
+
+#' @param size number of size
+#' @param prob probability of success on each trial
+#' @rdname rtrunc
+#' @export
+rtruncbinom <- rtrunc.binomial
+
+#' @param df degrees of freedom for "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncchisq <- rtrunc.chisq
+
+#' @param lambda mean of "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtrunccontbernoulli <- rtrunc.contbernoulli
+
+# rtruncexp <- rtrunc.exponential # TODO: uncomment (#30)
+
+#' @param shape shape of "parent" distribution
+#' @param rate rate of "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncgamma <- rtrunc.gamma
+
+# rtruncinvgamma <- rtrunc.invgamma # TODO: uncomment (#30)
+
+# rtruncinvnormal <- rtrunc.invnormal # TODO: uncomment (#30)
+
+#' @param meanlog mean of un-truncated distribution
+#' @param sdlog standard deviation of un-truncated distribution
+#' @rdname rtrunc
+#' @export
+rtrunclnorm <- rtrunc.lognormal
+
+# rtruncnbinom <- rtrunc.nbinom # TODO: uncomment (#30)
+
+#' @param mean mean of parent distribution
+#' @param sd standard deviation is parent distribution
+#' @rdname rtrunc
+#' @export
+rtruncnorm <- rtrunc.normal
+
+#' @param lambda mean and var of "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncpois <- rtrunc.poisson

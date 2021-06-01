@@ -2,10 +2,6 @@
 ##   Functions related to the continuous Bernoulli distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Continuous Bernoulli
-#' @rdname rtrunc
-#' @param lambda mean of "parent" distribution
-#' @author René Holst
 #' @importFrom stats runif
 rtrunc.contbernoulli <- function(n, lambda, a, b) {
 	# Sampling function for a continuous bernoulli distribution

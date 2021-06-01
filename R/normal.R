@@ -2,10 +2,6 @@
 ##   Functions related to the normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Normal
-#' @rdname rtrunc
-#' @param mean mean of parent distribution
-#' @param sd standard deviation is parent distribution
 rtrunc.normal <- function(n, mean, sd, a, b) {
 	y <- rnorm(n, mean, sd)
 	if (!missing(a)) {

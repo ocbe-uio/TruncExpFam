@@ -2,10 +2,6 @@
 ##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @title Random Truncated Gamma
-#' @param shape shape of "parent" distribution
-#' @param rate rate of "parent" distribution
-#' @rdname rtrunc
 rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
 	y <- rgamma(n, shape = shape, rate = rate)
 	if (!missing(a)) {
