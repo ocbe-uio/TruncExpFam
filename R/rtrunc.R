@@ -68,3 +68,43 @@ rtrunc <- function(n, family="gaussian", ...) {
 rtrunc.generic <- function(n, ...) {
 	UseMethod("rtrunc", n)
 }
+
+# ======================================================== #
+# Wrappers for rtrunc methods                              #
+# ======================================================== #
+# rtruncbeta <- rtrunc.beta # TODO: uncomment (#30)
+#' @rdname rtrunc
+#' @export
+rtruncbinom <- rtrunc.binomial
+
+#' @rdname rtrunc
+#' @export
+rtruncchisq <- rtrunc.chisq
+
+#' @rdname rtrunc
+#' @export
+rtrunccontbernoulli <- rtrunc.contbernoulli
+
+# rtruncexp <- rtrunc.exponential # TODO: uncomment (#30)
+
+#' @rdname rtrunc
+#' @export
+rtruncgamma <- rtrunc.gamma
+
+# rtruncinvgamma <- rtrunc.invgamma # TODO: uncomment (#30)
+
+# rtruncinvnormal <- rtrunc.invnormal # TODO: uncomment (#30)
+
+#' @rdname rtrunc
+#' @export
+rtrunclnorm <- rtrunc.lognormal
+
+# rtruncnbinom <- rtrunc.nbinom # TODO: uncomment (#30)
+
+#' @rdname rtrunc
+#' @export
+rtruncnorm <- rtrunc.normal
+
+#' @rdname rtrunc
+#' @export
+rtruncpois <- rtrunc.poisson

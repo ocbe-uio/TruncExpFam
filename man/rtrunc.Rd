@@ -10,6 +10,13 @@
 \alias{rtrunc.normal}
 \alias{rtrunc.poisson}
 \alias{rtrunc}
+\alias{rtruncbinom}
+\alias{rtruncchisq}
+\alias{rtrunccontbernoulli}
+\alias{rtruncgamma}
+\alias{rtrunclnorm}
+\alias{rtruncnorm}
+\alias{rtruncpois}
 \title{The Truncated Exponential Family}
 \usage{
 rtrunc.binomial(n, size, prob, a, b)
@@ -27,6 +34,20 @@ rtrunc.normal(n, mean, sd, a, b)
 rtrunc.poisson(n, lambda, a, b)
 
 rtrunc(n, family = "gaussian", ...)
+
+rtruncbinom(n, size, prob, a, b)
+
+rtruncchisq(n, df, a, b)
+
+rtrunccontbernoulli(n, lambda, a, b)
+
+rtruncgamma(n, shape, rate, a = 0, b = Inf)
+
+rtrunclnorm(n, meanlog, sdlog, a, b)
+
+rtruncnorm(n, mean, sd, a, b)
+
+rtruncpois(n, lambda, a, b)
 }
 \arguments{
 \item{n}{sample size}
@@ -103,5 +124,7 @@ sample.pois
 plot(table(sample.pois))
 }
 \author{
+René Holst
+
 René Holst, Waldir Leôncio
 }
