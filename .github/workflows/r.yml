@@ -18,14 +18,14 @@ on:
   pull_request:
     branches: [ develop ]
 
-name: R-CMD-CHECK
+name: R-CMD-check
 
 # ======================================================== #
 # Determine actions to take                                #
 # ======================================================== #
 
 jobs:
-  R-CMD-CHECK:
+  R-CMD-check:
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.os }} (R ${{ matrix.config.r }})
     strategy:
