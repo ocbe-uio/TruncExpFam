@@ -5,7 +5,7 @@
 #' @export
 #' @importFrom rmutil dinvgauss
 dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
-	# TODO: develop trunc_invgauss
+	# TODO: develop trunc_invgauss (#30)
 	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {

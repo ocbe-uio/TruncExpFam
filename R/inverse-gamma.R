@@ -5,7 +5,7 @@
 #' @export
 #' @importFrom invgamma dinvgamma pinvgamma
 dtrunc.trunc_invgamma <- function(y, eta, a, b) {
-	# TODO: develop rtrunc.invgamma?
+	# TODO: develop rtrunc.invgamma (#30)
 	parm <- natural2parameters.trunc_invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {

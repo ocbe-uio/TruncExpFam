@@ -5,7 +5,7 @@
 #' @export
 #' @importFrom stats dnbinom pnbinom
 dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
-	# TODO: develop rtrunc.nbinom
+	# TODO: develop rtrunc.nbinom (#30)
   my.dnbinom <- function(nsize) {
     dnbinom(y, size = nsize, prob = proba)
   }
@@ -21,7 +21,7 @@ dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- my.pnbinom(b, ...) # TODO: if output doesn't match stats:: equivalent, the issue is probably here.
+		F.b <- my.pnbinom(b, ...) # TODO: if output doesn't match stats:: equivalent, the issue is probably here. (waiting on #30)
 	} else {
 		F.b <- 1
 	}

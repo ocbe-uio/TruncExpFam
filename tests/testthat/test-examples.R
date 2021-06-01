@@ -17,11 +17,6 @@ sample.binom <- rtrunc(n=1000, prob=0.6, size=20, a=4, b=10, family="binomial")
 set.seed(117)
 sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2, family="gamma")
 
-# TODO: export density.* functions as S3 methods
-# y <- seq(-3, 60, length = 200)
-# lines(y, density.trunc.lognorm(y, eta = c(10, -2), a = 7), lwd = 2, col = 2)
-# hist(log(sample.lognorm))
-
 test_that("rtrunc samples have the expected values", {
 	tol <- 1e-3
 	expect_equal(head(sample.norm, 3), c(2.8645444, 2.1329365, 3.0388173))
