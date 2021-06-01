@@ -66,6 +66,7 @@ test_that("Output of rtrunc matches stats::r*", {
 		object   = {set.seed(1); rpois(500, lambda=72)},
 		expected = {set.seed(1); rtrunc(500, lambda=72, family="poisson")}
 	)
+	# TODO: add test for remaining distributions (waiting on #30)
 })
 
 # ======================================================== #

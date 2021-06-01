@@ -45,7 +45,7 @@
 #'   print.iter = 10
 #' )
 #' @export
-# TODO: add option to suppress output
+# TODO: add option to suppress output. Default to verbose=FALSE
 ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = TRUE, ...) {
 	get.T.minus.E.T <- function(eta) {
 		# Calculates T.bar-E(T|eta_j) by numerical integration

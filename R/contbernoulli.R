@@ -5,6 +5,7 @@
 #' @title Random Truncated Continuous Bernoulli
 #' @rdname rtrunc
 #' @param lambda mean of "parent" distribution
+#' @author René Holst
 #' @importFrom stats runif
 rtrunc.contbernoulli <- function(n, lambda, a, b) {
 	# Sampling function for a continuous bernoulli distribution
@@ -14,7 +15,6 @@ rtrunc.contbernoulli <- function(n, lambda, a, b) {
 		if ((lambda < 0) | (lambda > 1)) {
 			stop("lambda must be in (0, 1)")
 		}
-		# TODO: issue a warning similar to the result from the call >rbinom(10,3,-0.1)
 		u <- runif(n)
 		if (lambda == 0.5) {
 			return(u)
@@ -38,7 +38,7 @@ rtrunc.contbernoulli <- function(n, lambda, a, b) {
 # The two functions 'dcontbern' and 'pcontbern' below act in support of the
 # truncated continuous bernoulli distribution, as base R does not include
 # this distribution
-# ASK: what is the difference between this and dtrunc.trunc_contbern (below)?
+# dcontbern is the untruncated function (which is not present in base R)
 dcontbern <- function(x,lambda){
   if ((x<0)|(x>1))
     return(0)
@@ -50,6 +50,7 @@ dcontbern <- function(x,lambda){
   return(d)
 }
 
+# untruncated version (not implemented in base R)
 pcontbern <- function(x,lambda){
   if (x<0) p <- 0
   else if (x>1) p <- 1
@@ -57,7 +58,6 @@ pcontbern <- function(x,lambda){
   else p <- ((lambda^x)*(1-lambda)^(1-x)+lambda-1)/(2*lambda-1)
   return(p)
 }
-
 
 #' @export
 dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {

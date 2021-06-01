@@ -36,9 +36,6 @@ init.parms <- function(y) {
 #' samp <- rtrunc(n=100, lambda=2, family="Poisson")
 #' TruncExpFam:::natural2parameters(TruncExpFam:::init.parms(samp))
 #'
-# ASK: check if natural2parameters should also be called directly from
-# the output of ml.estimation.trunc.dist()
-# ex.: ml <- ml.estimation.trunc.dist(samp); parameters2natural.trunc_gamma(ml)
 natural2parameters <- function(eta) {
 	UseMethod("natural2parameters")
 }
@@ -51,9 +48,6 @@ natural2parameters <- function(eta) {
 #' samp <- rtrunc(n=100, lambda=2, family="Poisson")
 #' TruncExpFam:::parameters2natural(TruncExpFam:::init.parms(samp))
 #'
-# ASK: check if natural2parameters should also be called directly from
-# the output of ml.estimation.trunc.dist()
-# ex.: ml <- ml.estimation.trunc.dist(samp); parameters2natural.trunc_gamma(ml)
 parameters2natural <- function(parms) {
 	UseMethod("parameters2natural")
 }

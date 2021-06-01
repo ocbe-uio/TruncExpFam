@@ -59,7 +59,8 @@ parameters2natural.trunc_nbinom <- function(parms) {
 get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
-  p=exp(eta)
+	p <- exp(eta)
+	# TODO: define r (#41). René is looking into it.
 	return(A = (1-p)^2/(r*p)) # FIXME: r not defined (#41)
 }
 
