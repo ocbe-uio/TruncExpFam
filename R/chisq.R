@@ -2,8 +2,6 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @rdname rtrunc
-#' @param df degrees of freedom for "parent" distribution
 #' @importFrom stats dchisq pchisq rchisq
 rtrunc.chisq <- function(n, df, a, b) {
 	y <- rchisq(n, df)
