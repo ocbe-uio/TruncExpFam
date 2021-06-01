@@ -35,36 +35,6 @@ test_that("Truncation limits are observed", {
 })
 
 # ======================================================== #
-# Matching output                                          #
-# ======================================================== #
-
-context("Matching output of stats::r*")
-
-test_that("Output of rtrunc matches stats::r*", {
-	expect_setequal(
-		object   = {set.seed(1); rnorm(500, mean=1, sd=3)},
-		expected = {set.seed(1); rtrunc(500, mean=1, sd=3)}
-	)
-	expect_setequal(
-		object   = {set.seed(1); rbinom(50, size=10, prob=.3)},
-		expected = {set.seed(1); rtrunc(50, size=10, prob=.3, family="binomial")}
-	)
-	expect_setequal(
-		object   = {set.seed(1); rgamma(50, shape=4, rate=5)},
-		expected = {set.seed(1); rtrunc(50, shape=4, rate=5, family="gamma")}
-	)
-	expect_setequal(
-		object   = {set.seed(1); rlnorm(50, meanlog=7, sdlog=2)},
-		expected = {set.seed(1); rtrunc(50, meanlog=7, sdlog=2, family="log-normal")}
-	)
-	expect_setequal(
-		object   = {set.seed(1); rpois(500, lambda=72)},
-		expected = {set.seed(1); rtrunc(500, lambda=72, family="poisson")}
-	)
-	# TODO: add test for remaining distributions (waiting on #30)
-})
-
-# ======================================================== #
 # ML estimation                                            #
 # ======================================================== #
 
