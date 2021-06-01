@@ -11,7 +11,7 @@ ml.estimation.trunc.dist(
   tol = 1e-05,
   max.it = 25,
   delta = 0.33,
-  print.iter = TRUE,
+  print.iter = FALSE,
   ...
 )
 }
