@@ -3,6 +3,18 @@
 ##         Variant 1                                 ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+rtrunc.beta <- function(n, shape1, shape2, a, b) {
+  y <- rbeta(n, shape1, shape2)
+  if (!missing(a)) {
+    y <- y[y >= a]
+  }
+  if (!missing(b)) {
+    y <- y[y <= b]
+  }
+  class(y) <- "trunc_beta"
+  return(y)
+}
+
 #' @export
 #' @importFrom stats dbeta pbeta
 dtrunc.trunc_beta <- function(y, eta, a, b) {

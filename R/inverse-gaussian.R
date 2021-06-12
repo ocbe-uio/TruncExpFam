@@ -2,19 +2,45 @@
 ##   Functions related to the inverse gaussian distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
+  y <- rinvgauss(n, m, s)
+  if (!missing(a)) {
+    y <- y[y >= a]
+  }
+  if (!missing(b)) {
+    y <- y[y <= b]
+  } 
+  class(y) <- "trunc_invgauss"
+  return(y)
+}
+
+
+rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
+  y <- rinvgauss(n, m, s)
+  if (!missing(a)) {
+    y <- y[y >= a]
+  }
+  if (!missing(b)) {
+    y <- y[y <= b]
+  } 
+  class(y) <- "trunc_invgauss"
+  return(y)
+}
+
 #' @export
 #' @importFrom rmutil dinvgauss
 dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
-	# TODO: develop trunc_invgauss (#30)
 	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {
-		F.a <- pnorm(a, parm[1], parm[2])
+# ERROR		F.a <- pnorm(a, parm[1], parm[2])
+		F.a <- pinvgauss(a, parm[1], parm[2])
 	} else {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- pnorm(b, parm[1], parm[2])
+# ERROR		F.b <- pnorm(b, parm[1], parm[2])
+		F.b <- pinvgauss(b, parm[1], parm[2])
 	} else {
 		F.b <- 1
 	}

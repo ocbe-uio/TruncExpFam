@@ -2,7 +2,7 @@
 ##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.gamma <- function(n, shape, rate, a=0, b=Inf) {
+rtrunc.gamma <- function(n, shape, rate=1, a=0, b=Inf) {
 	y <- rgamma(n, shape = shape, rate = rate)
 	if (!missing(a)) {
 		y <- y[y >= a]
