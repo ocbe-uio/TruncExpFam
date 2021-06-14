@@ -3,6 +3,7 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 rtrunc.binomial <- function(n, size, prob, a, b) {
+# TODO: size needs to be handled as a 'fixed' parameter  
 	y <- rbinom(n, size, prob)
 	if (!missing(a)) {
 		y <- y[y >= a]
