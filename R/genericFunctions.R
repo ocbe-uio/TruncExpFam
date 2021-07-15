@@ -8,10 +8,47 @@
 #' @examples
 #' y <- rtrunc(50, mean=5, sd=2)
 #' dtrunc(y, eta=c(0, -1))
+#' dtruncnorm(y, eta=c(0, -1))
 #'
 dtrunc <- function(y, eta, a, b) {
 	UseMethod("dtrunc", y)
 }
+
+# ======================================================== #
+# Aliases for dtrunc methods                               #
+# ======================================================== #
+#' @param shape1 positive shape parameter alpha
+#' @param shape2 positive shape parameter beta
+#' @rdname dtrunc
+#' @export
+dtruncbeta <- dtrunc.trunc_beta
+
+#' @param size number of size
+#' @param prob probability of success on each trial
+#' @rdname dtrunc
+#' @export
+dtruncbinom <- dtrunc.trunc_binomial
+
+#' @param df degrees of freedom for "parent" distribution
+#' @rdname dtrunc
+#' @export
+dtruncchisq <- dtrunc.trunc_chisq
+
+#' @param lambda mean of "parent" distribution
+#' @rdname dtrunc
+#' @export
+dtrunccontbernoulli <- dtrunc.trunc_contbern
+
+#' @param rate vector of rates
+#' @rdname dtrunc
+#' @export
+dtruncexp <- dtrunc.trunc_exp
+
+#' @param shape shape of "parent" distribution
+#' @param rate rate of "parent" distribution
+#' @rdname dtrunc
+#' @export
+dtruncgamma <- dtrunc.trunc_gamma
 
 #' @title Initialize parameters
 #' @description Returns the empirical parameter estimate for a distribution

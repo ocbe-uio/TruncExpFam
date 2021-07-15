@@ -2,9 +2,27 @@
 % Please edit documentation in R/genericFunctions.R
 \name{dtrunc}
 \alias{dtrunc}
+\alias{dtruncbeta}
+\alias{dtruncbinom}
+\alias{dtruncchisq}
+\alias{dtrunccontbernoulli}
+\alias{dtruncexp}
+\alias{dtruncgamma}
 \title{Probability Density Function}
 \usage{
 dtrunc(y, eta, a, b)
+
+dtruncbeta(y, eta, a, b)
+
+dtruncbinom(y, eta, a = 0, b, ...)
+
+dtruncchisq(y, eta, a = 0, b)
+
+dtrunccontbernoulli(y, eta, a = 0, b)
+
+dtruncexp(y, eta, a = 0, b)
+
+dtruncgamma(y, eta, a, b)
 }
 \arguments{
 \item{y}{output from rtrunc}
@@ -14,6 +32,22 @@ dtrunc(y, eta, a, b)
 \item{a}{lower truncation limit}
 
 \item{b}{upper truncation limit}
+
+\item{shape1}{positive shape parameter alpha}
+
+\item{shape2}{positive shape parameter beta}
+
+\item{size}{number of size}
+
+\item{prob}{probability of success on each trial}
+
+\item{df}{degrees of freedom for "parent" distribution}
+
+\item{lambda}{mean of "parent" distribution}
+
+\item{shape}{shape of "parent" distribution}
+
+\item{rate}{rate of "parent" distribution}
 }
 \description{
 Calculates the PDF for a given truncated distribution
@@ -21,5 +55,6 @@ Calculates the PDF for a given truncated distribution
 \examples{
 y <- rtrunc(50, mean=5, sd=2)
 dtrunc(y, eta=c(0, -1))
+dtruncnorm(y, eta=c(0, -1))
 
 }
