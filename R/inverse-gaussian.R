@@ -3,15 +3,15 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
-  y <- rinvgauss(n, m, s)
-  if (!missing(a)) {
-    y <- y[y >= a]
-  }
-  if (!missing(b)) {
-    y <- y[y <= b]
-  }
-  class(y) <- "trunc_invgauss"
-  return(y)
+	y <- rinvgauss(n, m, s)
+	if (!missing(a)) {
+		y <- y[y >= a]
+	}
+	if (!missing(b)) {
+		y <- y[y <= b]
+	}
+	class(y) <- "trunc_invgauss"
+	return(y)
 }
 
 
@@ -19,10 +19,10 @@ rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
 rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
   y <- rinvgauss(n, m, s)
   if (!missing(a)) {
-    y <- y[y >= a]
+	y <- y[y >= a]
   }
   if (!missing(b)) {
-    y <- y[y <= b]
+	y <- y[y <= b]
   }
   class(y) <- "trunc_invgauss"
   return(y)
@@ -92,7 +92,7 @@ get.y.seq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
 get.grad.E.T.inv.trunc_invgauss <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
-  sqrt.eta1=sqrt(eta[1]); sqrt.eta2=sqrt(eta[2])
+	sqrt.eta1=sqrt(eta[1]); sqrt.eta2=sqrt(eta[2])
 	return(A = solve(0.5 * matrix(c(-sqrt.eta2/sqrt.eta1^3, 1/(sqrt.eta1*sqrt.eta2), 1/(sqrt.eta1*sqrt.eta2),
-	                                -sqrt.eta1/sqrt.eta2^3+1/sqrt.eta2^2), ncol = 2)))
+									-sqrt.eta1/sqrt.eta2^3+1/sqrt.eta2^2), ncol = 2)))
 }

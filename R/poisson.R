@@ -9,8 +9,6 @@ rtrunc.poisson <- function(n, lambda, a, b) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- Inf
 	}
 	class(y) <- "trunc_poisson"
 	return(y)

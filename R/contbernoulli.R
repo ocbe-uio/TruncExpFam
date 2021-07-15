@@ -3,7 +3,7 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats runif
-rtrunc.contbernoulli <- function(n, lambda, a, b) {
+rtrunc.contbernoulli <- function(n, lambda, a, b = 1) {
 	# Sampling function for a continuous bernoulli distribution
 	# This distribution is not implemented in Base R
 	# Used in the sampling of the truncated continuous bernoulli
@@ -24,8 +24,6 @@ rtrunc.contbernoulli <- function(n, lambda, a, b) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- 1
 	}
 	class(y) <- "trunc_contbern"
 	return(y)
@@ -60,7 +58,7 @@ dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
 	lambda <- natural2parameters.trunc_contbern(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda=lambda))
 	if (!missing(a)) {
-	  F.a <- pcontbern(a, lambda)
+		F.a <- pcontbern(a, lambda)
 	} else {
 		F.a <- 0
 	}

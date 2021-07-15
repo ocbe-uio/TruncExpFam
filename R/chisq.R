@@ -10,8 +10,6 @@ rtrunc.chisq <- function(n, df, a, b) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- Inf
 	}
 	class(y) <- "trunc_chisq"
 	return(y)
@@ -22,7 +20,7 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.trunc_chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {
-	  F.a <- pchisq(a, df)
+		F.a <- pchisq(a, df)
 	} else {
 		F.a <- 0
 	}
