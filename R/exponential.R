@@ -2,6 +2,7 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom stats rexp
 rtrunc.exp <- function(n, rate=1, a, b) {
   y <- rexp(n, rate)
   if (!missing(a)) {

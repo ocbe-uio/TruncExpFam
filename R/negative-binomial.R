@@ -2,15 +2,15 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-
+#' @importFrom
 rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
-  y <- rinvnbinom(n, size, prob, mu)
+  y <- rinvnbinom(n, size, prob, mu)  # FIXME: #55 write function
   if (!missing(a)) {
     y <- y[y >= a]
   }
   if (!missing(b)) {
     y <- y[y <= b]
-  } 
+  }
   class(y) <- "trunc_nbinom"
   return(y)
 }

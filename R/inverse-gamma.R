@@ -2,7 +2,7 @@
 ##   Functions related to the inverse gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-
+#' @importFrom invgamma rinvgamma
 rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
   y <- rinvgamma(n, shape = shape, rate = rate)
   if (!missing(a)) {
@@ -10,7 +10,7 @@ rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
   }
   if (!missing(b)) {
     y <- y[y <= b]
-  } 
+  }
   class(y) <- "trunc_invgamma"
   return(y)
 }

@@ -19,7 +19,7 @@ rtruncchisq(n, df, a, b)
 
 rtrunccontbernoulli(n, lambda, a, b)
 
-rtruncgamma(n, shape, rate, a = 0, b = Inf)
+rtruncgamma(n, shape, rate = 1, a = 0, b = Inf)
 
 rtrunclnorm(n, meanlog, sdlog, a, b)
 

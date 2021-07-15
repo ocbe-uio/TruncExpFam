@@ -3,6 +3,7 @@
 ##         Variant 1                                 ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom stats rbeta
 rtrunc.beta <- function(n, shape1, shape2, a, b) {
   y <- rbeta(n, shape1, shape2)
   if (!missing(a)) {
