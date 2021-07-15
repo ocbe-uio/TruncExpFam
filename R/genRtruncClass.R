@@ -53,7 +53,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			parms  = c("m", "s")
 		),
 		lognormal = list(
-			family = c("lognormal", "log-normal"),
+			family = c("lognormal", "lognormal"),
 			parms  = c("meanlog", "sdlog")
 		),
 		nbinom = list(

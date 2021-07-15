@@ -79,6 +79,8 @@ distribution). Must be strictly positive, need not be integer.}
 
 \item{sdlog}{standard deviation of un-truncated distribution}
 
+\item{mu}{alternative parametrization via mean}
+
 \item{mean}{mean of parent distribution}
 
 \item{sd}{standard deviation is parent distribution}
@@ -103,7 +105,7 @@ plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
 sample.lognorm <- rtrunc(
-  n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+  n=100000, family="lognormal", meanlog=2.5, sdlog=0.5, a=7
 )
 summary(sample.lognorm)
 

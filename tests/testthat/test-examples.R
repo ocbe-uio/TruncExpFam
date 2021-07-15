@@ -8,7 +8,7 @@ set.seed(117)
 sample.norm <- rtrunc(n = 10000, mean= 2, sd= 1.5, a = -1, family="gaussian")
 set.seed(117)
 sample.lognorm <- rtrunc(
-	n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7, family="log-normal"
+	n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7, family="lognormal"
 )
 set.seed(117)
 sample.pois <- rtrunc(n=1000, lambda=10, a=4, family="poisson")

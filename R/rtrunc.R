@@ -18,7 +18,7 @@
 #'
 #' # Truncated Log-Normal distribution
 #' sample.lognorm <- rtrunc(
-#'   n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+#'   n=100000, family="lognormal", meanlog=2.5, sdlog=0.5, a=7
 #' )
 #' summary(sample.lognorm)
 #'
@@ -128,6 +128,7 @@ rtrunclnorm <- rtrunc.lognormal
 #' or dispersion parameter (the shape parameter of the gamma mixing
 #' distribution). Must be strictly positive, need not be integer.
 #' @param prob probability of success on each trial
+#' @param mu alternative parametrization via mean
 #' @rdname rtrunc
 #' @export
 rtruncnbinom <- rtrunc.nbinom
