@@ -2,11 +2,22 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
+  y <- rinvnbinom(n, size, prob, mu)  # FIXME: #55 write function
+  if (!missing(a)) {
+    y <- y[y >= a]
+  }
+  if (!missing(b)) {
+    y <- y[y <= b]
+  }
+  class(y) <- "trunc_nbinom"
+  return(y)
+}
+
 #' @export
 #' @importFrom stats dnbinom pnbinom
 dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
-	# TODO: develop rtrunc.nbinom (#30)
-  my.dnbinom <- function(nsize) {
+ my.dnbinom <- function(nsize) {
     dnbinom(y, size = nsize, prob = proba)
   }
   my.pnbinom <- function(z, nsize) {

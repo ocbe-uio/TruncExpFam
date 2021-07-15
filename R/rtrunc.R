@@ -18,7 +18,7 @@
 #'
 #' # Truncated Log-Normal distribution
 #' sample.lognorm <- rtrunc(
-#'   n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+#'   n=100000, family="lognormal", meanlog=2.5, sdlog=0.5, a=7
 #' )
 #' summary(sample.lognorm)
 #'
@@ -47,8 +47,9 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	family <- tolower(family)
 	valid_distros <- c(
-		"binomial", "gamma", "log-gamma", "loggamma", "log-normal", "lognormal",
-		"gaussian", "normal", "poisson", "contbernoulli", "chisq"
+		"beta", "binomial", "chisq", "contbernoulli", "exp", "gamma",
+		"invgamma", "invgauss", "lognormal", "nbinom", "gaussian", "normal",
+		"poisson"
 	)
 	if (!(family %in% valid_distros)) {
 		stop(
@@ -73,7 +74,11 @@ rtrunc.generic <- function(n, ...) {
 # ======================================================== #
 # Wrappers for rtrunc methods                              #
 # ======================================================== #
-# rtruncbeta <- rtrunc.beta # TODO: uncomment (#30)
+#' @param shape1 positive shape parameter alpha
+#' @param shape2 positive shape parameter beta
+#' @rdname rtrunc
+#' @export
+rtruncbeta <- rtrunc.beta
 
 #' @param size number of size
 #' @param prob probability of success on each trial
@@ -91,7 +96,10 @@ rtruncchisq <- rtrunc.chisq
 #' @export
 rtrunccontbernoulli <- rtrunc.contbernoulli
 
-# rtruncexp <- rtrunc.exponential # TODO: uncomment (#30)
+#' @param rate vector of rates
+#' @rdname rtrunc
+#' @export
+rtruncexp <- rtrunc.exp
 
 #' @param shape shape of "parent" distribution
 #' @param rate rate of "parent" distribution
@@ -99,9 +107,17 @@ rtrunccontbernoulli <- rtrunc.contbernoulli
 #' @export
 rtruncgamma <- rtrunc.gamma
 
-# rtruncinvgamma <- rtrunc.invgamma # TODO: uncomment (#30)
+#' @param shape inverse gamma shape parameter
+#' @param rate inverse gamma rate parameter
+#' @rdname rtrunc
+#' @export
+rtruncinvgamma <- rtrunc.invgamma
 
-# rtruncinvnormal <- rtrunc.invnormal # TODO: uncomment (#30)
+#' @param m vector of means
+#' @param s vector of dispersion parameters
+#' @rdname rtrunc
+#' @export
+rtruncinvgauss <- rtrunc.invgauss
 
 #' @param meanlog mean of un-truncated distribution
 #' @param sdlog standard deviation of un-truncated distribution
@@ -109,7 +125,14 @@ rtruncgamma <- rtrunc.gamma
 #' @export
 rtrunclnorm <- rtrunc.lognormal
 
-# rtruncnbinom <- rtrunc.nbinom # TODO: uncomment (#30)
+#' @param size target for number of successful trials,
+#' or dispersion parameter (the shape parameter of the gamma mixing
+#' distribution). Must be strictly positive, need not be integer.
+#' @param prob probability of success on each trial
+#' @param mu alternative parametrization via mean
+#' @rdname rtrunc
+#' @export
+rtruncnbinom <- rtrunc.nbinom
 
 #' @param mean mean of parent distribution
 #' @param sd standard deviation is parent distribution

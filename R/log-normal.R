@@ -9,8 +9,6 @@ rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- Inf
 	}
 	class(y) <- "trunc_lognormal"
 	return(y)

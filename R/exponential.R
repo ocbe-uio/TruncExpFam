@@ -2,14 +2,26 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom stats rexp
+rtrunc.exp <- function(n, rate=1, a, b) {
+  y <- rexp(n, rate)
+  if (!missing(a)) {
+    y <- y[y >= a]
+  }
+  if (!missing(b)) {
+    y <- y[y <= b]
+  }
+  class(y) <- "trunc_exp"
+  return(y)
+}
+
 #' @export
 #' @importFrom stats dexp pexp
 dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
-	# TODO: develop rtrunc.exp (#30)
 	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {
-	  F.a <- pexp(a, rate)
+		F.a <- pexp(a, rate)
 	} else {
 		F.a <- 0
 	}

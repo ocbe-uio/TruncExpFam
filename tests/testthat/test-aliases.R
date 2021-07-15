@@ -56,7 +56,7 @@ test_that("Output of rtrunc matches stats::r*", {
 	)
 	expect_setequal(
 		object   = {set.seed(1); rlnorm(50, meanlog=7, sdlog=2)},
-		expected = {set.seed(1); rtrunc(50, meanlog=7, sdlog=2, family="log-normal")}
+		expected = {set.seed(1); rtrunc(50, meanlog=7, sdlog=2, family="lognormal")}
 	)
 	expect_setequal(
 		object   = {set.seed(1); rpois(500, lambda=72)},

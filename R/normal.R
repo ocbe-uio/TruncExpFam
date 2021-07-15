@@ -9,8 +9,6 @@ rtrunc.normal <- function(n, mean, sd, a, b) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- Inf
 	}
 	class(y) <- "trunc_normal"
 	return(y)

@@ -2,10 +2,22 @@
 ##   Functions related to the inverse gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom invgamma rinvgamma
+rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
+  y <- rinvgamma(n, shape = shape, rate = rate)
+  if (!missing(a)) {
+    y <- y[y >= a]
+  }
+  if (!missing(b)) {
+    y <- y[y <= b]
+  }
+  class(y) <- "trunc_invgamma"
+  return(y)
+}
+
 #' @export
 #' @importFrom invgamma dinvgamma pinvgamma
 dtrunc.trunc_invgamma <- function(y, eta, a, b) {
-	# TODO: develop rtrunc.invgamma (#30)
 	parm <- natural2parameters.trunc_invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {
