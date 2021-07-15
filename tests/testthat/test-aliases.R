@@ -5,6 +5,7 @@
 context("Matching output of rtrunc aliases")
 
 test_that("rtrunc works the same from generic and alias", {
+	# TODO: add tests for remaining distros
 	expect_identical(
 		object = {set.seed(8); rtrunc(100, 4, .2, family="binomial")},
 		expected = {set.seed(8); rtruncbinom(100, 4, .2)},
@@ -62,5 +63,5 @@ test_that("Output of rtrunc matches stats::r*", {
 		object   = {set.seed(1); rpois(500, lambda=72)},
 		expected = {set.seed(1); rtrunc(500, lambda=72, family="poisson")}
 	)
-	# TODO: add test for remaining distributions (waiting on #30)
+	# TODO: add test for remaining distributions. Not all come from stats
 })

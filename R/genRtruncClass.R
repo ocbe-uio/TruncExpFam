@@ -58,7 +58,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 		),
 		nbinom = list(
 			family = c("nbinom"),
-			parms  = c("size", "prob")
+			parms  = c("size", "prob", "mu")
 		),
 		normal = list(
 			family = c("normal", "gaussian"),
