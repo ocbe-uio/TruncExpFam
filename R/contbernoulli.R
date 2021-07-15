@@ -70,6 +70,7 @@ dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_contbern <- function(y) {
 	# Returns empirical parameter estimate for the lambda parameter
 	# Note: lambda cannot be expressed in closed form as a function of the mean

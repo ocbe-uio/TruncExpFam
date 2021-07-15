@@ -17,12 +17,8 @@ rtrunc.binomial <- function(n, size, prob, a, b) {
 
 #' @export
 dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
-	my.dbinom <- function(nsize) {
-		dbinom(y, size = nsize, prob = proba)
-	}
-	my.pbinom <- function(z, nsize) {
-		pbinom(z, size = nsize, prob = proba)
-	}
+	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
+	my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
 	proba <- 1 / (1 + exp(-eta))
 	dens <- ifelse((y < a) | (y > b), 0, my.dbinom(...))
 	if (!missing(a)) {
