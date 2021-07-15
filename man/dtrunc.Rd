@@ -33,21 +33,7 @@ dtruncgamma(y, eta, a, b)
 
 \item{b}{upper truncation limit}
 
-\item{shape1}{positive shape parameter alpha}
-
-\item{shape2}{positive shape parameter beta}
-
-\item{size}{number of size}
-
-\item{prob}{probability of success on each trial}
-
-\item{df}{degrees of freedom for "parent" distribution}
-
-\item{lambda}{mean of "parent" distribution}
-
-\item{shape}{shape of "parent" distribution}
-
-\item{rate}{rate of "parent" distribution}
+\item{...}{size}
 }
 \description{
 Calculates the PDF for a given truncated distribution
@@ -55,6 +41,5 @@ Calculates the PDF for a given truncated distribution
 \examples{
 y <- rtrunc(50, mean=5, sd=2)
 dtrunc(y, eta=c(0, -1))
-dtruncnorm(y, eta=c(0, -1))
 
 }

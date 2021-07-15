@@ -17,14 +17,10 @@ rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
 #' @export
 #' @importFrom stats dnbinom pnbinom
 dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
- my.dnbinom <- function(nsize) {
-    dnbinom(y, size = nsize, prob = proba)
-  }
-  my.pnbinom <- function(z, nsize) {
-    pnbinom(z, size = nsize, prob = proba)
-  }
-  proba <- exp(eta)
-  dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
+	my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
+	my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
+	proba <- exp(eta)
+	dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
 
 	if (!missing(a)) {
 		F.a <- my.pnbinom(a - 1, ...)
