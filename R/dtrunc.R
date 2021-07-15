@@ -33,7 +33,7 @@ dtruncchisq <- dtrunc.trunc_chisq
 #' @export
 dtrunccontbernoulli <- dtrunc.trunc_contbern
 
-# FIXME: No idea why R can't find the functions below. >:(
+# FIXME #47: No idea why R can't find the functions below. >:(
 
 # #' @rdname dtrunc
 # #' @export

@@ -3,7 +3,7 @@
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
-  y <- rinvnbinom(n, size, prob, mu)  # FIXME: #55 write function?
+  y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]
   }
@@ -67,7 +67,8 @@ get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	p <- exp(eta)
-	return(A = (1-p)^2/(r*p)) # FIXME: r not defined (#41). René is looking into this.
+	return(A = (1-p)^2/(r*p)) sing wrapper skips rtrunc() and, therefore, domain validation.
+# Possible solution: adding validateDomain methods to each rtrunc method.# FIXME #41: r not defined. René is looking into this.
 }
 
 get.y.seq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
