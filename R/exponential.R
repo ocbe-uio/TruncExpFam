@@ -21,7 +21,7 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {
-	  F.a <- pexp(a, rate)
+		F.a <- pexp(a, rate)
 	} else {
 		F.a <- 0
 	}
