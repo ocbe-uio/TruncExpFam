@@ -15,8 +15,8 @@ rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
   return(y)
 }
 
-#' @export
 #' @importFrom invgamma dinvgamma pinvgamma
+#' @export
 dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.trunc_invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
@@ -34,6 +34,7 @@ dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @export
 init.parms.trunc_invgamma <- function(y) {
 	# Returns  parameter estimates mean and sd
 	amean <- mean(y)
