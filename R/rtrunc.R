@@ -45,6 +45,10 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	# Validating                                               #
 	# ======================================================== #
+	# TODO: transform family name validation into validateFamily() (like for
+	# domain). Possibly merge into functions on genRtruncClass.R, which will
+	# possibly replace the need for this valid_distros vector with the
+	# valid_fam_parm list on validateFamilyParms()
 	family <- tolower(family)
 	valid_distros <- c(
 		"beta", "binomial", "chisq", "contbernoulli", "exp", "gamma",
@@ -73,6 +77,10 @@ rtrunc.generic <- function(n, ...) {
 # ======================================================== #
 # Wrappers for rtrunc methods                              #
 # ======================================================== #
+
+# FIXME: using wrapper skips rtrunc() and, therefore, domain validation.
+# Possible solution: adding validateDomain methods to each rtrunc method.
+
 #' @param shape1 positive shape parameter alpha
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
