@@ -2,26 +2,41 @@
 % Please edit documentation in R/rtrunc.R
 \name{rtrunc}
 \alias{rtrunc}
+\alias{rtruncbeta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
 \alias{rtrunccontbernoulli}
+\alias{rtruncexp}
 \alias{rtruncgamma}
+\alias{rtruncinvgamma}
+\alias{rtruncinvgauss}
 \alias{rtrunclnorm}
+\alias{rtruncnbinom}
 \alias{rtruncnorm}
 \alias{rtruncpois}
 \title{The Truncated Exponential Family}
 \usage{
 rtrunc(n, family = "gaussian", ...)
 
+rtruncbeta(n, shape1, shape2, a, b)
+
 rtruncbinom(n, size, prob, a, b)
 
 rtruncchisq(n, df, a, b)
 
-rtrunccontbernoulli(n, lambda, a, b)
+rtrunccontbernoulli(n, lambda, a, b = 1)
+
+rtruncexp(n, rate = 1, a, b)
 
 rtruncgamma(n, shape, rate = 1, a = 0, b = Inf)
 
+rtruncinvgamma(n, shape, rate = 1, a = 0, b = Inf)
+
+rtruncinvgauss(n, m, s, a = 0, b = Inf)
+
 rtrunclnorm(n, meanlog, sdlog, a, b)
+
+rtruncnbinom(n, size, prob, mu, a, b = Inf)
 
 rtruncnorm(n, mean, sd, a, b)
 
@@ -34,25 +49,37 @@ rtruncpois(n, lambda, a, b)
 
 \item{...}{individual arguments to each distribution}
 
-\item{size}{number of size}
+\item{shape1}{positive shape parameter alpha}
 
-\item{prob}{probability of success on each trial}
+\item{shape2}{positive shape parameter beta}
 
 \item{a}{point of left truncation}
 
 \item{b}{point of right truncation}
 
+\item{size}{target for number of successful trials,
+or dispersion parameter (the shape parameter of the gamma mixing
+distribution). Must be strictly positive, need not be integer.}
+
+\item{prob}{probability of success on each trial}
+
 \item{df}{degrees of freedom for "parent" distribution}
 
 \item{lambda}{mean and var of "parent" distribution}
 
-\item{shape}{shape of "parent" distribution}
+\item{rate}{inverse gamma rate parameter}
 
-\item{rate}{rate of "parent" distribution}
+\item{shape}{inverse gamma shape parameter}
+
+\item{m}{vector of means}
+
+\item{s}{vector of dispersion parameters}
 
 \item{meanlog}{mean of un-truncated distribution}
 
 \item{sdlog}{standard deviation of un-truncated distribution}
+
+\item{mu}{alternative parametrization via mean}
 
 \item{mean}{mean of parent distribution}
 
@@ -78,7 +105,7 @@ plot(table(sample.binom), ylab="Frequency", main="Freq. of sampled values")
 
 # Truncated Log-Normal distribution
 sample.lognorm <- rtrunc(
-  n=100000, family="log-normal", meanlog=2.5, sdlog=0.5, a=7
+  n=100000, family="lognormal", meanlog=2.5, sdlog=0.5, a=7
 )
 summary(sample.lognorm)
 
