@@ -10,8 +10,6 @@ rtrunc.chisq <- function(n, df, a, b) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- Inf
 	}
 	class(y) <- "trunc_chisq"
 	return(y)

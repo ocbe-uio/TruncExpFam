@@ -9,8 +9,6 @@ rtrunc.gamma <- function(n, shape, rate=1, a=0, b=Inf) {
 	}
 	if (!missing(b)) {
 		y <- y[y <= b]
-	} else {
-		b <- Inf
 	}
 	class(y) <- "trunc_gamma"
 	return(y)
