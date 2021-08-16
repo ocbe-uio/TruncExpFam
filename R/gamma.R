@@ -2,7 +2,11 @@
 ##   Functions related to the gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.gamma <- function(n, shape, rate=1, a=0, b=Inf) {
+#' @param shape shape of "parent" distribution
+#' @param rate rate of "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncgamma <- rtrunc.gamma <- function(n, shape, rate=1, a=0, b=Inf) {
 	y <- rgamma(n, shape = shape, rate = rate)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -31,6 +35,10 @@ dtrunc.trunc_gamma <- function(y, eta, a, b) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtruncgamma <- dtrunc.trunc_gamma
 
 #' @export
 init.parms.trunc_gamma <- function(y) {

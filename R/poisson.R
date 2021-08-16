@@ -2,7 +2,10 @@
 ##   Functions related to the Poisson distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.poisson <- function(n, lambda, a, b) {
+#' @param lambda mean and var of "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncpois <- rtrunc.poisson <- function(n, lambda, a, b) {
 	y <- rpois(n, lambda)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -31,6 +34,15 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @rdname dtrunc
+#' @export
+dtruncpois <- dtrunc.trunc_poisson
+# Is this function used anywhere? Maybe it's the same as dtrunc.trunc_poisson above
+#density.trunc_poisson <- function(y, eta) {
+#	parms <- exp(eta)
+#	dpois(y, parms)
+#}
+
 #' @export
 init.parms.trunc_poisson <- function(y) {
 	# Returns empirical parameter estimate for lambda
@@ -47,11 +59,6 @@ average.T.trunc_poisson <- function(y) {
 	return(mean(y))
 }
 
-# Is this function used anywhere?
-#density.trunc_poisson <- function(y, eta) {
-#	parms <- exp(eta)
-#	dpois(y, parms)
-#}
 
 #' @export
 natural2parameters.trunc_poisson <- function(eta) {

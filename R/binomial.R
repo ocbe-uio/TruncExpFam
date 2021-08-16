@@ -2,7 +2,11 @@
 ##   Functions related to the Binomial distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.binomial <- function(n, size, prob, a, b) {
+#' @param size number of size
+#' @param prob probability of success on each trial
+#' @rdname rtrunc
+#' @export
+rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a, b) {
 # TODO #19: size needs to be handled as a 'fixed' parameter
 	y <- rbinom(n, size, prob)
 	if (!missing(a)) {
@@ -17,7 +21,7 @@ rtrunc.binomial <- function(n, size, prob, a, b) {
 
 #' @export
 dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
-	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
+	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)# FIXME: #61 nsize should be passed by user or discovered by function
 	my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
 	proba <- 1 / (1 + exp(-eta))
 	dens <- ifelse((y < a) | (y > b), 0, my.dbinom(...))
@@ -33,6 +37,12 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @export
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncbinom <- dtrunc.trunc_binomial
 
 #' @export
 init.parms.trunc_binomial <- function(y, ...) {

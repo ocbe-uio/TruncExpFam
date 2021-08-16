@@ -2,7 +2,11 @@
 ##   Functions related to the Log Normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
+#' @param meanlog mean of un-truncated distribution
+#' @param sdlog standard deviation of un-truncated distribution
+#' @rdname rtrunc
+#' @export
+rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
 	y <- rlnorm(n, meanlog, sdlog)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -39,6 +43,10 @@ dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtrunclnorm <- dtrunc.trunc_lognormal
 
 #' @export
 init.parms.trunc_lognormal <- function(y) {

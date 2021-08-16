@@ -3,7 +3,10 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats dchisq pchisq rchisq
-rtrunc.chisq <- function(n, df, a, b) {
+#' @param df degrees of freedom for "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncchisq <- rtrunc.chisq <- function(n, df, a, b) {
 	y <- rchisq(n, df)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -31,6 +34,10 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtruncchisq <- dtrunc.trunc_chisq
 
 #' @export
 init.parms.trunc_chisq <- function(y) {

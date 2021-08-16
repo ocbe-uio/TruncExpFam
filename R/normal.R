@@ -2,7 +2,11 @@
 ##   Functions related to the normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.normal <- function(n, mean, sd, a, b) {
+#' @param mean mean of parent distribution
+#' @param sd standard deviation is parent distribution
+#' @rdname rtrunc
+#' @export
+rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a, b) {
 	y <- rnorm(n, mean, sd)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -31,6 +35,11 @@ dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @export
+#' @rdname dtrunc
+#' @export
+dtruncnorm <- dtrunc.trunc_normal
 
 #' @export
 init.parms.trunc_normal <- function(y) {
