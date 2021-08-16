@@ -18,35 +18,3 @@ dtrunc <- function(y, eta, a, b) {
 
 # FIXME #47: No idea why R can't find the functions below. >:(
 
-# #' @rdname dtrunc
-# #' @export
-# dtruncexp <- dtrunc.trunc_exp
-
-# #' @rdname dtrunc
-# #' @export
-# dtruncgamma <- dtrunc.trunc_gamma
-
-# #' @rdname dtrunc
-# #' @export
-# dtruncinvgamma <- dtrunc.trunc_invgamma
-
-# #' @rdname dtrunc
-# #' @export
-# dtruncinvgauss <- dtrunc.trunc_invgauss
-
-# #' @rdname dtrunc
-# #' @export
-# dtrunclnorm <- dtrunc.trunc_lognormal
-
-# #' @rdname dtrunc
-# #' @param ... size
-# #' @export
-# dtruncnbinom <- dtrunc.trunc_nbinom
-
-# #' @rdname dtrunc
-# #' @export
-# dtruncnorm <- dtrunc.trunc_normal
-
-# #' @rdname dtrunc
-# #' @export
-# dtruncpois <- dtrunc.trunc_poisson

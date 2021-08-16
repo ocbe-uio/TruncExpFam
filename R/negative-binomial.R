@@ -23,7 +23,10 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
 
 #' @export
 #' @importFrom stats dnbinom pnbinom
-dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 	my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
 	my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
 	proba <- exp(eta)

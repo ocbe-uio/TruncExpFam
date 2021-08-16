@@ -21,7 +21,9 @@ rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
 
 #' @importFrom invgamma dinvgamma pinvgamma
 #' @export
-dtrunc.trunc_invgamma <- function(y, eta, a, b) {
+#' @rdname dtrunc
+#' @export
+dtruncinvgamma <- dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.trunc_invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {

@@ -18,7 +18,9 @@ rtruncpois <- rtrunc.poisson <- function(n, lambda, a, b) {
 }
 
 #' @export
-dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
+#' @rdname dtrunc
+#' @export
+dtruncpois <- dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	parm <- exp(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))
 	if (!missing(a)) {

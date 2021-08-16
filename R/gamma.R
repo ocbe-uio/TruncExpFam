@@ -19,7 +19,9 @@ rtruncgamma <- rtrunc.gamma <- function(n, shape, rate=1, a=0, b=Inf) {
 }
 
 #' @export
-dtrunc.trunc_gamma <- function(y, eta, a, b) {
+#' @rdname dtrunc
+#' @export
+dtruncgamma <- dtrunc.trunc_gamma <- function(y, eta, a, b) {
 	parm <- natural2parameters.trunc_gamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {

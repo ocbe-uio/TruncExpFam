@@ -20,7 +20,9 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
 
 
 #' @importFrom rmutil rinvgauss
-rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
+#' @rdname dtrunc
+#' @export
+dtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
   y <- rinvgauss(n, m, s)
   if (!missing(a)) {
 	y <- y[y >= a]
