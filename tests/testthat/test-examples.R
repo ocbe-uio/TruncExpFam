@@ -52,7 +52,7 @@ ml_poisson <- ml.estimation.trunc.dist(
 	sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
-# FIXME: ml.estimation.trunc.dist not working for binomial (#19)
+# FIXME #19: ml.estimation.trunc.dist not working for binomial
 # ml_binom <- ml.estimation.trunc.dist(
 # 	sample.binom, y.min = 4, max.it = 500, delta = 0.33,
 # 	nsize = 10, print.iter = FALSE
@@ -66,7 +66,7 @@ test_that("ml.estimation.trunc.dist works", {
 	expect_equal(ml_gaussian, c(mean= 2, sd = 1.5), tol = 1e-1)
 	expect_equal(ml_lognormal, c(mean= 2.5, sd = 0.5), tol = 1e-1)
 	expect_equal(ml_poisson, c(lambda = 10), tol = 1e-1)
-	# TODO: add unit test for ml_binom (depends on #19)
+	# TODO #59: add unit test for ml_binom (depends on #19)
 	expect_equal(ml_gamma, c(shape = 11.62, rate = 3.39), tol = 1e-1)
 })
 

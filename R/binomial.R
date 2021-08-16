@@ -3,7 +3,7 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 rtrunc.binomial <- function(n, size, prob, a, b) {
-# TODO: size needs to be handled as a 'fixed' parameter
+# TODO #19: size needs to be handled as a 'fixed' parameter
 	y <- rbinom(n, size, prob)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -17,12 +17,8 @@ rtrunc.binomial <- function(n, size, prob, a, b) {
 
 #' @export
 dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
-	my.dbinom <- function(nsize) {
-		dbinom(y, size = nsize, prob = proba)
-	}
-	my.pbinom <- function(z, nsize) {
-		pbinom(z, size = nsize, prob = proba)
-	}
+	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
+	my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
 	proba <- 1 / (1 + exp(-eta))
 	dens <- ifelse((y < a) | (y > b), 0, my.dbinom(...))
 	if (!missing(a)) {
@@ -41,7 +37,7 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 #' @export
 init.parms.trunc_binomial <- function(y, ...) {
 	# Returns empirical parameter estimate for lambda
-	parms <- mean(y / ...) # FIXME: should be y / size (#19).
+	parms <- mean(y / ...) # FIXME #19: should be y / size.
 	class(parms) <- "trunc_binomial"
 	return(parms)
 }

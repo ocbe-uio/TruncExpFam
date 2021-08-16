@@ -3,7 +3,7 @@
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
-  y <- rinvnbinom(n, size, prob, mu)  # FIXME: #55 write function?
+  y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]
   }
@@ -17,14 +17,10 @@ rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
 #' @export
 #' @importFrom stats dnbinom pnbinom
 dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
- my.dnbinom <- function(nsize) {
-    dnbinom(y, size = nsize, prob = proba)
-  }
-  my.pnbinom <- function(z, nsize) {
-    pnbinom(z, size = nsize, prob = proba)
-  }
-  proba <- exp(eta)
-  dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
+	my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
+	my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
+	proba <- exp(eta)
+	dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
 
 	if (!missing(a)) {
 		F.a <- my.pnbinom(a - 1, ...)
@@ -71,7 +67,8 @@ get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	p <- exp(eta)
-	return(A = (1-p)^2/(r*p)) # FIXME: r not defined (#41). René is looking into this.
+	return(A = (1-p)^2/(r*p))
+# Possible solution: adding validateDomain methods to each rtrunc method.# FIXME #41: r not defined. René is looking into this.
 }
 
 get.y.seq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
