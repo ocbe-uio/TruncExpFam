@@ -2,8 +2,9 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+#' @importFrom stats rnbinom
 rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
-  y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
+  y <- rnbinom(n, size, prob, mu)
   if (!missing(a)) {
     y <- y[y >= a]
   }
