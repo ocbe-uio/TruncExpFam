@@ -11,10 +11,3 @@
 dtrunc <- function(y, eta, a, b) {
 	UseMethod("dtrunc", y)
 }
-
-# ======================================================== #
-# Aliases for dtrunc methods                               #
-# ======================================================== #
-
-# FIXME #47: No idea why R can't find the functions below. >:(
-
