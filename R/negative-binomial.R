@@ -2,7 +2,14 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
+#' @param size target for number of successful trials,
+#' or dispersion parameter (the shape parameter of the gamma mixing
+#' distribution). Must be strictly positive, need not be integer.
+#' @param prob probability of success on each trial
+#' @param mu alternative parametrization via mean
+#' @rdname rtrunc
+#' @export
+rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
   y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]

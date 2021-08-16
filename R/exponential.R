@@ -3,7 +3,10 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats rexp
-rtrunc.exp <- function(n, rate=1, a, b) {
+#' @param rate vector of rates
+#' @rdname rtrunc
+#' @export
+rtruncexp <- rtrunc.exp <- function(n, rate=1, a, b) {
   y <- rexp(n, rate)
   if (!missing(a)) {
     y <- y[y >= a]

@@ -4,7 +4,11 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats rbeta
-rtrunc.beta <- function(n, shape1, shape2, a, b) {
+#' @param shape1 positive shape parameter alpha
+#' @param shape2 positive shape parameter beta
+#' @rdname rtrunc
+#' @export
+rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a, b) {
   y <- rbeta(n, shape1, shape2)
   if (!missing(a)) {
     y <- y[y >= a]

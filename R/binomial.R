@@ -2,7 +2,11 @@
 ##   Functions related to the Binomial distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.binomial <- function(n, size, prob, a, b) {
+#' @param size number of size
+#' @param prob probability of success on each trial
+#' @rdname rtrunc
+#' @export
+rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a, b) {
 # TODO #19: size needs to be handled as a 'fixed' parameter
 	y <- rbinom(n, size, prob)
 	if (!missing(a)) {
