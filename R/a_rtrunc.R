@@ -72,9 +72,16 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	# Dispatching functions                                    #
 	# ======================================================== #
+	extra_n <- 1
 	trunc_class <- genRtruncClass(n, family, names(list(...)))
-	class(n) <- trunc_class
-	rtrunc.generic(n, ...)
+	class(extra_n) <- class(n) <- trunc_class
+	sample <- rtrunc.generic(n, ...)
+	while (length(sample) != n) {
+		new_obs <- rtrunc.generic(extra_n, ...)
+		sample <- c(sample, new_obs)
+		class(sample) <- class(new_obs)
+	}
+	return(sample)
 }
 
 rtrunc.generic <- function(n, ...) {
