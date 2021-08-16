@@ -67,7 +67,7 @@ get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	p <- exp(eta)
-	return(A = (1-p)^2/(r*p)) sing wrapper skips rtrunc() and, therefore, domain validation.
+	return(A = (1-p)^2/(r*p))
 # Possible solution: adding validateDomain methods to each rtrunc method.# FIXME #41: r not defined. René is looking into this.
 }
 
