@@ -20,10 +20,7 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a, b) {
 }
 
 #' @export
-#' @rdname dtrunc
-#' @param ... size
-#' @export
-dtruncbinom <- dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
+dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)# FIXME: #61 nsize should be passed by user or discovered by function
 	my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
 	proba <- 1 / (1 + exp(-eta))
@@ -40,6 +37,12 @@ dtruncbinom <- dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @export
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncbinom <- dtrunc.trunc_binomial
 
 #' @export
 init.parms.trunc_binomial <- function(y, ...) {

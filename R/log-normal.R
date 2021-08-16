@@ -27,9 +27,7 @@ average.T.trunc_lognormal <- function(y) {
 }
 
 #' @export
-#' @rdname dtrunc
-#' @export
-dtrunclnorm <- dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.trunc_normal(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dlnorm(y, meanlog = parm[1], sdlog = parm[2]))
 	if (!missing(a)) {
@@ -45,6 +43,10 @@ dtrunclnorm <- dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtrunclnorm <- dtrunc.trunc_lognormal
 
 #' @export
 init.parms.trunc_lognormal <- function(y) {

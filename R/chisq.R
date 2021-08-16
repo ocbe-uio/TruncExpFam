@@ -19,9 +19,7 @@ rtruncchisq <- rtrunc.chisq <- function(n, df, a, b) {
 }
 
 #' @export
-#' @rdname dtrunc
-#' @export
-dtruncchisq <- dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
+dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	df <- natural2parameters.trunc_chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {
@@ -36,6 +34,10 @@ dtruncchisq <- dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtruncchisq <- dtrunc.trunc_chisq
 
 #' @export
 init.parms.trunc_chisq <- function(y) {

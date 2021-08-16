@@ -18,12 +18,8 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
 	return(y)
 }
 
-
-#' @importFrom rmutil rinvgauss
-#' @rdname dtrunc
 #' @export
-#' @importFrom rmutil dinvgauss pinvgauss
-dtruncinvgauss <- dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {
@@ -41,6 +37,12 @@ dtruncinvgauss <- dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @importFrom rmutil rinvgauss
+#' @rdname dtrunc
+#' @export
+#' @importFrom rmutil dinvgauss pinvgauss
+dtruncinvgauss <- dtrunc.trunc_invgauss
 
 #' @export
 init.parms.trunc_invgauss <- function(y) {

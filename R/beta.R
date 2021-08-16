@@ -21,10 +21,7 @@ rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a, b) {
 }
 
 #' @export
-#' @importFrom stats dbeta pbeta
-#' @rdname dtrunc
-#' @export
-dtruncbeta <- dtrunc.trunc_beta <- function(y, eta, a, b) {
+dtrunc.trunc_beta <- function(y, eta, a, b) {
 	parm <- natural2parameters.trunc_beta(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dbeta(y, shape1 = parm[1], shape2 = parm[2]))
 	if (!missing(a)) {
@@ -40,6 +37,11 @@ dtruncbeta <- dtrunc.trunc_beta <- function(y, eta, a, b) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @importFrom stats dbeta pbeta
+#' @rdname dtrunc
+#' @export
+dtruncbeta <- dtrunc.trunc_beta
 
 #' @export
 init.parms.trunc_beta <- function(y) {

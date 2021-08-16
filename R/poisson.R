@@ -18,9 +18,7 @@ rtruncpois <- rtrunc.poisson <- function(n, lambda, a, b) {
 }
 
 #' @export
-#' @rdname dtrunc
-#' @export
-dtruncpois <- dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
+dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	parm <- exp(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))
 	if (!missing(a)) {
@@ -35,6 +33,10 @@ dtruncpois <- dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtruncpois <- dtrunc.trunc_poisson
 # Is this function used anywhere? Maybe it's the same as dtrunc.trunc_poisson above
 #density.trunc_poisson <- function(y, eta) {
 #	parms <- exp(eta)
