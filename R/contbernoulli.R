@@ -57,7 +57,9 @@ pcontbern <- function(x,lambda){
 }
 
 #' @export
-dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
+#' @rdname dtrunc
+#' @export
+dtrunccontbernoulli <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
 	lambda <- natural2parameters.trunc_contbern(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda=lambda))
 	if (!missing(a)) {

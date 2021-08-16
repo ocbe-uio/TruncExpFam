@@ -16,23 +16,6 @@ dtrunc <- function(y, eta, a, b) {
 # Aliases for dtrunc methods                               #
 # ======================================================== #
 
-#' @rdname dtrunc
-#' @export
-dtruncbeta <- dtrunc.trunc_beta
-
-#' @rdname dtrunc
-#' @param ... size
-#' @export
-dtruncbinom <- dtrunc.trunc_binomial
-
-#' @rdname dtrunc
-#' @export
-dtruncchisq <- dtrunc.trunc_chisq
-
-#' @rdname dtrunc
-#' @export
-dtrunccontbernoulli <- dtrunc.trunc_contbern
-
 # FIXME #47: No idea why R can't find the functions below. >:(
 
 # #' @rdname dtrunc
