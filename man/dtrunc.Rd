@@ -35,7 +35,7 @@ dtruncgamma(y, eta, a, b)
 
 dtruncinvgamma(y, eta, a, b)
 
-dtruncinvgauss(n, m, s, a = 0, b = Inf)
+dtruncinvgauss(y, eta, a = -Inf, b = Inf)
 
 dtrunclnorm(y, eta, a = -Inf, b = Inf)
 
