@@ -44,6 +44,10 @@ dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
 	return(dens / (F.b - F.a))
 }
 
+#' @rdname dtrunc
+#' @export
+dtrunclnorm <- dtrunc.trunc_lognormal
+
 #' @export
 init.parms.trunc_lognormal <- function(y) {
 	# Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)

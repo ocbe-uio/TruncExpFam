@@ -39,6 +39,12 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
 }
 
 #' @export
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncbinom <- dtrunc.trunc_binomial
+
+#' @export
 init.parms.trunc_binomial <- function(y, ...) {
 	# Returns empirical parameter estimate for lambda
 	parms <- mean(y / ...) # FIXME #19: should be y / size.

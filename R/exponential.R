@@ -19,7 +19,6 @@ rtruncexp <- rtrunc.exp <- function(n, rate=1, a, b) {
 }
 
 #' @export
-#' @importFrom stats dexp pexp
 dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
@@ -35,6 +34,12 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @export
+#' @importFrom stats dexp pexp
+#' @rdname dtrunc
+#' @export
+dtruncexp <- dtrunc.trunc_exp
 
 #' @export
 init.parms.trunc_exp <- function(y) {

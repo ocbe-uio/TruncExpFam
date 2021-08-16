@@ -38,6 +38,10 @@ dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @rdname dtrunc
+#' @export
+dtruncinvgamma <- dtrunc.trunc_invgamma
+
 #' @export
 init.parms.trunc_invgamma <- function(y) {
 	# Returns  parameter estimates mean and sd

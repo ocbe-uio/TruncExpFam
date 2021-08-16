@@ -33,6 +33,10 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	}
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtruncpois <- dtrunc.trunc_poisson
 # Is this function used anywhere? Maybe it's the same as dtrunc.trunc_poisson above
 #density.trunc_poisson <- function(y, eta) {
 #	parms <- exp(eta)

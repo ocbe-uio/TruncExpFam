@@ -35,6 +35,10 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
 	return(dens / (F.b - F.a))
 }
 
+#' @rdname dtrunc
+#' @export
+dtruncchisq <- dtrunc.trunc_chisq
+
 #' @export
 init.parms.trunc_chisq <- function(y) {
 	# Returns empirical parameter estimate for df
