@@ -2,7 +2,11 @@
 ##   Functions related to the inverse gaussian distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
+#' @param m vector of means
+#' @param s vector of dispersion parameters
+#' @rdname rtrunc
+#' @export
+rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
 	y <- rinvgauss(n, m, s)
 	if (!missing(a)) {
 		y <- y[y >= a]

@@ -8,7 +8,14 @@
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The effective sample size is reduced due to truncation.
 #' @author René Holst, Waldir Leôncio
-#' @details The best way to use this function is by calling the `rtrunc` generic with the `family` parameter of your choice. You can also specifically call one of the methods (e.g. `rtrunc.poisson(10, lambda=3)` instead of `rtrunc(10, family="poisson", lambda=3)), but the latter is more flexible (i.e., easily programmable) and more robust (i.e., it contains better error handling and validation procedures).
+#' @details One way to use this function is by calling the `rtrunc`
+#' generic with the `family` parameter of your choice. You can also
+#' specifically call one of the methods (e.g. `rtrunc.poisson(10, lambda=3)`
+#' instead of `rtrunc(10, family="poisson", lambda=3)). The latter is more
+#' flexible (i.e., easily programmable) and more robust (i.e., it contains
+#' better error handling and validation procedures), while the former better
+#' conforms with the nomenclature from other distribution-related functions in
+#' the \code{stats} package.
 #' @importFrom methods new
 #' @examples
 #' # Truncated binomial distribution
@@ -73,84 +80,3 @@ rtrunc <- function(n, family="gaussian", ...) {
 rtrunc.generic <- function(n, ...) {
 	UseMethod("rtrunc", n)
 }
-
-# ======================================================== #
-# Wrappers for rtrunc methods                              #
-# ======================================================== #
-
-# FIXME #57: using wrapper skips rtrunc() and, therefore, domain validation.
-# Possible solution: adding validateDomain methods to each rtrunc method.
-
-# TODO #56: Replace these aliases with @export <alias_name> in the original
-# function?
-
-#' @param shape1 positive shape parameter alpha
-#' @param shape2 positive shape parameter beta
-#' @rdname rtrunc
-#' @export
-rtruncbeta <- rtrunc.beta
-
-#' @param size number of size
-#' @param prob probability of success on each trial
-#' @rdname rtrunc
-#' @export
-rtruncbinom <- rtrunc.binomial
-
-#' @param df degrees of freedom for "parent" distribution
-#' @rdname rtrunc
-#' @export
-rtruncchisq <- rtrunc.chisq
-
-#' @param lambda mean of "parent" distribution
-#' @rdname rtrunc
-#' @export
-rtrunccontbernoulli <- rtrunc.contbernoulli
-
-#' @param rate vector of rates
-#' @rdname rtrunc
-#' @export
-rtruncexp <- rtrunc.exp
-
-#' @param shape shape of "parent" distribution
-#' @param rate rate of "parent" distribution
-#' @rdname rtrunc
-#' @export
-rtruncgamma <- rtrunc.gamma
-
-#' @param shape inverse gamma shape parameter
-#' @param rate inverse gamma rate parameter
-#' @rdname rtrunc
-#' @export
-rtruncinvgamma <- rtrunc.invgamma
-
-#' @param m vector of means
-#' @param s vector of dispersion parameters
-#' @rdname rtrunc
-#' @export
-rtruncinvgauss <- rtrunc.invgauss
-
-#' @param meanlog mean of un-truncated distribution
-#' @param sdlog standard deviation of un-truncated distribution
-#' @rdname rtrunc
-#' @export
-rtrunclnorm <- rtrunc.lognormal
-
-#' @param size target for number of successful trials,
-#' or dispersion parameter (the shape parameter of the gamma mixing
-#' distribution). Must be strictly positive, need not be integer.
-#' @param prob probability of success on each trial
-#' @param mu alternative parametrization via mean
-#' @rdname rtrunc
-#' @export
-rtruncnbinom <- rtrunc.nbinom
-
-#' @param mean mean of parent distribution
-#' @param sd standard deviation is parent distribution
-#' @rdname rtrunc
-#' @export
-rtruncnorm <- rtrunc.normal
-
-#' @param lambda mean and var of "parent" distribution
-#' @rdname rtrunc
-#' @export
-rtruncpois <- rtrunc.poisson

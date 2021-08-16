@@ -2,7 +2,10 @@
 ##   Functions related to the Poisson distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-rtrunc.poisson <- function(n, lambda, a, b) {
+#' @param lambda mean and var of "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncpois <- rtrunc.poisson <- function(n, lambda, a, b) {
 	y <- rpois(n, lambda)
 	if (!missing(a)) {
 		y <- y[y >= a]

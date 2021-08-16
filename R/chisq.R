@@ -3,7 +3,10 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom stats dchisq pchisq rchisq
-rtrunc.chisq <- function(n, df, a, b) {
+#' @param df degrees of freedom for "parent" distribution
+#' @rdname rtrunc
+#' @export
+rtruncchisq <- rtrunc.chisq <- function(n, df, a, b) {
 	y <- rchisq(n, df)
 	if (!missing(a)) {
 		y <- y[y >= a]
