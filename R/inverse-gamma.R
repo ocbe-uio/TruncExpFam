@@ -3,7 +3,11 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
 #' @importFrom invgamma rinvgamma
-rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
+#' @param shape inverse gamma shape parameter
+#' @param rate inverse gamma rate parameter
+#' @rdname rtrunc
+#' @export
+rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
   y <- rinvgamma(n, shape = shape, rate = rate)
   if (!missing(a)) {
     y <- y[y >= a]
@@ -33,6 +37,10 @@ dtrunc.trunc_invgamma <- function(y, eta, a, b) {
 	const <- 1 / (F.b - F.a)
 	return(dens / (F.b - F.a))
 }
+
+#' @rdname dtrunc
+#' @export
+dtruncinvgamma <- dtrunc.trunc_invgamma
 
 #' @export
 init.parms.trunc_invgamma <- function(y) {

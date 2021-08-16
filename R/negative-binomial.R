@@ -2,9 +2,15 @@
 ##   Functions related to the Negative Binomial distribution    ##
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats rnbinom
-rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
-  y <- rnbinom(n, size, prob, mu)
+#' @param size target for number of successful trials,
+#' or dispersion parameter (the shape parameter of the gamma mixing
+#' distribution). Must be strictly positive, need not be integer.
+#' @param prob probability of success on each trial
+#' @param mu alternative parametrization via mean
+#' @rdname rtrunc
+#' @export
+rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
+  y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]
   }
@@ -17,7 +23,10 @@ rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
 
 #' @export
 #' @importFrom stats dnbinom pnbinom
-dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 	my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
 	my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
 	proba <- exp(eta)
