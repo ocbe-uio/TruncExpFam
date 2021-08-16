@@ -33,6 +33,11 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b) {
 	}
 	return(dens / (F.b - F.a))
 }
+# Is this function used anywhere? Maybe it's the same as dtrunc.trunc_poisson above
+#density.trunc_poisson <- function(y, eta) {
+#	parms <- exp(eta)
+#	dpois(y, parms)
+#}
 
 #' @export
 init.parms.trunc_poisson <- function(y) {
@@ -50,11 +55,6 @@ average.T.trunc_poisson <- function(y) {
 	return(mean(y))
 }
 
-# Is this function used anywhere?
-#density.trunc_poisson <- function(y, eta) {
-#	parms <- exp(eta)
-#	dpois(y, parms)
-#}
 
 #' @export
 natural2parameters.trunc_poisson <- function(eta) {
