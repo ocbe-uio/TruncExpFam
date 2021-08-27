@@ -6,7 +6,7 @@
 #' @param sd standard deviation is parent distribution
 #' @rdname rtrunc
 #' @export
-rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a, b) {
+rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
 	y <- rnorm(n, mean, sd)
 	if (!missing(a)) {
 		y <- y[y >= a]

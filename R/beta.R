@@ -8,7 +8,7 @@
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
 #' @export
-rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a, b) {
+rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
   y <- rbeta(n, shape1, shape2)
   if (!missing(a)) {
     y <- y[y >= a]
@@ -21,7 +21,7 @@ rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a, b) {
 }
 
 #' @export
-dtrunc.trunc_beta <- function(y, eta, a, b) {
+dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
 	parm <- natural2parameters.trunc_beta(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dbeta(y, shape1 = parm[1], shape2 = parm[2]))
 	if (!missing(a)) {

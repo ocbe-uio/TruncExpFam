@@ -6,7 +6,7 @@
 #' @param sdlog standard deviation of un-truncated distribution
 #' @rdname rtrunc
 #' @export
-rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
+rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = -Inf, b = Inf) {
 	y <- rlnorm(n, meanlog, sdlog)
 	if (!missing(a)) {
 		y <- y[y >= a]
