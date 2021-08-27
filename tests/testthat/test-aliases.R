@@ -56,6 +56,10 @@ test_that("Output of rtrunc matches stats::r*", {
 		expected = {set.seed(1); rtrunc(50, shape=4, rate=5, family="gamma")}
 	)
 	expect_setequal(
+		object   = {set.seed(1); rgamma(50, shape=4, scale=6)},
+		expected = {set.seed(1); rtrunc(50, shape=4, scale=6, family="gamma")}
+	)
+	expect_setequal(
 		object   = {set.seed(1); rlnorm(50, meanlog=7, sdlog=2)},
 		expected = {set.seed(1); rtrunc(50, meanlog=7, sdlog=2, family="lognormal")}
 	)
