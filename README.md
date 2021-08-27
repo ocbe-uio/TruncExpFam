@@ -1,3 +1,5 @@
+<img src="logo.png" width=25%>
+
 # TruncExpFam
 
 This is an R package to handle truncated members from the exponential family.
