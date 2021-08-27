@@ -5,10 +5,13 @@
 #' @importFrom invgamma rinvgamma
 #' @param shape inverse gamma shape parameter
 #' @param rate inverse gamma rate parameter
+#' @param scale inverse gamma scale parameter
 #' @rdname rtrunc
 #' @export
-rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
-  y <- rinvgamma(n, shape = shape, rate = rate)
+rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, scale=1/rate,
+	a=0, b=Inf)
+{
+  y <- rinvgamma(n, shape = shape, scale = scale)
   if (!missing(a)) {
     y <- y[y >= a]
   }

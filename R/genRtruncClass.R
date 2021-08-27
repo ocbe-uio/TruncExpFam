@@ -52,6 +52,10 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			family = c("invgamma"),
 			parms  = c("shape", "rate")
 		),
+		invgamma = list(
+			family = c("invgamma"),
+			parms  = c("shape", "scale")
+		),
 		invgauss = list(
 			family = c("invgauss"),
 			parms  = c("m", "s")

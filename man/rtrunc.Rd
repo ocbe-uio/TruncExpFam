@@ -33,7 +33,7 @@ rtruncexp(n, rate = 1, a, b)
 
 rtruncgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
-rtruncinvgamma(n, shape, rate = 1, a = 0, b = Inf)
+rtruncinvgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
 rtruncinvgauss(n, m, s, a = 0, b = Inf)
 
@@ -74,7 +74,7 @@ distribution). Must be strictly positive, need not be integer.}
 
 \item{shape}{inverse gamma shape parameter}
 
-\item{scale}{scale of "parent" distribution}
+\item{scale}{inverse gamma scale parameter}
 
 \item{m}{vector of means}
 
