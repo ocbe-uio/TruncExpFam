@@ -4,10 +4,13 @@
 
 #' @param shape shape of "parent" distribution
 #' @param rate rate of "parent" distribution
+#' @param scale scale of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtruncgamma <- rtrunc.gamma <- function(n, shape, rate=1, a=0, b=Inf) {
-	y <- rgamma(n, shape = shape, rate = rate)
+rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1/rate,
+	a = 0, b=Inf)
+{
+	y <- rgamma(n, shape = shape, scale = scale)
 	if (!missing(a)) {
 		y <- y[y >= a]
 	}

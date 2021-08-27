@@ -31,9 +31,9 @@ rtrunccontbernoulli(n, lambda, a, b = 1)
 
 rtruncexp(n, rate = 1, a, b)
 
-rtruncgamma(n, shape, rate = 1, a = 0, b = Inf)
+rtruncgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
-rtruncinvgamma(n, shape, rate = 1, a = 0, b = Inf)
+rtruncinvgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
 rtruncinvgauss(n, m, s, a = 0, b = Inf)
 
@@ -73,6 +73,8 @@ distribution). Must be strictly positive, need not be integer.}
 \item{rate}{inverse gamma rate parameter}
 
 \item{shape}{inverse gamma shape parameter}
+
+\item{scale}{inverse gamma scale parameter}
 
 \item{m}{vector of means}
 
