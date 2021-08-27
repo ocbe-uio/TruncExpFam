@@ -6,7 +6,7 @@
 #' @param df degrees of freedom for "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtruncchisq <- rtrunc.chisq <- function(n, df, a, b) {
+rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
 	y <- rchisq(n, df)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -19,7 +19,7 @@ rtruncchisq <- rtrunc.chisq <- function(n, df, a, b) {
 }
 
 #' @export
-dtrunc.trunc_chisq <- function(y, eta, a = 0, b) {
+dtrunc.trunc_chisq <- function(y, eta, a = 0, b = Inf) {
 	df <- natural2parameters.trunc_chisq(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df=df))
 	if (!missing(a)) {

@@ -9,7 +9,7 @@
 #' @param mu alternative parametrization via mean
 #' @rdname rtrunc
 #' @export
-rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
+rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0,b=Inf) {
   y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]
@@ -26,7 +26,7 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
 #' @rdname dtrunc
 #' @param ... size
 #' @export
-dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
+dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
 	my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
 	my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
 	proba <- exp(eta)

@@ -6,7 +6,7 @@
 #' @param rate vector of rates
 #' @rdname rtrunc
 #' @export
-rtruncexp <- rtrunc.exp <- function(n, rate=1, a, b) {
+rtruncexp <- rtrunc.exp <- function(n, rate=1, a = 0, b = Inf) {
   y <- rexp(n, rate)
   if (!missing(a)) {
     y <- y[y >= a]
@@ -19,7 +19,7 @@ rtruncexp <- rtrunc.exp <- function(n, rate=1, a, b) {
 }
 
 #' @export
-dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
+dtrunc.trunc_exp <- function(y, eta, a = 0, b = Inf) {
 	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {

@@ -19,7 +19,7 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
 }
 
 #' @export
-dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_invgauss <- function(y, eta, a = 0, b = Inf) {
 	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {

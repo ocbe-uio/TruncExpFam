@@ -6,7 +6,7 @@
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtrunccontbernoulli <- rtrunc.contbernoulli <- function(n, lambda, a, b = 1) {
+rtrunccontbernoulli <- rtrunc.contbernoulli <- function(n, lambda, a = 0, b = 1) {
 	# Sampling function for a continuous bernoulli distribution
 	# This distribution is not implemented in Base R
 	# Used in the sampling of the truncated continuous bernoulli
@@ -59,7 +59,7 @@ pcontbern <- function(x,lambda){
 #' @export
 #' @rdname dtrunc
 #' @export
-dtrunccontbernoulli <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b) {
+dtrunccontbernoulli <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
 	lambda <- natural2parameters.trunc_contbern(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda=lambda))
 	if (!missing(a)) {
