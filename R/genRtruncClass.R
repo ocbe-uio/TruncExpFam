@@ -44,6 +44,10 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			family = c("gamma"),
 			parms  = c("shape", "rate")
 		),
+		gamma = list(
+			family = c("gamma"),
+			parms  = c("shape", "scale")
+		),
 		invgamma = list(
 			family = c("invgamma"),
 			parms  = c("shape", "rate")
@@ -53,7 +57,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			parms  = c("m", "s")
 		),
 		lognormal = list(
-			family = c("lognormal", "lognormal"),
+			family = c("lognormal"),
 			parms  = c("meanlog", "sdlog")
 		),
 		nbinom = list(
@@ -64,33 +68,39 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			family = c("normal", "gaussian"),
 			parms  = c("mean", "sd")
 		),
+		gaussian = list(
+			family = c("normal", "gaussian"),
+			parms  = c("mean", "sd")
+		),
 		poisson = list(
 			family = c("poisson"),
 			parms  = c("lambda")
 		)
 	)
 	matched <- list(family = FALSE, parameters = FALSE)
-	for (fam in names(valid_fam_parm)) {
+	families <- grep(family, names(valid_fam_parm))
+	for (fam in families) {
 		if (any(family == valid_fam_parm[[fam]]$family)) {
 			if(verbose) message("Matched family: ", family)
 			matched$family <- TRUE
 			family <- valid_fam_parm[[fam]]$family[1] # use standard family name
 			parms_text <- paste(parms, collapse=", ")
 			parms_expected <- valid_fam_parm[[fam]]$parms
-			parms_expected_text <- paste(parms_expected, collapse=", ")
 			if (all(sort(parms) == sort(parms_expected))) {
 				if (verbose) message("Matched parameters: ", parms_text)
 				matched$parameters <- TRUE
-			} else {
-				stop(
-					"The {", parms_text, "} ",
-					"parameter set does not match the ", family, " family. ",
-					"Expected set of parameters: {", parms_expected_text, "}. ",
-					"Please change the family to match the expected ",
-					"parameters or use a different family."
-				)
 			}
 		}
+	}
+	if (!matched$parameters) {
+		parms_expected_text <- paste(unlist(parms_expected), collapse=", ")
+		stop(
+			"The {", parms_text, "} ",
+			"parameter set does not match the ", family, " family. ",
+			"Expected set of parameters: {", parms_expected_text, "}. ",
+			"Please change the family to match the expected ",
+			"parameters or use a different family."
+		)
 	}
 	return(list(is_valid = all(unlist(matched)), family_name = family))
 }
