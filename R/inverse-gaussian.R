@@ -66,14 +66,18 @@ averageT.trunc_invgauss <- function(y) {
 natural2parameters.trunc_invgauss <- function(eta) {
 	# eta: The natural parameters in an inverse gaussian distribution
 	# returns (mean,shape)
-	return(c(mean = sqrt(eta[2] / eta[1]), shape = -2*eta[2]))
+	parms <- c(mean = sqrt(eta[2] / eta[1]), shape = -2*eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_invgauss <- function(parms) {
 	# parms: The parameters mean and shape in a normal distribution
 	# returns the natural parameters
-	return(c(eta.1 = -parms[2]/(2*parms[1]^2), eta.2 = -0.5*parms[2]))
+	eta <- c(eta.1 = -parms[2]/(2*parms[1]^2), eta.2 = -0.5*parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {

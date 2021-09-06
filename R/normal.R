@@ -61,14 +61,18 @@ averageT.trunc_normal <- function(y) {
 natural2parameters.trunc_normal <- function(eta) {
 	# eta: The natural parameters in a normal distribution
 	# returns (mean,sigma)
-	return(c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2])))
+	parms <- c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2]))
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_normal <- function(parms) {
 	# parms: The parameters mean and sd in a normal distribution
 	# returns the natural parameters
-	return(c(eta.1 = parms[1], eta.2 = -0.5) / parms[2]^2)
+	eta <- c(eta.1 = parms[1], eta.2 = -0.5) / parms[2]^2
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getYseq.trunc_normal <- function(y, y.min, y.max, n = 100) {

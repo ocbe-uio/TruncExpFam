@@ -63,14 +63,18 @@ averageT.trunc_nbinom <- function(y) {
 natural2parameters.trunc_nbinom <- function(eta) {
 	# eta: The natural parameters in a negative binomial distribution
 	# returns (mean,sigma)
-	return(c(p = exp(eta)))
+	p <- exp(eta)
+	class(p) <- class(eta)
+	return(p)
 }
 
 #' @export
 parameters2natural.trunc_nbinom <- function(parms) {
 	# parms: The p parameter in a negative binomial distribution
 	# returns the natural parameters
-	return(eta = log(parms))
+	eta <- log(parms)
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getGradETinv.trunc_nbinom <- function(eta) {

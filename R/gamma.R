@@ -66,14 +66,18 @@ averageT.trunc_gamma <- function(y) {
 natural2parameters.trunc_gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
 	# returns (shape,rate)
-	return(c(shape = eta[1] + 1, rate = -eta[2]))
+	parms <- c(shape = eta[1] + 1, rate = -eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution
 	# returns the natural parameters
-  return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
+	eta <- c(eta.1 = parms[1] - 1, eta.2 = -parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {

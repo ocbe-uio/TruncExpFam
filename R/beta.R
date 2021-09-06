@@ -67,14 +67,18 @@ averageT.trunc_beta <- function(y) {
 natural2parameters.trunc_beta <- function(eta) {
 	# eta: The natural parameters in a beta distribution
 	# returns (alpha,beta)
-	return(c(shape1 = eta[1], shape2 = eta[2]))
+	parms <- c(shape1 = eta[1], shape2 = eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_beta <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
-	return(c(shape1 = parms[1], shape2 = parms[2]))
+	eta <- c(shape1 = parms[1], shape2 = parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getYseq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {

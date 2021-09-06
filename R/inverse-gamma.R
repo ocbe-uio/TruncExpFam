@@ -69,14 +69,18 @@ averageT.trunc_invgamma <- function(y) {
 natural2parameters.trunc_invgamma <- function(eta) {
 	# eta: The natural parameters in a inverse gamma distribution
 	# returns (shape,rate)
-	return(c(shape = -eta[1]-1, rate =-eta[2]))
+	parms <- c(shape = -eta[1]-1, rate =-eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_invgamma <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
-	return(c(shape = -parms[1]-1, rate = -parms[2]))
+	eta <- c(shape = -parms[1]-1, rate = -parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {

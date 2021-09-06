@@ -69,14 +69,18 @@ density.trunc_binomial <- function(y, eta, ...) {
 natural2parameters.trunc_binomial <- function(eta) {
 	# eta: The natural parameters in a binomial distribution
 	# returns (p)
-	return(p = 1 / (1 + exp(-eta)))
+	p <- 1 / (1 + exp(-eta))
+	class(p) <- class(eta)
+	return(p)
 }
 
 #' @export
 parameters2natural.trunc_binomial <- function(parms) {
 	# parms: The probability parameter p in a binomial distribution
 	# returns the natural parameters
-	return(eta = log(parms / (1 - parms)))
+	eta <- log(parms / (1 - parms))
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getGradETinv.trunc_binomial <- function(eta, ...) {

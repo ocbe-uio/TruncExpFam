@@ -61,14 +61,18 @@ averageT.trunc_exp <- function(y) {
 natural2parameters.trunc_exp <- function(eta) {
 	# eta: The natural parameters in an exponential distribution distribution
 	# returns rate
-	return(c(lamda = -eta))
+	lambda <- -eta
+	class(lambda) <- class(eta)
+	return(lambda)
 }
 
 #' @export
 parameters2natural.trunc_exp <- function(parms) {
 	# parms: The parameter lambda in an exponential distribution
 	# returns the natural parameters
-	return(eta = -parms)
+	eta <- -parms
+	class(eta) <- class(parms)
+	return(eta)
 }
 
 getGradETinv.trunc_exp <- function(eta) {
