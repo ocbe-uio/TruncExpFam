@@ -86,7 +86,7 @@ mlEstimationTruncDist <- function(
 		if (print.iter) {
 			if (it %% as.numeric(print.iter) == 0) {
 				cat(
-					"it: ", it, "tol: ", delta.L2, " - parm: ",
+					"it: ", it, "delta: ", delta.L2, " - parm: ",
 					round(parm.j, 3), "\n"
 				)
 			}
