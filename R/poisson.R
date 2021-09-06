@@ -51,11 +51,11 @@ init.parms.trunc_poisson <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_poisson <- function(y) {
+sufficientT.trunc_poisson <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_poisson <- function(y) {
+averageT.trunc_poisson <- function(y) {
 	return(mean(y))
 }
 
@@ -64,23 +64,27 @@ average.T.trunc_poisson <- function(y) {
 natural2parameters.trunc_poisson <- function(eta) {
 	# eta: The natural parameters in a Poisson distribution
 	# returns (mean,sigma)
-	return(c(lambda = exp(eta)))
+	lambda <- c(lambda = exp(eta))
+	class(lambda) <- class(eta)
+	return(lambda)
 }
 
 #' @export
 parameters2natural.trunc_poisson <- function(parms) {
 	# parms: The parameter lambda in a Poisson distribution
 	# returns the natural parameters
-	return(eta = log(parms))
+	eta <- log(parms)
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.grad.E.T.inv.trunc_poisson <- function(eta) {
+getGradETinv.trunc_poisson <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	return(A = exp(-eta))
 }
 
-get.y.seq.trunc_poisson <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_poisson <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)

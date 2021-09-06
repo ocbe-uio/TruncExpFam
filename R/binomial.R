@@ -52,11 +52,11 @@ init.parms.trunc_binomial <- function(y, ...) {
 	return(parms)
 }
 
-sufficient.T.trunc_binomial <- function(y) {
+sufficientT.trunc_binomial <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_binomial <- function(y) {
+averageT.trunc_binomial <- function(y) {
 	return(mean(y))
 }
 
@@ -69,24 +69,28 @@ density.trunc_binomial <- function(y, eta, ...) {
 natural2parameters.trunc_binomial <- function(eta) {
 	# eta: The natural parameters in a binomial distribution
 	# returns (p)
-	return(p = 1 / (1 + exp(-eta)))
+	p <- 1 / (1 + exp(-eta))
+	class(p) <- class(eta)
+	return(p)
 }
 
 #' @export
 parameters2natural.trunc_binomial <- function(parms) {
 	# parms: The probability parameter p in a binomial distribution
 	# returns the natural parameters
-	return(eta = log(parms / (1 - parms)))
+	eta <- log(parms / (1 - parms))
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.grad.E.T.inv.trunc_binomial <- function(eta, ...) {
+getGradETinv.trunc_binomial <- function(eta, ...) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	exp.eta <- exp(eta)
 	return(A = ((1 + exp.eta)^2 / exp.eta) / ...)
 }
 
-get.y.seq.trunc_binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
+getYseq.trunc_binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
 	nsize <- 0 + ...
 	y.lo <- round(y.min)
 	y.hi <- round(y.max)

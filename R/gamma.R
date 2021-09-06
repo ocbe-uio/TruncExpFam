@@ -54,11 +54,11 @@ init.parms.trunc_gamma <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_gamma <- function(y) {
+sufficientT.trunc_gamma <- function(y) {
 	return(suff.T = cbind(log(y), y))
 }
 
-average.T.trunc_gamma <- function(y) {
+averageT.trunc_gamma <- function(y) {
 	return(apply(cbind(log(y), y), 2, mean))
 }
 
@@ -66,17 +66,21 @@ average.T.trunc_gamma <- function(y) {
 natural2parameters.trunc_gamma <- function(eta) {
 	# eta: The natural parameters in a gamma distribution
 	# returns (shape,rate)
-	return(c(shape = eta[1] + 1, rate = -eta[2]))
+	parms <- c(shape = eta[1] + 1, rate = -eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_gamma <- function(parms) {
 	# parms: The parameters shape and rate in a gamma distribution
 	# returns the natural parameters
-  return(c(eta.1 = parms[1] - 1, eta.2 = -parms[2]))
+	eta <- c(eta.1 = parms[1] - 1, eta.2 = -parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.y.seq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
+getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 	# Bør chekkes
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
@@ -85,7 +89,7 @@ get.y.seq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 	return(seq(lo, hi, length = n))
 }
 
-get.grad.E.T.inv.trunc_gamma <- function(eta) {
+getGradETinv.trunc_gamma <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
 	return(A = solve(matrix(c(-1 / eta[1]^2 + dpsi.dx(eta[1]), -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2), ncol = 2)))

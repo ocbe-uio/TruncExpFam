@@ -47,11 +47,11 @@ init.parms.trunc_chisq <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_chisq <- function(y) {
+sufficientT.trunc_chisq <- function(y) {
 	return(suff.T = log(y))
 }
 
-average.T.trunc_chisq <- function(y) {
+averageT.trunc_chisq <- function(y) {
 	return(mean(y))
 }
 
@@ -59,27 +59,31 @@ average.T.trunc_chisq <- function(y) {
 natural2parameters.trunc_chisq <- function(eta) {
 	# eta: The natural parameters in a Chi Square distribution
 	# returns df
-	return(c(parms = 2*(eta+1)))
+	df <- c(parms = 2 * (eta + 1))
+	class(df) <- class(eta)
+	return(df)
 }
 
 #' @export
 parameters2natural.trunc_chisq <- function(parms) {
 	# parms: The parameter lambda in a Chi Square distribution
 	# returns the natural parameters
-	return(eta = parms/2-1)
+	eta <- parms / 2 - 1
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.grad.E.T.inv.trunc_chisq <- function(eta) {
+getGradETinv.trunc_chisq <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	return(A = 1/sum(1/(eta+(1:1000000))^2))
 }
 
-get.y.seq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
 	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
-	return(	return(seq(lo, hi, length = n))
+	return(seq(lo, hi, length = n)
 )
 }

@@ -84,11 +84,11 @@ init.parms.trunc_contbern <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_contbern <- function(y) {
+sufficientT.trunc_contbern <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_contbern <- function(y) {
+averageT.trunc_contbern <- function(y) {
 	return(mean(y))
 }
 
@@ -96,17 +96,21 @@ average.T.trunc_contbern <- function(y) {
 natural2parameters.trunc_contbern <- function(eta) {
 	# eta: The natural parameters in a continuous bernoulli distribution distribution
 	# returns rate
-	return(c(lamda = 1/(1+exp(-eta))))
+	rate <- c(lamda = 1 / (1 + exp(-eta)))
+	class(rate) <- class(eta)
+	return(rate)
 }
 
 #' @export
 parameters2natural.trunc_contbern <- function(parms) {
 	# parms: The parameter lambda in a continuous bernoulli distribution
 	# returns the natural parameters
-	return(eta = log(parms/(1-parms)))
+	eta <- log(parms / (1 - parms))
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.y.seq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   mean <- mean(y, na.rm = T)
   var.y <- var(y, na.rm = T)
   lo <- max(round(y.min), 0)
@@ -115,7 +119,7 @@ get.y.seq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   )
 }
 
-get.grad.E.T.inv.trunc_contbern <- function(eta) {
+getGradETinv.trunc_contbern <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
   exp.eta=exp(eta)
