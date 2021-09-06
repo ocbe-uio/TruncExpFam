@@ -29,6 +29,7 @@ rtrunccontbernoulli <- rtrunc.contbernoulli <- function(n, lambda, a = 0, b = 1)
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_contbern"
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)))
 	return(y)
 }
 

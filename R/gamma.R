@@ -18,6 +18,7 @@ rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1/rate,
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_gamma"
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)))
 	return(y)
 }
 

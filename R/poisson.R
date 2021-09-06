@@ -14,6 +14,7 @@ rtruncpois <- rtrunc.poisson <- function(n, lambda, a = 0, b = Inf) {
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_poisson"
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)))
 	return(y)
 }
 

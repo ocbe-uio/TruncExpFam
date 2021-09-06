@@ -73,6 +73,11 @@ rtrunc <- function(n, family="gaussian", ...) {
 		sample <- c(sample, new_obs)
 		class(sample) <- class(new_obs)
 	}
+
+	# Attaching attributes -----------------------------------------------------
+	sample <- attachDistroAttributes(sample, trunc_class)
+
+	# Returning sampled elements -----------------------------------------------
 	return(sample)
 }
 
@@ -135,4 +140,9 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 		)
 	}
 	return(list(is_valid = all(unlist(matched)), family_name = family))
+}
+
+attachDistroAttributes <- function(sample, family) {
+	attr(sample, "continuous") <- valid_fam_parm[[family]]$cont
+	return(sample)
 }
