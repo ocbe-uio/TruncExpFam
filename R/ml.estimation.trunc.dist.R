@@ -70,8 +70,6 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
 	y.seq <- getYseq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations
-	# TODO: make getYseq use class of input
-	class(y.seq) <- class(y) #TEMP
 	it <- 0
 	delta.L2 <- 10000
 	# Now iterate

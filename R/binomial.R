@@ -96,5 +96,7 @@ getYseq.trunc_binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
 	y.hi <- round(y.max)
 	lo <- max(y.lo, 0)
 	hi <- min(y.max, nsize)
-	return(lo:hi)
+	out <- seq(lo, hi)
+	class(out) <- class(y)
+	return(out)
 }
