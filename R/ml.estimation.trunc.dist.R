@@ -7,7 +7,7 @@
 #' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
 #' @param print.iter Print information about each iteration?
-#' @param ... other parameters passed to the get.y.seq subfunctions
+#' @param ... other parameters passed to the getYseq subfunctions
 #' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
 #' @author René Holst
@@ -46,11 +46,11 @@
 #' )
 #' @export
 mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = FALSE, ...) {
-	get.T.minus.E.T <- function(eta) {
+	getTminusET <- function(eta) {
 		# Calculates T.bar-E(T|eta_j) by numerical integration
 		delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
 		trunc.density <- density.trunc(y.seq, eta, y.min, y.max) # L vector
-		T.f <- sufficient.T(y.seq) * trunc.density # L x p matrix
+		T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
 		if (length(eta) > 1) {
 			E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
 			if (cont.dist == T) {
@@ -70,74 +70,69 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 	# Some initialisations
 	if (is(y, "trunc_normal")) {
 		if (as.numeric(print.iter) > 0) message("Normal\n")
-		init.parms <- init.parms.trunc_normal
-		sufficient.T <- sufficient.T.trunc_normal
-		average.T <- average.T.trunc_normal
+		sufficientT <- sufficientT.trunc_normal
+		averageT <- averageT.trunc_normal
 		natural2parameters <- natural2parameters.trunc_normal
 		parameters2natural <- parameters2natural.trunc_normal
 		density.trunc <- dtrunc.trunc_normal
-		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_normal
-		get.y.seq <- get.y.seq.trunc_normal
+		getGradETinv <- getGradETinv.trunc_normal
+		getYseq <- getYseq.trunc_normal
 		cont.dist <- T
 	}
 	if (is(y, "trunc_lognormal")) {
 		if (as.numeric(print.iter) > 0) message("Log Normal\n")
-		init.parms <- init.parms.trunc_lognormal
-		sufficient.T <- sufficient.T.trunc_lognormal
-		average.T <- average.T.trunc_lognormal
+		sufficientT <- sufficientT.trunc_lognormal
+		averageT <- averageT.trunc_lognormal
 		natural2parameters <- natural2parameters.trunc_normal
 		parameters2natural <- parameters2natural.trunc_normal
 		density.trunc <- dtrunc.trunc_lognormal
-		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_normal
-		get.y.seq <- get.y.seq.trunc_lognormal
+		getGradETinv <- getGradETinv.trunc_normal
+		getYseq <- getYseq.trunc_lognormal
 		cont.dist <- T
 	}
 	if (is(y, "trunc_gamma")) {
 		if (as.numeric(print.iter) > 0) message("Gamma\n")
-		init.parms <- init.parms.trunc_gamma
-		sufficient.T <- sufficient.T.trunc_gamma
-		average.T <- average.T.trunc_gamma
+		sufficientT <- sufficientT.trunc_gamma
+		averageT <- averageT.trunc_gamma
 		natural2parameters <- natural2parameters.trunc_gamma
 		parameters2natural <- parameters2natural.trunc_gamma
 		density.trunc <- dtrunc.trunc_gamma
-		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_gamma
-		get.y.seq <- get.y.seq.trunc_gamma
+		getGradETinv <- getGradETinv.trunc_gamma
+		getYseq <- getYseq.trunc_gamma
 		cont.dist <- T
 	}
 	if (is(y, "trunc_poisson")) {
 		if (as.numeric(print.iter) > 0) message("Poisson\n")
-		init.parms <- init.parms.trunc_poisson
-		sufficient.T <- sufficient.T.trunc_poisson
-		average.T <- average.T.trunc_poisson
+		sufficientT <- sufficientT.trunc_poisson
+		averageT <- averageT.trunc_poisson
 		natural2parameters <- natural2parameters.trunc_poisson
 		parameters2natural <- parameters2natural.trunc_poisson
 		density.trunc <- dtrunc.trunc_poisson
-		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_poisson
-		get.y.seq <- get.y.seq.trunc_poisson
+		getGradETinv <- getGradETinv.trunc_poisson
+		getYseq <- getYseq.trunc_poisson
 		cont.dist <- F
 	}
 	if (is(y, "trunc_binomial")) {
 		if (as.numeric(print.iter) > 0) message("Binomial\n")
-		init.parms <- init.parms.trunc_binomial
-		sufficient.T <- sufficient.T.trunc_binomial
-		average.T <- average.T.trunc_binomial
+		sufficientT <- sufficientT.trunc_binomial
+		averageT <- averageT.trunc_binomial
 		natural2parameters <- natural2parameters.trunc_binomial
 		parameters2natural <- parameters2natural.trunc_binomial
 		density.trunc <- dtrunc.trunc_binomial
-		get.grad.E.T.inv <- get.grad.E.T.inv.trunc_binomial
-		get.y.seq <- get.y.seq.trunc_binomial
+		getGradETinv <- getGradETinv.trunc_binomial
+		getYseq <- getYseq.trunc_binomial
 		cont.dist <- F
 	}
-	T.avg <- average.T(y)
+	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
-	y.seq <- get.y.seq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations
+	y.seq <- getYseq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations
 	it <- 0
 	delta.L2 <- 10000
 	# Now iterate
 	while ((delta.L2 > tol) & (it < max.it)) {
 		parm.j <- natural2parameters(eta.j)
-		T.minus.E.T <- get.T.minus.E.T(eta.j)
-		grad.E.T.inv <- get.grad.E.T.inv(eta.j) # p x p
+		T.minus.E.T <- getTminusET(eta.j)
+		grad.E.T.inv <- getGradETinv(eta.j) # p x p
 		delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
 		eta.j <- eta.j + delta.eta.j.plus.1
 		delta.L2 <- sum(delta.eta.j.plus.1^2)

@@ -51,11 +51,11 @@ init.parms.trunc_nbinom <- function(y) {
 	return(mean(y))
 }
 
-sufficient.T.trunc_nbinom <- function(y) {
+sufficientT.trunc_nbinom <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_nbinom <- function(y) {
+averageT.trunc_nbinom <- function(y) {
 	return(mean(y))
 }
 
@@ -73,7 +73,7 @@ parameters2natural.trunc_nbinom <- function(parms) {
 	return(eta = log(parms))
 }
 
-get.grad.E.T.inv.trunc_nbinom <- function(eta) {
+getGradETinv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	p <- exp(eta)
@@ -81,7 +81,7 @@ get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 # Possible solution: adding validateDomain methods to each rtrunc method.# FIXME #41: r not defined. René is looking into this.
 }
 
-get.y.seq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)

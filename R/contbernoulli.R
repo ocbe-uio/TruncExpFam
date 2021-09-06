@@ -84,11 +84,11 @@ init.parms.trunc_contbern <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_contbern <- function(y) {
+sufficientT.trunc_contbern <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_contbern <- function(y) {
+averageT.trunc_contbern <- function(y) {
 	return(mean(y))
 }
 
@@ -106,7 +106,7 @@ parameters2natural.trunc_contbern <- function(parms) {
 	return(eta = log(parms/(1-parms)))
 }
 
-get.y.seq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   mean <- mean(y, na.rm = T)
   var.y <- var(y, na.rm = T)
   lo <- max(round(y.min), 0)
@@ -115,7 +115,7 @@ get.y.seq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   )
 }
 
-get.grad.E.T.inv.trunc_contbern <- function(eta) {
+getGradETinv.trunc_contbern <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
   exp.eta=exp(eta)

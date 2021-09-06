@@ -18,12 +18,12 @@ rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = -Inf, b = Inf
 	return(y)
 }
 
-sufficient.T.trunc_lognormal <- function(y) {
+sufficientT.trunc_lognormal <- function(y) {
 	return(suff.T = cbind(log(y), log(y)^2))
 }
 
-average.T.trunc_lognormal <- function(y) {
-	return(apply(sufficient.T.trunc_lognormal(y), 2, mean))
+averageT.trunc_lognormal <- function(y) {
+	return(apply(sufficientT.trunc_lognormal(y), 2, mean))
 }
 
 #' @export
@@ -59,7 +59,7 @@ init.parms.trunc_lognormal <- function(y) {
 	return(parms)
 }
 
-get.y.seq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
+getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 	x <- log(y)
 	mean <- mean(x, na.rm = T)
 	sd <- var(x, na.rm = T)^0.5

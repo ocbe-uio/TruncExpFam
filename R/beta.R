@@ -55,11 +55,11 @@ init.parms.trunc_beta <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_beta <- function(y) {
+sufficientT.trunc_beta <- function(y) {
 	return(suff.T = cbind(log(y), log(1-y)))
 }
 
-average.T.trunc_beta <- function(y) {
+averageT.trunc_beta <- function(y) {
 	return(apply(cbind(log(y), log(1-y)), 2, mean))
 }
 
@@ -77,7 +77,7 @@ parameters2natural.trunc_beta <- function(parms) {
 	return(c(shape1 = parms[1], shape2 = parms[2]))
 }
 
-get.y.seq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
+getYseq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	# needs chekking
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
@@ -86,7 +86,7 @@ get.y.seq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	return(seq(lo, hi, length = n))
 }
 
-get.grad.E.T.inv.trunc_beta <- function(eta) {
+getGradETinv.trunc_beta <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   term.1=sum(1/(((1:10000)+eta[1]))^2)

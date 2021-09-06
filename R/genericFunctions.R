@@ -36,3 +36,4 @@ natural2parameters <- function(eta) {
 parameters2natural <- function(parms) {
 	UseMethod("parameters2natural")
 }
+

@@ -30,7 +30,7 @@ mlEstimationTruncDist(
 
 \item{print.iter}{Print information about each iteration?}
 
-\item{...}{other parameters passed to the get.y.seq subfunctions}
+\item{...}{other parameters passed to the getYseq subfunctions}
 }
 \description{
 ML-estimation of the parameters of the distribution of the specified family, truncated at y.min and y.max

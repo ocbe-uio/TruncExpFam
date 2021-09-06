@@ -57,11 +57,11 @@ init.parms.trunc_invgamma <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_invgamma <- function(y) {
+sufficientT.trunc_invgamma <- function(y) {
 	return(suff.T = cbind(log(y), 1/y))
 }
 
-average.T.trunc_invgamma <- function(y) {
+averageT.trunc_invgamma <- function(y) {
 	return(apply(cbind(log(y), 1/y), 2, mean))
 }
 
@@ -79,7 +79,7 @@ parameters2natural.trunc_invgamma <- function(parms) {
 	return(c(shape = -parms[1]-1, rate = -parms[2]))
 }
 
-get.y.seq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
+getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
 	# needs chekking
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
@@ -88,7 +88,7 @@ get.y.seq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
 	return(seq(lo, hi, length = n))
 }
 
-get.grad.E.T.inv.trunc_invgamma <- function(eta) {
+getGradETinv.trunc_invgamma <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A.11=sum(1/(((0:10000)+eta[1]+1))^2)
