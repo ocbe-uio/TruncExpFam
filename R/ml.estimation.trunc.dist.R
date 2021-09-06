@@ -46,27 +46,6 @@
 #' )
 #' @export
 mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = FALSE, ...) {
-	getTminusET <- function(eta) {
-		# Calculates T.bar-E(T|eta_j) by numerical integration
-		delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
-		trunc.density <- density.trunc(y.seq, eta, y.min, y.max) # L vector
-		T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
-		if (length(eta) > 1) {
-			E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
-			if (cont.dist == T) {
-				E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1, ] + T.f[length(y.seq), ])
-			}
-		}
-		else {
-			E.T.j <- delta.y * sum(T.f)
-			if (cont.dist == T) {
-				E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1] + T.f[length(y.seq)])
-			}
-		}
-		T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
-		return(T.bar.minus.E.T.j)
-	}
-
 	# Some initialisations
 	if (is(y, "trunc_normal")) {
 		if (as.numeric(print.iter) > 0) message("Normal\n")
@@ -126,12 +105,13 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
 	y.seq <- getYseq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations
+	class(y.seq) <- class(y) #TEMP
 	it <- 0
 	delta.L2 <- 10000
 	# Now iterate
 	while ((delta.L2 > tol) & (it < max.it)) {
 		parm.j <- natural2parameters(eta.j)
-		T.minus.E.T <- getTminusET(eta.j)
+		T.minus.E.T <- getTminusET(eta.j, y.seq, y.min, y.max, cont.dist, T.avg)
 		grad.E.T.inv <- getGradETinv(eta.j) # p x p
 		delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
 		eta.j <- eta.j + delta.eta.j.plus.1
@@ -148,4 +128,25 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 	}
 	parm <- natural2parameters(eta.j)
 	return(parm)
+}
+
+getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
+	# Calculates T.bar-E(T|eta_j) by numerical integration
+	delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
+	trunc.density <- dtrunc(y.seq, eta, y.min, y.max) # L vector
+	T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
+	if (length(eta) > 1) {
+		E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
+		if (cont.dist == T) {
+			E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1, ] + T.f[length(y.seq), ])
+		}
+	}
+	else {
+		E.T.j <- delta.y * sum(T.f)
+		if (cont.dist == T) {
+			E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1] + T.f[length(y.seq)])
+		}
+	}
+	T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
+	return(T.bar.minus.E.T.j)
 }
