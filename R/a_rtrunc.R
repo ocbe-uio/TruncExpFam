@@ -51,8 +51,6 @@
 rtrunc <- function(n, family="gaussian", ...) {
 
 	# Validating ---------------------------------------------------------------
-	# TODO #57: incorporate family name validation into validateFamily()
-	# (like was done for domain validation).
 	validateFamilyName(family)
 
 	# Determining object class -------------------------------------------------

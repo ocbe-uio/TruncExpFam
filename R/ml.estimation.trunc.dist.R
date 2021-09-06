@@ -54,21 +54,6 @@ mlEstimationTruncDist <- function(
 		distro_name <- gsub("trunc_", "", class(y))
 		message("Estimating parameters for the ", distro_name, " distribution")
 	}
-	if (is(y, "trunc_normal")) {
-		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_lognormal")) {
-		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_gamma")) {
-		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_poisson")) {
-		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_binomial")) {
-		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
-	}
 	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
 	y.seq <- getYseq(y, y.min, y.max, ...) # y-values to calculate expectations
@@ -77,7 +62,9 @@ mlEstimationTruncDist <- function(
 	# Now iterate
 	while ((delta.L2 > tol) & (it < max.it)) {
 		parm.j <- natural2parameters(eta.j)
-		T.minus.E.T <- getTminusET(eta.j, y.seq, y.min, y.max, cont.dist, T.avg)
+		T.minus.E.T <- getTminusET(
+			eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg
+		)
 		grad.E.T.inv <- getGradETinv(eta.j) # p x p
 		delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
 		eta.j <- eta.j + delta.eta.j.plus.1
