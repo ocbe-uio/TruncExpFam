@@ -11,7 +11,7 @@ mlEstimationTruncDist(
   tol = 1e-05,
   max.it = 25,
   delta = 0.33,
-  print.iter = FALSE,
+  print.iter = 0,
   ...
 )
 }
@@ -28,7 +28,7 @@ mlEstimationTruncDist(
 
 \item{delta}{Indirectly, the difference between consecutive iterations to compare with the error tolerance}
 
-\item{print.iter}{Print information about each iteration?}
+\item{print.iter}{Determines the frequency of printing (i.e., prints every \code{print.iter} iterations)}
 
 \item{...}{other parameters passed to the getYseq subfunctions}
 }

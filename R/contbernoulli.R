@@ -6,11 +6,11 @@
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtrunccontbernoulli <- rtrunc.contbernoulli <- function(n, lambda, a = 0, b = 1) {
+rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1) {
 	# Sampling function for a continuous bernoulli distribution
 	# This distribution is not implemented in Base R
 	# Used in the sampling of the truncated continuous bernoulli
-	rcontbernoulli <- function(n, lambda){
+	rcontbern <- function(n, lambda){
 		if ((lambda < 0) | (lambda > 1)) {
 			stop("lambda must be in (0, 1)")
 		}
@@ -21,7 +21,7 @@ rtrunccontbernoulli <- rtrunc.contbernoulli <- function(n, lambda, a = 0, b = 1)
 		x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / (log(lambda / (1 - lambda))) # The inverse of the CDF for a cont. bernoulli distribution
 		return(x)
 	}
-	y <- rcontbernoulli(n, lambda)
+	y <- rcontbern(n, lambda)
 	if (!missing(a)) {
 		y <- y[y >= a]
 	}
@@ -29,6 +29,7 @@ rtrunccontbernoulli <- rtrunc.contbernoulli <- function(n, lambda, a = 0, b = 1)
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_contbern"
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)))
 	return(y)
 }
 
@@ -59,7 +60,7 @@ pcontbern <- function(x,lambda){
 #' @export
 #' @rdname dtrunc
 #' @export
-dtrunccontbernoulli <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
+dtrunccontbern <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
 	lambda <- natural2parameters.trunc_contbern(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda=lambda))
 	if (!missing(a)) {
