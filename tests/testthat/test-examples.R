@@ -63,11 +63,11 @@ ml_gamma <- mlEstimationTruncDist(
 )
 
 test_that("mlEstimationTruncDist works", {
-	expect_equal(ml_gaussian, c(mean= 2, sd = 1.5), tol = 1e-1)
-	expect_equal(ml_lognormal, c(mean= 2.5, sd = 0.5), tol = 1e-1)
-	expect_equal(ml_poisson, c(lambda = 10), tol = 1e-1)
+	expect_equal(unclass(ml_gaussian), c(mean= 2, sd = 1.5), tol = 1e-1)
+	expect_equal(unclass(ml_lognormal), c(mean= 2.5, sd = 0.5), tol = 1e-1)
+	expect_equal(unclass(ml_poisson), c(lambda = 10), tol = 1e-1)
 	# TODO #59: add unit test for ml_binom (depends on #19)
-	expect_equal(ml_gamma, c(shape = 11.62, rate = 3.39), tol = 1e-1)
+	expect_equal(unclass(ml_gamma), c(shape = 11.62, rate = 3.39), tol = 1e-1)
 })
 
 # ======================================================== #
@@ -79,5 +79,5 @@ context("Parameter conversion")
 eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 
 test_that("Converting parameters", {
-	expect_equal(eta.hat, c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 5e-1)
+	expect_equal(unclass(eta.hat), c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 5e-1)
 })
