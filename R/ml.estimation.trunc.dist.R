@@ -49,62 +49,28 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 	# Some initialisations
 	if (is(y, "trunc_normal")) {
 		if (as.numeric(print.iter) > 0) message("Normal\n")
-		sufficientT <- sufficientT.trunc_normal
-		averageT <- averageT.trunc_normal
-		natural2parameters <- natural2parameters.trunc_normal
-		parameters2natural <- parameters2natural.trunc_normal
-		density.trunc <- dtrunc.trunc_normal
-		getGradETinv <- getGradETinv.trunc_normal
-		getYseq <- getYseq.trunc_normal
-		cont.dist <- T
+		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_lognormal")) {
 		if (as.numeric(print.iter) > 0) message("Log Normal\n")
-		sufficientT <- sufficientT.trunc_lognormal
-		averageT <- averageT.trunc_lognormal
-		natural2parameters <- natural2parameters.trunc_normal
-		parameters2natural <- parameters2natural.trunc_normal
-		density.trunc <- dtrunc.trunc_lognormal
-		getGradETinv <- getGradETinv.trunc_normal
-		getYseq <- getYseq.trunc_lognormal
-		cont.dist <- T
+		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_gamma")) {
 		if (as.numeric(print.iter) > 0) message("Gamma\n")
-		sufficientT <- sufficientT.trunc_gamma
-		averageT <- averageT.trunc_gamma
-		natural2parameters <- natural2parameters.trunc_gamma
-		parameters2natural <- parameters2natural.trunc_gamma
-		density.trunc <- dtrunc.trunc_gamma
-		getGradETinv <- getGradETinv.trunc_gamma
-		getYseq <- getYseq.trunc_gamma
-		cont.dist <- T
+		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_poisson")) {
 		if (as.numeric(print.iter) > 0) message("Poisson\n")
-		sufficientT <- sufficientT.trunc_poisson
-		averageT <- averageT.trunc_poisson
-		natural2parameters <- natural2parameters.trunc_poisson
-		parameters2natural <- parameters2natural.trunc_poisson
-		density.trunc <- dtrunc.trunc_poisson
-		getGradETinv <- getGradETinv.trunc_poisson
-		getYseq <- getYseq.trunc_poisson
-		cont.dist <- F
+		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_binomial")) {
 		if (as.numeric(print.iter) > 0) message("Binomial\n")
-		sufficientT <- sufficientT.trunc_binomial
-		averageT <- averageT.trunc_binomial
-		natural2parameters <- natural2parameters.trunc_binomial
-		parameters2natural <- parameters2natural.trunc_binomial
-		density.trunc <- dtrunc.trunc_binomial
-		getGradETinv <- getGradETinv.trunc_binomial
-		getYseq <- getYseq.trunc_binomial
-		cont.dist <- F
+		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
 	}
 	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
 	y.seq <- getYseq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations
+	# TODO: make getYseq use class of input
 	class(y.seq) <- class(y) #TEMP
 	it <- 0
 	delta.L2 <- 10000

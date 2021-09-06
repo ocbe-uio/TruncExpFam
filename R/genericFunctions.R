@@ -37,3 +37,18 @@ parameters2natural <- function(parms) {
 	UseMethod("parameters2natural")
 }
 
+sufficientT <- function(y) {
+	UseMethod("sufficientT")
+}
+
+getYseq <- function(y, y.min, y.max, n) {
+	UseMethod("getYseq", y)
+}
+
+averageT <- function(y) {
+	UseMethod("averageT")
+}
+
+getGradETinv <- function(eta) {
+	UseMethod("getGradETinv")
+}

@@ -44,10 +44,10 @@ ml_gaussian <- mlEstimationTruncDist(
 	sample.norm, y.min = -1, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
-ml_lognormal <- mlEstimationTruncDist(
+ml_lognormal <- suppressWarnings(mlEstimationTruncDist(
 	sample.lognorm, max.it = 500, tol = 1e-10, delta = 0.3,
 	print.iter = FALSE
-)
+)) #TODO #63: remove warning suppression after #63 is fixed
 ml_poisson <- mlEstimationTruncDist(
 	sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 	print.iter = FALSE
