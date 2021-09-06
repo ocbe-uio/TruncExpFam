@@ -16,7 +16,7 @@
 #' @examples
 #' # Normal
 #' sample.norm <- rtrunc(n=10000, mean=2, sd=1.5, a=-1)
-#' ml.estimation.trunc.dist(
+#' mlEstimationTruncDist(
 #'   sample.norm, y.min = -1, max.it = 500, delta = 0.33,
 #'   print.iter = TRUE
 #' )
@@ -25,7 +25,7 @@
 #' sample.lognorm <- rtrunc(
 #'   n=100000, family="lognormal", meanlog=2.5, sdlog=0.5, a=7
 #' )
-#' ml_lognormal <- ml.estimation.trunc.dist(
+#' ml_lognormal <- mlEstimationTruncDist(
 #'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #'   print.iter = FALSE
 #' )
@@ -33,19 +33,19 @@
 #'
 #' # Poisson
 #' sample.pois <- rtrunc(n=1000, lambda=10, a=4, family="Poisson")
-#' ml.estimation.trunc.dist(
+#' mlEstimationTruncDist(
 #'   sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 #'   print.iter = 5
 #' )
 #'
 #' # Gamma
 #' sample.gamma <- rtrunc(n=10000, shape=6, rate=2, a=2, family="Gamma")
-#' ml.estimation.trunc.dist(
+#' mlEstimationTruncDist(
 #'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3,
 #'   print.iter = 10
 #' )
 #' @export
-ml.estimation.trunc.dist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = FALSE, ...) {
+mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = FALSE, ...) {
 	get.T.minus.E.T <- function(eta) {
 		# Calculates T.bar-E(T|eta_j) by numerical integration
 		delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
