@@ -49,9 +49,8 @@
 #' plot(table(sample.pois))
 #' @export
 rtrunc <- function(n, family="gaussian", ...) {
-	# ======================================================== #
-	# Validating                                               #
-	# ======================================================== #
+
+	# Validating ---------------------------------------------------------------
 	# TODO #57: incorporate family name validation into validateFamily()
 	# (like was done for domain validation).
 	family <- tolower(family)
@@ -62,12 +61,12 @@ rtrunc <- function(n, family="gaussian", ...) {
 		)
 	}
 
-	# ======================================================== #
-	# Dispatching functions                                    #
-	# ======================================================== #
-	extra_n <- 1
+	# Determining object class -------------------------------------------------
 	trunc_class <- genRtruncClass(n, family, names(list(...)))
+	extra_n <- 1 # to generate extra observations to complete n from input
 	class(extra_n) <- class(n) <- trunc_class
+
+	# Generating sample --------------------------------------------------------
 	sample <- rtrunc.generic(n, ...)
 	while (length(sample) != n) {
 		new_obs <- rtrunc.generic(extra_n, ...)
