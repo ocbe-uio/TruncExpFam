@@ -14,8 +14,8 @@ valid_fam_parm <- list(
 		parms  = c("df"),
 		cont = TRUE
 	),
-	contbernoulli = list(
-		family = c("contbernoulli"),
+	contbern = list(
+		family = c("contbern"),
 		parms  = c("lambda"),
 		cont = TRUE
 	),

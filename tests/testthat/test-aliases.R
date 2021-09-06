@@ -15,8 +15,8 @@ test_that("rtrunc works the same from generic and alias", {
 		expected = {set.seed(8); rtruncchisq(100, 45)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, .2, family="contbernoulli")},
-		expected = {set.seed(8); rtrunccontbernoulli(100, .2)},
+		object = {set.seed(8); rtrunc(100, .2, family="contbern")},
+		expected = {set.seed(8); rtrunccontbern(100, .2)},
 	)
 	expect_identical(
 		object = {set.seed(8); rtrunc(100, 45, 12, family="gamma")},
