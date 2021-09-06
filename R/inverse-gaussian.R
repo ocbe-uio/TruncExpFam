@@ -19,7 +19,7 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
 }
 
 #' @export
-dtrunc.trunc_invgauss <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_invgauss <- function(y, eta, a = 0, b = Inf) {
 	parm <- natural2parameters.trunc_invgauss(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
 	if (!missing(a)) {
@@ -54,37 +54,43 @@ init.parms.trunc_invgauss <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_invgauss <- function(y) {
+sufficientT.trunc_invgauss <- function(y) {
 	return(suff.T = cbind(y, 1/y))
 }
 
-average.T.trunc_invgauss <- function(y) {
-	return(apply(sufficient.T.trunc_invgauss(y), 2, mean))
+averageT.trunc_invgauss <- function(y) {
+	return(apply(sufficientT.trunc_invgauss(y), 2, mean))
 }
 
 #' @export
 natural2parameters.trunc_invgauss <- function(eta) {
 	# eta: The natural parameters in an inverse gaussian distribution
 	# returns (mean,shape)
-	return(c(mean = sqrt(eta[2] / eta[1]), shape = -2*eta[2]))
+	parms <- c(mean = sqrt(eta[2] / eta[1]), shape = -2*eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_invgauss <- function(parms) {
 	# parms: The parameters mean and shape in a normal distribution
 	# returns the natural parameters
-	return(c(eta.1 = -parms[2]/(2*parms[1]^2), eta.2 = -0.5*parms[2]))
+	eta <- c(eta.1 = -parms[2]/(2*parms[1]^2), eta.2 = -0.5*parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.y.seq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
+getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	shape <- var(y, na.rm = T)^0.5
 	lo <- max(max(0,y.min), mean - 3.5 * shape)
 	hi <- min(y.max, mean + 3.5 * shape)
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
-get.grad.E.T.inv.trunc_invgauss <- function(eta) {
+getGradETinv.trunc_invgauss <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
 	sqrt.eta1=sqrt(eta[1]); sqrt.eta2=sqrt(eta[2])

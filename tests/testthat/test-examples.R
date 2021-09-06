@@ -40,34 +40,34 @@ test_that("Truncation limits are observed", {
 
 context("ML estimation")
 
-ml_gaussian <- ml.estimation.trunc.dist(
+ml_gaussian <- mlEstimationTruncDist(
 	sample.norm, y.min = -1, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
-ml_lognormal <- ml.estimation.trunc.dist(
+ml_lognormal <- suppressWarnings(mlEstimationTruncDist(
 	sample.lognorm, max.it = 500, tol = 1e-10, delta = 0.3,
 	print.iter = FALSE
-)
-ml_poisson <- ml.estimation.trunc.dist(
+)) #TODO #63: remove warning suppression after #63 is fixed
+ml_poisson <- mlEstimationTruncDist(
 	sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
-# FIXME #19: ml.estimation.trunc.dist not working for binomial
-# ml_binom <- ml.estimation.trunc.dist(
+# FIXME #19: mlEstimationTruncDist not working for binomial
+# ml_binom <- mlEstimationTruncDist(
 # 	sample.binom, y.min = 4, max.it = 500, delta = 0.33,
 # 	nsize = 10, print.iter = FALSE
 # )
-ml_gamma <- ml.estimation.trunc.dist(
+ml_gamma <- mlEstimationTruncDist(
 	sample.gamma, y.min = 0.1, max.it = 1500, delta = 0.3,
 	print.iter = FALSE
 )
 
-test_that("ml.estimation.trunc.dist works", {
-	expect_equal(ml_gaussian, c(mean= 2, sd = 1.5), tol = 1e-1)
-	expect_equal(ml_lognormal, c(mean= 2.5, sd = 0.5), tol = 1e-1)
-	expect_equal(ml_poisson, c(lambda = 10), tol = 1e-1)
+test_that("mlEstimationTruncDist works", {
+	expect_equal(unclass(ml_gaussian), c(mean= 2, sd = 1.5), tol = 1e-1)
+	expect_equal(unclass(ml_lognormal), c(mean= 2.5, sd = 0.5), tol = 1e-1)
+	expect_equal(unclass(ml_poisson), c(lambda = 10), tol = 1e-1)
 	# TODO #59: add unit test for ml_binom (depends on #19)
-	expect_equal(ml_gamma, c(shape = 11.62, rate = 3.39), tol = 1e-1)
+	expect_equal(unclass(ml_gamma), c(shape = 11.62, rate = 3.39), tol = 1e-1)
 })
 
 # ======================================================== #
@@ -79,5 +79,5 @@ context("Parameter conversion")
 eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 
 test_that("Converting parameters", {
-	expect_equal(eta.hat, c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 5e-1)
+	expect_equal(unclass(eta.hat), c(eta.1.mean= 1.5, eta.2.sd = -0.5), tol = 5e-1)
 })

@@ -52,16 +52,9 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# ======================================================== #
 	# Validating                                               #
 	# ======================================================== #
-	# TODO #57: transform family name validation into validateFamily() (like for
-	# domain). Possibly merge into functions on genRtruncClass.R, which will
-	# possibly replace the need for this valid_distros vector with the
-	# valid_fam_parm list on validateFamilyParms()
+	# TODO #57: incorporate family name validation into validateFamily()
+	# (like was done for domain validation).
 	family <- tolower(family)
-	valid_distros <- c(
-		"beta", "binomial", "chisq", "contbernoulli", "exp", "gamma",
-		"invgamma", "invgauss", "lognormal", "nbinom", "gaussian", "normal",
-		"poisson"
-	)
 	if (!(family %in% valid_distros)) {
 		stop(
 			"Invalid distribution family. Please choose from the list below:\n",

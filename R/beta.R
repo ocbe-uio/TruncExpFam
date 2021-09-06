@@ -8,7 +8,7 @@
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
 #' @export
-rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a, b) {
+rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
   y <- rbeta(n, shape1, shape2)
   if (!missing(a)) {
     y <- y[y >= a]
@@ -21,7 +21,7 @@ rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a, b) {
 }
 
 #' @export
-dtrunc.trunc_beta <- function(y, eta, a, b) {
+dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
 	parm <- natural2parameters.trunc_beta(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dbeta(y, shape1 = parm[1], shape2 = parm[2]))
 	if (!missing(a)) {
@@ -55,11 +55,11 @@ init.parms.trunc_beta <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_beta <- function(y) {
+sufficientT.trunc_beta <- function(y) {
 	return(suff.T = cbind(log(y), log(1-y)))
 }
 
-average.T.trunc_beta <- function(y) {
+averageT.trunc_beta <- function(y) {
 	return(apply(cbind(log(y), log(1-y)), 2, mean))
 }
 
@@ -67,26 +67,32 @@ average.T.trunc_beta <- function(y) {
 natural2parameters.trunc_beta <- function(eta) {
 	# eta: The natural parameters in a beta distribution
 	# returns (alpha,beta)
-	return(c(shape1 = eta[1], shape2 = eta[2]))
+	parms <- c(shape1 = eta[1], shape2 = eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_beta <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
-	return(c(shape1 = parms[1], shape2 = parms[2]))
+	eta <- c(shape1 = parms[1], shape2 = parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.y.seq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
+getYseq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	# needs chekking
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
 	lo <- max(y.min, mean - 5 * sd)
 	hi <- min(y.max, mean + 5 * sd)
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
-get.grad.E.T.inv.trunc_beta <- function(eta) {
+getGradETinv.trunc_beta <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   term.1=sum(1/(((1:10000)+eta[1]))^2)

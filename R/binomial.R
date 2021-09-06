@@ -6,7 +6,7 @@
 #' @param prob probability of success on each trial
 #' @rdname rtrunc
 #' @export
-rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a, b) {
+rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = Inf) {
 # TODO #19: size needs to be handled as a 'fixed' parameter
 	y <- rbinom(n, size, prob)
 	if (!missing(a)) {
@@ -20,8 +20,8 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a, b) {
 }
 
 #' @export
-dtrunc.trunc_binomial <- function(y, eta, a = 0, b, ...) {
-	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)# FIXME: #61 nsize should be passed by user or discovered by function
+dtrunc.trunc_binomial <- function(y, eta, a = 0, b = Inf, ...) {
+	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)# FIXME #61: nsize should be passed by user or discovered by function
 	my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
 	proba <- 1 / (1 + exp(-eta))
 	dens <- ifelse((y < a) | (y > b), 0, my.dbinom(...))
@@ -52,11 +52,11 @@ init.parms.trunc_binomial <- function(y, ...) {
 	return(parms)
 }
 
-sufficient.T.trunc_binomial <- function(y) {
+sufficientT.trunc_binomial <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_binomial <- function(y) {
+averageT.trunc_binomial <- function(y) {
 	return(mean(y))
 }
 
@@ -69,28 +69,34 @@ density.trunc_binomial <- function(y, eta, ...) {
 natural2parameters.trunc_binomial <- function(eta) {
 	# eta: The natural parameters in a binomial distribution
 	# returns (p)
-	return(p = 1 / (1 + exp(-eta)))
+	p <- 1 / (1 + exp(-eta))
+	class(p) <- class(eta)
+	return(p)
 }
 
 #' @export
 parameters2natural.trunc_binomial <- function(parms) {
 	# parms: The probability parameter p in a binomial distribution
 	# returns the natural parameters
-	return(eta = log(parms / (1 - parms)))
+	eta <- log(parms / (1 - parms))
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.grad.E.T.inv.trunc_binomial <- function(eta, ...) {
+getGradETinv.trunc_binomial <- function(eta, ...) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	exp.eta <- exp(eta)
 	return(A = ((1 + exp.eta)^2 / exp.eta) / ...)
 }
 
-get.y.seq.trunc_binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
+getYseq.trunc_binomial <- function(y, y.min = 0, y.max, n = 100, ...) {
 	nsize <- 0 + ...
 	y.lo <- round(y.min)
 	y.hi <- round(y.max)
 	lo <- max(y.lo, 0)
 	hi <- min(y.max, nsize)
-	return(lo:hi)
+	out <- seq(lo, hi)
+	class(out) <- class(y)
+	return(out)
 }

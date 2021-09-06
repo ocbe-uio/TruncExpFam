@@ -6,7 +6,7 @@
 #' @param sd standard deviation is parent distribution
 #' @rdname rtrunc
 #' @export
-rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a, b) {
+rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
 	y <- rnorm(n, mean, sd)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -49,37 +49,43 @@ init.parms.trunc_normal <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_normal <- function(y) {
+sufficientT.trunc_normal <- function(y) {
 	return(suff.T = cbind(y, y^2))
 }
 
-average.T.trunc_normal <- function(y) {
-	return(apply(sufficient.T.trunc_normal(y), 2, mean))
+averageT.trunc_normal <- function(y) {
+	return(apply(sufficientT.trunc_normal(y), 2, mean))
 }
 
 #' @export
 natural2parameters.trunc_normal <- function(eta) {
 	# eta: The natural parameters in a normal distribution
 	# returns (mean,sigma)
-	return(c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2])))
+	parms <- c(mean = -0.5 * eta[1] / eta[2], sd = sqrt(-0.5 / eta[2]))
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_normal <- function(parms) {
 	# parms: The parameters mean and sd in a normal distribution
 	# returns the natural parameters
-	return(c(eta.1 = parms[1], eta.2 = -0.5) / parms[2]^2)
+	eta <- c(eta.1 = parms[1], eta.2 = -0.5) / parms[2]^2
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.y.seq.trunc_normal <- function(y, y.min, y.max, n = 100) {
+getYseq.trunc_normal <- function(y, y.min, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
 	lo <- max(y.min, mean - 3.5 * sd)
 	hi <- min(y.max, mean + 3.5 * sd)
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
-get.grad.E.T.inv.trunc_normal <- function(eta) {
+getGradETinv.trunc_normal <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
 	return(A = solve(0.5 * matrix(c(-1 / eta[2], eta[1] / eta[2]^2, eta[1] / eta[2]^2, 1 / eta[2]^2 - eta[1]^2 / eta[2]^3), ncol = 2)))
