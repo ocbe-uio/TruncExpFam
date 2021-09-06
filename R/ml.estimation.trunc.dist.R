@@ -45,7 +45,10 @@
 #'   print.iter = 10
 #' )
 #' @export
-mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33, print.iter = FALSE, ...) {
+mlEstimationTruncDist <- function(
+	y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33,
+	print.iter = FALSE, ...
+) {
 	# Some initialisations
 	if (is(y, "trunc_normal")) {
 		if (as.numeric(print.iter) > 0) message("Normal\n")
@@ -69,9 +72,9 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 	}
 	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
-	y.seq <- getYseq(y, y.min, y.max, n = 100, ...) # y-values to be used for calculation of the expectations
+	y.seq <- getYseq(y, y.min, y.max, ...) # y-values to calculate expectations
 	it <- 0
-	delta.L2 <- 10000
+	delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
 	# Now iterate
 	while ((delta.L2 > tol) & (it < max.it)) {
 		parm.j <- natural2parameters(eta.j)
@@ -79,7 +82,7 @@ mlEstimationTruncDist <- function(y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.
 		grad.E.T.inv <- getGradETinv(eta.j) # p x p
 		delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
 		eta.j <- eta.j + delta.eta.j.plus.1
-		delta.L2 <- sum(delta.eta.j.plus.1^2)
+		delta.L2 <- sum(delta.eta.j.plus.1 ^ 2)
 		it <- it + 1
 		if (print.iter) {
 			if (it %% as.numeric(print.iter) == 0) {
