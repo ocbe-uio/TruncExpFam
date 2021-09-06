@@ -65,7 +65,9 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 	sd <- var(x, na.rm = T)^0.5
 	lo <- max(y.min, exp(mean - 3.5 * sd))
 	hi <- min(y.max, exp(mean + 3.5 * sd))
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
 # TODO #63: properly write the functions below

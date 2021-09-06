@@ -87,7 +87,9 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max=1, n = 100) {
 	sd <- var(y, na.rm = T)^0.5
 	lo <- max(y.min, mean - 5 * sd)
 	hi <- min(y.max, mean + 5 * sd)
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
 getGradETinv.trunc_beta <- function(eta) {

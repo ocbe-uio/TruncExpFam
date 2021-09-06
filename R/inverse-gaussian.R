@@ -85,7 +85,9 @@ getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
 	shape <- var(y, na.rm = T)^0.5
 	lo <- max(max(0,y.min), mean - 3.5 * shape)
 	hi <- min(y.max, mean + 3.5 * shape)
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
 getGradETinv.trunc_invgauss <- function(eta) {

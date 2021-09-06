@@ -84,6 +84,7 @@ getYseq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
 	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
-	return(seq(lo, hi, length = n)
-)
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }

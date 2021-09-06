@@ -89,5 +89,7 @@ getYseq.trunc_poisson <- function(y, y.min = 0, y.max, n = 100) {
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
 	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
-	return(lo:hi)
+	out <- seq(lo, hi)
+	class(out) <- class(y)
+	return(out)
 }
