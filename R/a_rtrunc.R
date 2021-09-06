@@ -53,13 +53,7 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# Validating ---------------------------------------------------------------
 	# TODO #57: incorporate family name validation into validateFamily()
 	# (like was done for domain validation).
-	family <- tolower(family)
-	if (!(family %in% valid_distros)) {
-		stop(
-			"Invalid distribution family. Please choose from the list below:\n",
-			paste(valid_distros, collapse=", ")
-		)
-	}
+	validateFamilyName(family)
 
 	# Determining object class -------------------------------------------------
 	trunc_class <- genRtruncClass(n, family, names(list(...)))
@@ -102,6 +96,16 @@ genRtruncClass <- function(n, family, parms) {
 	if (validation_family_parms$is_valid) {
 		family <- validation_family_parms$family_name
 		return(family)
+	}
+}
+
+validateFamilyName <- function(family) {
+	family <- tolower(family)
+	if (!(family %in% valid_distros)) {
+		stop(
+			"Invalid distribution family. Please choose from the list below:\n",
+			paste(valid_distros, collapse=", ")
+		)
 	}
 }
 
