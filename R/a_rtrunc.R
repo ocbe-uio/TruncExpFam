@@ -101,6 +101,14 @@ genRtruncClass <- function(n, family, parms) {
 	}
 }
 
+#' @title Validate family parameters
+#' @description Checks if a combination of distribution family and parameters is
+#' valid.
+#' @param family character with family distribution name
+#' @param parms character vector with distribution parameter names
+#' @param verbose print intermediate messages?
+#' @return list telling if family-parm combo is valid + the family name
+#' @author Waldir Leoncio
 validateFamilyParms <- function(family, parms, verbose=FALSE) {
 	matched <- list(family = FALSE, parameters = FALSE)
 	families <- grep(family, names(valid_fam_parm))
