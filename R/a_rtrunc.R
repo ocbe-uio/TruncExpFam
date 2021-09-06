@@ -57,11 +57,6 @@ rtrunc <- function(n, family="gaussian", ...) {
 	# possibly replace the need for this valid_distros vector with the
 	# valid_fam_parm list on validateFamilyParms()
 	family <- tolower(family)
-	valid_distros <- c(
-		"beta", "binomial", "chisq", "contbernoulli", "exp", "gamma",
-		"invgamma", "invgauss", "lognormal", "nbinom", "gaussian", "normal",
-		"poisson"
-	)
 	if (!(family %in% valid_distros)) {
 		stop(
 			"Invalid distribution family. Please choose from the list below:\n",
