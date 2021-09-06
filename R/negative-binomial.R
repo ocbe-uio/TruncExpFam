@@ -38,7 +38,7 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- my.pnbinom(b, ...) # TODO: if output doesn't match stats:: equivalent, the issue is probably here.
+		F.b <- my.pnbinom(b, ...) # TODO #61: if output doesn't match stats:: equivalent, the issue is probably here.
 	} else {
 		F.b <- 1
 	}

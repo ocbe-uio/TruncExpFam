@@ -42,7 +42,7 @@ test_that("Truncation limits are working as expected", {
 	expect_setequal(igamma2_all[igamma2_all >= .1 & igamma2_all <= .2], igamma2_trunc)
 	expect_setequal(igauss_all[igauss_all >= 0 & igauss_all <= 1], igauss_trunc)
 	expect_setequal(lnorm_all[lnorm_all >= 3 & lnorm_all <= 4], lnorm_trunc)
-	# TODO: make test for nbinom once #55 is fixed
+	# TODO #59: make test for nbinom once #55 is fixed
 	expect_setequal(norm_all[norm_all >= 50 & norm_all <= 99], norm_trunc)
 	expect_setequal(pois_all[pois_all >= 100 & pois_all <= 101], pois_trunc)
 })
