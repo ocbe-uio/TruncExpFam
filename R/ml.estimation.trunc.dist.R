@@ -6,7 +6,7 @@
 #' @param tol Error tolerance for parameter estimation
 #' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
-#' @param print.iter Print information about each iteration?
+#' @param print.iter Determines the frequency of printing (i.e., prints every \code{print.iter} iterations)
 #' @param ... other parameters passed to the getYseq subfunctions
 #' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
@@ -47,27 +47,26 @@
 #' @export
 mlEstimationTruncDist <- function(
 	y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33,
-	print.iter = FALSE, ...
+	print.iter = 0, ...
 ) {
 	# Some initialisations
+	if (as.numeric(print.iter) > 0) {
+		distro_name <- gsub("trunc_", "", class(y))
+		message("Estimating parameters for the ", distro_name, " distribution")
+	}
 	if (is(y, "trunc_normal")) {
-		if (as.numeric(print.iter) > 0) message("Normal\n")
 		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_lognormal")) {
-		if (as.numeric(print.iter) > 0) message("Log Normal\n")
 		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_gamma")) {
-		if (as.numeric(print.iter) > 0) message("Gamma\n")
 		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_poisson")) {
-		if (as.numeric(print.iter) > 0) message("Poisson\n")
 		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
 	}
 	if (is(y, "trunc_binomial")) {
-		if (as.numeric(print.iter) > 0) message("Binomial\n")
 		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
 	}
 	T.avg <- averageT(y)
