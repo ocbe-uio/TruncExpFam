@@ -8,7 +8,7 @@
 \alias{rtruncbeta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
-\alias{rtrunccontbernoulli}
+\alias{rtrunccontbern}
 \alias{rtruncexp}
 \alias{rtruncgamma}
 \alias{rtruncinvgamma}
@@ -27,7 +27,7 @@ rtruncbinom(n, size, prob, a = 0, b = Inf)
 
 rtruncchisq(n, df, a = 0, b = Inf)
 
-rtrunccontbernoulli(n, lambda, a = 0, b = 1)
+rtrunccontbern(n, lambda, a = 0, b = 1)
 
 rtruncexp(n, rate = 1, a = 0, b = Inf)
 
