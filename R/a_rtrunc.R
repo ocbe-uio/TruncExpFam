@@ -51,6 +51,7 @@
 rtrunc <- function(n, family="gaussian", ...) {
 
 	# Validating ---------------------------------------------------------------
+	family <- tolower(family)
 	validateFamilyName(family)
 
 	# Determining object class -------------------------------------------------
@@ -131,7 +132,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 			}
 		}
 	}
-	if (!matched$parameters) {
+	if ("parms_expected" %in% ls() & !matched$parameters) {
 		parms_expected_text <- paste(unlist(parms_expected), collapse=", ")
 		stop(
 			"The {", parms_text, "} ",
