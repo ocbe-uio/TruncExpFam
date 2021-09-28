@@ -17,6 +17,8 @@
 #' conforms with the nomenclature from other distribution-related functions in
 #' the \code{stats} package.
 #' @importFrom methods new
+#' @return vector of one of the \code{rtrunc_*} classes containing the sample
+#' elements, as well as some attributes related to the chosen distribution.
 #' @examples
 #' # Truncated binomial distribution
 #' sample.binom <- rtrunc(1000, family="binomial", prob=0.6, size=20, a=4, b=10)
@@ -55,7 +57,8 @@ rtrunc <- function(n, family="gaussian", ...) {
 	validateFamilyName(family)
 
 	# Determining object class -------------------------------------------------
-	trunc_class <- genRtruncClass(n, family, names(list(...)))
+	parms <- list(...)
+	trunc_class <- genRtruncClass(n, family, names(parms))
 	extra_n <- 1 # to generate extra observations to complete n from input
 	class(extra_n) <- class(n) <- trunc_class
 
@@ -68,7 +71,9 @@ rtrunc <- function(n, family="gaussian", ...) {
 	}
 
 	# Attaching attributes -----------------------------------------------------
-	sample <- attachDistroAttributes(sample, trunc_class)
+	sample <- attachDistroAttributes(sample, trunc_class, parms)
+
+
 
 	# Returning sampled elements -----------------------------------------------
 	return(sample)
@@ -145,7 +150,10 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 	return(list(is_valid = all(unlist(matched)), family_name = family))
 }
 
-attachDistroAttributes <- function(sample, family) {
-	attr(sample, "continuous") <- valid_fam_parm[[family]]$cont
+attachDistroAttributes <- function(sample, family, parms) {
+	if (length(attributes(sample)) == 1) {
+		attr(sample, "parameters") <- parms[valid_fam_parm[[family]]$parms]
+		attr(sample, "continuous") <- valid_fam_parm[[family]]$cont
+	}
 	return(sample)
 }
