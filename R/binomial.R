@@ -73,7 +73,7 @@ density.trunc_binomial <- function(y, eta, ...) {
 natural2parameters.trunc_binomial <- function(eta) {
 	# eta: The natural parameters in a binomial distribution
 	# returns (p)
-	p <- 1 / (1 + exp(-eta))
+	p <- c(prob = 1 / (1 + exp(-eta)))
 	class(p) <- class(eta)
 	return(p)
 }
