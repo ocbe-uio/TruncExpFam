@@ -10,11 +10,7 @@
 # Determines when the action is triggered                  #
 # ======================================================== #
 
-on:
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
+on: [push, pull_request]
 
 name: R-CMD-check
 
@@ -78,8 +74,7 @@ jobs:
         # Installing package dependencies ------------------------ #
         - name: Installing package dependencies
           run: |
-            remotes::install_deps(dependencies = TRUE)
-            remotes::install_cran("rcmdcheck")
+            install.packages(c("rcmdcheck", "covr"))
           shell: Rscript {0}
 
         # Checking package --------------------------------------- #
@@ -98,3 +93,7 @@ jobs:
           with:
             name: ${{ runner.os }}-r${{ matrix.config.r }}-results
             path: check
+
+        # Checking test coverage --------------------------------- #
+        - name: Checking test coverage
+          run: Rscript -e 'covr::codecov()'
