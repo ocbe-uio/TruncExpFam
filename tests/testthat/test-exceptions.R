@@ -22,6 +22,11 @@ test_that("It's OK to miss truncation limits", {
 		expected = c(0.09401543, 0.23025945, 0.14131485)
 	)
 	expect_equal(
+		object   = dtrunc(samp$logn, eta = c(10, -2)),
+		expected = c(2.094700e-03, 9.567618e-09, 7.123690e-02)
+	)
+
+	expect_equal(
 		object   =  dtrunc(samp$pois, eta = -10),
 		expected = c(9.999546e-01, 1.030530e-09, 4.539787e-05)
 	)
