@@ -15,7 +15,7 @@ rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = -Inf, b = Inf
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_lognormal"
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)))
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
 	return(y)
 }
 
