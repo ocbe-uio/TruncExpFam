@@ -7,7 +7,6 @@
 #' @rdname rtrunc
 #' @export
 rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = Inf) {
-# TODO #19: size needs to be handled as a 'fixed' parameter
 	y <- rbinom(n, size, prob)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -50,7 +49,7 @@ dtruncbinom <- dtrunc.trunc_binomial
 init.parms.trunc_binomial <- function(y) {
 	# Returns empirical parameter estimate for lambda
 	nsize <- attr(y, "parameters")$size
-	parms <- mean(y / nsize) # FIXME #19: should be y / size.
+	parms <- mean(y / nsize)
 	attr(parms, "nsize") <- nsize
 	class(parms) <- "trunc_binomial"
 	return(parms)

@@ -7,10 +7,11 @@
 #' distribution). Must be strictly positive, need not be integer.
 #' @param prob probability of success on each trial
 #' @param mu alternative parametrization via mean
+#' @importFrom stats rnbinom
 #' @rdname rtrunc
 #' @export
 rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0,b=Inf) {
-  y <- rnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
+  y <- rnbinom(n, size, prob, mu)
   if (!missing(a)) {
     y <- y[y >= a]
   }
@@ -39,7 +40,7 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- my.pnbinom(b, ...) # TODO #61: if output doesn't match stats:: equivalent, the issue is probably here.
+		F.b <- my.pnbinom(b, ...)
 	} else {
 		F.b <- 1
 	}
