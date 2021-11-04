@@ -10,7 +10,7 @@
 #' @rdname rtrunc
 #' @export
 rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0,b=Inf) {
-  y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
+  y <- rnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]
   }
