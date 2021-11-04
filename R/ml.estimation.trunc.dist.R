@@ -6,7 +6,7 @@
 #' @param tol Error tolerance for parameter estimation
 #' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
-#' @param print.iter Print information about each iteration?
+#' @param print.iter Determines the frequency of printing (i.e., prints every \code{print.iter} iterations)
 #' @param ... other parameters passed to the getYseq subfunctions
 #' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
@@ -47,28 +47,12 @@
 #' @export
 mlEstimationTruncDist <- function(
 	y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33,
-	print.iter = FALSE, ...
+	print.iter = 0, ...
 ) {
 	# Some initialisations
-	if (is(y, "trunc_normal")) {
-		if (as.numeric(print.iter) > 0) message("Normal\n")
-		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_lognormal")) {
-		if (as.numeric(print.iter) > 0) message("Log Normal\n")
-		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_gamma")) {
-		if (as.numeric(print.iter) > 0) message("Gamma\n")
-		cont.dist <- TRUE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_poisson")) {
-		if (as.numeric(print.iter) > 0) message("Poisson\n")
-		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
-	}
-	if (is(y, "trunc_binomial")) {
-		if (as.numeric(print.iter) > 0) message("Binomial\n")
-		cont.dist <- FALSE # TODO #62: make this an attribute given by rtrunc()
+	if (as.numeric(print.iter) > 0) {
+		distro_name <- gsub("trunc_", "", class(y))
+		message("Estimating parameters for the ", distro_name, " distribution")
 	}
 	T.avg <- averageT(y)
 	eta.j <- parameters2natural(init.parms(y))
@@ -78,7 +62,9 @@ mlEstimationTruncDist <- function(
 	# Now iterate
 	while ((delta.L2 > tol) & (it < max.it)) {
 		parm.j <- natural2parameters(eta.j)
-		T.minus.E.T <- getTminusET(eta.j, y.seq, y.min, y.max, cont.dist, T.avg)
+		T.minus.E.T <- getTminusET(
+			eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg
+		)
 		grad.E.T.inv <- getGradETinv(eta.j) # p x p
 		delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
 		eta.j <- eta.j + delta.eta.j.plus.1
@@ -87,7 +73,7 @@ mlEstimationTruncDist <- function(
 		if (print.iter) {
 			if (it %% as.numeric(print.iter) == 0) {
 				cat(
-					"it: ", it, "tol: ", delta.L2, " - parm: ",
+					"it: ", it, "delta: ", delta.L2, " - parm: ",
 					round(parm.j, 3), "\n"
 				)
 			}

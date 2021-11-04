@@ -17,6 +17,8 @@
 #' conforms with the nomenclature from other distribution-related functions in
 #' the \code{stats} package.
 #' @importFrom methods new
+#' @return vector of one of the \code{rtrunc_*} classes containing the sample
+#' elements, as well as some attributes related to the chosen distribution.
 #' @examples
 #' # Truncated binomial distribution
 #' sample.binom <- rtrunc(1000, family="binomial", prob=0.6, size=20, a=4, b=10)
@@ -49,11 +51,59 @@
 #' plot(table(sample.pois))
 #' @export
 rtrunc <- function(n, family="gaussian", ...) {
-	# ======================================================== #
-	# Validating                                               #
-	# ======================================================== #
-	# TODO #57: incorporate family name validation into validateFamily()
-	# (like was done for domain validation).
+
+	# Validating ---------------------------------------------------------------
+	family <- tolower(family)
+	validateFamilyName(family)
+
+	# Determining object class -------------------------------------------------
+	parms <- list(...)
+	trunc_class <- genRtruncClass(n, family, names(parms))
+	extra_n <- 1 # to generate extra observations to complete n from input
+	class(extra_n) <- class(n) <- trunc_class
+
+	# Generating sample --------------------------------------------------------
+	sample <- rtrunc.generic(n, ...)
+	while (length(sample) != n) {
+		new_obs <- rtrunc.generic(extra_n, ...)
+		sample <- c(sample, new_obs)
+		class(sample) <- class(new_obs)
+	}
+
+	# Attaching attributes -----------------------------------------------------
+	sample <- attachDistroAttributes(sample, trunc_class, parms)
+
+
+
+	# Returning sampled elements -----------------------------------------------
+	return(sample)
+}
+
+rtrunc.generic <- function(n, ...) {
+	UseMethod("rtrunc", n)
+}
+
+#' @title Generates an rtrunc-dispatchable class
+#' @description Matches a list of arguments to an rtrunc method
+#' @param n sample size
+#' @param family distribution family
+#' @param parms list of parameters passed to rtrunc (through the `...` element)
+#' @return A character string.
+#' @author Waldir Leoncio
+genRtruncClass <- function(n, family, parms) {
+
+	# Dropping a and b (parameters not used for validating) -- #
+	parms <- parms[!(parms %in% c("a", "b"))]
+
+	# Validating --------------------------------------------- #
+	validation_family_parms <- validateFamilyParms(family, parms)
+	if (validation_family_parms$is_valid) {
+		family <- validation_family_parms$family_name
+		return(family)
+	}
+}
+
+validateFamilyName <- function(family) {
 	family <- tolower(family)
 	if (!(family %in% valid_distros)) {
 		stop(
@@ -61,22 +111,49 @@ rtrunc <- function(n, family="gaussian", ...) {
 			paste(valid_distros, collapse=", ")
 		)
 	}
-
-	# ======================================================== #
-	# Dispatching functions                                    #
-	# ======================================================== #
-	extra_n <- 1
-	trunc_class <- genRtruncClass(n, family, names(list(...)))
-	class(extra_n) <- class(n) <- trunc_class
-	sample <- rtrunc.generic(n, ...)
-	while (length(sample) != n) {
-		new_obs <- rtrunc.generic(extra_n, ...)
-		sample <- c(sample, new_obs)
-		class(sample) <- class(new_obs)
-	}
-	return(sample)
 }
 
-rtrunc.generic <- function(n, ...) {
-	UseMethod("rtrunc", n)
+#' @title Validate family parameters
+#' @description Checks if a combination of distribution family and parameters is
+#' valid.
+#' @param family character with family distribution name
+#' @param parms character vector with distribution parameter names
+#' @param verbose print intermediate messages?
+#' @return list telling if family-parm combo is valid + the family name
+#' @author Waldir Leoncio
+validateFamilyParms <- function(family, parms, verbose=FALSE) {
+	matched <- list(family = FALSE, parameters = FALSE)
+	families <- grep(family, names(valid_fam_parm))
+	for (fam in families) {
+		if (any(family == valid_fam_parm[[fam]]$family)) {
+			if(verbose) message("Matched family: ", family)
+			matched$family <- TRUE
+			family <- valid_fam_parm[[fam]]$family[1] # use standard family name
+			parms_text <- paste(parms, collapse=", ")
+			parms_expected <- valid_fam_parm[[fam]]$parms
+			if (all(sort(parms) == sort(parms_expected))) {
+				if (verbose) message("Matched parameters: ", parms_text)
+				matched$parameters <- TRUE
+			}
+		}
+	}
+	if ("parms_expected" %in% ls() & !matched$parameters) {
+		parms_expected_text <- paste(unlist(parms_expected), collapse=", ")
+		stop(
+			"The {", parms_text, "} ",
+			"parameter set does not match the ", family, " family. ",
+			"Expected set of parameters: {", parms_expected_text, "}. ",
+			"Please change the family to match the expected ",
+			"parameters or use a different family."
+		)
+	}
+	return(list(is_valid = all(unlist(matched)), family_name = family))
+}
+
+attachDistroAttributes <- function(sample, family, parms) {
+	if (length(attributes(sample)) == 1) {
+		attr(sample, "parameters") <- parms[valid_fam_parm[[family]]$parms]
+		attr(sample, "continuous") <- valid_fam_parm[[family]]$cont
+	}
+	return(sample)
 }

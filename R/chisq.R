@@ -15,6 +15,7 @@ rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_chisq"
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
 	return(y)
 }
 

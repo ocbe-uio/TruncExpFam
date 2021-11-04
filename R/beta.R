@@ -17,6 +17,7 @@ rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
     y <- y[y <= b]
   }
   class(y) <- "trunc_beta"
+  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
   return(y)
 }
 

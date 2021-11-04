@@ -52,11 +52,10 @@ ml_poisson <- mlEstimationTruncDist(
 	sample.pois, y.min = 4, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
-# FIXME #19: mlEstimationTruncDist not working for binomial
-# ml_binom <- mlEstimationTruncDist(
-# 	sample.binom, y.min = 4, max.it = 500, delta = 0.33,
-# 	nsize = 10, print.iter = FALSE
-# )
+ml_binom <- mlEstimationTruncDist(
+	sample.binom, y.min = 4, max.it = 500, delta = 0.33,
+	print.iter = FALSE
+)
 ml_gamma <- mlEstimationTruncDist(
 	sample.gamma, y.min = 0.1, max.it = 1500, delta = 0.3,
 	print.iter = FALSE
@@ -66,7 +65,7 @@ test_that("mlEstimationTruncDist works", {
 	expect_equal(unclass(ml_gaussian), c(mean= 2, sd = 1.5), tol = 1e-1)
 	expect_equal(unclass(ml_lognormal), c(mean= 2.5, sd = 0.5), tol = 1e-1)
 	expect_equal(unclass(ml_poisson), c(lambda = 10), tol = 1e-1)
-	# TODO #59: add unit test for ml_binom (depends on #19)
+	expect_equal(unclass(ml_binom), c(prob = 0.6), tol = 1e-1) #
 	expect_equal(unclass(ml_gamma), c(shape = 11.62, rate = 3.39), tol = 1e-1)
 })
 

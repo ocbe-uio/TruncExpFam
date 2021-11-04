@@ -8,7 +8,7 @@
 \alias{rtruncbeta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
-\alias{rtrunccontbernoulli}
+\alias{rtrunccontbern}
 \alias{rtruncexp}
 \alias{rtruncgamma}
 \alias{rtruncinvgamma}
@@ -27,7 +27,7 @@ rtruncbinom(n, size, prob, a = 0, b = Inf)
 
 rtruncchisq(n, df, a = 0, b = Inf)
 
-rtrunccontbernoulli(n, lambda, a = 0, b = 1)
+rtrunccontbern(n, lambda, a = 0, b = 1)
 
 rtruncexp(n, rate = 1, a = 0, b = Inf)
 
@@ -92,6 +92,9 @@ distribution). Must be strictly positive, need not be integer.}
 }
 \value{
 A sample of size n drawn from a truncated distribution
+
+vector of one of the \code{rtrunc_*} classes containing the sample
+elements, as well as some attributes related to the chosen distribution.
 }
 \description{
 Random generation for the truncated exponential family distributions. Please ferer to the "Details" and "Examples" section for more information on how to use this function.

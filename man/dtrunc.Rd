@@ -8,7 +8,7 @@
 \alias{dtruncbeta}
 \alias{dtruncbinom}
 \alias{dtruncchisq}
-\alias{dtrunccontbernoulli}
+\alias{dtrunccontbern}
 \alias{dtruncexp}
 \alias{dtruncgamma}
 \alias{dtruncinvgamma}
@@ -27,7 +27,7 @@ dtruncbinom(y, eta, a = 0, b = Inf, ...)
 
 dtruncchisq(y, eta, a = 0, b = Inf)
 
-dtrunccontbernoulli(y, eta, a = 0, b = 1)
+dtrunccontbern(y, eta, a = 0, b = 1)
 
 dtruncexp(y, eta, a = 0, b = Inf)
 
