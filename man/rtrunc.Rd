@@ -8,7 +8,7 @@
 \alias{rtruncbeta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
-\alias{rtrunccontbernoulli}
+\alias{rtrunccontbern}
 \alias{rtruncexp}
 \alias{rtruncgamma}
 \alias{rtruncinvgamma}
@@ -21,29 +21,29 @@
 \usage{
 rtrunc(n, family = "gaussian", ...)
 
-rtruncbeta(n, shape1, shape2, a, b)
+rtruncbeta(n, shape1, shape2, a = 0, b = 1)
 
-rtruncbinom(n, size, prob, a, b)
+rtruncbinom(n, size, prob, a = 0, b = Inf)
 
-rtruncchisq(n, df, a, b)
+rtruncchisq(n, df, a = 0, b = Inf)
 
-rtrunccontbernoulli(n, lambda, a, b = 1)
+rtrunccontbern(n, lambda, a = 0, b = 1)
 
-rtruncexp(n, rate = 1, a, b)
+rtruncexp(n, rate = 1, a = 0, b = Inf)
 
-rtruncgamma(n, shape, rate = 1, a = 0, b = Inf)
+rtruncgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
-rtruncinvgamma(n, shape, rate = 1, a = 0, b = Inf)
+rtruncinvgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
 rtruncinvgauss(n, m, s, a = 0, b = Inf)
 
-rtrunclnorm(n, meanlog, sdlog, a, b)
+rtrunclnorm(n, meanlog, sdlog, a = -Inf, b = Inf)
 
-rtruncnbinom(n, size, prob, mu, a, b = Inf)
+rtruncnbinom(n, size, prob, mu, a = 0, b = Inf)
 
-rtruncnorm(n, mean, sd, a, b)
+rtruncnorm(n, mean, sd, a = -Inf, b = Inf)
 
-rtruncpois(n, lambda, a, b)
+rtruncpois(n, lambda, a = 0, b = Inf)
 }
 \arguments{
 \item{n}{sample size}
@@ -74,6 +74,8 @@ distribution). Must be strictly positive, need not be integer.}
 
 \item{shape}{inverse gamma shape parameter}
 
+\item{scale}{inverse gamma scale parameter}
+
 \item{m}{vector of means}
 
 \item{s}{vector of dispersion parameters}
@@ -90,6 +92,9 @@ distribution). Must be strictly positive, need not be integer.}
 }
 \value{
 A sample of size n drawn from a truncated distribution
+
+vector of one of the \code{rtrunc_*} classes containing the sample
+elements, as well as some attributes related to the chosen distribution.
 }
 \description{
 Random generation for the truncated exponential family distributions. Please ferer to the "Details" and "Examples" section for more information on how to use this function.

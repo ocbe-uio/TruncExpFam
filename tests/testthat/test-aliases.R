@@ -15,8 +15,8 @@ test_that("rtrunc works the same from generic and alias", {
 		expected = {set.seed(8); rtruncchisq(100, 45)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, .2, family="contbernoulli")},
-		expected = {set.seed(8); rtrunccontbernoulli(100, .2)},
+		object = {set.seed(8); rtrunc(100, .2, family="contbern")},
+		expected = {set.seed(8); rtrunccontbern(100, .2)},
 	)
 	expect_identical(
 		object = {set.seed(8); rtrunc(100, 45, 12, family="gamma")},
@@ -54,6 +54,18 @@ test_that("Output of rtrunc matches stats::r*", {
 	expect_setequal(
 		object   = {set.seed(1); rgamma(50, shape=4, rate=5)},
 		expected = {set.seed(1); rtrunc(50, shape=4, rate=5, family="gamma")}
+	)
+	expect_setequal(
+		object   = {set.seed(1); rgamma(50, shape=4, scale=6)},
+		expected = {set.seed(1); rtrunc(50, shape=4, scale=6, family="gamma")}
+	)
+	expect_setequal(
+		object   = {set.seed(1); rinvgamma(50, shape=6, scale=9)},
+		expected = {set.seed(1); rtrunc(50, shape=6, scale=9, family="invgamma")}
+	)
+	expect_setequal(
+		object   = {set.seed(1); rinvgamma(50, shape=52, scale=.21)},
+		expected = {set.seed(1); rtrunc(50, shape=52, scale=.21, family="invgamma")}
 	)
 	expect_setequal(
 		object   = {set.seed(1); rlnorm(50, meanlog=7, sdlog=2)},

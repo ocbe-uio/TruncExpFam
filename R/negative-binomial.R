@@ -9,7 +9,7 @@
 #' @param mu alternative parametrization via mean
 #' @rdname rtrunc
 #' @export
-rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
+rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0,b=Inf) {
   y <- rinvnbinom(n, size, prob, mu)  # FIXME #55: write function or replace with rnbinom?
   if (!missing(a)) {
     y <- y[y >= a]
@@ -18,6 +18,7 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
     y <- y[y <= b]
   }
   class(y) <- "trunc_nbinom"
+  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
   return(y)
 }
 
@@ -26,7 +27,7 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a,b=Inf) {
 #' @rdname dtrunc
 #' @param ... size
 #' @export
-dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
+dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
 	my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
 	my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
 	proba <- exp(eta)
@@ -38,7 +39,7 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b, ...) {
 		F.a <- 0
 	}
 	if (!missing(b)) {
-		F.b <- my.pnbinom(b, ...) # TODO: if output doesn't match stats:: equivalent, the issue is probably here.
+		F.b <- my.pnbinom(b, ...) # TODO #61: if output doesn't match stats:: equivalent, the issue is probably here.
 	} else {
 		F.b <- 1
 	}
@@ -51,11 +52,11 @@ init.parms.trunc_nbinom <- function(y) {
 	return(mean(y))
 }
 
-sufficient.T.trunc_nbinom <- function(y) {
+sufficientT.trunc_nbinom <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_nbinom <- function(y) {
+averageT.trunc_nbinom <- function(y) {
 	return(mean(y))
 }
 
@@ -63,17 +64,21 @@ average.T.trunc_nbinom <- function(y) {
 natural2parameters.trunc_nbinom <- function(eta) {
 	# eta: The natural parameters in a negative binomial distribution
 	# returns (mean,sigma)
-	return(c(p = exp(eta)))
+	p <- exp(eta)
+	class(p) <- class(eta)
+	return(p)
 }
 
 #' @export
 parameters2natural.trunc_nbinom <- function(parms) {
 	# parms: The p parameter in a negative binomial distribution
 	# returns the natural parameters
-	return(eta = log(parms))
+	eta <- log(parms)
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.grad.E.T.inv.trunc_nbinom <- function(eta) {
+getGradETinv.trunc_nbinom <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	p <- exp(eta)
@@ -81,10 +86,12 @@ get.grad.E.T.inv.trunc_nbinom <- function(eta) {
 # Possible solution: adding validateDomain methods to each rtrunc method.# FIXME #41: r not defined. René is looking into this.
 }
 
-get.y.seq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
 	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
-	return(lo:hi)
+	out <- seq(lo, hi)
+	class(out) <- class(y)
+	return(out)
 }

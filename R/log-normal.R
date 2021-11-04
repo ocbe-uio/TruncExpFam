@@ -6,7 +6,7 @@
 #' @param sdlog standard deviation of un-truncated distribution
 #' @rdname rtrunc
 #' @export
-rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
+rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = -Inf, b = Inf) {
 	y <- rlnorm(n, meanlog, sdlog)
 	if (!missing(a)) {
 		y <- y[y >= a]
@@ -15,15 +15,16 @@ rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a, b) {
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_lognormal"
+	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
 	return(y)
 }
 
-sufficient.T.trunc_lognormal <- function(y) {
+sufficientT.trunc_lognormal <- function(y) {
 	return(suff.T = cbind(log(y), log(y)^2))
 }
 
-average.T.trunc_lognormal <- function(y) {
-	return(apply(sufficient.T.trunc_lognormal(y), 2, mean))
+averageT.trunc_lognormal <- function(y) {
+	return(apply(sufficientT.trunc_lognormal(y), 2, mean))
 }
 
 #' @export
@@ -59,11 +60,29 @@ init.parms.trunc_lognormal <- function(y) {
 	return(parms)
 }
 
-get.y.seq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
+getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 	x <- log(y)
 	mean <- mean(x, na.rm = T)
 	sd <- var(x, na.rm = T)^0.5
 	lo <- max(y.min, exp(mean - 3.5 * sd))
 	hi <- min(y.max, exp(mean + 3.5 * sd))
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
+}
+
+# TODO #63: properly write the functions below
+natural2parameters.trunc_lognormal <- function(eta) {
+	warning("Using natural2parameters() from the Normal distribution")
+	natural2parameters.trunc_normal(eta)
+}
+
+parameters2natural.trunc_lognormal <- function(parms) {
+	warning("Using parameters2natural() from the Normal distribution")
+	parameters2natural.trunc_normal(parms)
+}
+
+getGradETinv.trunc_lognormal <- function(eta) {
+	warning("Using getGradETinv() from the Normal distribution")
+	getGradETinv.trunc_normal(eta)
 }

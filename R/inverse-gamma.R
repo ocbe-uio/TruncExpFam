@@ -5,10 +5,13 @@
 #' @importFrom invgamma rinvgamma
 #' @param shape inverse gamma shape parameter
 #' @param rate inverse gamma rate parameter
+#' @param scale inverse gamma scale parameter
 #' @rdname rtrunc
 #' @export
-rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
-  y <- rinvgamma(n, shape = shape, rate = rate)
+rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, scale=1/rate,
+	a=0, b=Inf)
+{
+  y <- rinvgamma(n, shape = shape, scale = scale)
   if (!missing(a)) {
     y <- y[y >= a]
   }
@@ -16,12 +19,13 @@ rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, a=0, b=Inf) {
     y <- y[y <= b]
   }
   class(y) <- "trunc_invgamma"
+  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
   return(y)
 }
 
 #' @importFrom invgamma dinvgamma pinvgamma
 #' @export
-dtrunc.trunc_invgamma <- function(y, eta, a, b) {
+dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
 	parm <- natural2parameters.trunc_invgamma(eta)
 	dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
 	if (!missing(a)) {
@@ -54,11 +58,11 @@ init.parms.trunc_invgamma <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_invgamma <- function(y) {
+sufficientT.trunc_invgamma <- function(y) {
 	return(suff.T = cbind(log(y), 1/y))
 }
 
-average.T.trunc_invgamma <- function(y) {
+averageT.trunc_invgamma <- function(y) {
 	return(apply(cbind(log(y), 1/y), 2, mean))
 }
 
@@ -66,26 +70,32 @@ average.T.trunc_invgamma <- function(y) {
 natural2parameters.trunc_invgamma <- function(eta) {
 	# eta: The natural parameters in a inverse gamma distribution
 	# returns (shape,rate)
-	return(c(shape = -eta[1]-1, rate =-eta[2]))
+	parms <- c(shape = -eta[1]-1, rate =-eta[2])
+	class(parms) <- class(eta)
+	return(parms)
 }
 
 #' @export
 parameters2natural.trunc_invgamma <- function(parms) {
 	# parms: The parameters shape and rate in a beta distribution
 	# returns the natural parameters
-	return(c(shape = -parms[1]-1, rate = -parms[2]))
+	eta <- c(shape = -parms[1]-1, rate = -parms[2])
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.y.seq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
+getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max=1, n = 100) {
 	# needs chekking
 	mean <- mean(y, na.rm = T)
 	sd <- var(y, na.rm = T)^0.5
 	lo <- max(y.min, mean - 5 * sd,1e-10)
 	hi <- min(y.max, mean + 5 * sd)
-	return(seq(lo, hi, length = n))
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
 
-get.grad.E.T.inv.trunc_invgamma <- function(eta) {
+getGradETinv.trunc_invgamma <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A.11=sum(1/(((0:10000)+eta[1]+1))^2)

@@ -6,7 +6,7 @@
 #' @param rate vector of rates
 #' @rdname rtrunc
 #' @export
-rtruncexp <- rtrunc.exp <- function(n, rate=1, a, b) {
+rtruncexp <- rtrunc.exp <- function(n, rate=1, a = 0, b = Inf) {
   y <- rexp(n, rate)
   if (!missing(a)) {
     y <- y[y >= a]
@@ -15,11 +15,12 @@ rtruncexp <- rtrunc.exp <- function(n, rate=1, a, b) {
     y <- y[y <= b]
   }
   class(y) <- "trunc_exp"
+  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
   return(y)
 }
 
 #' @export
-dtrunc.trunc_exp <- function(y, eta, a = 0, b) {
+dtrunc.trunc_exp <- function(y, eta, a = 0, b = Inf) {
 	rate <- natural2parameters.trunc_exp(eta)
 	dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate=rate))
 	if (!missing(a)) {
@@ -49,11 +50,11 @@ init.parms.trunc_exp <- function(y) {
 	return(parms)
 }
 
-sufficient.T.trunc_exp <- function(y) {
+sufficientT.trunc_exp <- function(y) {
 	return(suff.T = y)
 }
 
-average.T.trunc_exp <- function(y) {
+averageT.trunc_exp <- function(y) {
 	return(mean(y))
 }
 
@@ -61,27 +62,32 @@ average.T.trunc_exp <- function(y) {
 natural2parameters.trunc_exp <- function(eta) {
 	# eta: The natural parameters in an exponential distribution distribution
 	# returns rate
-	return(c(lamda = -eta))
+	lambda <- -eta
+	class(lambda) <- class(eta)
+	return(lambda)
 }
 
 #' @export
 parameters2natural.trunc_exp <- function(parms) {
 	# parms: The parameter lambda in an exponential distribution
 	# returns the natural parameters
-	return(eta = -parms)
+	eta <- -parms
+	class(eta) <- class(parms)
+	return(eta)
 }
 
-get.grad.E.T.inv.trunc_exp <- function(eta) {
+getGradETinv.trunc_exp <- function(eta) {
 	# eta: Natural parameter
 	# return the inverse of E.T differentiated with respect to eta
 	return(A = eta^2)
 }
 
-get.y.seq.trunc_exp <- function(y, y.min = 0, y.max, n = 100) {
+getYseq.trunc_exp <- function(y, y.min = 0, y.max, n = 100) {
 	mean <- mean(y, na.rm = T)
 	var.y <- var(y, na.rm = T)
 	lo <- max(round(y.min), 0)
 	hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
-	return(	return(seq(lo, hi, length = n))
-)
+	out <- seq(lo, hi, length = n)
+	class(out) <- class(y)
+	return(out)
 }
