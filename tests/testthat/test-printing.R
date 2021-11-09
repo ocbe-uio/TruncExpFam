@@ -1,6 +1,3 @@
-library(TruncExpFam) #TEMP
-library(testthat) #TEMP
-
 context("Printing")
 
 set.seed(4354)
@@ -21,35 +18,31 @@ test_that("Printing options are respected", {
 
   # Check if default printing hides attributes ------------- #
 
-  expect_equal(capture.output(attributes(print(x_beta)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_bino)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_chis)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_cber)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_expo)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_gam1)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_gam2)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_igm1)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_igm2)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_inor)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_norm)))[2], "NULL")
-  expect_equal(capture.output(attributes(print(x_pois)))[2], "NULL")
+  expect_length(capture_output_lines(attributes(print(x_beta))), 2)
+  expect_length(capture_output_lines(attributes(print(x_bino))), 1)
+  expect_length(capture_output_lines(attributes(print(x_chis))), 2)
+  expect_length(capture_output_lines(attributes(print(x_cber))), 2)
+  expect_length(capture_output_lines(attributes(print(x_expo))), 2)
+  expect_length(capture_output_lines(attributes(print(x_gam1))), 2)
+  expect_length(capture_output_lines(attributes(print(x_gam2))), 2)
+  expect_length(capture_output_lines(attributes(print(x_igm1))), 2)
+  expect_length(capture_output_lines(attributes(print(x_igm2))), 2)
+  expect_length(capture_output_lines(attributes(print(x_inor))), 2)
+  expect_length(capture_output_lines(attributes(print(x_norm))), 2)
+  expect_length(capture_output_lines(attributes(print(x_pois))), 1)
 
   # Check if details=TRUE displays the attributes ---------- #
 
-  # Each additional distribution parameter adds 3 objects to the printout
-  # (arg name + value + space). That's why distribution with two parameters
-  # have 12 objects and one-parameter ones have 9.
-
-  expect_length(capture.output(print(x_beta, details=TRUE)), 12)
-  expect_length(capture.output(print(x_bino, details=TRUE)), 12)
-  expect_length(capture.output(print(x_chis, details=TRUE)), 9)
-  expect_length(capture.output(print(x_cber, details=TRUE)), 9)
-  expect_length(capture.output(print(x_expo, details=TRUE)), 9)
-  expect_length(capture.output(print(x_gam1, details=TRUE)), 12)
-  expect_length(capture.output(print(x_gam2, details=TRUE)), 12)
-  expect_length(capture.output(print(x_igm1, details=TRUE)), 12)
-  expect_length(capture.output(print(x_igm2, details=TRUE)), 12)
-  expect_length(capture.output(print(x_inor, details=TRUE)), 12)
-  expect_length(capture.output(print(x_norm, details=TRUE)), 12)
-  expect_length(capture.output(print(x_pois, details=TRUE)), 9)
+  expect_output(print(x_beta, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_bino, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_chis, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_cber, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_expo, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_gam1, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_gam2, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_igm1, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_igm2, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_inor, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_norm, details=TRUE), 'attr\\(,\"parameters\"\\)')
+  expect_output(print(x_pois, details=TRUE), 'attr\\(,\"parameters\"\\)')
 })
