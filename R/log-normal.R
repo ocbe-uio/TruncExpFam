@@ -73,16 +73,13 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 
 # TODO #63: properly write the functions below
 natural2parameters.trunc_lognormal <- function(eta) {
-	warning("Using natural2parameters() from the Normal distribution")
 	natural2parameters.trunc_normal(eta)
 }
 
 parameters2natural.trunc_lognormal <- function(parms) {
-	warning("Using parameters2natural() from the Normal distribution")
 	parameters2natural.trunc_normal(parms)
 }
 
 getGradETinv.trunc_lognormal <- function(eta) {
-	warning("Using getGradETinv() from the Normal distribution")
 	getGradETinv.trunc_normal(eta)
 }
