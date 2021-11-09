@@ -71,7 +71,6 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 	return(out)
 }
 
-# TODO #63: properly write the functions below
 natural2parameters.trunc_lognormal <- function(eta) {
 	natural2parameters.trunc_normal(eta)
 }
