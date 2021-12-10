@@ -9,17 +9,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
-  y <- rbeta(n, shape1, shape2)
-  if (!missing(a)) {
-    y <- y[y >= a]
-  }
-  if (!missing(b)) {
-    y <- y[y <= b]
-  }
-  class(y) <- "trunc_beta"
-	validateDomain(y, mget(ls()))
-  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-  return(y)
+	class(n) <- "trunc_beta"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export

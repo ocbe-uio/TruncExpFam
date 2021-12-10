@@ -7,17 +7,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
-	y <- rchisq(n, df)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_chisq"
-	validateDomain(y, mget(ls()))
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+  class(n) <- "trunc_chisq"
+  sampleFromTruncated(mget(ls()))
 }
 
 #' @export

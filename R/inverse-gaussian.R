@@ -7,17 +7,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a=0, b=Inf) {
-	y <- rinvgauss(n, m, s)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_invgauss"
-	validateDomain(y, mget(ls()))
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+	class(n) <- "trunc_invgauss"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export

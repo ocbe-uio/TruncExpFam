@@ -7,17 +7,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncexp <- rtrunc.exp <- function(n, rate=1, a = 0, b = Inf) {
-  y <- rexp(n, rate)
-  if (!missing(a)) {
-    y <- y[y >= a]
-  }
-  if (!missing(b)) {
-    y <- y[y <= b]
-  }
-  class(y) <- "trunc_exp"
-	validateDomain(y, mget(ls()))
-  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-  return(y)
+  class(n) <- "trunc_exp"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export

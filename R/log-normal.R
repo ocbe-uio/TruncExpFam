@@ -7,17 +7,8 @@
 #' @rdname rtrunc
 #' @export
 rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = -Inf, b = Inf) {
-	y <- rlnorm(n, meanlog, sdlog)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_lognormal"
-	validateDomain(y, mget(ls()))
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+	class(n) <- "trunc_lognormal"
+	sampleFromTruncated(mget(ls()))
 }
 
 sufficientT.trunc_lognormal <- function(y) {

@@ -11,17 +11,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0,b=Inf) {
-  y <- rnbinom(n, size, prob, mu)
-  if (!missing(a)) {
-    y <- y[y >= a]
-  }
-  if (!missing(b)) {
-    y <- y[y <= b]
-  }
-  class(y) <- "trunc_nbinom"
-	validateDomain(y, mget(ls()))
-  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-  return(y)
+  class(n) <- "trunc_nbinom"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export
