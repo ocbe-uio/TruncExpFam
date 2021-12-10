@@ -4,10 +4,15 @@ sampleFromTruncated <- function(parms) {
 
   # Generating empty structure with correct class ------------------------------
   className <- class(parms$n)
+  family <- gsub("trunc_", "", className)
   y <- structure(numeric(0), class=className)
 
-  # Checking domain-------------------------------------------------------------
+  # Checking domain and parmeters -------------------------------------------------
   validateDomain(y, parms)
+  if (family %in% c("gamma", "invgamma")) {
+    parms$rate <- NULL
+  }
+  validateFamilyParms(family, names(parms)[!(names(parms) %in% c("a", "b", "n"))])
 
   # Sampling from untruncated distro -------------------------------------------
   y <- with(parms, switch(class(n),
@@ -31,7 +36,7 @@ sampleFromTruncated <- function(parms) {
 
   # Attaching attributes -------------------------------------------------------
   class(y) <- className
-  y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), parms)
+  y <- attachDistroAttributes(y, family, parms)
   return(y)
 }
 
