@@ -8,18 +8,10 @@
 #' @rdname rtrunc
 #' @export
 rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1/rate,
-	a = 0, b=Inf)
-{
-	y <- rgamma(n, shape = shape, scale = scale)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_gamma"
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+	a = 0, b=Inf
+) {
+	class(n) <- "trunc_gamma"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export

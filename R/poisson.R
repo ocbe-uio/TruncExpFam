@@ -6,16 +6,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncpois <- rtrunc.poisson <- function(n, lambda, a = 0, b = Inf) {
-	y <- rpois(n, lambda)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_poisson"
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+	class(n) <- "trunc_poisson"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export

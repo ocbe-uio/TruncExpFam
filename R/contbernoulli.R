@@ -7,30 +7,8 @@
 #' @rdname rtrunc
 #' @export
 rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1) {
-	# Sampling function for a continuous bernoulli distribution
-	# This distribution is not implemented in Base R
-	# Used in the sampling of the truncated continuous bernoulli
-	rcontbern <- function(n, lambda){
-		if ((lambda < 0) | (lambda > 1)) {
-			stop("lambda must be in (0, 1)")
-		}
-		u <- runif(n)
-		if (lambda == 0.5) {
-			return(u)
-		}
-		x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / (log(lambda / (1 - lambda))) # The inverse of the CDF for a cont. bernoulli distribution
-		return(x)
-	}
-	y <- rcontbern(n, lambda)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_contbern"
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+	class(n) <- "trunc_contbern"
+	sampleFromTruncated(mget(ls()))
 }
 
 # The two functions 'dcontbern' and 'pcontbern' below act in support of the
@@ -127,4 +105,3 @@ getGradETinv.trunc_contbern <- function(eta) {
 	exp.eta=exp(eta)
 	return(A = ((exp.eta-1)*eta)^2/(exp.eta*(exp.eta-eta^2+eta-1)))
 }
-

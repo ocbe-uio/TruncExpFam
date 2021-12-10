@@ -7,16 +7,8 @@
 #' @rdname rtrunc
 #' @export
 rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
-	y <- rnorm(n, mean, sd)
-	if (!missing(a)) {
-		y <- y[y >= a]
-	}
-	if (!missing(b)) {
-		y <- y[y <= b]
-	}
-	class(y) <- "trunc_normal"
-	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
-	return(y)
+	class(n) <- "trunc_normal"
+	sampleFromTruncated(mget(ls()))
 }
 
 #' @export
