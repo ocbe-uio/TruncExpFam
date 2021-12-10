@@ -33,16 +33,16 @@ validateDomain.exp <- function(n, rate, ...) {
 	if (rate <= 0) stop("Invalid parameter domain. rate must be positive.")
 }
 
-validateDomain.gamma <- function(n, shape, rate, ...) {
+validateDomain.gamma <- function(n, shape, rate, scale, ...) {
 	if (shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
+	if (scale <= 0) stop("Invalid parameter domain. scale must be > 0.")
 	if (rate <= 0) stop("Invalid parameter domain. rate must be > 0.")
-	# TODO #57: add validation for scale (and don't check the one that isn't used)
 }
 
-validateDomain.invgamma <- function(n, shape, rate, ...) {
+validateDomain.invgamma <- function(n, shape, rate, scale, ...) {
 	if (shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
+	if (scale <= 0) stop("Invalid parameter domain. scale must be > 0.")
 	if (rate <= 0) stop("Invalid parameter domain. rate must be > 0.")
-	# TODO #57: add validation for scale (and don't check the one that isn't used)
 }
 
 validateDomain.invgauss <- function(n, m, s, ...) {
