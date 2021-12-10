@@ -14,7 +14,7 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = Inf) {
 #' @export
 dtrunc.trunc_binomial <- function(y, eta, a = 0, b = Inf, ...) {
 	nsize <- attr(y, "parameters")$size
-	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)# FIXME #61: nsize should be passed by user or discovered by function
+	my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
 	my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
 	proba <- 1 / (1 + exp(-eta))
 	dens <- ifelse((y < a) | (y > b), 0, my.dbinom(nsize))
