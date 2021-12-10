@@ -94,7 +94,3 @@ jobs:
           with:
             name: ${{ runner.os }}-r${{ matrix.config.r }}-results
             path: check
-
-        # Checking test coverage --------------------------------- #
-        - name: Checking test coverage
-          run: Rscript -e 'covr::codecov()'
