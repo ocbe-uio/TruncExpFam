@@ -15,6 +15,7 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = Inf) {
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_binomial"
+	validateDomain(y, mget(ls()))
 	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
 	return(y)
 }

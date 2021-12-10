@@ -19,6 +19,7 @@ rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate=1, scale=1/rate,
     y <- y[y <= b]
   }
   class(y) <- "trunc_invgamma"
+	validateDomain(y, mget(ls()))
   y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
   return(y)
 }

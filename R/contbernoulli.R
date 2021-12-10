@@ -29,6 +29,7 @@ rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1) {
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_contbern"
+	validateDomain(y, mget(ls()))
 	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
 	return(y)
 }
@@ -127,4 +128,3 @@ getGradETinv.trunc_contbern <- function(eta) {
 	exp.eta=exp(eta)
 	return(A = ((exp.eta-1)*eta)^2/(exp.eta*(exp.eta-eta^2+eta-1)))
 }
-

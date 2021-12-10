@@ -15,6 +15,7 @@ rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
 		y <- y[y <= b]
 	}
 	class(y) <- "trunc_normal"
+	validateDomain(y, mget(ls()))
 	y <- attachDistroAttributes(y, gsub("trunc_", "", class(y)), mget(ls()))
 	return(y)
 }
