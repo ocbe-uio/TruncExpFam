@@ -41,23 +41,23 @@ test_that("Truncation limits are observed", {
 context("ML estimation")
 
 ml_gaussian <- mlEstimationTruncDist(
-	sample.norm, y.min = -1, max.it = 500, delta = 0.33,
+	sample.norm, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
 ml_lognormal <- mlEstimationTruncDist(
-	sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
+	sample.lognorm, max.it = 500, tol = 1e-10, delta = 0.3,
 	print.iter = FALSE
 )
 ml_poisson <- mlEstimationTruncDist(
-	sample.pois, y.min = 4, max.it = 500, delta = 0.33,
+	sample.pois, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
 ml_binom <- mlEstimationTruncDist(
-	sample.binom, y.min = 4, y.max = 10, max.it = 500, delta = 0.33,
+	sample.binom, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
 ml_gamma <- mlEstimationTruncDist(
-	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3,
+	sample.gamma, max.it = 1500, delta = 0.3,
 	print.iter = FALSE
 )
 
