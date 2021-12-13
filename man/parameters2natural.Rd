@@ -17,7 +17,6 @@ Convert distribution parameters to natural parameters
 }
 \examples{
 # Poisson distribution
-samp <- rtrunc(n=100, lambda=2, family="Poisson")
+samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 TruncExpFam:::parameters2natural(TruncExpFam:::init.parms(samp))
-
 }
