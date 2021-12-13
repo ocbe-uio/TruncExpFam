@@ -45,7 +45,7 @@ ml_gaussian <- mlEstimationTruncDist(
 	print.iter = FALSE
 )
 ml_lognormal <- mlEstimationTruncDist(
-	sample.lognorm, max.it = 500, tol = 1e-10, delta = 0.3,
+	sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 	print.iter = FALSE
 )
 ml_poisson <- mlEstimationTruncDist(
@@ -53,11 +53,11 @@ ml_poisson <- mlEstimationTruncDist(
 	print.iter = FALSE
 )
 ml_binom <- mlEstimationTruncDist(
-	sample.binom, y.min = 4, max.it = 500, delta = 0.33,
+	sample.binom, y.min = 4, y.max = 10, max.it = 500, delta = 0.33,
 	print.iter = FALSE
 )
 ml_gamma <- mlEstimationTruncDist(
-	sample.gamma, y.min = 0.1, max.it = 1500, delta = 0.3,
+	sample.gamma, y.min = 2, max.it = 1500, delta = 0.3,
 	print.iter = FALSE
 )
 
@@ -66,7 +66,7 @@ test_that("mlEstimationTruncDist works", {
 	expect_equal(unclass(ml_lognormal), c(mean= 2.5, sd = 0.5), tol = 1e-1)
 	expect_equal(unclass(ml_poisson), c(lambda = 10), tol = 1e-1)
 	expect_equal(unclass(ml_binom), c(prob = 0.6), tol = 1e-1) #FIXME #67 failing
-	expect_equal(unclass(ml_gamma), c(shape = 11.62, rate = 3.39), tol = 1e-1)
+	expect_equal(unclass(ml_gamma), c(shape = 6, rate = 2), tol = 1e-1)
 })
 
 # ======================================================== #
