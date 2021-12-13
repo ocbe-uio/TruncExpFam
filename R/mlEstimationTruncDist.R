@@ -46,8 +46,9 @@
 #' )
 #' @export
 mlEstimationTruncDist <- function(
-	y, y.min = -Inf, y.max = Inf, tol = 1e-5, max.it = 25, delta = 0.33,
-	print.iter = 0, ...
+	y, y.min = attr(y, "truncation_limits")$a,
+	y.max = attr(y, "truncation_limits")$b , tol = 1e-5, max.it = 25,
+	delta = 0.33,	print.iter = 0, ...
 ) {
 	# Some initialisations
 	if (as.numeric(print.iter) > 0) {

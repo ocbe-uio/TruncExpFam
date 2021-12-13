@@ -7,32 +7,32 @@ context("Matching output of rtrunc aliases")
 test_that("rtrunc works the same from generic and alias", {
 	# TODO #59: add tests for remaining distros
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, 4, .2, family="binomial")},
-		expected = {set.seed(8); rtruncbinom(100, 4, .2)},
+		object = {set.seed(8); rtrunc(1000, 4, .2, 2, family="binomial")},
+		expected = {set.seed(8); rtruncbinom(1000, 4, .2, 2)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, 45, family="chisq")},
-		expected = {set.seed(8); rtruncchisq(100, 45)},
+		object = {set.seed(8); rtrunc(1000, 45, 40, family="chisq")},
+		expected = {set.seed(8); rtruncchisq(1000, 45, 40)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, .2, family="contbern")},
-		expected = {set.seed(8); rtrunccontbern(100, .2)},
+		object = {set.seed(8); rtrunc(1000, .2, .2, .7, family="contbern")},
+		expected = {set.seed(8); rtrunccontbern(1000, .2, .2, .7)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, 45, 12, family="gamma")},
-		expected = {set.seed(8); rtruncgamma(100, 45, 12)},
+		object = {set.seed(8); rtrunc(1000, 45, 12, 1, 8, family="gamma")},
+		expected = {set.seed(8); rtruncgamma(1000, 45, 12, 1, 8)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, -32, 2, family="lognormal")},
-		expected = {set.seed(8); rtrunclnorm(100, -32, 2)},
+		object = {set.seed(8); rtrunc(1000, -32, 2, family="lognormal")},
+		expected = {set.seed(8); rtrunclnorm(1000, -32, 2)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, 100, 200, family="normal")},
-		expected = {set.seed(8); rtruncnorm(100, 100, 200)},
+		object = {set.seed(8); rtrunc(1000, 100, 200, 0, family="normal")},
+		expected = {set.seed(8); rtruncnorm(1000, 100, 200, 0)},
 	)
 	expect_identical(
-		object = {set.seed(8); rtrunc(100, 7521, family="poisson")},
-		expected = {set.seed(8); rtruncpois(100, 7521)},
+		object = {set.seed(8); rtrunc(1000, 7521, 7500, family="poisson")},
+		expected = {set.seed(8); rtruncpois(1000, 7521, 7500)},
 	)
 })
 
