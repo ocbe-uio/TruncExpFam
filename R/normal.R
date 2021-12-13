@@ -26,7 +26,7 @@ dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
     F.b <- 1
   }
   const <- 1 / (F.b - F.a)
-  return(dens / (F.b - F.a))
+  return(dens * const)
 }
 
 #' @export
@@ -69,8 +69,8 @@ parameters2natural.trunc_normal <- function(parms) {
 }
 
 getYseq.trunc_normal <- function(y, y.min, y.max, n = 100) {
-  mean <- mean(y, na.rm = T)
-  sd <- var(y, na.rm = T)^0.5
+  mean <- mean(y, na.rm = TRUE)
+  sd <- var(y, na.rm = TRUE)^0.5
   lo <- max(y.min, mean - 3.5 * sd)
   hi <- min(y.max, mean + 3.5 * sd)
   out <- seq(lo, hi, length = n)

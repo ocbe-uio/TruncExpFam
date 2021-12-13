@@ -24,7 +24,7 @@ dcontbern <- function(x, lambda) {
   } else {
     norm.const <- 2 * (atanh(1 - 2 * lambda)) / (1 - 2 * lambda)
   }
-  d <- norm.const * (lambda^x) * (1 - lambda)^(1 - x)
+  d <- norm.const * (lambda^x) * (1 - lambda) ^ (1 - x)
   return(d)
 }
 
@@ -37,7 +37,7 @@ pcontbern <- function(x, lambda) {
   } else if (lambda == 0.5) {
     p <- x
   } else {
-    p <- ((lambda^x) * (1 - lambda)^(1 - x) + lambda - 1) / (2 * lambda - 1)
+    p <- ((lambda^x) * (1 - lambda) ^ (1 - x) + lambda - 1) / (2 * lambda - 1)
   }
   return(p)
 }
@@ -97,8 +97,8 @@ parameters2natural.trunc_contbern <- function(parms) {
 }
 
 getYseq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
-  mean <- mean(y, na.rm = T)
-  var.y <- var(y, na.rm = T)
+  mean <- mean(y, na.rm = TRUE)
+  var.y <- var(y, na.rm = TRUE)
   lo <- max(round(y.min), 0)
   hi <- min(y.max, round(mean + 10 * sqrt(var.y)), 1)
   out <- seq(lo, hi, length = n)

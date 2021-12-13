@@ -93,12 +93,12 @@ getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
   T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
   if (length(eta) > 1) {
     E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
-    if (cont.dist == T) {
+    if (cont.dist) {
       E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1, ] + T.f[length(y.seq), ])
     }
   } else {
     E.T.j <- delta.y * sum(T.f)
-    if (cont.dist == T) {
+    if (cont.dist) {
       E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1] + T.f[length(y.seq)])
     }
   }

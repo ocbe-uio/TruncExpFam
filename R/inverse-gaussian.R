@@ -28,7 +28,7 @@ dtrunc.trunc_invgauss <- function(y, eta, a = 0, b = Inf) {
     F.b <- 1
   }
   const <- 1 / (F.b - F.a)
-  return(dens / (F.b - F.a))
+  return(dens * const)
 }
 
 #' @importFrom rmutil rinvgauss
@@ -74,8 +74,8 @@ parameters2natural.trunc_invgauss <- function(parms) {
 }
 
 getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
-  mean <- mean(y, na.rm = T)
-  shape <- var(y, na.rm = T)^0.5
+  mean <- mean(y, na.rm = TRUE)
+  shape <- var(y, na.rm = TRUE)^0.5
   lo <- max(max(0, y.min), mean - 3.5 * shape)
   hi <- min(y.max, mean + 3.5 * shape)
   out <- seq(lo, hi, length = n)

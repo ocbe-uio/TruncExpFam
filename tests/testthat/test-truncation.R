@@ -45,9 +45,8 @@ set.seed(233)
 lnorm_all <- rtrunclnorm(n, meanlog = 0, sdlog = .7)
 set.seed(233)
 lnorm_trunc <- rtrunclnorm(n, meanlog = 0, sdlog = .7, a = 3, b = 4)
-# TODO #59: uncomment below once #55 is resolved
-# set.seed(233); nbinom_all <- rtruncnbinom(n, size=63, prob=.62)
-# set.seed(233); nbinom_trunc <- rtruncnbinom(n, size=63, prob=.62, a=1, b=3)
+# TODO #59: add: set.seed(233); nbinom_all <- rtruncnbinom(n, size=63, prob=.62) #
+# TODO #59: add: set.seed(233); nbinom_trunc <- rtruncnbinom(n, size=63, prob=.62, a=1, b=3)
 set.seed(233)
 norm_all <- rtruncnorm(n, mean = 81, sd = 49)
 set.seed(233)

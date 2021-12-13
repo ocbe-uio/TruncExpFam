@@ -34,7 +34,7 @@ dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
     F.b <- 1
   }
   const <- 1 / (F.b - F.a)
-  return(dens / (F.b - F.a))
+  return(dens  * const)
 }
 
 #' @rdname dtrunc
@@ -45,7 +45,6 @@ dtrunclnorm <- dtrunc.trunc_lognormal
 init.parms.trunc_lognormal <- function(y) {
   # Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)
   # Returns empirical parameter estimates for mean and sd
-  # browser()
   x <- log(y)
   parms <- c(mean = mean(x), sd = sqrt(var(x)))
   class(parms) <- "trunc_lognormal"
@@ -54,8 +53,8 @@ init.parms.trunc_lognormal <- function(y) {
 
 getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
   x <- log(y)
-  mean <- mean(x, na.rm = T)
-  sd <- var(x, na.rm = T)^0.5
+  mean <- mean(x, na.rm = TRUE)
+  sd <- var(x, na.rm = TRUE)^0.5
   lo <- max(y.min, exp(mean - 3.5 * sd))
   hi <- min(y.max, exp(mean + 3.5 * sd))
   out <- seq(lo, hi, length = n)

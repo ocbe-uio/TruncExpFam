@@ -30,11 +30,6 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b = Inf) {
 #' @rdname dtrunc
 #' @export
 dtruncpois <- dtrunc.trunc_poisson
-# Is this function used anywhere? Maybe it's the same as dtrunc.trunc_poisson above
-# density.trunc_poisson <- function(y, eta) {
-# 	parms <- exp(eta)
-# 	dpois(y, parms)
-# }
 
 #' @export
 init.parms.trunc_poisson <- function(y) {
@@ -78,8 +73,8 @@ getGradETinv.trunc_poisson <- function(eta) {
 }
 
 getYseq.trunc_poisson <- function(y, y.min = 0, y.max, n = 100) {
-  mean <- mean(y, na.rm = T)
-  var.y <- var(y, na.rm = T)
+  mean <- mean(y, na.rm = TRUE)
+  var.y <- var(y, na.rm = TRUE)
   lo <- max(round(y.min), 0)
   hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
   out <- seq(lo, hi)

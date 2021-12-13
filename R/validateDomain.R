@@ -1,5 +1,4 @@
 validateDomain <- function(n, ...) {
-  parms <- list(...)
   UseMethod("validateDomain")
 }
 

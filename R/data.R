@@ -1,61 +1,61 @@
 valid_fam_parm <- list(
   beta = list(
-    family = c("beta"),
+    family = "beta",
     parms = c("shape1", "shape2"),
     cont = TRUE
   ),
   binomial = list(
-    family = c("binomial"),
+    family = "binomial",
     parms = c("size", "prob"),
     cont = FALSE
   ),
   chisq = list(
-    family = c("chisq"),
-    parms = c("df"),
+    family = "chisq",
+    parms = "df",
     cont = TRUE
   ),
   contbern = list(
-    family = c("contbern"),
-    parms = c("lambda"),
+    family = "contbern",
+    parms = "lambda",
     cont = TRUE
   ),
   exp = list(
-    family = c("exp"),
-    parms = c("rate"),
+    family = "exp",
+    parms = "rate",
     cont = TRUE
   ),
   gamma = list(
-    family = c("gamma"),
+    family = "gamma",
     parms = c("shape", "rate"),
     cont = TRUE
   ),
   gamma = list(
-    family = c("gamma"),
+    family = "gamma",
     parms = c("shape", "scale"),
     cont = TRUE
   ),
   invgamma = list(
-    family = c("invgamma"),
+    family = "invgamma",
     parms = c("shape", "rate"),
     cont = TRUE
   ),
   invgamma = list(
-    family = c("invgamma"),
+    family = "invgamma",
     parms = c("shape", "scale"),
     cont = TRUE
   ),
   invgauss = list(
-    family = c("invgauss"),
+    family = "invgauss",
     parms = c("m", "s"),
     cont = TRUE
   ),
   lognormal = list(
-    family = c("lognormal"),
+    family = "lognormal",
     parms = c("meanlog", "sdlog"),
     cont = TRUE
   ),
   nbinom = list(
-    family = c("nbinom"),
+    family = "nbinom",
     parms = c("size", "prob", "mu"),
     cont = FALSE
   ),
@@ -70,8 +70,8 @@ valid_fam_parm <- list(
     cont = TRUE
   ),
   poisson = list(
-    family = c("poisson"),
-    parms = c("lambda"),
+    family = "poisson",
+    parms = "lambda",
     cont = FALSE
   )
 )

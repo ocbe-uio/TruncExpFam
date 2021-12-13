@@ -30,7 +30,7 @@ dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
     F.b <- 1
   }
   const <- 1 / (F.b - F.a)
-  return(dens / (F.b - F.a))
+  return(dens * const)
 }
 
 #' @rdname dtrunc
@@ -77,8 +77,8 @@ parameters2natural.trunc_invgamma <- function(parms) {
 
 getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max = 1, n = 100) {
   # needs chekking
-  mean <- mean(y, na.rm = T)
-  sd <- var(y, na.rm = T)^0.5
+  mean <- mean(y, na.rm = TRUE)
+  sd <- var(y, na.rm = TRUE)^0.5
   lo <- max(y.min, mean - 5 * sd, 1e-10)
   hi <- min(y.max, mean + 5 * sd)
   out <- seq(lo, hi, length = n)

@@ -28,7 +28,7 @@ dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
     F.b <- 1
   }
   const <- 1 / (F.b - F.a)
-  return(dens / (F.b - F.a))
+  return(dens * const)
 }
 
 #' @importFrom stats dbeta pbeta
@@ -76,8 +76,8 @@ parameters2natural.trunc_beta <- function(parms) {
 
 getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   # needs chekking
-  mean <- mean(y, na.rm = T)
-  sd <- var(y, na.rm = T)^0.5
+  mean <- mean(y, na.rm = TRUE)
+  sd <- var(y, na.rm = TRUE)^0.5
   lo <- max(y.min, mean - 5 * sd)
   hi <- min(y.max, mean + 5 * sd)
   out <- seq(lo, hi, length = n)
