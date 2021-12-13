@@ -7,12 +7,13 @@ sampleFromTruncated <- function(parms) {
   family <- gsub("trunc_", "", className)
   y <- structure(numeric(0), class=className)
 
-  # Checking domain and parmeters -------------------------------------------------
+  # Checking domain and parmeters ----------------------------------------------
   validateDomain(y, parms)
   if (family %in% c("gamma", "invgamma")) {
     parms$rate <- NULL
   }
-  validateFamilyParms(family, names(parms)[!(names(parms) %in% c("a", "b", "n"))])
+  common_parms <- c("a", "b", "n")
+  validateFamilyParms(family, names(parms)[!(names(parms) %in% common_parms)])
 
   # Sampling from untruncated distro -------------------------------------------
   y <- with(parms, switch(class(n),

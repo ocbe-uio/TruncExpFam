@@ -58,7 +58,7 @@ rtrunc <- function(n, family="gaussian", ...) {
 
 	# Determining object class -------------------------------------------------
 	parms <- list(...)
-	trunc_class <- genRtruncClass(n, family, names(parms))
+	trunc_class <- genrtruncClass(n, family, names(parms))
 	extra_n <- 1 # to generate extra observations to complete n from input
 	class(extra_n) <- class(n) <- trunc_class
 
@@ -90,7 +90,7 @@ rtrunc.generic <- function(n, ...) {
 #' @param parms list of parameters passed to rtrunc (through the `...` element)
 #' @return A character string.
 #' @author Waldir Leoncio
-genRtruncClass <- function(n, family, parms) {
+genrtruncClass <- function(n, family, parms) {
 
 	# Dropping a and b (parameters not used for validating) -- #
 	parms <- parms[!(parms %in% c("a", "b"))]
@@ -152,9 +152,10 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 
 attachDistroAttributes <- function(sample, family, parms) {
 	if (length(attributes(sample)) == 1) {
-		attr(sample, "parameters") <- parms[valid_fam_parm[[family]]$parms]
+		family_attributes <- valid_fam_parm[[family]]
+		attr(sample, "parameters") <- parms[family_attributes$parms]
 		attr(sample, "truncation_limits") <- parms[c("a", "b")]
-		attr(sample, "continuous") <- valid_fam_parm[[family]]$cont
+		attr(sample, "continuous") <- family_attributes$cont
 	}
 	return(sample)
 }
