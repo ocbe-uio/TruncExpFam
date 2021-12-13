@@ -64,6 +64,7 @@ rtrunc <- function(n, family="gaussian", ...) {
 
 	# Generating sample --------------------------------------------------------
 	sample <- rtrunc.generic(n, ...)
+	saved_attributes <- attributes(sample)
 	while (length(sample) != n) {
 		new_obs <- rtrunc.generic(extra_n, ...)
 		sample <- c(sample, new_obs)
@@ -71,9 +72,7 @@ rtrunc <- function(n, family="gaussian", ...) {
 	}
 
 	# Attaching attributes -----------------------------------------------------
-	sample <- attachDistroAttributes(sample, trunc_class, parms)
-
-
+	attributes(sample) <- saved_attributes
 
 	# Returning sampled elements -----------------------------------------------
 	return(sample)
