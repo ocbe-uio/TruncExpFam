@@ -21,8 +21,8 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
 #' @param ... size
 #' @export
 dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
-  my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba)
-  my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba)
+  my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba) # TODO #41: pass missing mu?
+  my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba) # TODO #41: pass missing mu?
   proba <- exp(eta)
   dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
 
@@ -76,7 +76,7 @@ getGradETinv.trunc_nbinom <- function(eta) {
   # return the inverse of E.T differentiated with respect to eta
   p <- exp(eta)
   return(A = (1 - p)^2 / (r * p))
-  # Possible solution: adding validateDomain methods to each rtrunc method.# FIXME #41: r not defined. René is looking into this.
+  # FIXME #41: r not defined. How can it be obtained from eta?
 }
 
 getYseq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
