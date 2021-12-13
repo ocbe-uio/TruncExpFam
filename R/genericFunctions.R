@@ -3,14 +3,14 @@
 #' @param y output of rtrunc
 #' @examples
 #' # Normal distribution
-#' sampNorm <- rtrunc(50, mean=5, sd=2)
+#' sampNorm <- rtrunc(50, mean = 5, sd = 2)
 #' TruncExpFam:::init.parms(sampNorm)
 #'
 #' # Poisson distribution
-#' sampPois <- rtrunc(10, lambda=100, family="Poisson")
+#' sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
 #' TruncExpFam:::init.parms(sampPois)
 init.parms <- function(y) {
-	UseMethod("init.parms")
+  UseMethod("init.parms")
 }
 
 #' @title Convert natural parameters to distribution parameters
@@ -18,11 +18,10 @@ init.parms <- function(y) {
 #' @return Distribution parameters
 #' @export
 #' @examples
-#' samp <- rtrunc(n=100, lambda=2, family="Poisson")
+#' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 #' TruncExpFam:::natural2parameters(TruncExpFam:::init.parms(samp))
-#'
 natural2parameters <- function(eta) {
-	UseMethod("natural2parameters")
+  UseMethod("natural2parameters")
 }
 
 #' @title Convert distribution parameters to natural parameters
@@ -30,25 +29,24 @@ natural2parameters <- function(eta) {
 #' @return The natural parameters
 #' @examples
 #' # Poisson distribution
-#' samp <- rtrunc(n=100, lambda=2, family="Poisson")
+#' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 #' TruncExpFam:::parameters2natural(TruncExpFam:::init.parms(samp))
-#'
 parameters2natural <- function(parms) {
-	UseMethod("parameters2natural")
+  UseMethod("parameters2natural")
 }
 
 sufficientT <- function(y) {
-	UseMethod("sufficientT")
+  UseMethod("sufficientT")
 }
 
 getYseq <- function(y, y.min, y.max, n) {
-	UseMethod("getYseq", y)
+  UseMethod("getYseq", y)
 }
 
 averageT <- function(y) {
-	UseMethod("averageT")
+  UseMethod("averageT")
 }
 
 getGradETinv <- function(eta) {
-	UseMethod("getGradETinv")
+  UseMethod("getGradETinv")
 }

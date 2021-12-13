@@ -5,7 +5,7 @@ sampleFromTruncated <- function(parms) {
   # Generating empty structure with correct class ------------------------------
   className <- class(parms$n)
   family <- gsub("trunc_", "", className)
-  y <- structure(numeric(0), class=className)
+  y <- structure(numeric(0), class = className)
 
   # Checking domain and parmeters ----------------------------------------------
   validateDomain(y, parms)
@@ -34,7 +34,7 @@ sampleFromTruncated <- function(parms) {
   y <- y[y <= parms$b]
 
   extra_n <- 1 # to generate extra observations to complete n from input
-	while (length(y) != parms$n) {
+  while (length(y) != parms$n) {
     new_y <- with(parms, switch(class(n),
       "trunc_beta" = rbeta(extra_n, shape1, shape2),
       "trunc_binomial" = rbinom(extra_n, size, prob),
@@ -55,8 +55,8 @@ sampleFromTruncated <- function(parms) {
     new_y <- new_y[new_y <= parms$b]
 
     # Assembling ---------------------------------------------------------------
-		y <- append(y, new_y)
-	}
+    y <- append(y, new_y)
+  }
 
   # Attaching attributes -------------------------------------------------------
   class(y) <- className
@@ -67,7 +67,7 @@ sampleFromTruncated <- function(parms) {
 # Sampling function for a continuous bernoulli distribution
 # This distribution is not implemented in Base R
 # Used in the sampling of the truncated continuous bernoulli
-rcontbern <- function(n, lambda){
+rcontbern <- function(n, lambda) {
   if ((lambda < 0) | (lambda > 1)) {
     stop("lambda must be in (0, 1)")
   }

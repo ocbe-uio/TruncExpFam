@@ -15,92 +15,93 @@
 #' @importFrom methods is
 #' @examples
 #' # Normal
-#' sample.norm <- rtrunc(n=10000, mean=2, sd=1.5, a=-1)
+#' sample.norm <- rtrunc(n = 10000, mean = 2, sd = 1.5, a = -1)
 #' mlEstimationTruncDist(
-#'   sample.norm, y.min = -1, max.it = 500, delta = 0.33,
+#'   sample.norm,
+#'   y.min = -1, max.it = 500, delta = 0.33,
 #'   print.iter = TRUE
 #' )
 #'
 #' # Log-Normal
 #' sample.lognorm <- rtrunc(
-#'   n=100000, family="lognormal", meanlog=2.5, sdlog=0.5, a=7
+#'   n = 100000, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
 #' )
 #' ml_lognormal <- mlEstimationTruncDist(
-#'   sample.lognorm, y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
+#'   sample.lognorm,
+#'   y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
 #'   print.iter = FALSE
 #' )
 #' ml_lognormal
 #'
 #' # Poisson
-#' sample.pois <- rtrunc(n=1000, lambda=10, a=4, family="Poisson")
+#' sample.pois <- rtrunc(n = 1000, lambda = 10, a = 4, family = "Poisson")
 #' mlEstimationTruncDist(
-#'   sample.pois, y.min = 4, max.it = 500, delta = 0.33,
+#'   sample.pois,
+#'   y.min = 4, max.it = 500, delta = 0.33,
 #'   print.iter = 5
 #' )
 #'
 #' # Gamma
-#' sample.gamma <- rtrunc(n=10000, shape=6, rate=2, a=2, family="Gamma")
+#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2, family = "Gamma")
 #' mlEstimationTruncDist(
-#'   sample.gamma, y.min = 2, max.it = 1500, delta = 0.3,
+#'   sample.gamma,
+#'   y.min = 2, max.it = 1500, delta = 0.3,
 #'   print.iter = 10
 #' )
 #' @export
-mlEstimationTruncDist <- function(
-	y, y.min = attr(y, "truncation_limits")$a,
-	y.max = attr(y, "truncation_limits")$b , tol = 1e-5, max.it = 25,
-	delta = 0.33,	print.iter = 0, ...
-) {
-	# Some initialisations
-	if (as.numeric(print.iter) > 0) {
-		distro_name <- gsub("trunc_", "", class(y))
-		message("Estimating parameters for the ", distro_name, " distribution")
-	}
-	T.avg <- averageT(y)
-	eta.j <- parameters2natural(init.parms(y))
-	y.seq <- getYseq(y, y.min, y.max, ...) # y-values to calculate expectations
-	it <- 0
-	delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
-	# Now iterate
-	while ((delta.L2 > tol) & (it < max.it)) {
-		parm.j <- natural2parameters(eta.j)
-		T.minus.E.T <- getTminusET(
-			eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg
-		)
-		grad.E.T.inv <- getGradETinv(eta.j) # p x p
-		delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
-		eta.j <- eta.j + delta.eta.j.plus.1
-		delta.L2 <- sum(delta.eta.j.plus.1 ^ 2)
-		it <- it + 1
-		if (print.iter) {
-			if (it %% as.numeric(print.iter) == 0) {
-				cat(
-					"it: ", it, "delta: ", delta.L2, " - parm: ",
-					round(parm.j, 3), "\n"
-				)
-			}
-		}
-	}
-	parm <- natural2parameters(eta.j)
-	return(parm)
+mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
+                                  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
+                                  delta = 0.33, print.iter = 0, ...) {
+  # Some initialisations
+  if (as.numeric(print.iter) > 0) {
+    distro_name <- gsub("trunc_", "", class(y))
+    message("Estimating parameters for the ", distro_name, " distribution")
+  }
+  T.avg <- averageT(y)
+  eta.j <- parameters2natural(init.parms(y))
+  y.seq <- getYseq(y, y.min, y.max, ...) # y-values to calculate expectations
+  it <- 0
+  delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
+  # Now iterate
+  while ((delta.L2 > tol) & (it < max.it)) {
+    parm.j <- natural2parameters(eta.j)
+    T.minus.E.T <- getTminusET(
+      eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg
+    )
+    grad.E.T.inv <- getGradETinv(eta.j) # p x p
+    delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
+    eta.j <- eta.j + delta.eta.j.plus.1
+    delta.L2 <- sum(delta.eta.j.plus.1^2)
+    it <- it + 1
+    if (print.iter) {
+      if (it %% as.numeric(print.iter) == 0) {
+        cat(
+          "it: ", it, "delta: ", delta.L2, " - parm: ",
+          round(parm.j, 3), "\n"
+        )
+      }
+    }
+  }
+  parm <- natural2parameters(eta.j)
+  return(parm)
 }
 
 getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
-	# Calculates T.bar-E(T|eta_j) by numerical integration
-	delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
-	trunc.density <- dtrunc(y.seq, eta, y.min, y.max) # L vector
-	T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
-	if (length(eta) > 1) {
-		E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
-		if (cont.dist == T) {
-			E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1, ] + T.f[length(y.seq), ])
-		}
-	}
-	else {
-		E.T.j <- delta.y * sum(T.f)
-		if (cont.dist == T) {
-			E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1] + T.f[length(y.seq)])
-		}
-	}
-	T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
-	return(T.bar.minus.E.T.j)
+  # Calculates T.bar-E(T|eta_j) by numerical integration
+  delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
+  trunc.density <- dtrunc(y.seq, eta, y.min, y.max) # L vector
+  T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
+  if (length(eta) > 1) {
+    E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
+    if (cont.dist == T) {
+      E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1, ] + T.f[length(y.seq), ])
+    }
+  } else {
+    E.T.j <- delta.y * sum(T.f)
+    if (cont.dist == T) {
+      E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1] + T.f[length(y.seq)])
+    }
+  }
+  T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
+  return(T.bar.minus.E.T.j)
 }

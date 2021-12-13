@@ -5,15 +5,15 @@
 # C=sum(1/sq)-log(max(sq)) # 0.57721566490153286060
 # C:  Euler-Mascheroni Constant.
 psi <- function(x, k = 10000) {
-	# OBS: This function is not used!
-	-0.57721566490153286060 + sum(1 / (1:k) - 1 / ((1:k) + x - 1))
+  # OBS: This function is not used!
+  -0.57721566490153286060 + sum(1 / (1:k) - 1 / ((1:k) + x - 1))
 }
 
-log.gamma <- function(x, k = 10000){
-  -0.57721566490153286060*x - log(x) + sum(x / (1:k) - log(1 +  x/(1:k)))
+log.gamma <- function(x, k = 10000) {
+  -0.57721566490153286060 * x - log(x) + sum(x / (1:k) - log(1 + x / (1:k)))
 }
 
 dpsi.dx <- function(x, k = 10000) {
-	# Returns the derivative of the psi function above
-	sum((1 / ((0:k) + x))^2)
+  # Returns the derivative of the psi function above
+  sum((1 / ((0:k) + x))^2)
 }

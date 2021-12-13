@@ -9,5 +9,5 @@
 #' y <- rtrunc(50, mean = 5, sd = 2)
 #' dtrunc(y, eta = c(0, -1))
 dtrunc <- function(y, eta, a, b) {
-	UseMethod("dtrunc", y)
+  UseMethod("dtrunc", y)
 }
