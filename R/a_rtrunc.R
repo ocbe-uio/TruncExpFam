@@ -153,6 +153,7 @@ validateFamilyParms <- function(family, parms, verbose=FALSE) {
 attachDistroAttributes <- function(sample, family, parms) {
 	if (length(attributes(sample)) == 1) {
 		attr(sample, "parameters") <- parms[valid_fam_parm[[family]]$parms]
+		attr(sample, "truncation_limits") <- parms[c("a", "b")]
 		attr(sample, "continuous") <- valid_fam_parm[[family]]$cont
 	}
 	return(sample)
