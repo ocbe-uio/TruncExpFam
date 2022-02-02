@@ -11,6 +11,13 @@ sampleFromTruncated <- function(parms) {
   validateDomain(y, parms)
   if (family %in% c("gamma", "invgamma")) {
     parms$rate <- NULL
+  } else if (family == "nbinom") {
+    if (parms$mu == "") {
+      parms$mu <- NULL
+    } else if (parms$prob == "") {
+      parms$prob <- NULL
+      class(parms$n) <- "trunc_nbinom_mu"
+    }
   }
   common_parms <- c("a", "b", "n")
   validateFamilyParms(family, names(parms)[!(names(parms) %in% common_parms)])
@@ -26,7 +33,8 @@ sampleFromTruncated <- function(parms) {
     "trunc_invgamma" = rinvgamma(n, shape = shape, scale = scale),
     "trunc_invgauss" = rinvgauss(n, m, s),
     "trunc_lognormal" = rlnorm(n, meanlog, sdlog),
-    "trunc_nbinom" = rnbinom(n, size, prob, mu),
+    "trunc_nbinom" = rnbinom(n, size, prob),
+    "trunc_nbinom_mu" = rnbinom(n, size, mu = mu),
     "trunc_normal" = rnorm(n, mean, sd),
     "trunc_poisson" = rpois(n, lambda)
   ))
@@ -45,7 +53,8 @@ sampleFromTruncated <- function(parms) {
       "trunc_invgamma" = rinvgamma(extra_n, shape = shape, scale = scale),
       "trunc_invgauss" = rinvgauss(extra_n, m, s),
       "trunc_lognormal" = rlnorm(extra_n, meanlog, sdlog),
-      "trunc_nbinom" = rnbinom(extra_n, size, prob, mu),
+      "trunc_nbinom" = rnbinom(extra_n, size, prob),
+      "trunc_nbinom_mu" = rnbinom(extra_n, size, mu = mu),
       "trunc_normal" = rnorm(extra_n, mean, sd),
       "trunc_poisson" = rpois(extra_n, lambda)
     ))

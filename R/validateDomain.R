@@ -58,10 +58,12 @@ validateDomain.trunc_nbinom <- function(n, parms, ...) {
   if (parms$size != as.integer(parms$size) | parms$size < 0) {
     stop("Invalid parameter domain. size must be a natural number.")
   }
-  if (parms$prob < 0 | parms$prob > 1) {
+  if (parms$prob != "" & (parms$prob < 0 | parms$prob > 1)) {
     stop("Invalid parameter domain. prob must be [0, 1].")
   }
-  if (is.complex(parms$mu)) stop("Invalid parameter domain. mean must be real.")
+  if (parms$mu != "" & is.complex(parms$mu)) {
+    stop("Invalid parameter domain. mean must be real.")
+  }
 }
 
 validateDomain.trunc_normal <- function(n, parms, ...) {
