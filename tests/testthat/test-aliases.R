@@ -5,7 +5,16 @@
 context("Matching output of rtrunc aliases")
 
 test_that("rtrunc works the same from generic and alias", {
-  # TODO #59: add tests for remaining distros
+  expect_identical(
+    object = {
+      set.seed(8)
+      rtrunc(1000, 32, 22, .4, .6, family = "beta")
+    },
+    expected = {
+      set.seed(8)
+      rtruncbeta(1000, 32, 22, .4, .6)
+    },
+  )
   expect_identical(
     object = {
       set.seed(8)
@@ -39,6 +48,16 @@ test_that("rtrunc works the same from generic and alias", {
   expect_identical(
     object = {
       set.seed(8)
+      rtrunc(1000, 0.584, 0.5, 1, family = "exp")
+    },
+    expected = {
+      set.seed(8)
+      rtruncexp(1000, 0.584, 0.5, 1)
+    },
+  )
+  expect_identical(
+    object = {
+      set.seed(8)
       rtrunc(1000, 45, 12, 1, 8, family = "gamma")
     },
     expected = {
@@ -49,11 +68,41 @@ test_that("rtrunc works the same from generic and alias", {
   expect_identical(
     object = {
       set.seed(8)
+      rtrunc(1000, shape = 45, rate = 12, a = 0.2, b = 0.3, family = "invgamma")
+    },
+    expected = {
+      set.seed(8)
+      rtruncinvgamma(1000, shape = 45, rate = 12, a = 0.2, b = 0.3)
+    },
+  )
+  expect_identical(
+    object = {
+      set.seed(8)
+      rtrunc(1000, 38, 38, 0, 100, family = "invgauss")
+    },
+    expected = {
+      set.seed(8)
+      rtruncinvgauss(1000, 38, 38, 0, 100)
+    },
+  )
+  expect_identical(
+    object = {
+      set.seed(8)
       rtrunc(1000, -32, 2, family = "lognormal")
     },
     expected = {
       set.seed(8)
       rtrunclnorm(1000, -32, 2)
+    },
+  )
+  expect_identical(
+    object = {
+      set.seed(8)
+      rtrunc(1000, 152, .37, family = "nbinom")
+    },
+    expected = {
+      set.seed(8)
+      rtruncnbinom(1000, 152, .37)
     },
   )
   expect_identical(
