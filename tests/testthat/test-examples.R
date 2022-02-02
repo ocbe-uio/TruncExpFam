@@ -70,7 +70,7 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)
   expect_equal(unclass(ml_lognormal), c(mean = 2.5, sd = 0.5), tol = 1e-1)
   expect_equal(unclass(ml_poisson), c(lambda = 10), tol = 1e-1)
-  expect_equal(unclass(ml_binom), c(prob = 0.6), tol = 1e-1) # FIXME #67 failing
+  expect_equal(unclass(ml_binom), c(prob = 0.6), tol = 1e-1)
   expect_equal(unclass(ml_gamma), c(shape = 6, rate = 2), tol = 1e-1)
 })
 
