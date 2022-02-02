@@ -56,7 +56,12 @@ valid_fam_parm <- list(
   ),
   nbinom = list(
     family = "nbinom",
-    parms = c("size", "prob", "mu"),
+    parms = c("size", "prob"),
+    cont = FALSE
+  ),
+  nbinom = list(
+    family = "nbinom",
+    parms = c("size", "mu"),
     cont = FALSE
   ),
   normal = list(
