@@ -30,7 +30,7 @@ To contribute with code, we recommend reading [this Wiki page](https://github.co
 
 # Badges
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![](https://img.shields.io/github/last-commit/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam/commits/develop)
 [![](https://img.shields.io/github/languages/code-size/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam)
 [![R build status](https://github.com/ocbe-uio/TruncExpFam/workflows/R-CMD-check/badge.svg)](https://github.com/ocbe-uio/TruncExpFam/actions)
