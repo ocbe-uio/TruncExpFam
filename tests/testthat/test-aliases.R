@@ -137,11 +137,11 @@ test_that("Output of rtrunc matches stats::r*", {
   expect_setequal(
     object = {
       set.seed(1)
-      rnorm(500, mean = 1, sd = 3)
+      rbeta(500, shape1 = 8, shape2 = 86)
     },
     expected = {
       set.seed(1)
-      rtrunc(500, mean = 1, sd = 3)
+      rtrunc(500, shape1 = 8, shape2 = 86, family = "beta")
     }
   )
   expect_setequal(
@@ -152,6 +152,36 @@ test_that("Output of rtrunc matches stats::r*", {
     expected = {
       set.seed(1)
       rtrunc(50, size = 10, prob = .3, family = "binomial")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
+      rchisq(50, df = 23)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(50, df = 23, family = "chisq")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
+      rcontbern(50, lambda = 0.5)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(50, lambda = 0.5, family = "contbern")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
+      rexp(50, rate = 26)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(50, rate = 26, family = "exp")
     }
   )
   expect_setequal(
@@ -197,11 +227,51 @@ test_that("Output of rtrunc matches stats::r*", {
   expect_setequal(
     object = {
       set.seed(1)
+      rinvgauss(500, m = 1, s = 3)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(500, m = 1, s = 3, family = "invgauss")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
       rlnorm(50, meanlog = 7, sdlog = 2)
     },
     expected = {
       set.seed(1)
       rtrunc(50, meanlog = 7, sdlog = 2, family = "lognormal")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
+      rnbinom(500, size = 55, prob = .4)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(500, size = 55, prob = .4, family = "nbinom")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
+      rnbinom(500, size = 55, mu = 4)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(500, size = 55, mu = 4, family = "nbinom")
+    }
+  )
+  expect_setequal(
+    object = {
+      set.seed(1)
+      rnorm(500, mean = 1, sd = 3)
+    },
+    expected = {
+      set.seed(1)
+      rtrunc(500, mean = 1, sd = 3)
     }
   )
   expect_setequal(
@@ -214,5 +284,4 @@ test_that("Output of rtrunc matches stats::r*", {
       rtrunc(500, lambda = 72, family = "poisson")
     }
   )
-  # TODO #59: add test for remaining distributions. Not all come from stats
 })
