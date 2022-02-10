@@ -8,7 +8,7 @@ validateSupport.trunc_beta <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_binomial <- function(n, parms, ...) {
-  support <- createSupport(0, 1, c("[]", "()"))
+  support <- createSupport(0, parms$size, "[]")
   judgeSupportLimits(parms, support)
 }
 
@@ -67,7 +67,9 @@ createSupport <- function(lower, upper, inclusion_brackets) {
 }
 
 judgeSupportLimits <- function(parms, support) {
-  if (parms$a >= support$u | parms$b <= support$l) {
+  if(parms$a == parms$b) {
+    stop("Identical truncation limits: a = b = ", parms$a)
+  } else if (parms$a >= support$u | parms$b <= support$l) {
     stop("Truncation limits (a, b) must be a subset of ", support$txt)
   } else if (parms$a < support$l | parms$b > support$u) {
     warning("Truncation limits (a, b) are not a subset of ", support$txt)
