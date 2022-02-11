@@ -1,16 +1,18 @@
 ## --##--##--##--##--##--##--##--##--##--##--##--##--
 # Evaluating the derivative of log(Gamma(x))
 # See https://www.nbi.dk/~polesen/borel/node5.html
-# sq=1:10000000
-# C=sum(1/sq)-log(max(sq)) # 0.57721566490153286060
 # C:  Euler-Mascheroni Constant.
 psi <- function(x, k = 10000) {
   # OBS: This function is not used!
-  -0.57721566490153286060 + sum(1 / (1:k) - 1 / ((1:k) + x - 1))
+  sq <- 1:10000000
+  C <- sum(1/sq)-log(max(sq))
+  -C + sum(1 / (1:k) - 1 / ((1:k) + x - 1))
 }
 
 log.gamma <- function(x, k = 10000) {
-  -0.57721566490153286060 * x - log(x) + sum(x / (1:k) - log(1 + x / (1:k)))
+  sq <- 1:10000000
+  C <- sum(1/sq)-log(max(sq))
+  -C * x - log(x) + sum(x / (1:k) - log(1 + x / (1:k)))
 }
 
 dpsi.dx <- function(x, k = 10000) {
