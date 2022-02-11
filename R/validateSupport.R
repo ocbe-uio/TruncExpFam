@@ -13,40 +13,57 @@ validateSupport.trunc_binomial <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_chisq <- function(n, parms, ...) {
+  if (parms$df == 1) {
+    support <- createSupport(0, Inf, "()")
+  } else {
+    support <- createSupport(0, Inf, "[)")
+  }
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_contbern <- function(n, parms, ...) {
+  support <- createSupport(0, 1, "[]")
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_exp <- function(n, parms, ...) {
-<<<<<<< HEAD
   support <- createSupport(0, Inf, "[)")
   judgeSupportLimits(parms, support)
-=======
-  domain <- createDomain(0, Inf, "[)")
-  judgeDomainLimits(parms, domain)
->>>>>>> 90d1191 (Made domain creation + validation functions (#73))
 }
 
 validateSupport.trunc_gamma <- function(n, parms, ...) {
+  support <- createSupport(0, Inf, "()")
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_invgamma <- function(n, parms, ...) {
+  support <- createSupport(0, Inf, "()")
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_invgauss <- function(n, parms, ...) {
+  support <- createSupport(0, Inf, "()")
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_lognormal <- function(n, parms, ...) {
+  support <- createSupport(0, Inf, "()")
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_nbinom <- function(n, parms, ...) {
+  support <- createSupport(0, Inf, "[)")
+  judgeSupportLimits(parms, support)
 }
 
 validateSupport.trunc_normal <- function(n, parms, ...) {
+  support <- createSupport(-Inf, Inf, "()")
+  judgeSupportLimits(parms, support, TRUE)
 }
 
 validateSupport.trunc_poisson <- function(n, parms, ...) {
+  support <- createSupport(0, Inf, "[)")
+  judgeSupportLimits(parms, support)
 }
 
 createSupport <- function(lower, upper, inclusion_brackets) {
@@ -66,13 +83,20 @@ createSupport <- function(lower, upper, inclusion_brackets) {
   return(out)
 }
 
-judgeSupportLimits <- function(parms, support) {
-  if(parms$a == parms$b) {
+judgeSupportLimits <- function(parms, support, no_complex = FALSE) {
+  if (no_complex & (is.complex(parms$a) | is.complex(parms$b))) {
+    stop("Truncation limits may not contain complex numbers")
+  }
+  # TODO: improve >= and <= to consider sign of support, ( or [
+  if (parms$a == parms$b) {
     stop("Identical truncation limits: a = b = ", parms$a)
   } else if (parms$a >= support$u | parms$b <= support$l) {
     stop("Truncation limits (a, b) must be a subset of ", support$txt)
   } else if (parms$a < support$l | parms$b > support$u) {
-    warning("Truncation limits (a, b) are not a subset of ", support$txt)
+    warning(
+      "Truncation limits (", parms$a, ", ", parms$b, ") are not a subset of ",
+      support$txt
+    )
   } else if (parms$b <= parms$a) {
     stop("Upper truncation limit (b) must be higher than lower limit (a)")
   }
