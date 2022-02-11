@@ -59,3 +59,11 @@ test_that("Redundant truncation limits are detected", {
   expect_warning(rtrunclnorm(1, meanlog=-1, sdlog=6, a=-5), msg)
   expect_warning(rtruncpois(1, lambda=10, a=-7), msg)
 })
+
+test_that("Edge cases are treated correctly", {
+  n <- 10
+  expect_setequal(suppressWarnings(rtruncbinom(n, 3, .4, -3, 0)), rep(0, n))
+  expect_setequal(suppressWarnings(rtruncbinom(n, 3, .4, 3, 4)), rep(3, n))
+  expect_setequal(suppressWarnings(rtruncnbinom(n, size = 3, prob = .4, a = -3, b = 0)), rep(0, n))
+  expect_setequal(suppressWarnings(rtruncpois(10, 4, -1, 0)), rep(0, n))
+})
