@@ -23,7 +23,7 @@ dtrunc(y, eta, a, b)
 
 dtruncbeta(y, eta, a = 0, b = 1)
 
-dtruncbinom(y, eta, a = 0, b = Inf, ...)
+dtruncbinom(y, eta, a = 0, b = size, ...)
 
 dtruncchisq(y, eta, a = 0, b = Inf)
 
@@ -37,7 +37,7 @@ dtruncinvgamma(y, eta, a = 0, b = Inf)
 
 dtruncinvgauss(y, eta, a = 0, b = Inf)
 
-dtrunclnorm(y, eta, a = -Inf, b = Inf)
+dtrunclnorm(y, eta, a = 0, b = Inf)
 
 dtruncnbinom(y, eta, a = 0, b = Inf, ...)
 

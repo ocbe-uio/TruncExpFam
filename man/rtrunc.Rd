@@ -23,7 +23,7 @@ rtrunc(n, family = "gaussian", ...)
 
 rtruncbeta(n, shape1, shape2, a = 0, b = 1)
 
-rtruncbinom(n, size, prob, a = 0, b = Inf)
+rtruncbinom(n, size, prob, a = 0, b = size)
 
 rtruncchisq(n, df, a = 0, b = Inf)
 
@@ -37,7 +37,7 @@ rtruncinvgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
 
 rtruncinvgauss(n, m, s, a = 0, b = Inf)
 
-rtrunclnorm(n, meanlog, sdlog, a = -Inf, b = Inf)
+rtrunclnorm(n, meanlog, sdlog, a = 0, b = Inf)
 
 rtruncnbinom(n, size, prob, mu, a = 0, b = Inf)
 
