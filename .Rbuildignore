@@ -3,3 +3,5 @@ LICENSE
 .github
 createLogo.R
 logo.png
+Makefile
+README.Rmd
