@@ -9,6 +9,7 @@ sampleFromTruncated <- function(parms) {
 
   # Checking domain and parmeters ----------------------------------------------
   validateDomain(y, parms)
+  validateSupport(y, parms)
   if (family %in% c("gamma", "invgamma")) {
     parms$rate <- NULL
   } else if (family == "nbinom") {

@@ -6,7 +6,7 @@
 #' @param sdlog standard deviation of un-truncated distribution
 #' @rdname rtrunc
 #' @export
-rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = -Inf, b = Inf) {
+rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = 0, b = Inf) {
   class(n) <- "trunc_lognormal"
   sampleFromTruncated(mget(ls()))
 }
@@ -20,7 +20,7 @@ averageT.trunc_lognormal <- function(y) {
 }
 
 #' @export
-dtrunc.trunc_lognormal <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_lognormal <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters.trunc_normal(eta)
   dens <- ifelse((y < a) | (y > b), 0, dlnorm(y, meanlog = parm[1], sdlog = parm[2]))
   if (!missing(a)) {

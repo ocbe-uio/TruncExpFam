@@ -6,13 +6,13 @@
 #' @param prob probability of success on each trial
 #' @rdname rtrunc
 #' @export
-rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = Inf) {
+rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size) {
   class(n) <- "trunc_binomial"
   sampleFromTruncated(mget(ls()))
 }
 
 #' @export
-dtrunc.trunc_binomial <- function(y, eta, a = 0, b = Inf, ...) {
+dtrunc.trunc_binomial <- function(y, eta, a = 0, b = size, ...) {
   nsize <- attr(y, "parameters")$size
   my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
   my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
