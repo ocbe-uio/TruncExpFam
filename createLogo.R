@@ -2,13 +2,18 @@ library(hexSticker)
 library(ggplot2)
 library(TruncExpFam)
 set.seed(31898546)
-x <- rtrunc(1e4, mean = 0, sd = 2, a=-5, b=5)
+lo <- -4
+hi <- 2
+x <- rtrunc(1e4, mean = 0, sd = 2, a = -5, b = 5)
 dfx <- data.frame(x = as.numeric(x))
-dfx$cut <- abs(dfx$x) > 3
+dfx$cut <- dfx$x < lo | dfx$x > hi
 p <- ggplot(dfx, aes(x, fill = cut)) +
-	geom_histogram(breaks=seq(-5, 5, .2), col = "#f4f6ff", size=.3)
-p <- p + theme_transparent() + theme_void() + theme(legend.position = "none") +
-	scale_fill_manual(values=c("#000000", "#f4f6ff"))
+	geom_histogram(breaks = seq(-5, 5, .2), col = "#f4f6ff", size = .3)
+p <- p +
+	theme_transparent() +
+	theme_void() +
+	theme(legend.position = "none") +
+	scale_fill_manual(values = c("#000000", "#f4f6ff"))
 sticker(
 	subplot    = p,
 	package    = "TruncExpFam",
