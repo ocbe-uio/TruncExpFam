@@ -7,7 +7,8 @@
 #' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
 #' @param print.iter Determines the frequency of printing (i.e., prints every \code{print.iter} iterations)
-#' @param ... other parameters passed to the getYseq subfunctions
+#' @param ny size of intermediate y range sequence. Higher values yield better estimations but slower iterations
+#' @param ... other parameters passed to subfunctions
 #' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
 #' @author René Holst
@@ -50,8 +51,9 @@
 #' )
 #' @export
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
-                                  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
-                                  delta = 0.33, print.iter = 0, ...) {
+  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
+  delta = 0.33, print.iter = 0, ny = 100, ...
+) {
   # Some initialisations
   if (as.numeric(print.iter) > 0) {
     distro_name <- gsub("trunc_", "", class(y))
@@ -59,7 +61,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   }
   T.avg <- averageT(y)
   eta.j <- parameters2natural(init.parms(y))
-  y.seq <- getYseq(y, y.min, y.max, ...) # y-values to calculate expectations
+  y.seq <- getYseq(y, y.min, y.max, ny) # y-values to calculate expectations
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
   # Now iterate

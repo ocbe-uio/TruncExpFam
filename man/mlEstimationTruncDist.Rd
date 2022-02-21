@@ -12,6 +12,7 @@ mlEstimationTruncDist(
   max.it = 25,
   delta = 0.33,
   print.iter = 0,
+  ny = 100,
   ...
 )
 }
@@ -30,7 +31,9 @@ mlEstimationTruncDist(
 
 \item{print.iter}{Determines the frequency of printing (i.e., prints every \code{print.iter} iterations)}
 
-\item{...}{other parameters passed to the getYseq subfunctions}
+\item{ny}{size of intermediate y range sequence. Higher values yield better estimations but slower iterations}
+
+\item{...}{other parameters passed to subfunctions}
 }
 \description{
 ML-estimation of the parameters of the distribution of the specified family, truncated at y.min and y.max
