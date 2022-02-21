@@ -15,8 +15,9 @@
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
 #' @importFrom methods is
 #' @examples
+#' sample_size <- 1000
 #' # Normal
-#' sample.norm <- rtrunc(n = 10000, mean = 2, sd = 1.5, a = -1)
+#' sample.norm <- rtrunc(n = sample_size, mean = 2, sd = 1.5, a = -1)
 #' mlEstimationTruncDist(
 #'   sample.norm,
 #'   y.min = -1, max.it = 500, delta = 0.33,
@@ -25,7 +26,7 @@
 #'
 #' # Log-Normal
 #' sample.lognorm <- rtrunc(
-#'   n = 100000, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
+#'   n = sample_size, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
 #' )
 #' ml_lognormal <- mlEstimationTruncDist(
 #'   sample.lognorm,
@@ -35,7 +36,7 @@
 #' ml_lognormal
 #'
 #' # Poisson
-#' sample.pois <- rtrunc(n = 1000, lambda = 10, a = 4, family = "Poisson")
+#' sample.pois <- rtrunc(n = sample_size, lambda = 10, a = 4, family = "Poisson")
 #' mlEstimationTruncDist(
 #'   sample.pois,
 #'   y.min = 4, max.it = 500, delta = 0.33,
@@ -43,7 +44,7 @@
 #' )
 #'
 #' # Gamma
-#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2, family = "Gamma")
+#' sample.gamma <- rtrunc(n = sample_size, shape = 6, rate = 2, a = 2, family = "Gamma")
 #' mlEstimationTruncDist(
 #'   sample.gamma,
 #'   y.min = 2, max.it = 1500, delta = 0.3,
@@ -51,7 +52,7 @@
 #' )
 #'
 #' # Negative binomial
-#' sample.nbinom <- rtruncnbinom(10000, size = 50, prob = .3, a = 100, b = 120)
+#' sample.nbinom <- rtruncnbinom(sample_size, size = 50, prob = .3, a = 100, b = 120)
 #' mlEstimationTruncDist(sample.nbinom, r=10)
 #' @export
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
