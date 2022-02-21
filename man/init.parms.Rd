@@ -9,15 +9,18 @@ init.parms(y)
 \arguments{
 \item{y}{output of rtrunc}
 }
+\value{
+A vector of parameter estimates for the input sample
+}
 \description{
 Returns the empirical parameter estimate for a distribution
 }
 \examples{
 # Normal distribution
 sampNorm <- rtrunc(50, mean = 5, sd = 2)
-TruncExpFam:::init.parms(sampNorm)
+init.parms(sampNorm)
 
 # Poisson distribution
 sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
-TruncExpFam:::init.parms(sampPois)
+init.parms(sampPois)
 }

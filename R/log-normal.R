@@ -62,10 +62,12 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
   return(out)
 }
 
+#' @export
 natural2parameters.trunc_lognormal <- function(eta) {
   natural2parameters.trunc_normal(eta)
 }
 
+#' @export
 parameters2natural.trunc_lognormal <- function(parms) {
   parameters2natural.trunc_normal(parms)
 }

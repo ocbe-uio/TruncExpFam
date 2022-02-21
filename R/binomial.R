@@ -31,7 +31,6 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b = attr(y, "parameters")$size,
   return(dens / (F.b - F.a))
 }
 
-#' @export
 #' @rdname dtrunc
 #' @param ... size
 #' @export

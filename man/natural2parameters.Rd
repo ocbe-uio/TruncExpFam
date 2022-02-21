@@ -10,12 +10,12 @@ natural2parameters(eta)
 \item{eta}{vector of natural parameters}
 }
 \value{
-Distribution parameters
+A vector of the original distribution parameters
 }
 \description{
 Convert natural parameters to distribution parameters
 }
 \examples{
 samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-TruncExpFam:::natural2parameters(TruncExpFam:::init.parms(samp))
+natural2parameters(init.parms(samp))
 }
