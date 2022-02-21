@@ -70,7 +70,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     T.minus.E.T <- getTminusET(
       eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg
     )
-    grad.E.T.inv <- getGradETinv(eta.j) # p x p
+    grad.E.T.inv <- getGradETinv(eta.j, ...) # p x p
     delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
     eta.j <- eta.j + delta.eta.j.plus.1
     delta.L2 <- sum(delta.eta.j.plus.1^2)

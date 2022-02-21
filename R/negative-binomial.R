@@ -71,12 +71,11 @@ parameters2natural.trunc_nbinom <- function(parms) {
   return(eta)
 }
 
-getGradETinv.trunc_nbinom <- function(eta) {
+getGradETinv.trunc_nbinom <- function(eta, r) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   p <- exp(eta)
   return(A = (1 - p)^2 / (r * p))
-  # FIXME #41: r not defined. How can it be obtained from eta?
 }
 
 getYseq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
