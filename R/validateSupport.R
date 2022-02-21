@@ -8,7 +8,7 @@ validateSupport.trunc_beta <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_binomial <- function(n, parms, ...) {
-  support <- createSupport(0, parms$size, "[]")
+  support <- createSupport(0, parms$size, "{}")
   judgeSupportLimits(parms, support, FALSE)
 }
 
@@ -48,7 +48,7 @@ validateSupport.trunc_lognormal <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_nbinom <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "[)")
+  support <- createSupport(0, Inf, "{}")
   judgeSupportLimits(parms, support, FALSE)
 }
 
@@ -58,7 +58,7 @@ validateSupport.trunc_normal <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_poisson <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "[)")
+  support <- createSupport(0, Inf, "{}")
   judgeSupportLimits(parms, support, FALSE)
 }
 
@@ -70,10 +70,18 @@ createSupport <- function(lower, upper, inclusion_brackets) {
   )
   split_brackets <- strsplit(inclusion_brackets, "")
   for (i in seq_along(split_brackets)) {
-    out$txt <- append(
-      out$txt,
-      paste0(split_brackets[[i]][1], out$l, ", ", out$u, split_brackets[[i]][2])
-    )
+    lower_symbol <- split_brackets[[i]][1]
+    upper_symbol <- split_brackets[[i]][2]
+      if (lower_symbol == "(") {
+        new_txt <- paste0(lower_symbol, out$l, ", ", out$u, upper_symbol)
+      } else {
+        if (is.infinite(out$u)) {
+          new_txt <- paste0(lower_symbol, out$l, ", ...}")
+        } else {
+          new_txt <- paste0(lower_symbol, out$l, ", ..., ", out$u, upper_symbol)
+        }
+      }
+    out$txt <- append(out$txt, new_txt)
   }
   out$txt <- paste(out$txt, collapse = " or ")
   return(out)
@@ -87,8 +95,8 @@ judgeSupportLimits <- function(parms, support, cont = TRUE, no_complex = FALSE) 
 
   # Treating edge cases ========================================================
   split_brackets <- strsplit(support$txt, "")[[1]]
-  include_l <- split_brackets[1] == "["
-  include_u <- split_brackets[length(split_brackets)] == "]"
+  include_l <- split_brackets[1] %in% c("[", "{")
+  include_u <- split_brackets[length(split_brackets)] %in% c("]", "}")
   if (cont) {
     cond_au <- parms$a >= support$u
     cond_bl <- parms$b <= support$l
