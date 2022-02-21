@@ -110,7 +110,10 @@ conforms with the nomenclature from other distribution-related functions in
 the \code{stats} package.
 }
 \note{
-The effective sample size is reduced due to truncation.
+The current sample-generating algorithm may be slow if the distribution
+is largely represented by low-probability values. This will be fixed soon.
+Please follow \url{https://github.com/ocbe-uio/TruncExpFam/issues/72} for
+details.
 }
 \examples{
 # Truncated binomial distribution
