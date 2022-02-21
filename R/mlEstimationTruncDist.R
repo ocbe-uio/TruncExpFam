@@ -7,15 +7,17 @@
 #' @param delta Indirectly, the difference between consecutive iterations to compare with the error tolerance
 #' @param max.it Maximum number of iterations
 #' @param print.iter Determines the frequency of printing (i.e., prints every \code{print.iter} iterations)
-#' @param ... other parameters passed to the getYseq subfunctions
+#' @param ny size of intermediate y range sequence. Higher values yield better estimations but slower iterations
+#' @param ... other parameters passed to subfunctions
 #' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
 #' @author René Holst
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm ppois rbinom rgamma rlnorm rnorm rpois var
 #' @importFrom methods is
 #' @examples
+#' sample_size <- 1000
 #' # Normal
-#' sample.norm <- rtrunc(n = 10000, mean = 2, sd = 1.5, a = -1)
+#' sample.norm <- rtrunc(n = sample_size, mean = 2, sd = 1.5, a = -1)
 #' mlEstimationTruncDist(
 #'   sample.norm,
 #'   y.min = -1, max.it = 500, delta = 0.33,
@@ -24,7 +26,7 @@
 #'
 #' # Log-Normal
 #' sample.lognorm <- rtrunc(
-#'   n = 100000, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
+#'   n = sample_size, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
 #' )
 #' ml_lognormal <- mlEstimationTruncDist(
 #'   sample.lognorm,
@@ -34,7 +36,7 @@
 #' ml_lognormal
 #'
 #' # Poisson
-#' sample.pois <- rtrunc(n = 1000, lambda = 10, a = 4, family = "Poisson")
+#' sample.pois <- rtrunc(n = sample_size, lambda = 10, a = 4, family = "Poisson")
 #' mlEstimationTruncDist(
 #'   sample.pois,
 #'   y.min = 4, max.it = 500, delta = 0.33,
@@ -42,16 +44,21 @@
 #' )
 #'
 #' # Gamma
-#' sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2, family = "Gamma")
+#' sample.gamma <- rtrunc(n = sample_size, shape = 6, rate = 2, a = 2, family = "Gamma")
 #' mlEstimationTruncDist(
 #'   sample.gamma,
 #'   y.min = 2, max.it = 1500, delta = 0.3,
 #'   print.iter = 10
 #' )
+#'
+#' # Negative binomial
+#' sample.nbinom <- rtruncnbinom(sample_size, size = 50, prob = .3, a = 100, b = 120)
+#' mlEstimationTruncDist(sample.nbinom, r=10)
 #' @export
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
-                                  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
-                                  delta = 0.33, print.iter = 0, ...) {
+  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
+  delta = 0.33, print.iter = 0, ny = 100, ...
+) {
   # Some initialisations
   if (as.numeric(print.iter) > 0) {
     distro_name <- gsub("trunc_", "", class(y))
@@ -59,7 +66,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   }
   T.avg <- averageT(y)
   eta.j <- parameters2natural(init.parms(y))
-  y.seq <- getYseq(y, y.min, y.max, ...) # y-values to calculate expectations
+  y.seq <- getYseq(y, y.min, y.max, ny) # y-values to calculate expectations
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
   # Now iterate
@@ -68,7 +75,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     T.minus.E.T <- getTminusET(
       eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg
     )
-    grad.E.T.inv <- getGradETinv(eta.j) # p x p
+    grad.E.T.inv <- getGradETinv(eta.j, ...) # p x p
     delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
     eta.j <- eta.j + delta.eta.j.plus.1
     delta.L2 <- sum(delta.eta.j.plus.1^2)

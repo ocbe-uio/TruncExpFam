@@ -21,18 +21,19 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
 #' @param ... size
 #' @export
 dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
-  my.dnbinom <- function(nsize) dnbinom(y, size = nsize, prob = proba) # TODO #41: pass missing mu?
-  my.pnbinom <- function(z, nsize) pnbinom(z, size = nsize, prob = proba) # TODO #41: pass missing mu?
-  proba <- exp(eta)
-  dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(...))
+  nsize <- attr(y, "parameters")$size
+  proba <- attr(y, "parameters")$prob
+  my.dnbinom <- function(y, nsize, proba) dnbinom(y, size = nsize, prob = proba)
+  my.pnbinom <- function(z, nsize, proba) pnbinom(z, size = nsize, prob = proba)
+  dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(y, nsize, proba))
 
   if (!missing(a)) {
-    F.a <- my.pnbinom(a - 1, ...)
+    F.a <- my.pnbinom(a - 1, nsize, proba)
   } else {
     F.a <- 0
   }
   if (!missing(b)) {
-    F.b <- my.pnbinom(b, ...)
+    F.b <- my.pnbinom(b, nsize, proba)
   } else {
     F.b <- 1
   }
@@ -42,7 +43,9 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
 #' @export
 init.parms.trunc_nbinom <- function(y) {
   # Returns empirical parameter estimate for lambda
-  return(mean(y))
+  parms <- c("mean" = mean(y))
+  class(parms) <- "trunc_nbinom"
+  return(parms)
 }
 
 sufficientT.trunc_nbinom <- function(y) {
@@ -56,8 +59,7 @@ averageT.trunc_nbinom <- function(y) {
 #' @export
 natural2parameters.trunc_nbinom <- function(eta) {
   # eta: The natural parameters in a negative binomial distribution
-  # returns (mean,sigma)
-  p <- exp(eta)
+  p <- c(mean = exp(eta))
   class(p) <- class(eta)
   return(p)
 }
@@ -71,12 +73,13 @@ parameters2natural.trunc_nbinom <- function(parms) {
   return(eta)
 }
 
-getGradETinv.trunc_nbinom <- function(eta) {
+getGradETinv.trunc_nbinom <- function(eta, r) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   p <- exp(eta)
-  return(A = (1 - p)^2 / (r * p))
-  # FIXME #41: r not defined. How can it be obtained from eta?
+  r <- exp(r)
+  A <- (1 - p) ^ 2 / (r * p)
+  return(A)
 }
 
 getYseq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
@@ -85,6 +88,6 @@ getYseq.trunc_nbinom <- function(y, y.min = 0, y.max, n = 100) {
   lo <- max(round(y.min), 0)
   hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
   out <- seq(lo, hi)
-  class(out) <- class(y)
+  attributes(out) <- attributes(y)
   return(out)
 }

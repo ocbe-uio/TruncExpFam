@@ -117,13 +117,13 @@ details.
 }
 \examples{
 # Truncated binomial distribution
-sample.binom <- rtrunc(1000, family = "binomial", prob = 0.6, size = 20, a = 4, b = 10)
+sample.binom <- rtrunc(100, family = "binomial", prob = 0.6, size = 20, a = 4, b = 10)
 sample.binom
 plot(table(sample.binom), ylab = "Frequency", main = "Freq. of sampled values")
 
 # Truncated Log-Normal distribution
 sample.lognorm <- rtrunc(
-  n = 100000, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
+  n = 100, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
 )
 summary(sample.lognorm)
 
@@ -134,16 +134,16 @@ hist(
 )
 
 # Normal distribution
-sample.norm <- rtrunc(n = 10000, mean = 2, sd = 1.5, a = -1)
+sample.norm <- rtrunc(n = 100, mean = 2, sd = 1.5, a = -1)
 head(sample.norm)
 hist(sample.norm, nclass = 25)
 
 # Gamma distribution
-sample.gamma <- rtrunc(n = 10000, family = "gamma", shape = 6, rate = 2, a = 2)
+sample.gamma <- rtrunc(n = 100, family = "gamma", shape = 6, rate = 2, a = 2)
 hist(sample.gamma, nclass = 15)
 
 # Poisson distribution
-sample.pois <- rtrunc(n = 1000, family = "poisson", lambda = 10, a = 4)
+sample.pois <- rtrunc(n = 10, family = "poisson", lambda = 10, a = 4)
 sample.pois
 plot(table(sample.pois))
 }
