@@ -23,7 +23,7 @@ dtrunc(y, eta, a, b)
 
 dtruncbeta(y, eta, a = 0, b = 1)
 
-dtruncbinom(y, eta, a = 0, b = size, ...)
+dtruncbinom(y, eta, a = 0, b = attr(y, "parameters")$size, ...)
 
 dtruncchisq(y, eta, a = 0, b = Inf)
 
