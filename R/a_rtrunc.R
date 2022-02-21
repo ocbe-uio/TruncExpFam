@@ -6,7 +6,10 @@
 #' @param family distribution family to use
 #' @param ... individual arguments to each distribution
 #' @return A sample of size n drawn from a truncated distribution
-#' @note The effective sample size is reduced due to truncation.
+#' @note The current sample-generating algorithm may be slow if the distribution
+#' is largely represented by low-probability values. This will be fixed soon.
+#' Please follow \url{https://github.com/ocbe-uio/TruncExpFam/issues/72} for
+#' details.
 #' @author René Holst, Waldir Leôncio
 #' @details One way to use this function is by calling the `rtrunc`
 #' generic with the `family` parameter of your choice. You can also
