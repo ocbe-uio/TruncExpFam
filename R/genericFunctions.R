@@ -47,6 +47,6 @@ averageT <- function(y) {
   UseMethod("averageT")
 }
 
-getGradETinv <- function(eta) {
+getGradETinv <- function(eta, ...) {
   UseMethod("getGradETinv")
 }

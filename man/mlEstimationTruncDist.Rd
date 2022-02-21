@@ -76,6 +76,10 @@ mlEstimationTruncDist(
   y.min = 2, max.it = 1500, delta = 0.3,
   print.iter = 10
 )
+
+# Negative binomial
+sample.nbinom <- rtruncnbinom(10000, size = 50, prob = .3, a = 100, b = 120)
+mlEstimationTruncDist(sample.nbinom, r=10)
 }
 \references{
 Inspired by Salvador: Pueyo: "Algorithm for the maximum likelihood estimation of the parameters of the truncated normal and lognormal distributions"
