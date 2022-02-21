@@ -46,7 +46,7 @@ dtruncnorm(y, eta, a = -Inf, b = Inf)
 dtruncpois(y, eta, a = 0, b = Inf)
 }
 \arguments{
-\item{y}{output from rtrunc}
+\item{y}{output from rtrunc or any valid numeric value(s).}
 
 \item{eta}{Natural parameters}
 
@@ -56,10 +56,17 @@ dtruncpois(y, eta, a = 0, b = Inf)
 
 \item{...}{size}
 }
+\value{
+The density of y for the given values of the \code{eta} parameter.
+}
 \description{
 Calculates the PDF for a given truncated distribution
 }
 \examples{
+# Using the output of rtrunc
 y <- rtrunc(50, mean = 5, sd = 2)
 dtrunc(y, eta = c(0, -1))
+
+# Directly-inputting values
+dtruncnorm(y = c(5, 0, -10), eta = c(0, -0.05))
 }

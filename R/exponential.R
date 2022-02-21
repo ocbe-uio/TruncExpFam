@@ -28,7 +28,6 @@ dtrunc.trunc_exp <- function(y, eta, a = 0, b = Inf) {
   return(dens / (F.b - F.a))
 }
 
-#' @export
 #' @importFrom stats dexp pexp
 #' @rdname dtrunc
 #' @export

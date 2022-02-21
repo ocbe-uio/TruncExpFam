@@ -10,7 +10,7 @@ parameters2natural(parms)
 \item{parms}{A vector of parameters in a distribution distribution}
 }
 \value{
-The natural parameters
+A vector containing the natural parameters
 }
 \description{
 Convert distribution parameters to natural parameters
@@ -18,5 +18,5 @@ Convert distribution parameters to natural parameters
 \examples{
 # Poisson distribution
 samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-TruncExpFam:::parameters2natural(TruncExpFam:::init.parms(samp))
+parameters2natural(init.parms(samp))
 }

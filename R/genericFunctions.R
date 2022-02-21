@@ -4,33 +4,36 @@
 #' @examples
 #' # Normal distribution
 #' sampNorm <- rtrunc(50, mean = 5, sd = 2)
-#' TruncExpFam:::init.parms(sampNorm)
+#' init.parms(sampNorm)
 #'
 #' # Poisson distribution
 #' sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
-#' TruncExpFam:::init.parms(sampPois)
+#' init.parms(sampPois)
+#' @export
+#' @return A vector of parameter estimates for the input sample
 init.parms <- function(y) {
   UseMethod("init.parms")
 }
 
 #' @title Convert natural parameters to distribution parameters
 #' @param eta vector of natural parameters
-#' @return Distribution parameters
+#' @return A vector of the original distribution parameters
 #' @export
 #' @examples
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-#' TruncExpFam:::natural2parameters(TruncExpFam:::init.parms(samp))
+#' natural2parameters(init.parms(samp))
 natural2parameters <- function(eta) {
   UseMethod("natural2parameters")
 }
 
 #' @title Convert distribution parameters to natural parameters
 #' @param parms A vector of parameters in a distribution distribution
-#' @return The natural parameters
+#' @return A vector containing the natural parameters
+#' @export
 #' @examples
 #' # Poisson distribution
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-#' TruncExpFam:::parameters2natural(TruncExpFam:::init.parms(samp))
+#' parameters2natural(init.parms(samp))
 parameters2natural <- function(parms) {
   UseMethod("parameters2natural")
 }

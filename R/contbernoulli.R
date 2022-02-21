@@ -42,7 +42,6 @@ pcontbern <- function(x, lambda) {
   return(p)
 }
 
-#' @export
 #' @rdname dtrunc
 #' @export
 dtrunccontbern <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {

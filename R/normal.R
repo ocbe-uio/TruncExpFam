@@ -29,7 +29,6 @@ dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
   return(dens * const)
 }
 
-#' @export
 #' @rdname dtrunc
 #' @export
 dtruncnorm <- dtrunc.trunc_normal
