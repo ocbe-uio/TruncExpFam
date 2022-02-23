@@ -35,6 +35,10 @@ mlEstimationTruncDist(
 
 \item{...}{other parameters passed to subfunctions}
 }
+\value{
+A vector of class \code{trunc_*} containing the maximum-likelihood
+estmation of the underlying distribution * parameters.
+}
 \description{
 ML-estimation of the parameters of the distribution of the specified family, truncated at y.min and y.max
 }

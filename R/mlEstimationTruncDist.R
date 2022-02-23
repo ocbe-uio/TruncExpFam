@@ -55,6 +55,8 @@
 #' sample.nbinom <- rtruncnbinom(sample_size, size = 50, prob = .3, a = 100, b = 120)
 #' mlEstimationTruncDist(sample.nbinom, r=10)
 #' @export
+#' @return A vector of class \code{trunc_*} containing the maximum-likelihood
+#' estmation of the underlying distribution * parameters.
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
   delta = 0.33, print.iter = 0, ny = 100, ...
