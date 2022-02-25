@@ -1,18 +1,32 @@
 <img src="logo.png" width=25%>
 
-# What is this?
+What is this?
+=============
 
 This is an R package to handle truncated members from the exponential
 family.
 
-# Installation
+Installation
+============
 
-TruncExpFam is currently under development. To install the package,
-first make sure you have either the “remotes” or the “devtools” package
-installed in your local R installation, then issue the following
-command:
+Stable version
+--------------
 
-    remotes::install_github("ocbe-uio/TruncExpFam")
+TruncExpFam is available on CRAN and can be installed by running the
+following in an interactive R session:
+
+    install.packages("TruncExpFam")
+
+Development version
+-------------------
+
+The development version of the package contains features and bug fixes
+that are yet to be published. It is, however, much less stable than the
+CRAN version. You can install the development version of TruncExpFam by
+running the following command in R (requires the `remotes` package to be
+installed beforehand):
+
+    remotes::install_github("ocbe-uio/TruncExpFam", ref="develop")
 
 Finally, load the package with `library(TruncExpFam)`. A list of
 available functions can be printed with `ls("package:TruncExpFam")`.
@@ -20,7 +34,8 @@ available functions can be printed with `ls("package:TruncExpFam")`.
 Further details on installing TruncExpFam can be found on the
 [Wiki](https://github.com/ocbe-uio/TruncExpFam/wiki/Installing-TruncExpFam).
 
-# Usage
+Usage
+=====
 
 For more information about the package (e.g. suppored distributions),
 run `?TruncExpFam` after loading the package in your R session.
@@ -30,7 +45,8 @@ such as `rnorm()` and `dpois()`? If so, you will feel right at home with
 `TruncExpFam`, which uses the `rtrunc()` function to generate random
 numbers and the `dtrunc()` function to generate probability densities.
 
-# Contributing
+Contributing
+============
 
 TruncExpFam is open-source software licensed by the GPL. All
 contributions are welcome! Please use the [issues
@@ -41,17 +57,16 @@ To contribute with code, we recommend reading [this Wiki
 page](https://github.com/ocbe-uio/TruncExpFam/wiki/Contributing-to-the-project)
 on the subject.
 
-# Citing
+Citing
+======
 
 If you present work that uses this package, please remember to cite it.
-
-    Warning in citation("TruncExpFam"): no date field in DESCRIPTION file of package 'TruncExpFam'
 
 
     To cite package 'TruncExpFam' in publications use:
 
-      René Holst and Waldir Leoncio (2022). TruncExpFam: Truncated Exponential Family. R package version
-      0.0.0.9075. https://github.com/ocbe-uio/TruncExpFam
+      René Holst and Waldir Leoncio (2022). TruncExpFam: Truncated Exponential Family. R package version 1.0.0.
+      https://CRAN.R-project.org/package=TruncExpFam
 
     A BibTeX entry for LaTeX users is
 
@@ -59,23 +74,38 @@ If you present work that uses this package, please remember to cite it.
         title = {TruncExpFam: Truncated Exponential Family},
         author = {René Holst and Waldir Leoncio},
         year = {2022},
-        note = {R package version 0.0.0.9075},
-        url = {https://github.com/ocbe-uio/TruncExpFam},
+        note = {R package version 1.0.0},
+        url = {https://CRAN.R-project.org/package=TruncExpFam},
       }
 
 You can also generate the output above on your R session by running
 `citation("TruncExpFam")`.
 
-# Badges
+Badges
+======
 
-[![Project Status: WIP - Initial development is in progress, but there
-has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![](https://img.shields.io/github/last-commit/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam/commits/develop)
-[![](https://img.shields.io/github/languages/code-size/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam)
+Stable version
+--------------
+
+[![CRAN
+version](https://www.r-pkg.org/badges/version/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
+[![CRAN
+downloads](http://cranlogs.r-pkg.org/badges/last-month/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
+[![License:
+GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
+[![DOI](https://zenodo.org/badge/326590808.svg)](https://zenodo.org/badge/latestdoi/326590808)
+
+Development version
+-------------------
+
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Last
+commit](https://img.shields.io/github/last-commit/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam/commits/develop)
+[![Code
+size](https://img.shields.io/github/languages/code-size/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam)
 [![R build
 status](https://github.com/ocbe-uio/TruncExpFam/workflows/R-CMD-check/badge.svg)](https://github.com/ocbe-uio/TruncExpFam/actions)
 [![codecov](https://codecov.io/gh/ocbe-uio/TruncExpFam/branch/develop/graph/badge.svg?token=78YFRZKJO6)](https://codecov.io/gh/ocbe-uio/TruncExpFam)
-[![License:
-GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
 [![CodeFactor](https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam/badge)](https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam)

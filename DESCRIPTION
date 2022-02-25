@@ -1,7 +1,7 @@
 Package: TruncExpFam
 Title: Truncated Exponential Family
-Version: 0.0.0.9075
-Date: 2022-02-11
+Version: 1.0.0
+Date: 2022-02-21
 Authors@R:
 	c(
 		person(
@@ -17,7 +17,13 @@ Authors@R:
 			email = "w.l.netto@medisin.uio.no"
 		)
 	)
-Description: Generates Data from the Truncated Exponential Family.
+Description: Handles truncated members from the exponential family of
+	probability distributions. Contains functions such as rtruncnorm() and
+	dtruncpois(), which are truncated versions of rnorm() and dpois() from the
+	stats package that also offer richer output containing, for example, the
+	distribution parameters. It also provides functions to retrieve the original
+	distribution parameters from a truncated sample by maximum-likelihood
+	estimation.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

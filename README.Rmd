@@ -14,10 +14,22 @@ This is an R package to handle truncated members from the exponential family.
 
 # Installation
 
-TruncExpFam is currently under development. To install the package, first make sure you have either the "remotes" or the "devtools" package installed in your local R installation, then issue the following command:
+## Stable version
+
+TruncExpFam is available on CRAN and can be installed by running the following in an interactive R session:
+
+```R
+install.packages("TruncExpFam")
+```
+
+## Development version
+
+The development version of the package contains features and bug fixes that are yet to be published.
+It is, however, much less stable than the CRAN version.
+You can install the development version of TruncExpFam by running the following command in R (requires the `remotes` package to be installed beforehand):
 
 ```{r install, eval=FALSE}
-remotes::install_github("ocbe-uio/TruncExpFam")
+remotes::install_github("ocbe-uio/TruncExpFam", ref="develop")
 ```
 
 Finally, load the package with `library(TruncExpFam)`. A list of available functions can be printed with `ls("package:TruncExpFam")`.
@@ -48,10 +60,24 @@ You can also generate the output above on your R session by running `citation("T
 
 # Badges
 
-[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![](https://img.shields.io/github/last-commit/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam/commits/develop)
-[![](https://img.shields.io/github/languages/code-size/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam)
-[![R build status](https://github.com/ocbe-uio/TruncExpFam/workflows/R-CMD-check/badge.svg)](https://github.com/ocbe-uio/TruncExpFam/actions)
-[![codecov](https://codecov.io/gh/ocbe-uio/TruncExpFam/branch/develop/graph/badge.svg?token=78YFRZKJO6)](https://codecov.io/gh/ocbe-uio/TruncExpFam)
+## Stable version
+
+[![CRAN version](https://www.r-pkg.org/badges/version/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
+[![CRAN downloads](http://cranlogs.r-pkg.org/badges/last-month/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
 [![License: GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
+[![DOI](https://zenodo.org/badge/326590808.svg)](https://zenodo.org/badge/latestdoi/326590808)
+
+
+## Development version
+
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Last
+commit](https://img.shields.io/github/last-commit/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam/commits/develop)
+[![Code
+size](https://img.shields.io/github/languages/code-size/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam)
+[![R build
+status](https://github.com/ocbe-uio/TruncExpFam/workflows/R-CMD-check/badge.svg)](https://github.com/ocbe-uio/TruncExpFam/actions)
+[![codecov](https://codecov.io/gh/ocbe-uio/TruncExpFam/branch/develop/graph/badge.svg?token=78YFRZKJO6)](https://codecov.io/gh/ocbe-uio/TruncExpFam)
 [![CodeFactor](https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam/badge)](https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam)
