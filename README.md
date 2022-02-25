@@ -93,6 +93,7 @@ version](https://www.r-pkg.org/badges/version/TruncExpFam?color=green)](https://
 downloads](http://cranlogs.r-pkg.org/badges/last-month/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
 [![License:
 GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
+[![DOI](https://zenodo.org/badge/326590808.svg)](https://zenodo.org/badge/latestdoi/326590808)
 
 Development version
 -------------------
