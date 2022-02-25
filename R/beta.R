@@ -91,5 +91,5 @@ getGradETinv.trunc_beta <- function(eta) {
   term.1 <- sum(1 / (((1:10000) + eta[1]))^2)
   term.2 <- sum(1 / (((1:10000) + eta[2]))^2)
   term.12 <- sum(1 / (((1:10000) + eta[1] + eta[2]))^2)
-  return(A = solve(matrix(c(term.1 - term.12, -term.12, -term.12, term.2 - term.12, ncol = 2))))
+  return(A = solve(matrix(c(term.1 - term.12, -term.12, -term.12, term.2 - term.12), ncol = 2)))
 }
