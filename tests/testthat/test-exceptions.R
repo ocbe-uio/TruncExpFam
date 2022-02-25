@@ -52,6 +52,7 @@ test_that("Passing wrong parameters is handled correctly", {
   expect_error(rtruncchisq(1, df = -14), msg)
   expect_error(rtrunc(1, family = "contbern", lambda = 1.4), msg)
   expect_error(rtrunc(1, family = "contbern", lambda = -14), msg)
+  expect_error(rcontbern(1, lambda = 1.4), "lambda must be in \\(0, 1\\)")
   expect_error(rtrunccontbern(1, lambda = 1.4), msg)
   expect_error(rtrunccontbern(1, lambda = -14), msg)
   expect_error(rtrunc(1, family = "exp", rate = -14), msg)

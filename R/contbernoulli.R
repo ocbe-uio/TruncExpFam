@@ -16,14 +16,14 @@ rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1) {
 # this distribution
 # dcontbern is the untruncated function (which is not present in base R)
 dcontbern <- function(x, lambda) {
-  if ((x < 0) | (x > 1)) {
+  if (any(x < 0) | any(x > 1)) {
     return(0)
   }
-  if (lambda == 0.5) {
-    norm.const <- 2
-  } else {
-    norm.const <- 2 * (atanh(1 - 2 * lambda)) / (1 - 2 * lambda)
-  }
+  norm.const <- ifelse(
+    test = lambda == 0.5,
+    yes  = 2,
+    no   = 2 * (atanh(1 - 2 * lambda)) / (1 - 2 * lambda)
+  )
   d <- norm.const * (lambda^x) * (1 - lambda) ^ (1 - x)
   return(d)
 }
@@ -47,16 +47,8 @@ pcontbern <- function(x, lambda) {
 dtrunccontbern <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
   lambda <- natural2parameters.trunc_contbern(eta)
   dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda = lambda))
-  if (!missing(a)) {
-    F.a <- pcontbern(a, lambda)
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pcontbern(b, lambda)
-  } else {
-    F.b <- 1
-  }
+  F.a <- pcontbern(a, lambda)
+  F.b <- pcontbern(b, lambda)
   return(dens / (F.b - F.a))
 }
 
@@ -81,7 +73,7 @@ averageT.trunc_contbern <- function(y) {
 natural2parameters.trunc_contbern <- function(eta) {
   # eta: The natural parameters in a continuous bernoulli distribution distribution
   # returns rate
-  rate <- c(lamda = 1 / (1 + exp(-eta)))
+  rate <- c(lambda = 1 / (1 + exp(-eta)))
   class(rate) <- class(eta)
   return(rate)
 }
