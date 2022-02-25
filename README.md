@@ -65,8 +65,7 @@ If you present work that uses this package, please remember to cite it.
 
     To cite package 'TruncExpFam' in publications use:
 
-      René Holst and Waldir Leoncio (2022). TruncExpFam: Truncated Exponential Family. R package version 1.0.0.
-      https://CRAN.R-project.org/package=TruncExpFam
+      René Holst and Waldir Leoncio (2022). TruncExpFam: Truncated Exponential Family. R package version 1.0.0. https://CRAN.R-project.org/package=TruncExpFam
 
     A BibTeX entry for LaTeX users is
 
