@@ -5,11 +5,12 @@
 #' @param libname library location. See `?base::.onAttach` for details
 #' @param pkgname package name. See `?base::.onAttach` for details
 .onAttach <- function(libname, pkgname) {
-	version <- read.dcf(
-		file   = system.file("DESCRIPTION", package = pkgname),
-		fields = "Version")
-	packageStartupMessage(
-		"Welcome to ", paste(pkgname, version), ".\n",
-		"Please read the documentation on ?TruncExpFam to learn more about the package."
-	)
+  version <- read.dcf(
+    file   = system.file("DESCRIPTION", package = pkgname),
+    fields = "Version"
+  )
+  packageStartupMessage(
+    "Welcome to ", paste(pkgname, version), ".\n",
+    "Please read the documentation on ?TruncExpFam to learn more about the package."
+  )
 }
