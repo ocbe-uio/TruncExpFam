@@ -18,6 +18,7 @@ set.seed(117)
 sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2, family = "gamma")
 sample.nbinom <- rtruncnbinom(10000, size = 50, prob = .3, a = 100, b = 120)
 sample.contbern <- rtrunccontbern(100, lambda = .4, b = .5)
+sample.beta <- rtruncbeta(1000, shape1 = 15, shape2 = 4, a = .7, b = .9)
 
 test_that("rtrunc samples have the expected values", {
   tol <- 1e-3
@@ -28,6 +29,7 @@ test_that("rtrunc samples have the expected values", {
   expect_equal(head(sample.gamma, 3), c(3.4673, 2.8549, 3.6220), tol = 1e-4)
   expect_equal(head(sample.nbinom), c(114, 101, 110, 100, 118, 116))
   expect_equal(head(sample.contbern, 3), c(0.06070758, 0.30618084, 0.29766296))
+  expect_equal(head(sample.beta, 3), c(0.78510, 0.78543, 0.77538), tol = 1e-4)
 })
 
 test_that("Truncation limits are observed", {
@@ -38,6 +40,7 @@ test_that("Truncation limits are observed", {
   expect_true(all(sample.gamma >= 2))
   expect_true(all(sample.nbinom >= 100) & all(sample.nbinom <= 120))
   expect_true(all(sample.contbern <= .5))
+  expect_true(all(sample.beta >= .76) & all(sample.beta <= .79))
 })
 
 # ======================================================== #
@@ -80,6 +83,9 @@ ml_nbinom <- mlEstimationTruncDist(
 ml_contbern <- mlEstimationTruncDist(
   sample.contbern, print.iter = FALSE, tol = 1e-7, max.it = 1e3
 )
+ml_beta <- mlEstimationTruncDist(
+  sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3
+)
 
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)
@@ -89,6 +95,7 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gamma), c(shape = 6, rate = 2), tol = 1e-1)
   expect_equal(unclass(ml_nbinom), c(mean = 110.4), tol = 1e-1)
   expect_equal(unclass(ml_contbern), c(lambda = 0.4), tol = 1e-1)
+  expect_equal(unclass(ml_beta), c(shape1 = 1508, shape2 = 441), tol = 1e-1)
 })
 
 # ======================================================== #
