@@ -5,3 +5,6 @@ createLogo.R
 logo.png
 Makefile
 README\..?md
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
