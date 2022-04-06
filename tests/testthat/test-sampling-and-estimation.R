@@ -29,7 +29,7 @@ test_that("rtrunc samples have the expected values", {
   expect_equal(head(sample.gamma, 3), c(3.4673, 2.8549, 3.6220), tol = 1e-4)
   expect_equal(head(sample.nbinom), c(114, 101, 110, 100, 118, 116))
   expect_equal(head(sample.contbern, 3), c(0.06070758, 0.30618084, 0.29766296))
-  expect_equal(head(sample.beta, 3), c(0.78510, 0.78543, 0.77538), tol = 1e-4)
+  expect_equal(head(sample.beta, 3), c(0.88398, 0.88610, 0.80583), tol = 1e-4)
 })
 
 test_that("Truncation limits are observed", {
@@ -40,7 +40,7 @@ test_that("Truncation limits are observed", {
   expect_true(all(sample.gamma >= 2))
   expect_true(all(sample.nbinom >= 100) & all(sample.nbinom <= 120))
   expect_true(all(sample.contbern <= .5))
-  expect_true(all(sample.beta >= .76) & all(sample.beta <= .79))
+  expect_true(all(sample.beta >= .7) & all(sample.beta <= .9))
 })
 
 # ======================================================== #
