@@ -58,7 +58,7 @@
 #' @return A vector of class \code{trunc_*} containing the maximum-likelihood
 #' estmation of the underlying distribution * parameters.
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
-  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 25,
+  y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 100,
   delta = 0.33, print.iter = 0, ny = 100, ...
 ) {
   # Some initialisations
