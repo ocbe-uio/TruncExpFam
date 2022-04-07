@@ -19,3 +19,6 @@ Convert natural parameters to distribution parameters
 samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 natural2parameters(init.parms(samp))
 }
+\seealso{
+\code{\link[=parameters2natural]{parameters2natural()}}
+}
