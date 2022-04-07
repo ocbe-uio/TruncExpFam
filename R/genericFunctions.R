@@ -19,6 +19,7 @@ init.parms <- function(y) {
 #' @param eta vector of natural parameters
 #' @return A vector of the original distribution parameters
 #' @export
+#' @seealso [parameters2natural()]
 #' @examples
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 #' natural2parameters(init.parms(samp))
@@ -30,6 +31,7 @@ natural2parameters <- function(eta) {
 #' @param parms A vector of parameters in a distribution distribution
 #' @return A vector containing the natural parameters
 #' @export
+#' @seealso [natural2parameters()]
 #' @examples
 #' # Poisson distribution
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
