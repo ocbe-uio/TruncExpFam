@@ -9,7 +9,7 @@ mlEstimationTruncDist(
   y.min = attr(y, "truncation_limits")$a,
   y.max = attr(y, "truncation_limits")$b,
   tol = 1e-05,
-  max.it = 25,
+  max.it = 100,
   delta = 0.33,
   print.iter = 0,
   ny = 100,
