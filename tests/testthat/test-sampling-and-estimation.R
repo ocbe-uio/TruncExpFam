@@ -94,6 +94,10 @@ ml_contbern <- mlEstimationTruncDist(
 # ml_beta <- mlEstimationTruncDist(
 #   sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3
 # ) # FIXME #85: often doesn't converge
+# ml_chisq <- mlEstimationTruncDist(sample.chisq, print.iter = TRUE, tol = 1e-7) # FIXME #90
+ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
+# ml_invgamma <- mlEstimationTruncDist(sample.invgamma, print.iter = TRUE, tol = 1e-7) # FIXME #90
+# ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90
 
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)
@@ -104,6 +108,10 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_nbinom), c(mean = 110.4), tol = 1e-1)
   expect_equal(unclass(ml_contbern), c(lambda = 0.4), tol = 1e-1)
   # expect_equal(unclass(ml_beta), c(shape1 = 1508, shape2 = 441), tol = 1e-1) # FIXME #85
+  # expect_equal(unclass(ml_chisq), c(df = 50), tol = 1e-1) # FIXME #90
+  expect_equal(unclass(ml_exp), c(rate = 6), tol = 1e-1)
+  # expect_equal(unclass(ml_invgamma), c(df = 50), tol = 1e-1) # FIXME #90
+  # expect_equal(unclass(ml_invgauss), c(df = 50), tol = 1e-1) # FIXME #90
 })
 
 # ======================================================== #
