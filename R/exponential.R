@@ -53,7 +53,7 @@ averageT.trunc_exp <- function(y) {
 natural2parameters.trunc_exp <- function(eta) {
   # eta: The natural parameters in an exponential distribution distribution
   # returns rate
-  lambda <- -eta
+  lambda <- c(rate = -eta)
   class(lambda) <- class(eta)
   return(lambda)
 }
