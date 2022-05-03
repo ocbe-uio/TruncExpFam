@@ -99,6 +99,18 @@ ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
 # ml_invgamma <- mlEstimationTruncDist(sample.invgamma, print.iter = TRUE, tol = 1e-7) # FIXME #90
 # ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90
 
+test_that("ML estimation iteration controls", {
+  tot_iter <- length(capture.output(mlEstimationTruncDist(sample.norm, print.iter = 1))) - 1
+  expect_length(capture.output(mlEstimationTruncDist(sample.norm, print.iter = 0)), 1)
+  for (i in seq_len(tot_iter)) {
+    suppressMessages(
+      expect_length(
+        object = capture.output(mlEstimationTruncDist(sample.norm, print.iter = i)),
+        n = floor(tot_iter / i) + 1
+      )
+    )
+  }
+})
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)
   expect_equal(unclass(ml_lognormal), c(mean = 2.5, sd = 0.5), tol = 1e-1)
