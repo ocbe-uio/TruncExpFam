@@ -15,16 +15,8 @@ rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf) {
 dtrunc.trunc_exp <- function(y, eta, a = 0, b = Inf) {
   rate <- natural2parameters.trunc_exp(eta)
   dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate = rate))
-  if (!missing(a)) {
-    F.a <- pexp(a, rate)
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pexp(b, rate)
-  } else {
-    F.b <- 1
-  }
+  F.a <- pexp(a, rate)
+  F.b <- pexp(b, rate)
   return(dens / (F.b - F.a))
 }
 
