@@ -94,5 +94,9 @@ getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
 getGradETinv.trunc_gamma <- function(eta) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
+  dpsi.dx <- function(x, k = 10000) {
+    # Returns the derivative of the psi function above
+    sum((1 / ((0:k) + x))^2)
+  }
   return(A = solve(matrix(c(-1 / eta[1]^2 + dpsi.dx(eta[1]), -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2), ncol = 2)))
 }
