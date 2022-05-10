@@ -91,6 +91,7 @@ getGradETinv.trunc_invgamma <- function(eta) {
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A.11 <- sum(1 / (0:10000 + eta[1] + 1)^2)
   A.22 <- sum((0:10000 + eta[1] + 1) / eta[2]^2)
-  inv_A <- matrix(c(A.11, -1 / eta[2], -1 / eta[2], A.22), ncol = 2)
+  A.12 <- -1 / eta[2]
+  inv_A <- matrix(c(A.11, A.12, A.12, A.22), ncol = 2)
   return(A = solve(inv_A))
 }
