@@ -95,28 +95,16 @@ judgeSupportLimits <- function(parms, support, cont = TRUE, no_complex = FALSE) 
 
   # Treating edge cases ========================================================
   split_brackets <- strsplit(support$txt, "")[[1]]
-  include_l <- split_brackets[1] %in% c("[", "{")
-  include_u <- split_brackets[length(split_brackets)] %in% c("]", "}")
   if (cont) {
+    cond_al <- parms$a < support$l
     cond_au <- parms$a >= support$u
     cond_bl <- parms$b <= support$l
-    cond_al <- parms$a < support$l
     cond_bu <- parms$b > support$u
   } else {
-    if (include_l) {
-      cond_al <- parms$a < support$l
-      cond_bl <- parms$b < support$l
-    } else {
-      cond_al <- parms$a <= support$l
-      cond_bl <- parms$b <= support$l
-    }
-    if (include_u) {
-      cond_au <- parms$a > support$u
-      cond_bu <- parms$b > support$u
-    } else {
-      cond_au <- parms$a >= support$u
-      cond_bu <- (parms$b >= support$u) & (parms$b != Inf)
-    }
+    cond_al <- parms$a < support$l
+    cond_au <- parms$a > support$u
+    cond_bl <- parms$b < support$l
+    cond_bu <- parms$b > support$u
   }
 
   # Judging suppor limits ======================================================

@@ -18,16 +18,8 @@ dtrunc.trunc_binomial <- function(y, eta, a = 0, b = attr(y, "parameters")$size,
   my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
   proba <- 1 / (1 + exp(-eta))
   dens <- ifelse((y < a) | (y > b), 0, my.dbinom(nsize))
-  if (!missing(a)) {
-    F.a <- my.pbinom(a - 1, nsize)
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- my.pbinom(b, nsize)
-  } else {
-    F.b <- 1
-  }
+  F.a <- my.pbinom(a - 1, nsize)
+  F.b <- my.pbinom(b, nsize)
   return(dens / (F.b - F.a))
 }
 
@@ -52,11 +44,6 @@ sufficientT.trunc_binomial <- function(y) {
 
 averageT.trunc_binomial <- function(y) {
   return(mean(y))
-}
-
-density.trunc_binomial <- function(y, eta, ...) {
-  parms <- 1 / (1 + exp(-eta))
-  dbinom(y, ..., parms)
 }
 
 #' @export

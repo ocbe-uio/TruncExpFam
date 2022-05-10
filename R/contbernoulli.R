@@ -16,9 +16,6 @@ rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1) {
 # this distribution
 # dcontbern is the untruncated function (which is not present in base R)
 dcontbern <- function(x, lambda) {
-  if (any(x < 0) | any(x > 1)) {
-    return(0)
-  }
   norm.const <- ifelse(
     test = lambda == 0.5,
     yes  = 2,
@@ -30,15 +27,7 @@ dcontbern <- function(x, lambda) {
 
 # untruncated version (not implemented in base R)
 pcontbern <- function(x, lambda) {
-  if (x < 0) {
-    p <- 0
-  } else if (x > 1) {
-    p <- 1
-  } else if (lambda == 0.5) {
-    p <- x
-  } else {
-    p <- ((lambda^x) * (1 - lambda) ^ (1 - x) + lambda - 1) / (2 * lambda - 1)
-  }
+  p <- ((lambda^x) * (1 - lambda) ^ (1 - x) + lambda - 1) / (2 * lambda - 1)
   return(p)
 }
 

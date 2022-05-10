@@ -26,17 +26,8 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
   my.dnbinom <- function(y, nsize, proba) dnbinom(y, size = nsize, prob = proba)
   my.pnbinom <- function(z, nsize, proba) pnbinom(z, size = nsize, prob = proba)
   dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(y, nsize, proba))
-
-  if (!missing(a)) {
-    F.a <- my.pnbinom(a - 1, nsize, proba)
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- my.pnbinom(b, nsize, proba)
-  } else {
-    F.b <- 1
-  }
+  F.a <- my.pnbinom(a - 1, nsize, proba)
+  F.b <- my.pnbinom(b, nsize, proba)
   return(dens / (F.b - F.a))
 }
 
