@@ -34,14 +34,12 @@ validateDomain.trunc_exp <- function(n, parms, ...) {
 
 validateDomain.trunc_gamma <- function(n, parms, ...) {
   if (parms$shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
-  if (parms$scale <= 0) stop("Invalid parameter domain. scale must be > 0.")
-  if (parms$rate <= 0) stop("Invalid parameter domain. rate must be > 0.")
+  if (parms$scale <= 0) stop("Invalid parameter domain. rate/scale must be > 0.")
 }
 
 validateDomain.trunc_invgamma <- function(n, parms, ...) {
   if (parms$shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
-  if (parms$scale <= 0) stop("Invalid parameter domain. scale must be > 0.")
-  if (parms$rate <= 0) stop("Invalid parameter domain. rate must be > 0.")
+  if (parms$scale <= 0) stop("Invalid parameter domain. rate/scale must be > 0.")
 }
 
 validateDomain.trunc_invgauss <- function(n, parms, ...) {
