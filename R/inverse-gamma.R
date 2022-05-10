@@ -89,7 +89,8 @@ getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max = 1, n = 100) {
 getGradETinv.trunc_invgamma <- function(eta) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
-  A.11 <- sum(1 / (((0:10000) + eta[1] + 1))^2)
-  inv_A <- matrix(c(A.11, -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2), ncol = 2)
+  A.11 <- sum(1 / (0:10000 + eta[1] + 1)^2)
+  A.22 <- sum((0:10000 + eta[1] + 1) / eta[2]^2)
+  inv_A <- matrix(c(A.11, -1 / eta[2], -1 / eta[2], A.22), ncol = 2)
   return(A = solve(inv_A))
 }
