@@ -116,21 +116,18 @@ validateFamilyName <- function(family) {
 #' valid.
 #' @param family character with family distribution name
 #' @param parms character vector with distribution parameter names
-#' @param verbose print intermediate messages?
 #' @return list telling if family-parm combo is valid + the family name
 #' @author Waldir Leoncio
-validateFamilyParms <- function(family, parms, verbose = FALSE) {
+validateFamilyParms <- function(family, parms) {
   matched <- list(family = FALSE, parameters = FALSE)
   families <- grep(family, names(valid_fam_parm))
   for (fam in families) {
     if (any(family == valid_fam_parm[[fam]]$family)) {
-      if (verbose) message("Matched family: ", family)
       matched$family <- TRUE
       family <- valid_fam_parm[[fam]]$family[1] # use standard family name
       parms_text <- paste(parms, collapse = ", ")
       parms_expected <- valid_fam_parm[[fam]]$parms
       if (all(sort(parms) == sort(parms_expected))) {
-        if (verbose) message("Matched parameters: ", parms_text)
         matched$parameters <- TRUE
       }
     }
