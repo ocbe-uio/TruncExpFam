@@ -91,9 +91,7 @@ ml_nbinom <- mlEstimationTruncDist(
 ml_contbern <- mlEstimationTruncDist(
   sample.contbern, print.iter = FALSE, tol = 1e-7, max.it = 1e3
 )
-# ml_beta <- mlEstimationTruncDist(
-#   sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3
-# ) # FIXME #85: often doesn't converge
+# ml_beta <- mlEstimationTruncDist(sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3) # FIXME #85: often doesn't converge
 # ml_chisq <- mlEstimationTruncDist(sample.chisq, print.iter = TRUE, tol = 1e-7) # FIXME #90
 ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
 ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7) # FIXME #90
