@@ -132,3 +132,10 @@ test_that("Passing wrong parameters is handled correctly", {
   expect_error(rtrunc(1, family = "poisson", lambda = -14), msg)
   expect_error(rtruncpois(1, lambda = -14), msg)
 })
+
+test_that("Passing too many parameters", {
+  expect_error(
+    object = rtruncgamma(1, shape = 5, rate = 8, scale = 7),
+    regexp = "specify 'rate' or 'scale' but not both"
+    )
+})
