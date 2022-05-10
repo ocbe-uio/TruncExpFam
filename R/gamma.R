@@ -9,6 +9,14 @@
 #' @export
 rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1 / rate,
                                         a = 0, b = Inf) {
+  if (!missing(rate) && !missing(scale)) {
+    if (abs(rate * scale - 1) < 1e-15) {
+        warning("specify 'rate' or 'scale' but not both")
+    }
+    else {
+      stop("specify 'rate' or 'scale' but not both")
+    }
+  }
   class(n) <- "trunc_gamma"
   sampleFromTruncated(mget(ls()))
 }
