@@ -49,11 +49,13 @@ init.parms.trunc_beta <- function(y) {
 }
 
 sufficientT.trunc_beta <- function(y) {
+  # Calculates the sufficient statistic T(y)
   return(suff.T = cbind(log(y), log(1 - y)))
 }
 
 averageT.trunc_beta <- function(y) {
-  return(apply(cbind(log(y), log(1 - y)), 2, mean))
+  # Averages out the sufficient statistics T(y)
+  return(apply(sufficientT(y), 2, mean))
 }
 
 #' @export

@@ -19,16 +19,8 @@ rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate = 1, scale = 1 / ra
 dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters.trunc_invgamma(eta)
   dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
-  if (!missing(a)) {
-    F.a <- pinvgamma(a, shape = parm[1], rate = parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  } else {
-    F.b <- 1
-  }
+  F.a <- pinvgamma(a, shape = parm[1], rate = parm[2])
+  F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
   const <- 1 / (F.b - F.a)
   return(dens * const)
 }
@@ -89,6 +81,9 @@ getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max = 1, n = 100) {
 getGradETinv.trunc_invgamma <- function(eta) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
-  A.11 <- sum(1 / (((0:10000) + eta[1] + 1))^2)
-  return(A = solve(matrix(c(A.11, -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2, ncol = 2))))
+  A.11 <- sum(1 / (0:10000 + eta[1] + 1)^2)
+  A.22 <- sum((0:10000 + eta[1] + 1) / eta[2]^2)
+  A.12 <- -1 / eta[2]
+  inv_A <- matrix(c(A.11, A.12, A.12, A.22), ncol = 2)
+  return(A = solve(inv_A))
 }
