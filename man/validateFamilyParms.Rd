@@ -4,14 +4,12 @@
 \alias{validateFamilyParms}
 \title{Validate family parameters}
 \usage{
-validateFamilyParms(family, parms, verbose = FALSE)
+validateFamilyParms(family, parms)
 }
 \arguments{
 \item{family}{character with family distribution name}
 
 \item{parms}{character vector with distribution parameter names}
-
-\item{verbose}{print intermediate messages?}
 }
 \value{
 list telling if family-parm combo is valid + the family name
