@@ -69,11 +69,6 @@ rtrunc <- function(n, family = "gaussian", ...) {
   # Generating sample --------------------------------------------------------
   sample <- rtrunc.generic(n, ...)
   saved_attributes <- attributes(sample)
-  while (length(sample) != n) {
-    new_obs <- rtrunc.generic(extra_n, ...)
-    sample <- c(sample, new_obs)
-    class(sample) <- class(new_obs)
-  }
 
   # Attaching attributes -----------------------------------------------------
   attributes(sample) <- saved_attributes
