@@ -69,7 +69,7 @@ parameters2natural.trunc_chisq <- function(parms) {
 getGradETinv.trunc_chisq <- function(eta) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
-  return(A = 1 / sum(1 / (eta + (1:1000000))^2))
+  return(A = 1 / sum(1 / (as.vector(eta) + (1:1e6))^2))
 }
 
 getYseq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
