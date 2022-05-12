@@ -22,7 +22,7 @@ sample.beta <- rtruncbeta(1000, shape1 = 15, shape2 = 4, a = .7, b = .9)
 sample.chisq <- rtruncchisq(1e3, df = 50, a = 30, b = 70)
 sample.exp <- rtruncexp(1e3, rate = 6, a = .1)
 sample.invgamma <- rtruncinvgamma(1e3, shape = 23, rate = 24, b = 2)
-sample.invgauss <- rtruncinvgauss(1e3, n = 497, s = 8, a = 1)
+sample.invgauss <- rtruncinvgauss(1e3, m = 497, s = 8, a = 1)
 
 test_that("rtrunc samples have the expected values", {
   tol <- 1e-3
@@ -37,7 +37,7 @@ test_that("rtrunc samples have the expected values", {
   expect_equal(head(sample.chisq, 3), c(49.5619, 49.5260, 55.3901), tol = 1e-4)
   expect_equal(head(sample.exp, 3), c(0.1194, 0.3747, 0.1745), tol = 1e-4)
   expect_equal(head(sample.invgamma, 3), c(1.1915, 1.0066, 0.7368), tol = 1e-4)
-  expect_equal(head(sample.invgauss, 3), c(1.2658, 19.0854, 4.6193), tol = 1e-4)
+  expect_equal(head(sample.invgauss, 3), c(1.2647, 19.0155, 4.6114), tol = 1e-4)
 })
 
 test_that("Truncation limits are observed", {
