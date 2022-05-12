@@ -45,7 +45,7 @@ sufficientT.trunc_chisq <- function(y) {
 }
 
 averageT.trunc_chisq <- function(y) {
-  return(mean(y))
+  return(mean(sufficientT(y)))
 }
 
 #' @export
