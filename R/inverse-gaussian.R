@@ -41,8 +41,9 @@ dtruncinvgauss <- dtrunc.trunc_invgauss
 init.parms.trunc_invgauss <- function(y) {
   # Returns empirical parameter estimates mean and shape
   mean <- mean(y)
-  shp <- 1 / (mean(1 / y) - 1 / mean)
-  parms <- c(mean = mean, shape = shp)
+  sd <- sd(y)
+  lambda <- mean ^ 3 / sd ^ 2
+  parms <- c(m = mean, s = 1 / lambda)
   class(parms) <- "trunc_invgauss"
   return(parms)
 }
@@ -52,32 +53,36 @@ sufficientT.trunc_invgauss <- function(y) {
 }
 
 averageT.trunc_invgauss <- function(y) {
-  return(apply(sufficientT.trunc_invgauss(y), 2, mean))
-}
-
-#' @export
-natural2parameters.trunc_invgauss <- function(eta) {
-  # eta: The natural parameters in an inverse gaussian distribution
-  # returns (mean,shape)
-  parms <- c(mean = sqrt(eta[2] / eta[1]), shape = -2 * eta[2])
-  class(parms) <- class(eta)
-  return(parms)
+  return(colMeans(sufficientT(y)))
 }
 
 #' @export
 parameters2natural.trunc_invgauss <- function(parms) {
   # parms: The parameters mean and shape in a normal distribution
   # returns the natural parameters
-  eta <- c(eta.1 = -parms[2] / (2 * parms[1]^2), eta.2 = -0.5 * parms[2])
+  mu <- parms["m"]
+  lambda <- 1 / parms["s"]
+  eta <- c(eta.1 = -lambda / (2 * mu ^ 2), eta.2 = -lambda / 2)
   class(eta) <- class(parms)
   return(eta)
 }
 
+#' @export
+natural2parameters.trunc_invgauss <- function(eta) {
+  # eta: The natural parameters in an inverse gaussian distribution
+  # returns (mean,shape)
+  mu <- sqrt(eta[2] / eta[1])
+  lambda <- -2 * eta[2]
+  parms <- c(m = mu, s = 1 / lambda)
+  class(parms) <- class(eta)
+  return(parms)
+}
+
 getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
-  mean <- mean(y, na.rm = TRUE)
-  shape <- var(y, na.rm = TRUE)^0.5
-  lo <- max(max(0, y.min), mean - 3.5 * shape)
-  hi <- min(y.max, mean + 3.5 * shape)
+  m <- mean(y, na.rm = TRUE)
+  sd <- sd(y, na.rm = TRUE)
+  lo <- max(max(0, y.min), m - 3.5 * sd)
+  hi <- min(y.max, m + 3.5 * sd)
   out <- seq(lo, hi, length = n)
   class(out) <- class(y)
   return(out)
