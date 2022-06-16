@@ -91,10 +91,9 @@ getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
 getGradETinv.trunc_invgauss <- function(eta) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
-  sqrt.eta1 <- sqrt(eta[1])
-  sqrt.eta2 <- sqrt(eta[2])
-  return(A = solve(0.5 * matrix(c(
-    -sqrt.eta2 / sqrt.eta1^3, 1 / (sqrt.eta1 * sqrt.eta2), 1 / (sqrt.eta1 * sqrt.eta2),
-    -sqrt.eta1 / sqrt.eta2^3 + 1 / sqrt.eta2^2
-  ), ncol = 2)))
+  mx_11 <- -sqrt(eta[2] / eta[1] ^ 3)
+  mx_12 <- 1 / (sqrt(eta[1] * eta[2]))
+  mx_21 <- mx_12
+  mx_22 <- -sqrt(eta[1] / eta[2] ^ 3) + 1 / eta[2]
+  return(A = solve(0.5 * matrix(c(mx_11, mx_12, mx_21, mx_22), ncol = 2)))
 }
