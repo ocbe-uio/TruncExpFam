@@ -81,7 +81,7 @@ natural2parameters.trunc_invgauss <- function(eta) {
 getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
   m <- mean(y, na.rm = TRUE)
   sd <- sd(y, na.rm = TRUE)
-  lo <- max(max(0, y.min), m - 3.5 * sd)
+  lo <- max(0, y.min, m - 3.5 * sd)
   hi <- min(y.max, m + 3.5 * sd)
   out <- seq(lo, hi, length = n)
   class(out) <- class(y)
