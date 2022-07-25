@@ -22,7 +22,7 @@ sample.beta <- rtruncbeta(1000, shape1 = 15, shape2 = 4, a = .7, b = .9)
 sample.chisq <- rtruncchisq(1e3, df = 50, a = 30, b = 70)
 sample.exp <- rtruncexp(1e3, rate = 6, a = .1)
 sample.invgamma <- rtruncinvgamma(1e3, shape = 23, rate = 24, b = 2)
-sample.invgauss <- rtruncinvgauss(1e3, n = 497, s = 8, a = 1)
+sample.invgauss <- rtruncinvgauss(1e3, m = 3, s = 1, a = 0.5) # s = 1 is equivalent to sd = sqrt(3 ^ 3 * 1) = 5.19
 
 test_that("rtrunc samples have the expected values", {
   tol <- 1e-3
@@ -37,7 +37,7 @@ test_that("rtrunc samples have the expected values", {
   expect_equal(head(sample.chisq, 3), c(49.5619, 49.5260, 55.3901), tol = 1e-4)
   expect_equal(head(sample.exp, 3), c(0.1194, 0.3747, 0.1745), tol = 1e-4)
   expect_equal(head(sample.invgamma, 3), c(1.1915, 1.0066, 0.7368), tol = 1e-4)
-  expect_equal(head(sample.invgauss, 3), c(1.2658, 19.0854, 4.6193), tol = 1e-4)
+  expect_equal(head(sample.invgauss, 3), c(1.9652, 3.1583, 0.5729), tol = 1e-4)
 })
 
 test_that("Truncation limits are observed", {
@@ -94,8 +94,8 @@ ml_contbern <- mlEstimationTruncDist(
 # ml_beta <- mlEstimationTruncDist(sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3) # FIXME #85: often doesn't converge
 ml_chisq <- mlEstimationTruncDist(sample.chisq, tol = 1e-7)
 ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
-ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7) # FIXME #90
-# ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90
+ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7)
+# ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90 parm should be c(3, 1)
 
 test_that("ML estimation iteration controls", {
   tot_iter <- length(capture.output(mlEstimationTruncDist(sample.norm, print.iter = 1))) - 1
