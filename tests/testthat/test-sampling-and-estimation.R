@@ -94,8 +94,8 @@ ml_contbern <- mlEstimationTruncDist(
 # ml_beta <- mlEstimationTruncDist(sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3) # FIXME #85: often doesn't converge
 ml_chisq <- mlEstimationTruncDist(sample.chisq, tol = 1e-7)
 ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
-ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7) # FIXME #90
-# ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90
+ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7)
+# ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90 parm should be c(3, 1)
 
 test_that("ML estimation iteration controls", {
   tot_iter <- length(capture.output(mlEstimationTruncDist(sample.norm, print.iter = 1))) - 1
