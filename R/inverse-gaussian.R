@@ -94,6 +94,11 @@ getGradETinv.trunc_invgauss <- function(eta) {
   mx_11 <- -sqrt(eta[2] / eta[1] ^ 3)
   mx_12 <- 1 / (sqrt(eta[1] * eta[2]))
   mx_21 <- mx_12
-  mx_22 <- -sqrt(eta[1] / eta[2] ^ 3) + 1 / eta[2]
-  return(A = solve(0.5 * matrix(c(mx_11, mx_12, mx_21, mx_22), ncol = 2)))
+  mx_22_1 <- -sqrt(eta[1] / eta[2] ^ 3) + 1 / eta[2] ^ 2 # TEMP
+  mx_22_2 <- (1 - eta[1] * sqrt(eta[2] / eta[1])) / (eta[2] ^ 2) # TEMP
+  mx_22_3 <- -(eta[1] * eta[2] ^ (-1)) ^ (-1 / 2) * (eta[1] * eta[2] ^ (-2)) + eta[2] ^ (-2) # TEMP
+  print(c(mx_22_1 = mx_22_1, mx_22_2 = mx_22_2, mx_22_3 = mx_22_3)) # TEMP
+  mx_22 <- mx_22_3
+  A_inv <- 0.5 * matrix(c(mx_11, mx_12, mx_21, mx_22), ncol = 2)
+  return(A = solve(A_inv))
 }
