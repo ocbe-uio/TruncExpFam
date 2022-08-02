@@ -99,7 +99,7 @@ ml_contbern <- mlEstimationTruncDist(
 ml_chisq <- mlEstimationTruncDist(sample.chisq, tol = 1e-7)
 ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
 ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7)
-# ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90 parm should be c(3, 1)
+ml_invgauss <- mlEstimationTruncDist(sample.invgauss, delta = 0.05)
 
 test_that("ML estimation iteration controls", {
   tot_iter <- length(
@@ -132,7 +132,7 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_chisq), c(df = 50), tol = 1e-1)
   expect_equal(unclass(ml_exp), c(rate = 6), tol = 1e-1)
   expect_equal(unclass(ml_invgamma), c(shape = 23, rate = 24), tol = 1e-1)
-  # expect_equal(unclass(ml_invgauss), c(df = 50), tol = 1e-1) # FIXME #90
+  expect_equal(unclass(ml_invgauss), c(m = 3, s = 1), tol = 0.5)
 })
 
 # ======================================================== #
