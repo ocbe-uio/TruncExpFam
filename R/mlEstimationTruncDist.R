@@ -93,7 +93,11 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     )
     grad.E.T.inv <- getGradETinv(eta.j, ...) # p x p
     delta.eta.j.plus.1 <- delta * grad.E.T.inv %*% T.minus.E.T
-    eta.j <- eta.j + delta.eta.j.plus.1
+    new_eta <- eta.j + delta.eta.j.plus.1
+    if (any(is.nan(suppressWarnings(natural2parameters(new_eta))))) {
+      stop("Failed to converge. Try a smaller delta")
+    }
+    eta.j <- new_eta
     delta.L2 <- sum(delta.eta.j.plus.1^2)
     it <- it + 1
     if (print.iter) {
