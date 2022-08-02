@@ -16,7 +16,11 @@ rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
 #' @export
 dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
   parm <- natural2parameters.trunc_beta(eta)
-  dens <- ifelse((y < a) | (y > b), 0, dbeta(y, shape1 = parm[1], shape2 = parm[2]))
+  dens <- ifelse(
+    test = (y < a) | (y > b),
+    yes  = 0,
+    no   = dbeta(y, shape1 = parm[1], shape2 = parm[2])
+  )
   if (!missing(a)) {
     F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
   } else {
@@ -93,5 +97,9 @@ getGradETinv.trunc_beta <- function(eta) {
   term.1 <- sum(1 / (((1:10000) + eta[1]))^2)
   term.2 <- sum(1 / (((1:10000) + eta[2]))^2)
   term.12 <- sum(1 / (((1:10000) + eta[1] + eta[2]))^2)
-  return(A = solve(matrix(c(term.1 - term.12, -term.12, -term.12, term.2 - term.12), ncol = 2)))
+  A_inv <- matrix(
+    c(term.1 - term.12, -term.12, -term.12, term.2 - term.12),
+    ncol = 2
+  )
+  return(A = solve(A_inv))
 }

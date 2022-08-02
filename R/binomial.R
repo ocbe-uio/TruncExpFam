@@ -12,7 +12,9 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size) {
 }
 
 #' @export
-dtrunc.trunc_binomial <- function(y, eta, a = 0, b = attr(y, "parameters")$size, ...) {
+dtrunc.trunc_binomial <- function(
+  y, eta, a = 0, b = attr(y, "parameters")$size, ...
+) {
   nsize <- attr(y, "parameters")$size
   my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
   my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)

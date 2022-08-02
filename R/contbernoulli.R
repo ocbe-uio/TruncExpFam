@@ -60,7 +60,7 @@ averageT.trunc_contbern <- function(y) {
 
 #' @export
 natural2parameters.trunc_contbern <- function(eta) {
-  # eta: The natural parameters in a continuous bernoulli distribution distribution
+  # eta: The natural parameters in a continuous bernoulli distribution
   # returns rate
   rate <- c(lambda = 1 / (1 + exp(-eta)))
   class(rate) <- class(eta)

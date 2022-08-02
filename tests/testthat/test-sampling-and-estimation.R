@@ -5,7 +5,9 @@
 context("Sampling with rtrunc")
 
 set.seed(117)
-sample.norm <- rtrunc(n = 10000, mean = 2, sd = 1.5, a = -1, family = "gaussian")
+sample.norm <- rtrunc(
+  n = 10000, mean = 2, sd = 1.5, a = -1, family = "gaussian"
+)
 set.seed(117)
 sample.lognorm <- rtrunc(
   n = 100000, meanlog = 2.5, sdlog = 0.5, a = 7, family = "lognormal"
@@ -13,7 +15,9 @@ sample.lognorm <- rtrunc(
 set.seed(117)
 sample.pois <- rtrunc(n = 1000, lambda = 10, a = 4, family = "poisson")
 set.seed(117)
-sample.binom <- rtrunc(n = 1000, prob = 0.6, size = 20, a = 4, b = 10, family = "binomial")
+sample.binom <- rtrunc(
+  n = 1000, prob = 0.6, size = 20, a = 4, b = 10, family = "binomial"
+)
 set.seed(117)
 sample.gamma <- rtrunc(n = 10000, shape = 6, rate = 2, a = 2, family = "gamma")
 sample.nbinom <- rtruncnbinom(10000, size = 50, prob = .3, a = 100, b = 120)
@@ -98,12 +102,19 @@ ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7)
 # ml_invgauss <- mlEstimationTruncDist(sample.invgauss, print.iter = TRUE, tol = 1e-7) # FIXME #90 parm should be c(3, 1)
 
 test_that("ML estimation iteration controls", {
-  tot_iter <- length(capture.output(mlEstimationTruncDist(sample.norm, print.iter = 1))) - 1
-  expect_length(capture.output(mlEstimationTruncDist(sample.norm, print.iter = 0)), 1)
+  tot_iter <- length(
+    capture.output(mlEstimationTruncDist(sample.norm, print.iter = 1))
+  ) - 1
+  expect_length(
+    capture.output(mlEstimationTruncDist(sample.norm, print.iter = 0)),
+    1
+  )
   for (i in seq_len(tot_iter)) {
     suppressMessages(
       expect_length(
-        object = capture.output(mlEstimationTruncDist(sample.norm, print.iter = i)),
+        object = capture.output(
+          mlEstimationTruncDist(sample.norm, print.iter = i)
+        ),
         n = floor(tot_iter / i) + 1
       )
     )
@@ -133,5 +144,9 @@ context("Parameter conversion")
 eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
 
 test_that("Converting parameters", {
-  expect_equal(unclass(eta.hat), c(eta.1.mean = 1.5, eta.2.sd = -0.5), tol = 5e-1)
+  expect_equal(
+    unclass(eta.hat),
+    c(eta.1.mean = 1.5, eta.2.sd = -0.5),
+    tol = 5e-1
+  )
 })

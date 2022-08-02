@@ -97,7 +97,9 @@ vector of one of the \code{rtrunc_*} classes containing the sample
 elements, as well as some attributes related to the chosen distribution.
 }
 \description{
-Random generation for the truncated exponential family distributions. Please ferer to the "Details" and "Examples" section for more information on how to use this function.
+Random generation for the truncated exponential family
+distributions. Please ferer to the "Details" and "Examples" section for more
+information on how to use this function.
 }
 \details{
 One way to use this function is by calling the \code{rtrunc}
@@ -117,9 +119,13 @@ details.
 }
 \examples{
 # Truncated binomial distribution
-sample.binom <- rtrunc(100, family = "binomial", prob = 0.6, size = 20, a = 4, b = 10)
+sample.binom <- rtrunc(
+  100, family = "binomial", prob = 0.6, size = 20, a = 4, b = 10
+)
 sample.binom
-plot(table(sample.binom), ylab = "Frequency", main = "Freq. of sampled values")
+plot(
+  table(sample.binom), ylab = "Frequency", main = "Freq. of sampled values"
+)
 
 # Truncated Log-Normal distribution
 sample.lognorm <- rtrunc(
