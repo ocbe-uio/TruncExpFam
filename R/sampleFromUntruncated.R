@@ -85,6 +85,9 @@ rcontbern <- function(n, lambda) {
   if (lambda == 0.5) {
     return(u)
   }
-  x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / (log(lambda / (1 - lambda))) # The inverse of the CDF for a cont. bernoulli distribution
+
+  # The inverse of the CDF for a cont. bernoulli distribution
+  x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) /
+    log(lambda / (1 - lambda))
   return(x)
 }

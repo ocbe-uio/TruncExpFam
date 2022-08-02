@@ -22,7 +22,11 @@ averageT.trunc_lognormal <- function(y) {
 #' @export
 dtrunc.trunc_lognormal <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters.trunc_normal(eta)
-  dens <- ifelse((y < a) | (y > b), 0, dlnorm(y, meanlog = parm[1], sdlog = parm[2]))
+  dens <- ifelse(
+    test = (y < a) | (y > b),
+    yes  = 0,
+    no   = dlnorm(y, meanlog = parm[1], sdlog = parm[2])
+  )
   if (!missing(a)) {
     F.a <- plnorm(a, parm[1], parm[2])
   } else {

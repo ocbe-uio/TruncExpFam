@@ -19,7 +19,11 @@ rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1 / rate,
 #' @export
 dtrunc.trunc_gamma <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters.trunc_gamma(eta)
-  dens <- ifelse((y < a) | (y > b), 0, dgamma(y, shape = parm[1], rate = parm[2]))
+  dens <- ifelse(
+    test = (y < a) | (y > b),
+    yes  = 0,
+    no   = dgamma(y, shape = parm[1], rate = parm[2])
+  )
   if (!missing(a)) {
     F.a <- pgamma(a, shape = parm[1], rate = parm[2])
   } else {
@@ -93,5 +97,12 @@ getGradETinv.trunc_gamma <- function(eta) {
     # Returns the derivative of the psi function above
     sum((1 / ((0:k) + x))^2)
   }
-  return(A = solve(matrix(c(-1 / eta[1]^2 + dpsi.dx(eta[1]), -1 / eta[2], -1 / eta[2], (eta[1] + 1) / eta[2]^2), ncol = 2)))
+  A_inv <- matrix(
+    c(
+      -1 / eta[1]^2 + dpsi.dx(eta[1]), -1 / eta[2],
+      -1 / eta[2], (eta[1] + 1) / eta[2]^2
+    ),
+    ncol = 2
+  )
+  return(A = solve(A_inv))
 }

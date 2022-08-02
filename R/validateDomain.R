@@ -3,8 +3,12 @@ validateDomain <- function(n, ...) {
 }
 
 validateDomain.trunc_beta <- function(n, parms, ...) {
-  if (parms$shape1 < 0) stop("Invalid parameter domain. shape1 must be non-negative.")
-  if (parms$shape2 < 0) stop("Invalid parameter domain. shape2 must be non-negative.")
+  if (parms$shape1 < 0) {
+    stop("Invalid parameter domain. shape1 must be non-negative.")
+  }
+  if (parms$shape2 < 0) {
+    stop("Invalid parameter domain. shape2 must be non-negative.")
+  }
 }
 
 validateDomain.trunc_binomial <- function(n, parms, ...) {
@@ -34,12 +38,16 @@ validateDomain.trunc_exp <- function(n, parms, ...) {
 
 validateDomain.trunc_gamma <- function(n, parms, ...) {
   if (parms$shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
-  if (parms$scale <= 0) stop("Invalid parameter domain. rate/scale must be > 0.")
+  if (parms$scale <= 0) {
+    stop("Invalid parameter domain. rate/scale must be > 0.")
+  }
 }
 
 validateDomain.trunc_invgamma <- function(n, parms, ...) {
   if (parms$shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
-  if (parms$scale <= 0) stop("Invalid parameter domain. rate/scale must be > 0.")
+  if (parms$scale <= 0) {
+    stop("Invalid parameter domain. rate/scale must be > 0.")
+  }
 }
 
 validateDomain.trunc_invgauss <- function(n, parms, ...) {
@@ -48,7 +56,9 @@ validateDomain.trunc_invgauss <- function(n, parms, ...) {
 }
 
 validateDomain.trunc_lognormal <- function(n, parms, ...) {
-  if (is.complex(parms$meanlog)) stop("Invalid parameter domain. meanlog must be real.")
+  if (is.complex(parms$meanlog)) {
+    stop("Invalid parameter domain. meanlog must be real.")
+  }
   if (parms$sdlog <= 0) stop("Invalid parameter domain. rate must be > 0.")
 }
 
@@ -65,7 +75,9 @@ validateDomain.trunc_nbinom <- function(n, parms, ...) {
 }
 
 validateDomain.trunc_normal <- function(n, parms, ...) {
-  if (is.complex(parms$mean)) stop("Invalid parameter domain. mean must be real.")
+  if (is.complex(parms$mean)) {
+    stop("Invalid parameter domain. mean must be real.")
+  }
   if (parms$sd <= 0) stop("Invalid parameter domain. sd must be > 0.")
 }
 

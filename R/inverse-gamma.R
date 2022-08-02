@@ -8,8 +8,9 @@
 #' @param scale inverse gamma scale parameter
 #' @rdname rtrunc
 #' @export
-rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate = 1, scale = 1 / rate,
-                                              a = 0, b = Inf) {
+rtruncinvgamma <- rtrunc.invgamma <- function(
+  n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf
+) {
   class(n) <- "trunc_invgamma"
   sampleFromTruncated(mget(ls()))
 }
@@ -18,7 +19,11 @@ rtruncinvgamma <- rtrunc.invgamma <- function(n, shape, rate = 1, scale = 1 / ra
 #' @export
 dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters.trunc_invgamma(eta)
-  dens <- ifelse((y < a) | (y > b), 0, dinvgamma(y, shape = parm[1], rate = parm[2]))
+  dens <- ifelse(
+    test = (y < a) | (y > b),
+    yes  = 0,
+    no   = dinvgamma(y, shape = parm[1], rate = parm[2])
+  )
   F.a <- pinvgamma(a, shape = parm[1], rate = parm[2])
   F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
   const <- 1 / (F.b - F.a)

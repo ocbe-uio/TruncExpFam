@@ -23,7 +23,7 @@ validateSupport.trunc_contbern <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_exp <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "()") # Wikipedia says [0, Inf]; R uses (0,Inf)
+  support <- createSupport(0, Inf, "()") # Wiki says [0, Inf]; R uses (0,Inf)
   judgeSupportLimits(parms, support)
 }
 
@@ -87,7 +87,9 @@ createSupport <- function(lower, upper, inclusion_brackets) {
   return(out)
 }
 
-judgeSupportLimits <- function(parms, support, cont = TRUE, no_complex = FALSE) {
+judgeSupportLimits <- function(
+  parms, support, cont = TRUE, no_complex = FALSE
+) {
   # Complex numbers circuit breaker ============================================
   if (no_complex & (is.complex(parms$a) | is.complex(parms$b))) {
     stop("Truncation limits may not contain complex numbers")
