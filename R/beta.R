@@ -94,12 +94,15 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
 getGradETinv.trunc_beta <- function(eta) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
-  term.1 <- sum(1 / (((1:10000) + eta[1]))^2)
-  term.2 <- sum(1 / (((1:10000) + eta[2]))^2)
-  term.12 <- sum(1 / (((1:10000) + eta[1] + eta[2]))^2)
-  A_inv <- matrix(
-    c(term.1 - term.12, -term.12, -term.12, term.2 - term.12),
-    ncol = 2
-  )
+  # Uses approximation for the digamma function:
+  #  digamma(x) ~ ln(x) - 1 / 2(x)
+  # Source: https://en.wikipedia.org/wiki/Digamma_function
+  # Derivatives with respect to etas calculated on wolfram alpha
+  x <- eta[1]
+  y <- eta[2]
+  term.1 <- (y * (2 * x ^ 2 + y + 2 * x * (1 + y))) / (2 * x ^ 2 * (x + y) ^ 2)
+  term.12 <- -(1 + 2 * (x + y)) / (2 * (x + y) ^ 2)
+  term.2 <- (x * (x + 2 * x * y + 2 * y * (1 + y))) / (2 * y ^ 2 * (x + y) ^ 2)
+  A_inv <- matrix(c(term.1, term.12, term.12, term.2), ncol = 2)
   return(A = solve(A_inv))
 }
