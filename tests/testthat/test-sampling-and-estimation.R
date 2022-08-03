@@ -26,7 +26,7 @@ sample.beta <- rtruncbeta(1000, shape1 = 15, shape2 = 4, a = .7, b = .9)
 sample.chisq <- rtruncchisq(1e3, df = 50, a = 30, b = 70)
 sample.exp <- rtruncexp(1e3, rate = 6, a = .1)
 sample.invgamma <- rtruncinvgamma(1e3, shape = 23, rate = 24, b = 2)
-sample.invgauss <- rtruncinvgauss(1e3, m = 3, s = 1, a = 0.5) # s = 1 is equivalent to sd = sqrt(3 ^ 3 * 1) = 5.19
+sample.invgauss <- rtruncinvgauss(1e3, m = 3, s = 1, a = 0.5)
 
 test_that("rtrunc samples have the expected values", {
   tol <- 1e-3
@@ -95,7 +95,7 @@ ml_nbinom <- mlEstimationTruncDist(
 ml_contbern <- mlEstimationTruncDist(
   sample.contbern, print.iter = FALSE, tol = 1e-7, max.it = 1e3
 )
-# ml_beta <- mlEstimationTruncDist(sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3) # FIXME #85: often doesn't converge
+# ml_beta <- mlEstimationTruncDist(sample.beta, print.iter = FALSE, tol = 1e-7, max.it = 1e3) # FIXME #85: often doesn't converge. Same workaround as for invgauss (i.e., choose smaller delta) doesn't seem to result in convergence
 ml_chisq <- mlEstimationTruncDist(sample.chisq, tol = 1e-7)
 ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
 ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7)
@@ -128,7 +128,7 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gamma), c(shape = 6, rate = 2), tol = 1e-1)
   expect_equal(unclass(ml_nbinom), c(mean = 110.4), tol = 1e-1)
   expect_equal(unclass(ml_contbern), c(lambda = 0.4), tol = 1e-1)
-  # expect_equal(unclass(ml_beta), c(shape1 = 1508, shape2 = 441), tol = 1e-1) # FIXME #85
+  # expect_equal(unclass(ml_beta), c(shape1 = 15, shape2 = 4), tol = 1e-1) # FIXME #85
   expect_equal(unclass(ml_chisq), c(df = 50), tol = 1e-1)
   expect_equal(unclass(ml_exp), c(rate = 6), tol = 1e-1)
   expect_equal(unclass(ml_invgamma), c(shape = 23, rate = 24), tol = 1e-1)
