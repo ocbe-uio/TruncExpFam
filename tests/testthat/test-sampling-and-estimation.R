@@ -119,6 +119,7 @@ test_that("ML estimation iteration controls", {
       )
     )
   }
+  expect_error(mlEstimationTruncDist(sample.invgauss))
 })
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)

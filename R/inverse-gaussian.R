@@ -15,18 +15,8 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a = 0, b = Inf) {
 dtrunc.trunc_invgauss <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters(eta)
   dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
-  if (!missing(a)) {
-    # ERROR		F.a <- pnorm(a, parm[1], parm[2])
-    F.a <- pinvgauss(a, parm[1], parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    # ERROR		F.b <- pnorm(b, parm[1], parm[2])
-    F.b <- ifelse(is.infinite(b), 1, pinvgauss(b, parm[1], parm[2]))
-  } else {
-    F.b <- 1
-  }
+  F.a <- pinvgauss(a, parm[1], parm[2])
+  F.b <- ifelse(is.infinite(b), 1, pinvgauss(b, parm[1], parm[2]))
   const <- 1 / (F.b - F.a)
   return(dens * const)
 }
