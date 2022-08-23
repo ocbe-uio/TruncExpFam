@@ -15,16 +15,8 @@ rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
 dtrunc.trunc_chisq <- function(y, eta, a = 0, b = Inf) {
   df <- natural2parameters.trunc_chisq(eta)
   dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df = df))
-  if (!missing(a)) {
-    F.a <- pchisq(a, df)
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pchisq(b, df)
-  } else {
-    F.b <- 1
-  }
+  F.a <- pchisq(a, df)
+  F.b <- pchisq(b, df)
   return(dens / (F.b - F.a))
 }
 

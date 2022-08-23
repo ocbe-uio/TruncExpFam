@@ -21,16 +21,8 @@ dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
     yes  = 0,
     no   = dbeta(y, shape1 = parm[1], shape2 = parm[2])
   )
-  if (!missing(a)) {
-    F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  } else {
-    F.b <- 1
-  }
+  F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
+  F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
   const <- 1 / (F.b - F.a)
   return(dens * const)
 }
