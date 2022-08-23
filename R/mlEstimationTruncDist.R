@@ -111,6 +111,12 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     }
   }
   parm <- natural2parameters(eta.j)
+  if (it == max.it) {
+    warning(
+      "Maximum number of iterations reached. Convergence is not guaranteed.",
+      " You might want to run again with a higher value for max.it"
+    )
+  }
   return(parm)
 }
 
