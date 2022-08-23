@@ -12,22 +12,22 @@ validateDomain.trunc_beta <- function(n, parms, ...) {
 }
 
 validateDomain.trunc_binomial <- function(n, parms, ...) {
-  if (parms$size != as.integer(parms$size) | parms$size < 0) {
+  if (parms$size != as.integer(parms$size) || parms$size < 0) {
     stop("Invalid parameter domain. size must be a natural number.")
   }
-  if (parms$prob < 0 | parms$prob > 1) {
+  if (parms$prob < 0 || parms$prob > 1) {
     stop("Invalid parameter domain. prob must be [0, 1].")
   }
 }
 
 validateDomain.trunc_chisq <- function(n, parms, ...) {
-  if (parms$df != as.integer(parms$df) | parms$df < 0) {
+  if (parms$df != as.integer(parms$df) || parms$df < 0) {
     stop("Invalid parameter domain. df must be a natural positive number.")
   }
 }
 
 validateDomain.trunc_contbern <- function(n, parms, ...) {
-  if (parms$lambda <= 0 | parms$lambda >= 1) {
+  if (parms$lambda <= 0 || parms$lambda >= 1) {
     stop("Invalid parameter domain. lambda must be (0, 1).")
   }
 }
@@ -63,13 +63,13 @@ validateDomain.trunc_lognormal <- function(n, parms, ...) {
 }
 
 validateDomain.trunc_nbinom <- function(n, parms, ...) {
-  if (parms$size != as.integer(parms$size) | parms$size < 0) {
+  if (parms$size != as.integer(parms$size) || parms$size < 0) {
     stop("Invalid parameter domain. size must be a natural number.")
   }
-  if (parms$prob != "" & (parms$prob < 0 | parms$prob > 1)) {
+  if (parms$prob != "" && (parms$prob < 0 || parms$prob > 1)) {
     stop("Invalid parameter domain. prob must be [0, 1].")
   }
-  if (parms$mu != "" & is.complex(parms$mu)) {
+  if (parms$mu != "" && is.complex(parms$mu)) {
     stop("Invalid parameter domain. mean must be real.")
   }
 }

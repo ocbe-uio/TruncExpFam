@@ -86,7 +86,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
   # Now iterate
-  while ((delta.L2 > tol) & (it < max.it)) {
+  while ((delta.L2 > tol) && (it < max.it)) {
     parm.j <- natural2parameters(eta.j)
     T.minus.E.T <- getTminusET(
       eta.j, y.seq, y.min, y.max, attr(y, "continuous"), T.avg

@@ -138,7 +138,7 @@ validateFamilyParms <- function(family, parms) {
       }
     }
   }
-  if ("parms_expected" %in% ls() & !matched$parameters) {
+  if ("parms_expected" %in% ls() && !matched$parameters) {
     parms_expected_text <- paste(unlist(parms_expected), collapse = ", ")
     stop(
       "The {", parms_text, "} ",

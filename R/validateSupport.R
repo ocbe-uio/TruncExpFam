@@ -91,7 +91,7 @@ judgeSupportLimits <- function(
   parms, support, cont = TRUE, no_complex = FALSE
 ) {
   # Complex numbers circuit breaker ============================================
-  if (no_complex & (is.complex(parms$a) | is.complex(parms$b))) {
+  if (no_complex && (is.complex(parms$a) || is.complex(parms$b))) {
     stop("Truncation limits may not contain complex numbers")
   }
 
@@ -112,12 +112,12 @@ judgeSupportLimits <- function(
   # Judging suppor limits ======================================================
   if (parms$a == parms$b) {
     stop("Identical truncation limits: a = b = ", parms$a)
-  } else if (cond_au | cond_bl) {
+  } else if (cond_au || cond_bl) {
     stop(
       "Truncation limits {", parms$a, ", ", parms$b, "} must be a subset of ",
       support$txt
     )
-  } else if (cond_al | cond_bu) {
+  } else if (cond_al || cond_bu) {
     warning(
       "Truncation limits {", parms$a, ", ", parms$b, "} are not a subset of ",
       support$txt
