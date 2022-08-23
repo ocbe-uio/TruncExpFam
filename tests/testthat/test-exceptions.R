@@ -139,3 +139,56 @@ test_that("Passing too many parameters", {
     regexp = "specify 'rate' or 'scale' but not both"
     )
 })
+
+test_that("Only passing some parameters is OK", {
+  set.seed(6)
+  x1 <- rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, a = 40, b = 60)
+  set.seed(6)
+  x2 <- rtrunc(1e3, "gaussian", 50, 12, 40, 60)
+  set.seed(6)
+  x3 <- rtrunc(1e3, family = "gaussian", mean = 50, sd = 12, a = 40, b = 60)
+  set.seed(6)
+  x4 <- rtrunc(n = 1e3, "gaussian", mean = 50, sd = 12, a = 40, b = 60)
+
+  expect_warning(
+    rtrunc(n = 1e3, family = "gaussian", 50, sd = 12, a = 40, b = 60)
+  )
+  expect_warning(
+    rtrunc(n = 1e3, family = "gaussian", mean = 50, 12, a = 40, b = 60)
+  )
+  expect_warning(
+    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, 40, b = 60)
+  )
+  expect_warning(
+    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, a = 40, 60)
+  )
+
+  set.seed(6)
+  x5 <- suppressWarnings(
+    rtrunc(n = 1e3, family = "gaussian", 50, sd = 12, a = 40, b = 60)
+  )
+  set.seed(6)
+  x6 <- suppressWarnings(
+    rtrunc(n = 1e3, family = "gaussian", mean = 50, 12, a = 40, b = 60)
+  )
+  set.seed(6)
+  x7 <- suppressWarnings(
+    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, 40, b = 60)
+  )
+  set.seed(6)
+  x8 <- suppressWarnings(
+    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, a = 40, 60)
+  )
+
+  expect_equal(x1, x2)
+  expect_equal(x1, x3)
+  expect_equal(x1, x4)
+  expect_equal(x1, x5)
+  expect_equal(x1, x6)
+  expect_equal(x1, x7)
+  expect_equal(x1, x8)
+
+  expect_equal(
+    unclass(mlEstimationTruncDist(x1)), c("mean" = 50, "sd" = 12), tol = 1e-1
+  )
+})
