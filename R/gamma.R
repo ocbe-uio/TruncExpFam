@@ -57,10 +57,6 @@ sufficientT.trunc_gamma <- function(y) {
   return(suff.T = cbind(log(y), y))
 }
 
-averageT.trunc_gamma <- function(y) {
-  return(apply(cbind(log(y), y), 2, mean))
-}
-
 #' @export
 natural2parameters.trunc_gamma <- function(eta) {
   # eta: The natural parameters in a gamma distribution

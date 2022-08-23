@@ -50,10 +50,6 @@ sufficientT.trunc_invgamma <- function(y) {
   return(suff.T = cbind(log(y), 1 / y))
 }
 
-averageT.trunc_invgamma <- function(y) {
-  return(apply(cbind(log(y), 1 / y), 2, mean))
-}
-
 #' @export
 natural2parameters.trunc_invgamma <- function(eta) {
   # eta: The natural parameters in a inverse gamma distribution

@@ -43,11 +43,6 @@ sufficientT.trunc_poisson <- function(y) {
   return(suff.T = y)
 }
 
-averageT.trunc_poisson <- function(y) {
-  return(mean(y))
-}
-
-
 #' @export
 natural2parameters.trunc_poisson <- function(eta) {
   # eta: The natural parameters in a Poisson distribution

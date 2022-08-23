@@ -54,10 +54,6 @@ sufficientT.trunc_contbern <- function(y) {
   return(suff.T = y)
 }
 
-averageT.trunc_contbern <- function(y) {
-  return(mean(y))
-}
-
 #' @export
 natural2parameters.trunc_contbern <- function(eta) {
   # eta: The natural parameters in a continuous bernoulli distribution

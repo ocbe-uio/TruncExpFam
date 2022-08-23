@@ -42,10 +42,6 @@ sufficientT.trunc_invgauss <- function(y) {
   return(suff.T = cbind(y, 1 / y))
 }
 
-averageT.trunc_invgauss <- function(y) {
-  return(colMeans(sufficientT(y)))
-}
-
 #' @export
 parameters2natural.trunc_invgauss <- function(parms) {
   # parms: The parameters mean and shape in a normal distribution

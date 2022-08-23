@@ -7,6 +7,7 @@
 * Improved documentation (issue #86)
 * Improved ML estimation (issues #84, #85, #90, #92)
 * Improved parameter parsing (#74)
+* Simplified codebase (#91)
 
 # TruncExpFam 1.0.0
 

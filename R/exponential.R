@@ -37,10 +37,6 @@ sufficientT.trunc_exp <- function(y) {
   return(suff.T = y)
 }
 
-averageT.trunc_exp <- function(y) {
-  return(mean(y))
-}
-
 #' @export
 natural2parameters.trunc_exp <- function(eta) {
   # eta: The natural parameters in an exponential distribution distribution

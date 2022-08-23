@@ -43,10 +43,6 @@ sufficientT.trunc_nbinom <- function(y) {
   return(suff.T = y)
 }
 
-averageT.trunc_nbinom <- function(y) {
-  return(mean(y))
-}
-
 #' @export
 natural2parameters.trunc_nbinom <- function(eta) {
   # eta: The natural parameters in a negative binomial distribution
