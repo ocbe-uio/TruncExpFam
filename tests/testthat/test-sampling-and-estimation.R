@@ -95,7 +95,7 @@ ml_nbinom <- mlEstimationTruncDist(
 ml_contbern <- mlEstimationTruncDist(
   sample.contbern, print.iter = FALSE, tol = 1e-7, max.it = 1e3
 )
-ml_beta <- mlEstimationTruncDist(sample.beta)
+ml_beta <- mlEstimationTruncDist(sample.beta, max.it = 200)
 ml_chisq <- mlEstimationTruncDist(sample.chisq, tol = 1e-7)
 ml_exp <- mlEstimationTruncDist(sample.exp, tol = 1e-7)
 ml_invgamma <- mlEstimationTruncDist(sample.invgamma, tol = 1e-7)
@@ -119,7 +119,8 @@ test_that("ML estimation iteration controls", {
       )
     )
   }
-  expect_error(mlEstimationTruncDist(sample.invgauss))
+  expect_error(mlEstimationTruncDist(sample.invgauss), "Failed to converge")
+  expect_warning(mlEstimationTruncDist(sample.beta), "Maximum number of iter")
 })
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)

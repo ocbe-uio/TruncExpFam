@@ -5,7 +5,7 @@
 * Improved unit test coverage (issues #66, #82)
 * Improved output format (issue #89)
 * Improved documentation (issue #86)
-* Fixed several bugs with ML estimation (issues #84, #85, #90)
+* Improved ML estimation (issues #84, #85, #90, #92)
 * Improved parameter parsing (#74)
 
 # TruncExpFam 1.0.0
