@@ -133,6 +133,14 @@ validateFamilyParms <- function(family, parms) {
       family <- valid_fam_parm[[fam]]$family[1] # use standard family name
       parms_text <- paste(parms, collapse = ", ")
       parms_expected <- valid_fam_parm[[fam]]$parms
+      if (any(parms == "")) {
+        empty_parms <- parms == ""
+        parms[empty_parms] <- parms_expected[empty_parms]
+        warning(
+          "Not all parameters were explicitly specified. ",
+          "Please name all function arguments to avoid errors"
+        )
+      }
       if (all(sort(parms) == sort(parms_expected))) {
         matched$parameters <- TRUE
       }
