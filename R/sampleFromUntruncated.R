@@ -78,7 +78,7 @@ sampleFromTruncated <- function(parms) {
 # This distribution is not implemented in Base R
 # Used in the sampling of the truncated continuous bernoulli
 rcontbern <- function(n, lambda) {
-  if ((lambda < 0) | (lambda > 1)) {
+  if ((lambda < 0) || (lambda > 1)) {
     stop("lambda must be in (0, 1)")
   }
   u <- runif(n)
