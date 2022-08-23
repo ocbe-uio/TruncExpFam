@@ -48,10 +48,6 @@ getYseq <- function(y, y.min, y.max, n) {
   UseMethod("getYseq", y)
 }
 
-averageT <- function(y) {
-  UseMethod("averageT")
-}
-
 getGradETinv <- function(eta, ...) {
   UseMethod("getGradETinv")
 }

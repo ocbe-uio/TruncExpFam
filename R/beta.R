@@ -49,11 +49,6 @@ sufficientT.trunc_beta <- function(y) {
   return(suff.T = cbind(log(y), log(1 - y)))
 }
 
-averageT.trunc_beta <- function(y) {
-  # Averages out the sufficient statistics T(y)
-  return(apply(sufficientT(y), 2, mean))
-}
-
 #' @export
 natural2parameters.trunc_beta <- function(eta) {
   # eta: The natural parameters in a beta distribution

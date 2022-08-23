@@ -45,10 +45,6 @@ sufficientT.trunc_normal <- function(y) {
   return(suff.T = cbind(y, y^2))
 }
 
-averageT.trunc_normal <- function(y) {
-  return(apply(sufficientT.trunc_normal(y), 2, mean))
-}
-
 #' @export
 natural2parameters.trunc_normal <- function(eta) {
   # eta: The natural parameters in a normal distribution

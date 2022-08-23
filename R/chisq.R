@@ -36,10 +36,6 @@ sufficientT.trunc_chisq <- function(y) {
   return(suff.T = log(y))
 }
 
-averageT.trunc_chisq <- function(y) {
-  return(mean(sufficientT(y)))
-}
-
 #' @export
 natural2parameters.trunc_chisq <- function(eta) {
   # eta: The natural parameters in a Chi Square distribution

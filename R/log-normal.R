@@ -15,10 +15,6 @@ sufficientT.trunc_lognormal <- function(y) {
   return(suff.T = cbind(log(y), log(y)^2))
 }
 
-averageT.trunc_lognormal <- function(y) {
-  return(apply(sufficientT.trunc_lognormal(y), 2, mean))
-}
-
 #' @export
 dtrunc.trunc_lognormal <- function(y, eta, a = 0, b = Inf) {
   parm <- natural2parameters.trunc_normal(eta)
