@@ -41,3 +41,4 @@ vignettes/*.pdf
 # Personal folders
 aux/
 docs
+inst/doc

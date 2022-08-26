@@ -30,6 +30,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: methods, invgamma, rmutil
 Suggests:
+    knitr,
+    rmarkdown,
     testthat
 URL: https://github.com/ocbe-uio/TruncExpFam
 BugReports: https://github.com/ocbe-uio/TruncExpFam/issues
+VignetteBuilder: knitr
