@@ -29,7 +29,7 @@ It is, however, much less stable than the CRAN version.
 You can install the development version of TruncExpFam by running the following command in R (requires the `remotes` package to be installed beforehand):
 
 ```{r install, eval=FALSE}
-remotes::install_github("ocbe-uio/TruncExpFam", ref="develop")
+remotes::install_github("ocbe-uio/TruncExpFam", ref="develop", build_vignettes = TRUE)
 ```
 
 Finally, load the package with `library(TruncExpFam)`. A list of available functions can be printed with `ls("package:TruncExpFam")`.
@@ -41,6 +41,12 @@ Further details on installing TruncExpFam can be found on the [Wiki](https://git
 For more information about the package (e.g. suppored distributions), run `?TruncExpFam` after loading the package in your R session.
 
 Are you familiar with the stats package and its `r*` and `d*` functions such as `rnorm()` and `dpois()`? If so, you will feel right at home with `TruncExpFam`, which uses the `rtrunc()` function to generate random numbers and the `dtrunc()` function to generate probability densities.
+
+For a more detailed explanation on how to use this package's features, check out its vignette:
+
+```R
+browseVignettes("TruncExpFam")
+```
 
 # Contributing
 

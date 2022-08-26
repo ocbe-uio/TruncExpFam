@@ -26,7 +26,7 @@ CRAN version. You can install the development version of TruncExpFam by
 running the following command in R (requires the `remotes` package to be
 installed beforehand):
 
-    remotes::install_github("ocbe-uio/TruncExpFam", ref="develop")
+    remotes::install_github("ocbe-uio/TruncExpFam", ref="develop", build_vignettes = TRUE)
 
 Finally, load the package with `library(TruncExpFam)`. A list of
 available functions can be printed with `ls("package:TruncExpFam")`.
@@ -44,6 +44,11 @@ Are you familiar with the stats package and its `r*` and `d*` functions
 such as `rnorm()` and `dpois()`? If so, you will feel right at home with
 `TruncExpFam`, which uses the `rtrunc()` function to generate random
 numbers and the `dtrunc()` function to generate probability densities.
+
+For a more detailed explanation on how to use this package’s features,
+check out its vignette:
+
+    browseVignettes("TruncExpFam")
 
 Contributing
 ============
@@ -65,7 +70,8 @@ If you present work that uses this package, please remember to cite it.
 
     To cite package 'TruncExpFam' in publications use:
 
-      René Holst and Waldir Leoncio (2022). TruncExpFam: Truncated Exponential Family. R package version 1.0.0. https://CRAN.R-project.org/package=TruncExpFam
+      Holst R, Leoncio W (2022). _TruncExpFam: Truncated Exponential Family_. R package version 1.0.0.9013,
+      <https://github.com/ocbe-uio/TruncExpFam>.
 
     A BibTeX entry for LaTeX users is
 
@@ -73,8 +79,8 @@ If you present work that uses this package, please remember to cite it.
         title = {TruncExpFam: Truncated Exponential Family},
         author = {René Holst and Waldir Leoncio},
         year = {2022},
-        note = {R package version 1.0.0},
-        url = {https://CRAN.R-project.org/package=TruncExpFam},
+        note = {R package version 1.0.0.9013},
+        url = {https://github.com/ocbe-uio/TruncExpFam},
       }
 
 You can also generate the output above on your R session by running
