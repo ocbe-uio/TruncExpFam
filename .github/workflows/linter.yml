@@ -39,6 +39,9 @@ jobs:
         - name: Picking on the coding style
           run: |
             library(lintr)
+            excluded_files <- list(
+              "vignettes/Sampling_and_ML_estimation.Rmd:29"
+            )
             style_rules <- list(
               T_and_F_symbol_linter(), assignment_linter(), brace_linter(),
               commas_linter(), commented_code_linter(), todo_comment_linter(),
@@ -52,5 +55,5 @@ jobs:
               undesirable_function_linter(), undesirable_operator_linter(),
               unneeded_concatenation_linter()
             )
-            lint_package(linters = style_rules)
+            lint_package(linters = style_rules, exclusions = excluded_files)
           shell: Rscript {0}

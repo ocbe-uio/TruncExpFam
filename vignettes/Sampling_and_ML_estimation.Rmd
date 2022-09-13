@@ -23,8 +23,11 @@ available on CRAN:
 install.packages("TruncExpFam")
 ```
 
-After successful installation, the package can be loaded with a call to
-`library(TruncExpFam)`.
+After successful installation, the package can be loaded with
+
+```{r setup}
+library(TruncExpFam)
+```
 
 # Sampling from a truncated distribution
 
