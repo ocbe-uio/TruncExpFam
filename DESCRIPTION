@@ -1,7 +1,7 @@
 Package: TruncExpFam
 Title: Truncated Exponential Family
-Version: 1.0.0.9013
-Date: 2022-02-21
+Version: 1.0.0.9014
+Date: 2022-09-14
 Authors@R:
 	c(
 		person(
