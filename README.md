@@ -15,7 +15,9 @@ Stable version
 TruncExpFam is available on CRAN and can be installed by running the
 following in an interactive R session:
 
-    install.packages("TruncExpFam")
+```r
+install.packages("TruncExpFam")
+```
 
 Development version
 -------------------
@@ -26,16 +28,21 @@ CRAN version. You can install the development version of TruncExpFam by
 running the following command in R (requires the `remotes` package to be
 installed beforehand):
 
-    remotes::install_github("ocbe-uio/TruncExpFam", ref="develop")
+```r
+remotes::install_github("ocbe-uio/TruncExpFam")
+```
 
-Finally, load the package with `library(TruncExpFam)`. A list of
-available functions can be printed with `ls("package:TruncExpFam")`.
+If you want to browse the vignette, add `build_vignettes = TRUE` to your `install_github()` command.
+
 
 Further details on installing TruncExpFam can be found on the
 [Wiki](https://github.com/ocbe-uio/TruncExpFam/wiki/Installing-TruncExpFam).
 
 Usage
 =====
+
+Once installed, `TruncExpFam` can be loaded with `library(TruncExpFam)`. A list of
+available functions can be printed with `ls("package:TruncExpFam")`.
 
 For more information about the package (e.g. suppored distributions),
 run `?TruncExpFam` after loading the package in your R session.
@@ -44,6 +51,13 @@ Are you familiar with the stats package and its `r*` and `d*` functions
 such as `rnorm()` and `dpois()`? If so, you will feel right at home with
 `TruncExpFam`, which uses the `rtrunc()` function to generate random
 numbers and the `dtrunc()` function to generate probability densities.
+
+For a more detailed explanation on how to use this package’s features,
+check out its vignette:
+
+```r
+browseVignettes("TruncExpFam")
+```
 
 Contributing
 ============
@@ -60,25 +74,7 @@ on the subject.
 Citing
 ======
 
-If you present work that uses this package, please remember to cite it.
-
-
-    To cite package 'TruncExpFam' in publications use:
-
-      René Holst and Waldir Leoncio (2022). TruncExpFam: Truncated Exponential Family. R package version 1.0.0. https://CRAN.R-project.org/package=TruncExpFam
-
-    A BibTeX entry for LaTeX users is
-
-      @Manual{,
-        title = {TruncExpFam: Truncated Exponential Family},
-        author = {René Holst and Waldir Leoncio},
-        year = {2022},
-        note = {R package version 1.0.0},
-        url = {https://CRAN.R-project.org/package=TruncExpFam},
-      }
-
-You can also generate the output above on your R session by running
-`citation("TruncExpFam")`.
+If you present work that uses this package, please remember to cite it. To cite TruncExpFam in publications, use the output of `citation("TruncExpFam")` on your R session.
 
 Badges
 ======
