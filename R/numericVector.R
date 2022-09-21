@@ -16,7 +16,7 @@
 #' # Extracting parameters under different distribution assumptions
 #' extractParameters(x, family = "normal")
 #' extractParameters(x, family = "normal", natural = TRUE)
-#' extractParameters(x, family = "binomial", nsize = 3)
+#' extractParameters(x, family = "binomial", nsize = max(x))
 #' extractParameters(x, family = "poisson", natural = FALSE)
 #' extractParameters(x, family = "poisson", natural = TRUE)
 extractParameters <- function(y, family = "gaussian", natural = FALSE, ...) {
