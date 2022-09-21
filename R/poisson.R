@@ -56,8 +56,7 @@ natural2parameters.trunc_poisson <- function(eta) {
 parameters2natural.trunc_poisson <- function(parms) {
   # parms: The parameter lambda in a Poisson distribution
   # returns the natural parameters
-  eta <- log(parms)
-  class(eta) <- class(parms)
+  eta <- prepEta(log(parms), class(parms))
   return(eta)
 }
 

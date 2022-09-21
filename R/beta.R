@@ -62,8 +62,7 @@ natural2parameters.trunc_beta <- function(eta) {
 parameters2natural.trunc_beta <- function(parms) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
-  eta <- c(shape1 = parms[1], shape2 = parms[2])
-  class(eta) <- class(parms)
+  eta <- prepEta(c(parms[1], parms[2]), class(parms))
   return(eta)
 }
 

@@ -58,8 +58,7 @@ natural2parameters.trunc_binomial <- function(eta) {
 parameters2natural.trunc_binomial <- function(parms) {
   # parms: The probability parameter p in a binomial distribution
   # returns the natural parameters
-  eta <- log(parms / (1 - parms))
-  class(eta) <- class(parms)
+  eta <- prepEta(log(parms / (1 - parms)), class(parms))
   return(eta)
 }
 
