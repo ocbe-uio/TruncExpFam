@@ -19,9 +19,15 @@ extractParameters(y, family = "gaussian", natural = FALSE, ...)
 Extract parameters
 }
 \examples{
-x <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-attributes(x) <- NULL
-class(x)
+# Some random data
+x <- c(
+  4, 3, 6, 3, 3, 3, 3, 4, 3, 2, 3, 0, 4, 2, 0, 1, 4, 3, 0, 0, 2, 3, 0, 3, 7,
+  2, 1, 1, 2, 3, 2, 3, 3, 3, 2, 2, 2, 0, 2, 0, 2, 1, 0, 2, 3, 1, 0, 4, 2, 2,
+  0, 1, 1, 1, 2, 2, 3, 1, 3, 1, 1, 0, 3, 3, 2, 0, 2, 2, 3, 0, 2, 1, 0, 0, 1,
+  0, 2, 4, 2, 3, 3, 0, 1, 0, 5, 2, 4, 2, 7, 4, 4, 1, 2, 4, 3, 2, 4, 3, 1, 3
+)
+
+# Extracting parameters under different distribution assumptions
 extractParameters(x, family = "normal")
 extractParameters(x, family = "normal", natural = TRUE)
 extractParameters(x, family = "binomial", nsize = 3)

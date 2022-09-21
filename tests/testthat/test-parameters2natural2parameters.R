@@ -1,5 +1,6 @@
 context("Extracting parameters")
 
+set.seed(1418193)
 x <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 attributes(x) <- NULL
 
