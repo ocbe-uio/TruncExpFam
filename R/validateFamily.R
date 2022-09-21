@@ -21,7 +21,7 @@ validateFamilyParms <- function(family, parms) {
   for (fam in families) {
     if (any(family == valid_fam_parm[[fam]]$family)) {
       matched$family <- TRUE
-      family <- valid_fam_parm[[fam]]$family[1] # use standard family name
+      family <- useStandardFamilyName(family)
       parms_text <- paste(parms, collapse = ", ")
       parms_expected <- valid_fam_parm[[fam]]$parms
       if (any(parms == "")) {
@@ -48,4 +48,11 @@ validateFamilyParms <- function(family, parms) {
     )
   }
   return(list(is_valid = all(unlist(matched)), family_name = family))
+}
+
+useStandardFamilyName <- function(family) {
+  validateFamilyName(family)
+  valid_names <- valid_fam_parm[[match(family, valid_distros)]]
+  standard_name <- valid_names$family[1]
+  return(standard_name)
 }
