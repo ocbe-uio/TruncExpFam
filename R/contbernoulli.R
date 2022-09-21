@@ -42,7 +42,7 @@ dtrunccontbern <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
 }
 
 #' @export
-init.parms.trunc_contbern <- function(y) {
+init.parms.trunc_contbern <- function(y, ...) {
   # Returns empirical parameter estimate for the lambda parameter
   # Note: lambda cannot be expressed in closed form as a function of the mean
   parms <- mean(y)

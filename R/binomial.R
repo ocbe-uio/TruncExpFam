@@ -31,12 +31,13 @@ dtrunc.trunc_binomial <- function(
 dtruncbinom <- dtrunc.trunc_binomial
 
 #' @export
-init.parms.trunc_binomial <- function(y) {
+init.parms.trunc_binomial <- function(y, nsize = attr(y, "parameters")$size, ...) {
   # Returns empirical parameter estimate for lambda
-  nsize <- attr(y, "parameters")$size
+  if (is.null(nsize) || !nsize) stop("Please inform the value of nsize")
   parms <- mean(y / nsize)
   attr(parms, "nsize") <- nsize
   class(parms) <- "trunc_binomial"
+  names(parms) = "prob"
   return(parms)
 }
 

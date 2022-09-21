@@ -1,6 +1,7 @@
 #' @title Initialize parameters
 #' @description Returns the empirical parameter estimate for a distribution
 #' @param y output of rtrunc
+#' @param ... other arguments passed to methods
 #' @examples
 #' # Normal distribution
 #' sampNorm <- rtrunc(50, mean = 5, sd = 2)
@@ -11,7 +12,7 @@
 #' init.parms(sampPois)
 #' @export
 #' @return A vector of parameter estimates for the input sample
-init.parms <- function(y) {
+init.parms <- function(y, ...) {
   UseMethod("init.parms")
 }
 
