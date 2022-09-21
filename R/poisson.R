@@ -32,9 +32,9 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b = Inf) {
 dtruncpois <- dtrunc.trunc_poisson
 
 #' @export
-init.parms.trunc_poisson <- function(y) {
+init.parms.trunc_poisson <- function(y, ...) {
   # Returns empirical parameter estimate for lambda
-  parms <- mean(y)
+  parms <- c("lambda" = mean(y))
   class(parms) <- "trunc_poisson"
   return(parms)
 }
@@ -56,8 +56,7 @@ natural2parameters.trunc_poisson <- function(eta) {
 parameters2natural.trunc_poisson <- function(parms) {
   # parms: The parameter lambda in a Poisson distribution
   # returns the natural parameters
-  eta <- log(parms)
-  class(eta) <- class(parms)
+  eta <- prepEta(log(parms), class(parms))
   return(eta)
 }
 

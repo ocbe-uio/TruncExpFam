@@ -28,7 +28,7 @@ dtrunc.trunc_invgauss <- function(y, eta, a = 0, b = Inf) {
 dtruncinvgauss <- dtrunc.trunc_invgauss
 
 #' @export
-init.parms.trunc_invgauss <- function(y) {
+init.parms.trunc_invgauss <- function(y, ...) {
   # Returns empirical parameter estimates mean and shape
   mean <- mean(y)
   sd <- sd(y)

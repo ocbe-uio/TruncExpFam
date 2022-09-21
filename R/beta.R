@@ -33,7 +33,7 @@ dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
 dtruncbeta <- dtrunc.trunc_beta
 
 #' @export
-init.parms.trunc_beta <- function(y) {
+init.parms.trunc_beta <- function(y, ...) {
   # Returns  parameter estimates mean and sd
   amean <- mean(y)
   avar <- var(y)
@@ -62,8 +62,7 @@ natural2parameters.trunc_beta <- function(eta) {
 parameters2natural.trunc_beta <- function(parms) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
-  eta <- c(shape1 = parms[1], shape2 = parms[2])
-  class(eta) <- class(parms)
+  eta <- prepEta(c(parms[1], parms[2]), class(parms))
   return(eta)
 }
 

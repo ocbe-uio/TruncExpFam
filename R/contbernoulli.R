@@ -42,10 +42,10 @@ dtrunccontbern <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
 }
 
 #' @export
-init.parms.trunc_contbern <- function(y) {
+init.parms.trunc_contbern <- function(y, ...) {
   # Returns empirical parameter estimate for the lambda parameter
   # Note: lambda cannot be expressed in closed form as a function of the mean
-  parms <- mean(y)
+  parms <- c("lambda" = mean(y))
   class(parms) <- "trunc_contbern"
   return(parms)
 }
@@ -67,8 +67,7 @@ natural2parameters.trunc_contbern <- function(eta) {
 parameters2natural.trunc_contbern <- function(parms) {
   # parms: The parameter lambda in a continuous bernoulli distribution
   # returns the natural parameters
-  eta <- log(parms / (1 - parms))
-  class(eta) <- class(parms)
+  eta <- prepEta(log(parms / (1 - parms)), class(parms))
   return(eta)
 }
 
