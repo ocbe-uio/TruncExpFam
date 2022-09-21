@@ -22,6 +22,7 @@
 extractParameters <- function(y, family = "gaussian", natural = FALSE, ...) {
   class(y) <- paste0("trunc_", useStandardFamilyName(family))
   parms <- init.parms(y, ...)
+  # validateDomain(y, as.list(parms)) # TODO: replace with validateSupport()
   if (natural) parms <- parameters2natural(parms)
   return(parms)
 }

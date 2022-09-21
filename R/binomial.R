@@ -37,7 +37,7 @@ init.parms.trunc_binomial <- function(y, nsize = attr(y, "parameters")$size, ...
   parms <- mean(y / nsize)
   attr(parms, "nsize") <- nsize
   class(parms) <- "trunc_binomial"
-  names(parms) = "prob"
+  names(parms) <- "prob"
   return(parms)
 }
 

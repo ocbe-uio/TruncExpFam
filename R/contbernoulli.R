@@ -67,8 +67,7 @@ natural2parameters.trunc_contbern <- function(eta) {
 parameters2natural.trunc_contbern <- function(parms) {
   # parms: The parameter lambda in a continuous bernoulli distribution
   # returns the natural parameters
-  eta <- log(parms / (1 - parms))
-  class(eta) <- class(parms)
+  eta <- prepEta(log(parms / (1 - parms)), class(parms))
   return(eta)
 }
 
