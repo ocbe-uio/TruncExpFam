@@ -4,10 +4,12 @@
 \alias{init.parms}
 \title{Initialize parameters}
 \usage{
-init.parms(y)
+init.parms(y, ...)
 }
 \arguments{
 \item{y}{output of rtrunc}
+
+\item{...}{other arguments passed to methods}
 }
 \value{
 A vector of parameter estimates for the input sample

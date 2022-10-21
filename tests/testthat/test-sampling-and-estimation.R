@@ -104,10 +104,10 @@ ml_invgauss <- mlEstimationTruncDist(sample.invgauss, delta = 0.05)
 test_that("ML estimation iteration controls", {
   tot_iter <- length(
     capture.output(mlEstimationTruncDist(sample.norm, print.iter = 1))
-  ) - 1
+  ) - 2
   expect_length(
     capture.output(mlEstimationTruncDist(sample.norm, print.iter = 0)),
-    1
+    2
   )
   for (i in seq_len(tot_iter)) {
     suppressMessages(
@@ -115,7 +115,7 @@ test_that("ML estimation iteration controls", {
         object = capture.output(
           mlEstimationTruncDist(sample.norm, print.iter = i)
         ),
-        n = floor(tot_iter / i) + 1
+        n = floor(tot_iter / i) + 2
       )
     )
   }

@@ -25,9 +25,9 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b = Inf) {
 dtruncchisq <- dtrunc.trunc_chisq
 
 #' @export
-init.parms.trunc_chisq <- function(y) {
+init.parms.trunc_chisq <- function(y, ...) {
   # Returns empirical parameter estimate for df
-  parms <- mean(y)
+  parms <- c("df" = mean(y))
   class(parms) <- "trunc_chisq"
   return(parms)
 }
@@ -49,8 +49,7 @@ natural2parameters.trunc_chisq <- function(eta) {
 parameters2natural.trunc_chisq <- function(parms) {
   # parms: The parameter lambda in a Chi Square distribution
   # returns the natural parameters
-  eta <- parms / 2 - 1
-  class(eta) <- class(parms)
+  eta <- prepEta(parms / 2 - 1, class(parms))
   return(eta)
 }
 
