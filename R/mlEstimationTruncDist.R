@@ -81,18 +81,17 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     stop("Please choose an underlying distribution to the 'family' argument.")
   }
   if (!is.null(family)) {
+    # Adding proper family attributes
     family <- useStandardFamilyName(family)
     if (!is(y, "numeric")) {
       message("Data is originally ", class(y), ". Treating as ", family)
     }
     class(y) <- paste0("trunc_", family)
+    attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
     if (is(y, "trunc_binomial")) {
       attr(y, "parameters") <- list("size" = max(y))
-      validateSupport(y, parms = attr(y, "parameters"))
-    } else {
-      validateSupport(y, parms = NULL, ...) # ignoring parms == focus on y values only
     }
-    attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
+    validateSupport(y, parms = attr(y, "parameters"))
     y.min <- min(y)
     y.max <- max(y)
   }
