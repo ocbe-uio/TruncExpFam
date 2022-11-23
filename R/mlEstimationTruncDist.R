@@ -82,7 +82,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   }
   if (!is.null(family)) {
     family <- useStandardFamilyName(family)
-    if (is(y, "numeric")) {
+    if (!is(y, "numeric")) {
       message("Data is originally ", class(y), ". Treating as ", family)
     }
     class(y) <- paste0("trunc_", family)
