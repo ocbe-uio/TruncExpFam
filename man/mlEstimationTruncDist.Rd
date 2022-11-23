@@ -13,6 +13,7 @@ mlEstimationTruncDist(
   delta = 0.33,
   print.iter = 0,
   ny = 100,
+  family = NULL,
   ...
 )
 }
@@ -35,6 +36,8 @@ compare with the error tolerance}
 
 \item{ny}{size of intermediate y range sequence. Higher values yield better
 estimations but slower iterations}
+
+\item{family}{distribution family to use}
 
 \item{...}{other parameters passed to subfunctions}
 }
