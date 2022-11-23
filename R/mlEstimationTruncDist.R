@@ -77,21 +77,8 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   delta = 0.33, print.iter = 0, ny = 100, family = NULL, ...
 ) {
   # Parsing family name
-  if (is.null(family) && is(y, "numeric")) {
-    stop("Please choose an underlying distribution to the 'family' argument.")
-  }
-  if (!is.null(family)) {
-    # Adding proper family attributes
-    family <- useStandardFamilyName(family)
-    if (!is(y, "numeric")) {
-      message("Data is originally ", class(y), ". Treating as ", family)
-    }
-    class(y) <- paste0("trunc_", family)
-    attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
-    if (is(y, "trunc_binomial")) {
-      attr(y, "parameters") <- list("size" = max(y))
-    }
-    validateSupport(y, parms = attr(y, "parameters"))
+  if (is(y, "numeric")) {
+    y <- welcomeToFamily(y, family)
     y.min <- min(y)
     y.max <- max(y)
   }
@@ -158,4 +145,25 @@ getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
   }
   T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
   return(T.bar.minus.E.T.j)
+}
+
+welcomeToFamily <- function(y, family) {
+  # Configure attributes of a numeric vector y according to its family
+  if (is.null(family) && is(y, "numeric")) {
+    stop("Please choose an underlying distribution to the 'family' argument.")
+  }
+  if (!is.null(family)) {
+    # Adding proper family attributes
+    family <- useStandardFamilyName(family)
+    if (!is(y, "numeric")) {
+      message("Data is originally ", class(y), ". Treating as ", family)
+    }
+    class(y) <- paste0("trunc_", family)
+    attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
+    if (is(y, "trunc_binomial")) {
+      attr(y, "parameters") <- list("size" = max(y))
+    }
+    validateSupport(y, parms = attr(y, "parameters"))
+  }
+  return(y)
 }
