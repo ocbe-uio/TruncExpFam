@@ -15,13 +15,13 @@ test_that("Estimation works, in general", {
 
 test_that("Original parameters are retrieved", {
   expect_equal(
-    unclass(mlEstimationTruncDist(x, family = "normal")),
-    c("mean" = 9, "sd" = 2),
-    tol = 1e-1
+    mlEstimationTruncDist(contReal, family = "normal"),
+    c("mean" = 10, "sd" = 10),
+    tol = 1e-1, check.attributes = FALSE
   )
   expect_equal(
-    unclass(mlEstimationTruncDist(x, family = "poisson")),
-    c("lambda" = 9),
-    tol = 1e-1
+    mlEstimationTruncDist(disc0inf, family = "poisson"),
+    c("lambda" = 10),
+    tol = 1e-1, check.attributes = FALSE
   )
 })
