@@ -161,9 +161,12 @@ welcomeToFamily <- function(y, family) {
     }
     class(y) <- paste0("trunc_", family)
     attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
-    if (is(y, "trunc_binomial")) {
-      attr(y, "parameters") <- list("size" = max(y))
-    }
+    attr(y, "parameters") <- switch(
+      class(y),
+      "trunc_binomial" = list("size" = max(y)),
+      "trunc_nbinom" = list("size" = mean(y), "prob" = 0.5),
+      NULL
+    )
     validateSupport(y, parms = attr(y, "parameters"))
   }
   return(y)
