@@ -60,7 +60,7 @@ parameters2natural.trunc_nbinom <- function(parms) {
   return(eta)
 }
 
-getGradETinv.trunc_nbinom <- function(eta, r) {
+getGradETinv.trunc_nbinom <- function(eta, r = 1e3) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   p <- exp(eta)
