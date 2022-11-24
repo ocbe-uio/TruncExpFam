@@ -11,22 +11,50 @@ contReal <- rnorm(1e4, mean = 10, sd = 10)
 
 test_that("Estimation works, in general", {
   # Improper samples
-  expect_error(mlEstimationTruncDist(contReal), "choose an underlying distribution")
-  expect_error(mlEstimationTruncDist(contReal, family = "beta"), "outside of support")
+  expect_error(
+    mlEstimationTruncDist(contReal), "choose an underlying distribution"
+  )
+  expect_error(
+    mlEstimationTruncDist(contReal, family = "beta"), "outside of support"
+  )
 
   # Proper samples
-  expect_named(mlEstimationTruncDist(cont01, family = "beta"), c("shape1", "shape2"))
-  expect_named(mlEstimationTruncDist(disc0inf, family = "binomial"), c("prob"))
-  expect_named(mlEstimationTruncDist(cont0inf, family = "chisq"), c("df"))
-  expect_named(mlEstimationTruncDist(cont01b, family = "contbern"), c("lambda"))
-  expect_named(mlEstimationTruncDist(cont0infb, family = "exp"), c("rate"))
-  expect_named(mlEstimationTruncDist(cont0inf, family = "gamma"), c("shape", "rate"))
-  expect_named(mlEstimationTruncDist(cont0inf, family = "invgamma"), c("shape", "rate"))
-  expect_named(mlEstimationTruncDist(cont0inf, family = "invgauss", tol = .1), c("m", "s"))
-  expect_named(mlEstimationTruncDist(cont0inf, family = "lognormal"), c("mean", "sd"))
-  expect_named(mlEstimationTruncDist(disc0inf, family = "nbinom"), c("mean"))
-  expect_named(mlEstimationTruncDist(contReal, family = "normal"), c("mean", "sd"))
-  expect_named(mlEstimationTruncDist(disc0inf, family = "poisson"), c("lambda"))
+  expect_named(
+    mlEstimationTruncDist(cont01, family = "beta"), c("shape1", "shape2")
+  )
+  expect_named(
+    mlEstimationTruncDist(disc0inf, family = "binomial"), c("prob")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont0inf, family = "chisq"), c("df")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont01b, family = "contbern"), c("lambda")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont0infb, family = "exp"), c("rate")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont0inf, family = "gamma"), c("shape", "rate")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont0inf, family = "invgamma"), c("shape", "rate")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont0inf, family = "invgauss", tol = .1), c("m", "s")
+  )
+  expect_named(
+    mlEstimationTruncDist(cont0inf, family = "lognormal"), c("mean", "sd")
+  )
+  expect_named(
+    mlEstimationTruncDist(disc0inf, family = "nbinom"), c("mean")
+  )
+  expect_named(
+    mlEstimationTruncDist(contReal, family = "normal"), c("mean", "sd")
+  )
+  expect_named(
+    mlEstimationTruncDist(disc0inf, family = "poisson"), c("lambda")
+  )
 })
 
 test_that("Original parameters are retrieved", {
@@ -63,7 +91,9 @@ test_that("Original parameters are retrieved", {
     c("shape" = 4.961, "rate" = 0.498),
     tol = 1e-1, check.attributes = FALSE
   )
-  expect_equal(mlGamma[["shape"]] / mlGamma[["rate"]], mean(cont0inf), tol = 1e-1)
+  expect_equal(
+    mlGamma[["shape"]] / mlGamma[["rate"]], mean(cont0inf), tol = 1e-1
+  )
   mlInvGamma <- mlEstimationTruncDist(cont0inf, family = "invgamma")
   expect_equal(
     mlInvGamma,
