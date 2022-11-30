@@ -10,7 +10,6 @@
 #' # Poisson distribution
 #' sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
 #' empiricalParameters(sampPois)
-#' @export
 #' @return A vector of parameter estimates for the input sample
 empiricalParameters <- function(y, ...) {
   UseMethod("empiricalParameters")
