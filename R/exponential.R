@@ -28,7 +28,7 @@ dtruncexp <- dtrunc.trunc_exp
 #' @export
 empiricalParameters.trunc_exp <- function(y, ...) {
   # Returns empirical parameter estimate for the rate parameter
-  parms <- mean(y)
+  parms <- c("rate" = mean(y))
   class(parms) <- "trunc_exp"
   return(parms)
 }

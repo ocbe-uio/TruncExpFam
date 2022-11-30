@@ -46,7 +46,7 @@ empiricalParameters.trunc_lognormal <- function(y, ...) {
   # Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)
   # Returns empirical parameter estimates for mean and sd
   x <- log(y)
-  parms <- c(mean = mean(x), sd = sqrt(var(x)))
+  parms <- c("meanlog" = mean(x), "sdlog" = sqrt(var(x)))
   class(parms) <- "trunc_lognormal"
   return(parms)
 }
