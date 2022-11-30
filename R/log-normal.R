@@ -16,7 +16,12 @@ sufficientT.trunc_lognormal <- function(y) {
 }
 
 #' @export
-dtrunc.trunc_lognormal <- function(y, eta, a = 0, b = Inf) {
+dtrunc.trunc_lognormal <- function(
+  y, meanlog = 0, sdlog = 1, eta, a = 0, b = Inf, ...
+) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_lognormal(c("meanlog" = meanlog, "sdlog" = sdlog))
+  }
   parm <- natural2parameters.trunc_normal(eta)
   dens <- ifelse(
     test = (y < a) | (y > b),
@@ -33,8 +38,9 @@ dtrunc.trunc_lognormal <- function(y, eta, a = 0, b = Inf) {
   } else {
     F.b <- 1
   }
-  const <- 1 / (F.b - F.a)
-  return(dens  * const)
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc

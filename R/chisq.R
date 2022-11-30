@@ -12,12 +12,17 @@ rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
 }
 
 #' @export
-dtrunc.trunc_chisq <- function(y, eta, a = 0, b = Inf) {
+dtrunc.trunc_chisq <- function(y, df, eta, a = 0, b = Inf, ...) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_chisq(c("df" = df))
+  }
   df <- natural2parameters.trunc_chisq(eta)
   dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df = df))
   F.a <- pchisq(a, df)
   F.b <- pchisq(b, df)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc

@@ -22,6 +22,7 @@ dcontbern <- function(x, lambda) {
     no   = 2 * (atanh(1 - 2 * lambda)) / (1 - 2 * lambda)
   )
   d <- norm.const * (lambda^x) * (1 - lambda) ^ (1 - x)
+  class(d) <- class(x)
   return(d)
 }
 
@@ -31,15 +32,26 @@ pcontbern <- function(x, lambda) {
   return(p)
 }
 
-#' @rdname dtrunc
 #' @export
-dtrunccontbern <- dtrunc.trunc_contbern <- function(y, eta, a = 0, b = 1) {
+dtrunc.trunc_contbern <- function(
+  y, lambda, eta, a = 0, b = 1, ...
+) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_contbern(c("lambda" = lambda))
+  }
   lambda <- natural2parameters.trunc_contbern(eta)
   dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda = lambda))
   F.a <- pcontbern(a, lambda)
   F.b <- pcontbern(b, lambda)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
+
+#' @export
+#' @param eta vector of natural parameters
+#' @rdname dtrunc
+dtrunccontbern <- dtrunc.trunc_contbern
 
 #' @export
 empiricalParameters.trunc_contbern <- function(y, ...) {

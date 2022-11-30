@@ -5,7 +5,7 @@
 %   R/poisson.R
 \name{rtrunc}
 \alias{rtrunc}
-\alias{rtruncbeta}
+\alias{rtrunc.beta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
 \alias{rtrunccontbern}
@@ -21,7 +21,7 @@
 \usage{
 rtrunc(n, family = "gaussian", ...)
 
-rtruncbeta(n, shape1, shape2, a = 0, b = 1)
+rtrunc.beta(n, shape1, shape2, a = 0, b = 1)
 
 rtruncbinom(n, size, prob, a = 0, b = size)
 

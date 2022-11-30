@@ -131,7 +131,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
 getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
   # Calculates T.bar-E(T|eta_j) by numerical integration
   delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
-  trunc.density <- dtrunc(y.seq, eta, y.min, y.max) # L vector
+  trunc.density <- dtrunc(y.seq, eta = eta, a = y.min, b = y.max) # L vector
   T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
   if (length(eta) > 1) {
     E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p

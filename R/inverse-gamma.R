@@ -17,7 +17,12 @@ rtruncinvgamma <- rtrunc.invgamma <- function(
 
 #' @importFrom invgamma dinvgamma pinvgamma
 #' @export
-dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
+dtrunc.trunc_invgamma <- function(
+  y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...
+) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_invgamma(c("shape" = shape, "rate" = rate, "scale" = scale))
+  }
   parm <- natural2parameters.trunc_invgamma(eta)
   dens <- ifelse(
     test = (y < a) | (y > b),
@@ -26,8 +31,9 @@ dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
   )
   F.a <- pinvgamma(a, shape = parm[1], rate = parm[2])
   F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  const <- 1 / (F.b - F.a)
-  return(dens * const)
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc
