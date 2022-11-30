@@ -2,6 +2,8 @@
 #' @description Returns the empirical parameter estimate for a distribution
 #' @param y output of rtrunc
 #' @param ... other arguments passed to methods
+#' @return A vector of parameter estimates for the input sample
+#' @export
 #' @examples
 #' # Normal distribution
 #' sampNorm <- rtrunc(50, mean = 5, sd = 2)
@@ -10,7 +12,6 @@
 #' # Poisson distribution
 #' sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
 #' empiricalParameters(sampPois)
-#' @return A vector of parameter estimates for the input sample
 empiricalParameters <- function(y, ...) {
   UseMethod("empiricalParameters")
 }
