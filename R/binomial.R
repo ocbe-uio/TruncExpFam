@@ -31,13 +31,13 @@ dtrunc.trunc_binomial <- function(
 dtruncbinom <- dtrunc.trunc_binomial
 
 #' @export
-empiricalParameters.trunc_binomial <- function(y, nsize = attr(y, "parameters")$size, ...) {
-  # Returns empirical parameter estimate for lambda
-  if (is.null(nsize) || !nsize) stop("Please inform the value of nsize")
-  parms <- mean(y / nsize)
-  attr(parms, "nsize") <- nsize
+empiricalParameters.trunc_binomial <- function(y, size, ...) {
+  # Returns empirical parameter estimates
+  if (missing(size)) {
+    size <- max(y)
+  }
+  parms <- c("size" = size, "prob" = mean(y) / size)
   class(parms) <- "trunc_binomial"
-  names(parms) <- "prob"
   return(parms)
 }
 
@@ -58,11 +58,13 @@ natural2parameters.trunc_binomial <- function(eta) {
 parameters2natural.trunc_binomial <- function(parms) {
   # parms: The probability parameter p in a binomial distribution
   # returns the natural parameters
-  eta <- prepEta(log(parms / (1 - parms)), class(parms))
+  prob <- parms[["prob"]]
+  eta <- prepEta(log(prob / (1 - prob)), class(parms))
+  attr(eta, "nsize") <- parms[["size"]]
   return(eta)
 }
 
-getGradETinv.trunc_binomial <- function(eta) {
+getGradETinv.trunc_binomial <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   nsize <- attr(eta, "nsize")

@@ -88,7 +88,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     message("Estimating parameters for the ", distro_name, " distribution")
   }
   T.avg <- averageT(y)
-  eta.j <- parameters2natural(empiricalParameters(y))
+  eta.j <- parameters2natural(empiricalParameters(y, ...))
   y.seq <- getYseq(y, y.min, y.max, ny) # y-values to calculate expectations
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
