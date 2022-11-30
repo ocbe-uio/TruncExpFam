@@ -32,7 +32,7 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b = Inf) {
 dtruncpois <- dtrunc.trunc_poisson
 
 #' @export
-init.parms.trunc_poisson <- function(y, ...) {
+empiricalParameters.trunc_poisson <- function(y, ...) {
   # Returns empirical parameter estimate for lambda
   parms <- c("lambda" = mean(y))
   class(parms) <- "trunc_poisson"

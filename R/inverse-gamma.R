@@ -35,7 +35,7 @@ dtrunc.trunc_invgamma <- function(y, eta, a = 0, b = Inf) {
 dtruncinvgamma <- dtrunc.trunc_invgamma
 
 #' @export
-init.parms.trunc_invgamma <- function(y, ...) {
+empiricalParameters.trunc_invgamma <- function(y, ...) {
   # Returns  parameter estimates mean and sd
   amean <- mean(y)
   avar <- var(y)

@@ -34,7 +34,7 @@ dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
 dtruncnorm <- dtrunc.trunc_normal
 
 #' @export
-init.parms.trunc_normal <- function(y, ...) {
+empiricalParameters.trunc_normal <- function(y, ...) {
   # Returns empirical parameter estimates mean and sd
   parms <- c(mean = mean(y), sd = sqrt(var(y)))
   class(parms) <- "trunc_normal"

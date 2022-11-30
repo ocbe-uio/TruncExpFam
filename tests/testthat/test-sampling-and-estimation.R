@@ -89,8 +89,7 @@ ml_gamma <- mlEstimationTruncDist(
 ml_nbinom <- mlEstimationTruncDist(
   sample.nbinom,
   max.it = 500, delta = 0.33,
-  print.iter = FALSE,
-  r = 10
+  print.iter = FALSE
 )
 ml_contbern <- mlEstimationTruncDist(
   sample.contbern, print.iter = FALSE, tol = 1e-7, max.it = 1e3

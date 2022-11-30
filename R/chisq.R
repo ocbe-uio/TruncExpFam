@@ -25,7 +25,7 @@ dtrunc.trunc_chisq <- function(y, eta, a = 0, b = Inf) {
 dtruncchisq <- dtrunc.trunc_chisq
 
 #' @export
-init.parms.trunc_chisq <- function(y, ...) {
+empiricalParameters.trunc_chisq <- function(y, ...) {
   # Returns empirical parameter estimate for df
   parms <- c("df" = mean(y))
   class(parms) <- "trunc_chisq"
