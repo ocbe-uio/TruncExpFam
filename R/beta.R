@@ -33,7 +33,7 @@ dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
 dtruncbeta <- dtrunc.trunc_beta
 
 #' @export
-init.parms.trunc_beta <- function(y, ...) {
+empiricalParameters.trunc_beta <- function(y, ...) {
   # Returns  parameter estimates mean and sd
   amean <- mean(y)
   avar <- var(y)

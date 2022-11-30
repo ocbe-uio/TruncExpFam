@@ -42,7 +42,7 @@ dtrunc.trunc_lognormal <- function(y, eta, a = 0, b = Inf) {
 dtrunclnorm <- dtrunc.trunc_lognormal
 
 #' @export
-init.parms.trunc_lognormal <- function(y, ...) {
+empiricalParameters.trunc_lognormal <- function(y, ...) {
   # Y~LN(mean,sigma) => X=log(Y)~N(mean,sigma)
   # Returns empirical parameter estimates for mean and sd
   x <- log(y)

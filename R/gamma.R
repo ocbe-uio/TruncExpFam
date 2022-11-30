@@ -43,7 +43,7 @@ dtrunc.trunc_gamma <- function(y, eta, a = 0, b = Inf) {
 dtruncgamma <- dtrunc.trunc_gamma
 
 #' @export
-init.parms.trunc_gamma <- function(y, ...) {
+empiricalParameters.trunc_gamma <- function(y, ...) {
   # Returns  parameter estimates mean and sd
   amean <- mean(y)
   avar <- var(y)

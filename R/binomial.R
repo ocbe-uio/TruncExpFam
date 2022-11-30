@@ -31,7 +31,7 @@ dtrunc.trunc_binomial <- function(
 dtruncbinom <- dtrunc.trunc_binomial
 
 #' @export
-init.parms.trunc_binomial <- function(y, nsize = attr(y, "parameters")$size, ...) {
+empiricalParameters.trunc_binomial <- function(y, nsize = attr(y, "parameters")$size, ...) {
   # Returns empirical parameter estimate for lambda
   if (is.null(nsize) || !nsize) stop("Please inform the value of nsize")
   parms <- mean(y / nsize)

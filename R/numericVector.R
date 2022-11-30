@@ -2,7 +2,7 @@
 #' @param y Numeric vector containing observations from a random variable
 #' @param family Distribution family to assume for \code{y}
 #' @param natural Should output be in terms of the natural parameter eta?
-#' @param ... arguments passed to [init.parms()]
+#' @param ... arguments passed to [empiricalParameters()]
 #' @export
 #' @examples
 #' # Some random data
@@ -21,7 +21,7 @@
 #' extractParameters(x, family = "poisson", natural = TRUE)
 extractParameters <- function(y, family = "gaussian", natural = FALSE, ...) {
   class(y) <- paste0("trunc_", useStandardFamilyName(family))
-  parms <- init.parms(y, ...)
+  parms <- empiricalParameters(y, ...)
   validateSupport(y, as.list(parms), ...)
   if (natural) parms <- parameters2natural(parms)
   return(parms)

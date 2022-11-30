@@ -13,7 +13,7 @@ extractParameters(y, family = "gaussian", natural = FALSE, ...)
 
 \item{natural}{Should output be in terms of the natural parameter eta?}
 
-\item{...}{arguments passed to \code{\link[=init.parms]{init.parms()}}}
+\item{...}{arguments passed to \code{\link[=empiricalParameters]{empiricalParameters()}}}
 }
 \description{
 Extract parameters

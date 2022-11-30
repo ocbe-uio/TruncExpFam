@@ -1,19 +1,19 @@
-#' @title Initialize parameters
+#' @title Calculate empirical parameters
 #' @description Returns the empirical parameter estimate for a distribution
 #' @param y output of rtrunc
 #' @param ... other arguments passed to methods
 #' @examples
 #' # Normal distribution
 #' sampNorm <- rtrunc(50, mean = 5, sd = 2)
-#' init.parms(sampNorm)
+#' empiricalParameters(sampNorm)
 #'
 #' # Poisson distribution
 #' sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
-#' init.parms(sampPois)
+#' empiricalParameters(sampPois)
 #' @export
 #' @return A vector of parameter estimates for the input sample
-init.parms <- function(y, ...) {
-  UseMethod("init.parms")
+empiricalParameters <- function(y, ...) {
+  UseMethod("empiricalParameters")
 }
 
 #' @title Convert natural parameters to distribution parameters
@@ -23,7 +23,7 @@ init.parms <- function(y, ...) {
 #' @seealso [parameters2natural()]
 #' @examples
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-#' lambda_hat <- init.parms(samp)
+#' lambda_hat <- empiricalParameters(samp)
 #' eta_hat <- parameters2natural(lambda_hat)
 #' natural2parameters(eta_hat)  # yields back lambda
 natural2parameters <- function(eta) {
@@ -38,7 +38,7 @@ natural2parameters <- function(eta) {
 #' @examples
 #' # Poisson distribution
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-#' parameters2natural(init.parms(samp))
+#' parameters2natural(empiricalParameters(samp))
 parameters2natural <- function(parms) {
   UseMethod("parameters2natural")
 }

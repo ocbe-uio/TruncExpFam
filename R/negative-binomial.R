@@ -32,7 +32,7 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
 }
 
 #' @export
-init.parms.trunc_nbinom <- function(y, ...) {
+empiricalParameters.trunc_nbinom <- function(y, ...) {
   # Returns empirical parameter estimate for lambda
   parms <- c("mean" = mean(y))
   class(parms) <- "trunc_nbinom"
