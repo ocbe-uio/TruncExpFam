@@ -13,8 +13,11 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size) {
 
 #' @export
 dtrunc.trunc_binomial <- function(
-  y, eta, a = 0, b = attr(y, "parameters")$size, ...
+  y, size, prob, eta, a = 0, b = attr(y, "parameters")$size, ...
 ) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_binomial(c("size" = size, "prob" = prob))
+  }
   nsize <- attr(y, "parameters")$size
   my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
   my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
@@ -22,7 +25,9 @@ dtrunc.trunc_binomial <- function(
   dens <- ifelse((y < a) | (y > b), 0, my.dbinom(nsize))
   F.a <- my.pbinom(a - 1, nsize)
   F.b <- my.pbinom(b, nsize)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc

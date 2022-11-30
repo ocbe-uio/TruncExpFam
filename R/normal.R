@@ -12,7 +12,10 @@ rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
 }
 
 #' @export
-dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
+dtrunc.trunc_normal <- function(y, mean = 0, sd = 1, eta, a = -Inf, b = Inf, ...) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_normal(c(mean, sd))
+  }
   parm <- natural2parameters.trunc_normal(eta)
   dens <- ifelse((y < a) | (y > b), 0, dnorm(y, mean = parm[1], sd = parm[2]))
   if (!missing(a)) {
@@ -25,8 +28,9 @@ dtrunc.trunc_normal <- function(y, eta, a = -Inf, b = Inf) {
   } else {
     F.b <- 1
   }
-  const <- 1 / (F.b - F.a)
-  return(dens * const)
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc

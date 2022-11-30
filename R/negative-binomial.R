@@ -20,7 +20,12 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
 #' @rdname dtrunc
 #' @param ... size
 #' @export
-dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
+dtrunc.trunc_nbinom <- function(
+  y, size, prob, eta, a = 0, b = Inf, ...
+) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_nbinom(c("size" = size, "prob" = prob))
+  }
   nsize <- attr(y, "parameters")$size
   proba <- attr(y, "parameters")$prob
   my.dnbinom <- function(y, nsize, proba) dnbinom(y, size = nsize, prob = proba)
@@ -28,8 +33,14 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
   dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(y, nsize, proba))
   F.a <- my.pnbinom(a - 1, nsize, proba)
   F.b <- my.pnbinom(b, nsize, proba)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
+
+#' @export
+#' @rdname dtrunc
+dtruncnbinom <- dtrunc.trunc_nbinom
 
 #' @export
 empiricalParameters.trunc_nbinom <- function(y, r, k, ...) {

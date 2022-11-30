@@ -11,7 +11,10 @@ rtruncpois <- rtrunc.poisson <- function(n, lambda, a = 0, b = Inf) {
 }
 
 #' @export
-dtrunc.trunc_poisson <- function(y, eta, a = 0, b = Inf) {
+dtrunc.trunc_poisson <- function(y, lambda, eta, a = 0, b = Inf, ...) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_poisson(lambda)
+  }
   parm <- exp(eta)
   dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))
   if (!missing(a)) {
@@ -24,7 +27,9 @@ dtrunc.trunc_poisson <- function(y, eta, a = 0, b = Inf) {
   } else {
     F.b <- 1
   }
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc

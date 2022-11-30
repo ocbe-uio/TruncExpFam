@@ -12,12 +12,17 @@ rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf) {
 }
 
 #' @export
-dtrunc.trunc_exp <- function(y, eta, a = 0, b = Inf) {
+dtrunc.trunc_exp <- function(y, rate = 1, eta, a = 0, b = Inf, ...) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_exp(c("rate" = rate))
+  }
   rate <- natural2parameters.trunc_exp(eta)
   dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate = rate))
   F.a <- pexp(a, rate)
   F.b <- pexp(b, rate)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @importFrom stats dexp pexp

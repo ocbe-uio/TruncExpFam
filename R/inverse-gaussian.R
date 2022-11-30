@@ -12,13 +12,17 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a = 0, b = Inf) {
 }
 
 #' @export
-dtrunc.trunc_invgauss <- function(y, eta, a = 0, b = Inf) {
-  parm <- natural2parameters(eta)
+dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_invgauss(c("m" = m, "s" = s))
+  }
+  parm <- natural2parameters.trunc_invgauss(eta)
   dens <- ifelse((y < a) | (y > b), 0, dinvgauss(y, m = parm[1], s = parm[2]))
-  F.a <- pinvgauss(a, parm[1], parm[2])
+  F.a <- ifelse(a == 0, 0, pinvgauss(a, parm[1], parm[2]))
   F.b <- ifelse(is.infinite(b), 1, pinvgauss(b, parm[1], parm[2]))
-  const <- 1 / (F.b - F.a)
-  return(dens * const)
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @importFrom rmutil rinvgauss

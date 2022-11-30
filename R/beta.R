@@ -8,13 +8,17 @@
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
 #' @export
-rtruncbeta <- rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
+rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
   class(n) <- "trunc_beta"
   sampleFromTruncated(mget(ls()))
 }
+rtruncbeta <- rtrunc.beta
 
 #' @export
-dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
+dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_beta(c(shape1, shape2))
+  }
   parm <- natural2parameters.trunc_beta(eta)
   dens <- ifelse(
     test = (y < a) | (y > b),
@@ -23,11 +27,14 @@ dtrunc.trunc_beta <- function(y, eta, a = 0, b = 1) {
   )
   F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
   F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  const <- 1 / (F.b - F.a)
-  return(dens * const)
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @importFrom stats dbeta pbeta
+#' @inheritParams rtrunc.beta
+#' @param eta vector of natural parameters
 #' @rdname dtrunc
 #' @export
 dtruncbeta <- dtrunc.trunc_beta
