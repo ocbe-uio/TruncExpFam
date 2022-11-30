@@ -70,6 +70,6 @@ getGradETinv <- function(eta, ...) {
 #'
 #' # Directly-inputting values
 #' dtruncnorm(y = c(5, 0, -10), eta = c(0, -0.05))
-dtrunc <- function(y, eta, a, b) {
+dtrunc <- function(y, eta, a, b, ...) {
   UseMethod("dtrunc", y)
 }
