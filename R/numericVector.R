@@ -20,7 +20,11 @@
 #' extractParameters(x, family = "poisson", natural = FALSE)
 #' extractParameters(x, family = "poisson", natural = TRUE)
 extractParameters <- function(y, family = "gaussian", natural = FALSE, ...) {
-  class(y) <- paste0("trunc_", useStandardFamilyName(family))
+  if (substring(class(y), 1, 5) == "trunc") {
+    message("Object is ", class(y), ". Ignoring family argument.")
+  } else {
+    class(y) <- paste0("trunc_", useStandardFamilyName(family))
+  }
   parms <- empiricalParameters(y, ...)
   validateSupport(y, as.list(parms), ...)
   if (natural) parms <- parameters2natural(parms)

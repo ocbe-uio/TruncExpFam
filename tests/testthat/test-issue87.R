@@ -26,3 +26,15 @@ test_that("empiricalParameters are properly named", {
     expect_named(empirical_parameters, expected_parms)
   }
 })
+
+test_that("extractParameters() can replace empiricalParameters()", {
+  for (distro in names(sample)) {
+    expected_parms <- valid_fam_parm[[distro]][["parms"]]
+    samp <- sample[[distro]]
+    empirical_parameters <- switch(distro,
+      "nbinom" = suppressMessages(extractParameters(samp, r = 50, k = 50)),
+      suppressMessages(extractParameters(samp))
+    )
+    expect_named(empirical_parameters, expected_parms)
+  }
+})
