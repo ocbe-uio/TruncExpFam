@@ -20,11 +20,15 @@
 #' empiricalParameters(x, family = "poisson", natural = FALSE)
 #' empiricalParameters(x, family = "poisson", natural = TRUE)
 empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE, ...) {
+
+  # Assigning trunc family, if necessary
   if (substring(class(y), 1, 5) == "trunc") {
     message("Object is ", class(y), ". Ignoring family argument.")
   } else {
     class(y) <- paste0("trunc_", useStandardFamilyName(family))
   }
+
+  # Estimating and validating parameters
   parms <- empiricalParameters(y, ...)
   validateSupport(y, as.list(parms), ...)
   if (natural) parms <- parameters2natural(parms)
