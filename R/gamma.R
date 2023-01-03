@@ -24,23 +24,7 @@ dtrunc.trunc_gamma <- function(
     eta <- parameters2natural.trunc_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_gamma(eta)
-  dens <- ifelse(
-    test = (y < a) | (y > b),
-    yes  = 0,
-    no   = dgamma(y, shape = parm[1], rate = parm[2])
-  )
-  if (!missing(a)) {
-    F.a <- pgamma(a, shape = parm[1], rate = parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pgamma(b, shape = parm[1], rate = parm[2])
-  } else {
-    F.b <- 1
-  }
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm[1], parm[2])
   return(dens)
 }
 

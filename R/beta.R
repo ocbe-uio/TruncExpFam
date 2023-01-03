@@ -20,15 +20,7 @@ dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
     eta <- parameters2natural.trunc_beta(c(shape1, shape2))
   }
   parm <- natural2parameters.trunc_beta(eta)
-  dens <- ifelse(
-    test = (y < a) | (y > b),
-    yes  = 0,
-    no   = dbeta(y, shape1 = parm[1], shape2 = parm[2])
-  )
-  F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
-  F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dbeta, pbeta, parm[1], parm[2])
   return(dens)
 }
 

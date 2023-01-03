@@ -16,19 +16,7 @@ dtrunc.trunc_poisson <- function(y, lambda, eta, a = 0, b = Inf, ...) {
     eta <- parameters2natural.trunc_poisson(lambda)
   }
   parm <- exp(eta)
-  dens <- ifelse((y < a) | (y > b), 0, dpois(y, parm))
-  if (!missing(a)) {
-    F.a <- ppois(a - 1, parm)
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- ppois(b, parm)
-  } else {
-    F.b <- 1
-  }
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a - 1, b, dpois, ppois, parm)
   return(dens)
 }
 

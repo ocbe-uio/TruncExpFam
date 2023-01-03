@@ -24,16 +24,7 @@ dtrunc.trunc_invgamma <- function(
     eta <- parameters2natural.trunc_invgamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_invgamma(eta)
-  dens <- ifelse(
-    test = (y < a) | (y > b),
-    yes  = 0,
-    no   = dinvgamma(y, shape = parm[1], rate = parm[2])
-  )
-  F.a <- pinvgamma(a, shape = parm[1], rate = parm[2])
-  F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
-  return(dens)
+  dens <- rescaledDensities(y, a, b, dinvgamma, pinvgamma, parm[1], parm[2])
 }
 
 #' @rdname dtrunc

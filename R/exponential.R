@@ -17,11 +17,7 @@ dtrunc.trunc_exp <- function(y, rate = 1, eta, a = 0, b = Inf, ...) {
     eta <- parameters2natural.trunc_exp(c("rate" = rate))
   }
   rate <- natural2parameters.trunc_exp(eta)
-  dens <- ifelse((y <= a) | (y > b), 0, dexp(y, rate = rate))
-  F.a <- pexp(a, rate)
-  F.b <- pexp(b, rate)
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dexp, pexp, rate)
   return(dens)
 }
 

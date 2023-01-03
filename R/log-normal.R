@@ -23,23 +23,7 @@ dtrunc.trunc_lognormal <- function(
     eta <- parameters2natural.trunc_lognormal(c("meanlog" = meanlog, "sdlog" = sdlog))
   }
   parm <- natural2parameters.trunc_normal(eta)
-  dens <- ifelse(
-    test = (y < a) | (y > b),
-    yes  = 0,
-    no   = dlnorm(y, meanlog = parm[1], sdlog = parm[2])
-  )
-  if (!missing(a)) {
-    F.a <- plnorm(a, parm[1], parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- plnorm(b, parm[1], parm[2])
-  } else {
-    F.b <- 1
-  }
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dlnorm, plnorm, parm[1], parm[2])
   return(dens)
 }
 
