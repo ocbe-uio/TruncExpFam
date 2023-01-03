@@ -14,20 +14,21 @@ test_that("It's OK to miss truncation limits", {
     "pois" = rtrunc(3, family = "poisson", lambda = 1)
   )
   expect_equal(
-    object   = dtrunc(samp$norm, eta = c(10, -2)),
-    expected = c(6.357392e-06, 6.271760e-07, 9.013280e-11)
+    object   = as.vector(dtrunc(samp$norm, eta = c(10, -2))),
+    expected = c(6.357392e-06, 6.271760e-07, 9.013280e-11),
+    check.attributes = FALSE
   )
   expect_equal(
-    object   = dtrunc(samp$gamm, eta = c(10, -2)),
+    object   = as.vector(dtrunc(samp$gamm, eta = c(10, -2))),
     expected = c(0.09401543, 0.23025945, 0.14131485)
   )
   expect_equal(
-    object   = dtrunc(samp$logn, eta = c(10, -2)),
+    object   = as.vector(dtrunc(samp$logn, eta = c(10, -2))),
     expected = c(2.094700e-03, 9.567618e-09, 7.123690e-02)
   )
 
   expect_equal(
-    object = dtrunc(samp$pois, eta = -10),
+    object = as.vector(dtrunc(samp$pois, eta = -10)),
     expected = c(9.999546e-01, 1.030530e-09, 4.539787e-05)
   )
 })

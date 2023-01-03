@@ -17,7 +17,12 @@ rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1 / rate,
 }
 
 #' @export
-dtrunc.trunc_gamma <- function(y, eta, a = 0, b = Inf) {
+dtrunc.trunc_gamma <- function(
+  y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...
+) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
+  }
   parm <- natural2parameters.trunc_gamma(eta)
   dens <- ifelse(
     test = (y < a) | (y > b),
@@ -34,8 +39,9 @@ dtrunc.trunc_gamma <- function(y, eta, a = 0, b = Inf) {
   } else {
     F.b <- 1
   }
-  const <- 1 / (F.b - F.a)
-  return(dens * const)
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc
@@ -43,7 +49,7 @@ dtrunc.trunc_gamma <- function(y, eta, a = 0, b = Inf) {
 dtruncgamma <- dtrunc.trunc_gamma
 
 #' @export
-init.parms.trunc_gamma <- function(y, ...) {
+empiricalParameters.trunc_gamma <- function(y, ...) {
   # Returns  parameter estimates mean and sd
   amean <- mean(y)
   avar <- var(y)

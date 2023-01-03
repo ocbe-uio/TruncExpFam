@@ -1,6 +1,7 @@
 # TruncExpFam (development version)
 
 * Added a `NEWS.md` file to track changes to the package.
+* Added support for simple numeric-class vectors on `mlEstimationTruncDist()` (issue #95)
 * Improved inting (issue #83)
 * Improved unit test coverage (issues #66, #82)
 * Improved output format (issue #89)

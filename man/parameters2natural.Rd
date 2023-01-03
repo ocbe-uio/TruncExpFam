@@ -18,7 +18,7 @@ Convert distribution parameters to natural parameters
 \examples{
 # Poisson distribution
 samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-parameters2natural(init.parms(samp))
+parameters2natural(empiricalParameters(samp))
 }
 \seealso{
 \code{\link[=natural2parameters]{natural2parameters()}}

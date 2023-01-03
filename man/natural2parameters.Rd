@@ -17,7 +17,7 @@ Convert natural parameters to distribution parameters
 }
 \examples{
 samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-lambda_hat <- init.parms(samp)
+lambda_hat <- empiricalParameters(samp)
 eta_hat <- parameters2natural(lambda_hat)
 natural2parameters(eta_hat)  # yields back lambda
 }

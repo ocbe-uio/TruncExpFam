@@ -12,6 +12,7 @@
 #' (i.e., prints every \code{print.iter} iterations)
 #' @param ny size of intermediate y range sequence. Higher values yield better
 #' estimations but slower iterations
+#' @param family distribution family to use
 #' @param ... other parameters passed to subfunctions
 #' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating
 #' an interval for printing every `X` iterations.
@@ -73,15 +74,21 @@
 #' estmation of the underlying distribution * parameters.
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 100,
-  delta = 0.33, print.iter = 0, ny = 100, ...
+  delta = 0.33, print.iter = 0, ny = 100, family = NULL, ...
 ) {
+  # Parsing family name
+  if (is(y, "numeric")) {
+    y <- welcomeToFamily(y, family)
+    y.min <- min(y)
+    y.max <- max(y)
+  }
   # Some initialisations
   if (as.numeric(print.iter) > 0) {
     distro_name <- gsub("trunc_", "", class(y))
     message("Estimating parameters for the ", distro_name, " distribution")
   }
   T.avg <- averageT(y)
-  eta.j <- parameters2natural(init.parms(y))
+  eta.j <- parameters2natural(empiricalParameters(y, ...))
   y.seq <- getYseq(y, y.min, y.max, ny) # y-values to calculate expectations
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
@@ -117,13 +124,14 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
       " You might want to run again with a higher value for max.it"
     )
   }
+  class(parm) <- "numeric"
   return(parm)
 }
 
 getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
   # Calculates T.bar-E(T|eta_j) by numerical integration
   delta.y <- y.seq[2] - y.seq[1] # step length, length(y.seq)=L
-  trunc.density <- dtrunc(y.seq, eta, y.min, y.max) # L vector
+  trunc.density <- dtrunc(y.seq, eta = eta, a = y.min, b = y.max) # L vector
   T.f <- sufficientT(y.seq) * trunc.density # L x p matrix
   if (length(eta) > 1) {
     E.T.j <- delta.y * apply(T.f, 2, sum) # 1 x p
@@ -138,4 +146,28 @@ getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
   }
   T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
   return(T.bar.minus.E.T.j)
+}
+
+welcomeToFamily <- function(y, family) {
+  # Configure attributes of a numeric vector y according to its family
+  if (is.null(family) && is(y, "numeric")) {
+    stop("Please choose an underlying distribution to the 'family' argument.")
+  }
+  if (!is.null(family)) {
+    # Adding proper family attributes
+    family <- useStandardFamilyName(family)
+    if (!is(y, "numeric")) {
+      message("Data is originally ", class(y), ". Treating as ", family)
+    }
+    class(y) <- paste0("trunc_", family)
+    attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
+    attr(y, "parameters") <- switch(
+      class(y),
+      "trunc_binomial" = list("size" = max(y)),
+      "trunc_nbinom" = list("size" = mean(y), "prob" = 0.5),
+      NULL
+    )
+    validateSupport(y, parms = attr(y, "parameters"))
+  }
+  return(y)
 }

@@ -1,19 +1,19 @@
-#' @title Initialize parameters
+#' @title Calculate empirical parameters
 #' @description Returns the empirical parameter estimate for a distribution
 #' @param y output of rtrunc
 #' @param ... other arguments passed to methods
+#' @return A vector of parameter estimates for the input sample
+#' @export
 #' @examples
 #' # Normal distribution
 #' sampNorm <- rtrunc(50, mean = 5, sd = 2)
-#' init.parms(sampNorm)
+#' empiricalParameters(sampNorm)
 #'
 #' # Poisson distribution
 #' sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
-#' init.parms(sampPois)
-#' @export
-#' @return A vector of parameter estimates for the input sample
-init.parms <- function(y, ...) {
-  UseMethod("init.parms")
+#' empiricalParameters(sampPois)
+empiricalParameters <- function(y, ...) {
+  UseMethod("empiricalParameters")
 }
 
 #' @title Convert natural parameters to distribution parameters
@@ -23,7 +23,7 @@ init.parms <- function(y, ...) {
 #' @seealso [parameters2natural()]
 #' @examples
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-#' lambda_hat <- init.parms(samp)
+#' lambda_hat <- empiricalParameters(samp)
 #' eta_hat <- parameters2natural(lambda_hat)
 #' natural2parameters(eta_hat)  # yields back lambda
 natural2parameters <- function(eta) {
@@ -38,7 +38,7 @@ natural2parameters <- function(eta) {
 #' @examples
 #' # Poisson distribution
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
-#' parameters2natural(init.parms(samp))
+#' parameters2natural(empiricalParameters(samp))
 parameters2natural <- function(parms) {
   UseMethod("parameters2natural")
 }
@@ -53,4 +53,20 @@ getYseq <- function(y, y.min, y.max, n) {
 
 getGradETinv <- function(eta, ...) {
   UseMethod("getGradETinv")
+}
+
+#' @title Probability Density Function
+#' @description Calculates the PDF for a given truncated distribution
+#' @param y output from rtrunc or any valid numeric value(s).
+#' @export
+#' @return The density of y for the given values of the \code{eta} parameter.
+#' @examples
+#' # Using the output of rtrunc
+#' y <- rtrunc(50, mean = 5, sd = 2)
+#' dtrunc(y, eta = c(0, -1))
+#'
+#' # Directly-inputting values
+#' dtruncnorm(y = c(5, 0, -10), eta = c(0, -0.05))
+dtrunc <- function(y, ...) {
+  UseMethod("dtrunc", y)
 }

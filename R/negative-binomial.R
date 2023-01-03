@@ -20,7 +20,12 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
 #' @rdname dtrunc
 #' @param ... size
 #' @export
-dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
+dtrunc.trunc_nbinom <- function(
+  y, size, prob, eta, a = 0, b = Inf, ...
+) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_nbinom(c("size" = size, "prob" = prob))
+  }
   nsize <- attr(y, "parameters")$size
   proba <- attr(y, "parameters")$prob
   my.dnbinom <- function(y, nsize, proba) dnbinom(y, size = nsize, prob = proba)
@@ -28,13 +33,23 @@ dtruncnbinom <- dtrunc.trunc_nbinom <- function(y, eta, a = 0, b = Inf, ...) {
   dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(y, nsize, proba))
   F.a <- my.pnbinom(a - 1, nsize, proba)
   F.b <- my.pnbinom(b, nsize, proba)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @export
-init.parms.trunc_nbinom <- function(y, ...) {
+#' @rdname dtrunc
+dtruncnbinom <- dtrunc.trunc_nbinom
+
+#' @export
+empiricalParameters.trunc_nbinom <- function(y, r, k, ...) {
   # Returns empirical parameter estimate for lambda
-  parms <- c("mean" = mean(y))
+  if (missing(r) || missing(k)) {
+    parms <- c("mean" = mean(y))
+  } else {
+    parms <- c("size" = r, "prob" = (r - 1) / (r + k - 1))
+  }
   class(parms) <- "trunc_nbinom"
   return(parms)
 }
@@ -55,12 +70,16 @@ natural2parameters.trunc_nbinom <- function(eta) {
 parameters2natural.trunc_nbinom <- function(parms) {
   # parms: The p parameter in a negative binomial distribution
   # returns the natural parameters
-  eta <- log(parms)
-  class(eta) <- class(parms)
+  if (all(names(parms) == c("size", "prob"))) {
+    mean <- parms[["size"]] * (1 - parms[["prob"]]) / parms[["prob"]]
+  } else {
+    mean <- parms[["mean"]]
+  }
+  eta <- prepEta(log(mean), class(parms))
   return(eta)
 }
 
-getGradETinv.trunc_nbinom <- function(eta, r) {
+getGradETinv.trunc_nbinom <- function(eta, r = 1e3, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   p <- exp(eta)

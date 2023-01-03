@@ -2,7 +2,7 @@
 #' @param y Numeric vector containing observations from a random variable
 #' @param family Distribution family to assume for \code{y}
 #' @param natural Should output be in terms of the natural parameter eta?
-#' @param ... arguments passed to [init.parms()]
+#' @param ... arguments passed to [empiricalParameters()]
 #' @export
 #' @examples
 #' # Some random data
@@ -14,14 +14,18 @@
 #' )
 #'
 #' # Extracting parameters under different distribution assumptions
-#' extractParameters(x, family = "normal")
-#' extractParameters(x, family = "normal", natural = TRUE)
-#' extractParameters(x, family = "binomial", nsize = max(x))
-#' extractParameters(x, family = "poisson", natural = FALSE)
-#' extractParameters(x, family = "poisson", natural = TRUE)
-extractParameters <- function(y, family = "gaussian", natural = FALSE, ...) {
-  class(y) <- paste0("trunc_", useStandardFamilyName(family))
-  parms <- init.parms(y, ...)
+#' empiricalParameters(x, family = "normal")
+#' empiricalParameters(x, family = "normal", natural = TRUE)
+#' empiricalParameters(x, family = "binomial", nsize = max(x))
+#' empiricalParameters(x, family = "poisson", natural = FALSE)
+#' empiricalParameters(x, family = "poisson", natural = TRUE)
+empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE, ...) {
+  if (substring(class(y), 1, 5) == "trunc") {
+    message("Object is ", class(y), ". Ignoring family argument.")
+  } else {
+    class(y) <- paste0("trunc_", useStandardFamilyName(family))
+  }
+  parms <- empiricalParameters(y, ...)
   validateSupport(y, as.list(parms), ...)
   if (natural) parms <- parameters2natural(parms)
   return(parms)

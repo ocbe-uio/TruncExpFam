@@ -13,8 +13,11 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size) {
 
 #' @export
 dtrunc.trunc_binomial <- function(
-  y, eta, a = 0, b = attr(y, "parameters")$size, ...
+  y, size, prob, eta, a = 0, b = attr(y, "parameters")$size, ...
 ) {
+  if (missing(eta)) {
+    eta <- parameters2natural.trunc_binomial(c("size" = size, "prob" = prob))
+  }
   nsize <- attr(y, "parameters")$size
   my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
   my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
@@ -22,7 +25,9 @@ dtrunc.trunc_binomial <- function(
   dens <- ifelse((y < a) | (y > b), 0, my.dbinom(nsize))
   F.a <- my.pbinom(a - 1, nsize)
   F.b <- my.pbinom(b, nsize)
-  return(dens / (F.b - F.a))
+  dens <- dens / (F.b - F.a)
+  attributes(dens) <- attributes(y)
+  return(dens)
 }
 
 #' @rdname dtrunc
@@ -31,13 +36,13 @@ dtrunc.trunc_binomial <- function(
 dtruncbinom <- dtrunc.trunc_binomial
 
 #' @export
-init.parms.trunc_binomial <- function(y, nsize = attr(y, "parameters")$size, ...) {
-  # Returns empirical parameter estimate for lambda
-  if (is.null(nsize) || !nsize) stop("Please inform the value of nsize")
-  parms <- mean(y / nsize)
-  attr(parms, "nsize") <- nsize
+empiricalParameters.trunc_binomial <- function(y, size, ...) {
+  # Returns empirical parameter estimates
+  if (missing(size)) {
+    size <- max(y)
+  }
+  parms <- c("size" = size, "prob" = mean(y) / size)
   class(parms) <- "trunc_binomial"
-  names(parms) <- "prob"
   return(parms)
 }
 
@@ -58,11 +63,13 @@ natural2parameters.trunc_binomial <- function(eta) {
 parameters2natural.trunc_binomial <- function(parms) {
   # parms: The probability parameter p in a binomial distribution
   # returns the natural parameters
-  eta <- prepEta(log(parms / (1 - parms)), class(parms))
+  prob <- parms[["prob"]]
+  eta <- prepEta(log(prob / (1 - prob)), class(parms))
+  attr(eta, "nsize") <- parms[["size"]]
   return(eta)
 }
 
-getGradETinv.trunc_binomial <- function(eta) {
+getGradETinv.trunc_binomial <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   nsize <- attr(eta, "nsize")
