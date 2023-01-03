@@ -17,19 +17,7 @@ dtrunc.trunc_normal <- function(y, mean = 0, sd = 1, eta, a = -Inf, b = Inf, ...
     eta <- parameters2natural.trunc_normal(c(mean, sd))
   }
   parm <- natural2parameters.trunc_normal(eta)
-  dens <- ifelse((y < a) | (y > b), 0, dnorm(y, mean = parm[1], sd = parm[2]))
-  if (!missing(a)) {
-    F.a <- pnorm(a, parm[1], parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pnorm(b, parm[1], parm[2])
-  } else {
-    F.b <- 1
-  }
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dnorm, pnorm, parm[1], parm[2])
   return(dens)
 }
 

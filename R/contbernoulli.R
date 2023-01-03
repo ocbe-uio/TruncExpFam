@@ -40,11 +40,7 @@ dtrunc.trunc_contbern <- function(
     eta <- parameters2natural.trunc_contbern(c("lambda" = lambda))
   }
   lambda <- natural2parameters.trunc_contbern(eta)
-  dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda = lambda))
-  F.a <- pcontbern(a, lambda)
-  F.b <- pcontbern(b, lambda)
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dcontbern, pcontbern, lambda)
   return(dens)
 }
 
