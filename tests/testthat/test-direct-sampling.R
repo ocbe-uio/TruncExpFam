@@ -7,4 +7,10 @@ test_that("Original parameters are retrieved", {
     c("mean" = 1, "sd" = 2),
     tolerance = 1e-2
   )
+  beta_1 <- rtrunc(1e5, shape1 = 3, shape2 = 9, faster = TRUE, family = "beta")
+  expect_equal(
+    mlEstimationTruncDist(beta_1),
+    c("shape1" = 3, "shape2" = 9),
+    tolerance = 1e-2
+  )
 })
