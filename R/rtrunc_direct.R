@@ -17,10 +17,9 @@ rtrunc_direct <- function(n, family = "gaussian", ...) {
 #' @export
 #' @importFrom stats qnorm
 rtrunc_direct.normal <- function(n, family, mean = 0, sd = 1, a = -Inf, b = Inf, ...) {
-  p <- runif(n)
   F_a <- cumDens(a, pnorm, mean, sd)
   F_b <- cumDens(b, pnorm, mean, sd)
-  q_T <- qnorm(p * (F_b - F_a) + F_a, mean, sd)
+  q_T <- qnorm(runif(n) * (F_b - F_a) + F_a, mean, sd)
   class(q_T) <- paste0("trunc_", class(n))
   q_T <- attachDistroAttributes(q_T, class(n), c(parms, "a" = a, "b" = b))
   return(q_T)
