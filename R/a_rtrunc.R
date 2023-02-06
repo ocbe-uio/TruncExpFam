@@ -93,13 +93,6 @@ rtrunc <- function(n, family = "gaussian", faster = FALSE, ...) {
   } else {
     sample <- rtrunc.generic(n, ...)
   }
-  saved_attributes <- attributes(sample)
-
-  # Attaching attributes -----------------------------------------------------
-  attributes(sample) <- saved_attributes
-
-  # Returning sampled elements -----------------------------------------------
-  return(sample)
 }
 
 rtrunc.generic <- function(n, ...) {
