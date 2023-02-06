@@ -6,6 +6,7 @@
 \name{rtrunc}
 \alias{rtrunc}
 \alias{rtrunc.beta}
+\alias{rtruncbeta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
 \alias{rtrunccontbern}
@@ -23,6 +24,8 @@
 rtrunc(n, family = "gaussian", faster = FALSE, ...)
 
 rtrunc.beta(n, shape1, shape2, a = 0, b = 1)
+
+rtruncbeta(n, shape1, shape2, a = 0, b = 1)
 
 rtruncbinom(n, size, prob, a = 0, b = size)
 

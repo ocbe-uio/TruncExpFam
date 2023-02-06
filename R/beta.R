@@ -12,8 +12,12 @@ rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
   class(n) <- "trunc_beta"
   sampleFromTruncated(mget(ls()))
 }
+
+#' @rdname rtrunc
+#' @export
 rtruncbeta <- rtrunc.beta
 
+#' @importFrom stats dbeta pbeta
 #' @export
 dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
   if (missing(eta)) {
@@ -24,10 +28,8 @@ dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
   return(dens)
 }
 
-#' @importFrom stats dbeta pbeta
-#' @inheritParams rtrunc.beta
-#' @param eta vector of natural parameters
 #' @rdname dtrunc
+#' @inheritParams rtrunc
 #' @export
 dtruncbeta <- dtrunc.trunc_beta
 
