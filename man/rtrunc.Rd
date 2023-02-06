@@ -107,7 +107,7 @@ information on how to use this function.
 \details{
 One way to use this function is by calling the \code{rtrunc}
 generic with the \code{family} parameter of your choice. You can also
-specifically call one of the methods (e.g. \code{rtrunc.poisson(10, lambda=3)}
+specifically call one of the methods (e.g. \code{rtruncpois(10, lambda=3)}
 instead of `rtrunc(10, family="poisson", lambda=3)). The latter is more
 flexible (i.e., easily programmable) and more robust (i.e., it contains
 better error handling and validation procedures), while the former better
