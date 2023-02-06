@@ -2,7 +2,7 @@
 % Please edit documentation in R/a_rtrunc.R, R/beta.R, R/binomial.R, R/chisq.R,
 %   R/contbernoulli.R, R/exponential.R, R/gamma.R, R/inverse-gamma.R,
 %   R/inverse-gaussian.R, R/log-normal.R, R/negative-binomial.R, R/normal.R,
-%   R/poisson.R
+%   R/poisson.R, R/rtrunc_direct.R
 \name{rtrunc}
 \alias{rtrunc}
 \alias{rtrunc.beta}
@@ -17,6 +17,7 @@
 \alias{rtruncnbinom}
 \alias{rtruncnorm}
 \alias{rtruncpois}
+\alias{rtrunc_direct}
 \title{The Truncated Exponential Family}
 \usage{
 rtrunc(n, family = "gaussian", ...)
@@ -44,6 +45,8 @@ rtruncnbinom(n, size, prob, mu, a = 0, b = Inf)
 rtruncnorm(n, mean, sd, a = -Inf, b = Inf)
 
 rtruncpois(n, lambda, a = 0, b = Inf)
+
+rtrunc_direct(n, family = "gaussian", ...)
 }
 \arguments{
 \item{n}{sample size}
