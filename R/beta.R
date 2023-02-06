@@ -74,6 +74,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   lo <- max(y.min, mean - 5 * sd)
   hi <- min(y.max, mean + 5 * sd)
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0 & out < 1]
   class(out) <- class(y)
   return(out)
 }
