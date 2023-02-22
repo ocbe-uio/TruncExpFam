@@ -41,6 +41,14 @@ rtrunc_direct.chisq <- function(n, family, df, a = 0, b = Inf, ...) {
   return(q_T)
 }
 
+#' @export
+rtrunc_direct.contbern <- function(n, family, lambda, a = 0, b = 1, ...) {
+  F_a <- cumDens(a, pcontbern, lambda)
+  F_b <- cumDens(b, pcontbern, lambda)
+  q_T <- truncated_q(qcontbern(runif(n) * (F_b - F_a) + F_a, lambda), mget(ls()))
+  return(q_T)
+}
+
 cumDens <- function(x, probFunction, ...) {
   if (x == -Inf || x == 0) {
     return(0)

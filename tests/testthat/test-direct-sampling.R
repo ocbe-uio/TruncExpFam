@@ -53,6 +53,23 @@ test_that("Original attributes are retrieved", {
     c("df" = 30),
     tolerance= 1e-2
   )
+
+  # Contbern
+  contbern_1 <- rtrunc(1e5, lambda = .6, faster = TRUE, family = "contbern")
+  expect_equal(
+    attributes(contbern_1),
+    list(
+      "class" = "trunc_contbern",
+      "parameters" = list("lambda" = .6),
+      "truncation_limits" = list("a" = 0, "b" = 1),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(contbern_1),
+    c("lambda" = .6),
+    tolerance= 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")
@@ -93,4 +110,18 @@ test_that("Truncation is not a speed limiter", {
     rtrunc(n, family = "chisq", df = 10, b = 1, faster = TRUE),
     n
   )
+
+  # Contbern
+  expect_error({
+      setTimeLimit(time_limit)
+      rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2)
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2, faster = TRUE),
+    n
+  )
 })
+
+setTimeLimit(Inf)
