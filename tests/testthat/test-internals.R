@@ -6,6 +6,6 @@ test_that("qcontbern works", {
   for (t in seq_len(tests)) {
     prob <- runif(1)
     lamb <- runif(1)
-    expect_equal(pcontbern(qcontbern(prob, lamb), lamb), prob, tolerance = 1e-3)
+    expect_equal(pcontbern(qcontbern(prob, lamb), lamb), prob)
   }
 })
