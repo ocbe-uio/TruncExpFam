@@ -72,6 +72,7 @@ getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
   lo <- max(y.min, mean - 5 * sd)
   hi <- min(y.max, mean + 5 * sd)
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0] # prevents NaN as sufficient statistics
   class(out) <- class(y)
   return(out)
 }

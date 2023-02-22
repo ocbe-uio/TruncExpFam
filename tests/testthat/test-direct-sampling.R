@@ -70,6 +70,40 @@ test_that("Original attributes are retrieved", {
     c("lambda" = .6),
     tolerance= 1e-1
   )
+
+  # Exp
+  exp_1 <- rtrunc(1e5, rate = 64, faster = TRUE, family = "exp")
+  expect_equal(
+    attributes(exp_1),
+    list(
+      "class" = "trunc_exp",
+      "parameters" = list("rate" = 64),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(exp_1),
+    c("rate" = 1 / 64),
+    tolerance= 1e-2
+  )
+
+  # Gamma
+  gamma_1 <- rtrunc(1e5, rate = 3, shape = .4, faster = TRUE, family = "gamma")
+  expect_equal(
+    attributes(gamma_1),
+    list(
+      "class" = "trunc_gamma",
+      "parameters" = list("shape" = .4, "rate" = 3),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(gamma_1),
+    c("shape" = 3, "rate" = .4),
+    tolerance= 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")
@@ -120,6 +154,30 @@ test_that("Truncation is not a speed limiter", {
   )
   expect_length(
     rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2, faster = TRUE),
+    n
+  )
+
+  # Exp
+  expect_error({
+      setTimeLimit(time_limit)
+      rtrunc(n, rate = .2, family = "exp", b = .1)
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, rate = .2, family = "exp", b = .1, faster = TRUE),
+    n
+  )
+
+  # Gamma
+  expect_error({
+      setTimeLimit(time_limit)
+      summary(rtrunc(n, family = "gamma", shape = 5, rate = 4, a = 4))
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, family = "gamma", shape = 5, rate = 4, a = 4, faster = TRUE),
     n
   )
 })

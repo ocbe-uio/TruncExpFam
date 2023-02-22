@@ -49,6 +49,26 @@ rtrunc_direct.contbern <- function(n, family, lambda, a = 0, b = 1, ...) {
   return(q_T)
 }
 
+#' @export
+#' @importFrom stats qexp
+rtrunc_direct.exp <- function(n, family, rate, a = 0, b = Inf, ...) {
+  F_a <- cumDens(a, pexp, rate)
+  F_b <- cumDens(b, pexp, rate)
+  q_T <- truncated_q(qexp(rescaled_q(n, F_a, F_b), rate), mget(ls()))
+  return(q_T)
+}
+
+#' @export
+#' @importFrom stats qgamma
+rtrunc_direct.gamma <- function(
+  n, family, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ...
+) {
+  F_a <- cumDens(a, pgamma, rate, scale)
+  F_b <- cumDens(b, pgamma, rate, scale)
+  q_T <- truncated_q(qgamma(rescaled_q(n, F_a, F_b), rate, scale), mget(ls()))
+  return(q_T)
+}
+
 cumDens <- function(x, probFunction, ...) {
   if (x == -Inf || x == 0) {
     return(0)
