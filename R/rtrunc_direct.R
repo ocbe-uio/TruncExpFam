@@ -38,6 +38,18 @@ rtrunc_direct.beta <- function(n, family, shape1, shape2, a = 0, b = 1, ...) {
   return(q_T)
 }
 
+#' @export
+#' @importFrom stats qchisq
+rtrunc_direct.chisq <- function(n, family, df, a = 0, b = Inf, ...) {
+  F_a <- cumDens(a, pchisq, df)
+  F_b <- cumDens(b, pchisq, df)
+  q_T <- qchisq(runif(n) * (F_b - F_a) + F_a, df)
+  class(q_T) <- paste0("trunc_", class(n))
+  parms <- list(...)
+  q_T <- attachDistroAttributes(q_T, class(n), c(list, "a" = a, "b" = b))
+  return(q_T)
+}
+
 cumDens <- function(x, probFunction, ...) {
   if (x == -Inf || x == 0) {
     return(0)
