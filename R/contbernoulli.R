@@ -27,12 +27,13 @@ dcontbern <- function(x, lambda) {
 }
 
 qcontbern <- function(p, lambda) {
-  # quick-and-dirty solution (optimize whenever)
-  tolerance = 1e-3
-  for (q in seq(0, 1, tolerance / 10)) {
-    if (abs(p - pcontbern(q, lambda)) < tolerance) {
-      return(q)
-    }
+  if (lambda == .5) {
+    return(p)
+  } else {
+    term1 <- log(2 * lambda * p - p + 1 - lambda)
+    term2 <- log(1 - lambda)
+    term3 <- log(lambda)
+    return((term1 - term2) / (term3 - term2))
   }
 }
 
