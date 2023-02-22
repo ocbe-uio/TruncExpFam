@@ -26,6 +26,16 @@ dcontbern <- function(x, lambda) {
   return(d)
 }
 
+qcontbern <- function(p, lambda) {
+  # quick-and-dirty solution (optimize whenever)
+  tolerance = 1e-3
+  for (q in seq(0, 1, tolerance / 10)) {
+    if (abs(p - pcontbern(q, lambda)) < tolerance) {
+      return(q)
+    }
+  }
+}
+
 # untruncated version (not implemented in base R)
 pcontbern <- function(x, lambda) {
   p <- ((lambda^x) * (1 - lambda) ^ (1 - x) + lambda - 1) / (2 * lambda - 1)
