@@ -28,13 +28,7 @@ dtrunc.trunc_nbinom <- function(
   }
   nsize <- attr(y, "parameters")$size
   proba <- attr(y, "parameters")$prob
-  my.dnbinom <- function(y, nsize, proba) dnbinom(y, size = nsize, prob = proba)
-  my.pnbinom <- function(z, nsize, proba) pnbinom(z, size = nsize, prob = proba)
-  dens <- ifelse((y < a) | (y > b), 0, my.dnbinom(y, nsize, proba))
-  F.a <- my.pnbinom(a - 1, nsize, proba)
-  F.b <- my.pnbinom(b, nsize, proba)
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dnbinom, pnbinom, nsize, proba)
   return(dens)
 }
 

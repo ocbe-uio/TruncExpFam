@@ -17,11 +17,7 @@ dtrunc.trunc_chisq <- function(y, df, eta, a = 0, b = Inf, ...) {
     eta <- parameters2natural.trunc_chisq(c("df" = df))
   }
   df <- natural2parameters.trunc_chisq(eta)
-  dens <- ifelse((y <= a) | (y > b), 0, dchisq(y, df = df))
-  F.a <- pchisq(a, df)
-  F.b <- pchisq(b, df)
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dchisq, pchisq, df)
   return(dens)
 }
 
@@ -70,6 +66,7 @@ getYseq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
   lo <- max(round(y.min), 0)
   hi <- min(y.max, round(mean + 10 * sqrt(var.y)))
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0] # prevents NaN as sufficient statistics
   class(out) <- class(y)
   return(out)
 }

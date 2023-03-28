@@ -145,40 +145,40 @@ test_that("Only passing some parameters is OK", {
   set.seed(6)
   x1 <- rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, a = 40, b = 60)
   set.seed(6)
-  x2 <- rtrunc(1e3, "gaussian", 50, 12, 40, 60)
+  x2 <- rtrunc(1e3, "gaussian", FALSE, 50, 12, 40, 60)
   set.seed(6)
   x3 <- rtrunc(1e3, family = "gaussian", mean = 50, sd = 12, a = 40, b = 60)
   set.seed(6)
   x4 <- rtrunc(n = 1e3, "gaussian", mean = 50, sd = 12, a = 40, b = 60)
 
   expect_warning(
-    rtrunc(n = 1e3, family = "gaussian", 50, sd = 12, a = 40, b = 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, 50, sd = 12, a = 40, b = 60)
   )
   expect_warning(
-    rtrunc(n = 1e3, family = "gaussian", mean = 50, 12, a = 40, b = 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, mean = 50, 12, a = 40, b = 60)
   )
   expect_warning(
-    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, 40, b = 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, mean = 50, sd = 12, 40, b = 60)
   )
   expect_warning(
-    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, a = 40, 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, mean = 50, sd = 12, a = 40, 60)
   )
 
   set.seed(6)
   x5 <- suppressWarnings(
-    rtrunc(n = 1e3, family = "gaussian", 50, sd = 12, a = 40, b = 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, 50, sd = 12, a = 40, b = 60)
   )
   set.seed(6)
   x6 <- suppressWarnings(
-    rtrunc(n = 1e3, family = "gaussian", mean = 50, 12, a = 40, b = 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, mean = 50, 12, a = 40, b = 60)
   )
   set.seed(6)
   x7 <- suppressWarnings(
-    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, 40, b = 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, mean = 50, sd = 12, 40, b = 60)
   )
   set.seed(6)
   x8 <- suppressWarnings(
-    rtrunc(n = 1e3, family = "gaussian", mean = 50, sd = 12, a = 40, 60)
+    rtrunc(n = 1e3, family = "gaussian",  FALSE, mean = 50, sd = 12, a = 40, 60)
   )
 
   expect_equal(x1, x2)

@@ -24,23 +24,7 @@ dtrunc.trunc_gamma <- function(
     eta <- parameters2natural.trunc_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_gamma(eta)
-  dens <- ifelse(
-    test = (y < a) | (y > b),
-    yes  = 0,
-    no   = dgamma(y, shape = parm[1], rate = parm[2])
-  )
-  if (!missing(a)) {
-    F.a <- pgamma(a, shape = parm[1], rate = parm[2])
-  } else {
-    F.a <- 0
-  }
-  if (!missing(b)) {
-    F.b <- pgamma(b, shape = parm[1], rate = parm[2])
-  } else {
-    F.b <- 1
-  }
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm[1], parm[2])
   return(dens)
 }
 
@@ -88,6 +72,7 @@ getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
   lo <- max(y.min, mean - 5 * sd)
   hi <- min(y.max, mean + 5 * sd)
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0] # prevents NaN as sufficient statistics
   class(out) <- class(y)
   return(out)
 }

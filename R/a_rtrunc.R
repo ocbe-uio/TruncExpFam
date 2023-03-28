@@ -6,6 +6,8 @@
 #' @param a point of left truncation
 #' @param b point of right truncation
 #' @param family distribution family to use
+#' @param faster if \code{TRUE}, samples directly from the truncated
+#' distribution (more info in details)
 #' @param ... individual arguments to each distribution
 #' @return A sample of size n drawn from a truncated distribution
 #' @note The current sample-generating algorithm may be slow if the distribution
@@ -15,12 +17,21 @@
 #' @author René Holst, Waldir Leôncio
 #' @details One way to use this function is by calling the `rtrunc`
 #' generic with the `family` parameter of your choice. You can also
-#' specifically call one of the methods (e.g. `rtrunc.poisson(10, lambda=3)`
+#' specifically call one of the methods (e.g. `rtruncpois(10, lambda=3)`
 #' instead of `rtrunc(10, family="poisson", lambda=3)). The latter is more
 #' flexible (i.e., easily programmable) and more robust (i.e., it contains
 #' better error handling and validation procedures), while the former better
 #' conforms with the nomenclature from other distribution-related functions in
 #' the \code{stats} package.
+#'
+#' Setting \code{faster=TRUE} uses a new algorithm that samples directly from
+#' the truncated distribution, as opposed to the old algorithm that samples
+#' from the untruncated distribution and then truncates the result. The
+#' advantage of the new algorithm is that it is way faster than the old one,
+#' particularly for highly-truncated distributions. On the other hand, the
+#' sample for untruncated distributions called through `rtrunc()` will no longer
+#' match their \code{stats}-package counterparts for the same seed.
+#'
 #' @importFrom methods new
 #' @return vector of one of the \code{rtrunc_*} classes containing the sample
 #' elements, as well as some attributes related to the chosen distribution.
@@ -60,7 +71,11 @@
 #' sample.pois
 #' plot(table(sample.pois))
 #' @export
-rtrunc <- function(n, family = "gaussian", ...) {
+rtrunc <- function(n, family = "gaussian", faster = FALSE, ...) {
+  # This is **not a generic function**, so it doesn't do any class-dispatching.
+  # Instead, it relies on the "family" argument for dispatching. Internally,
+  # however, this function does use rtrunc.generic() for S3-dispatching
+  # according to the class of n.
 
   # Validating ---------------------------------------------------------------
   family <- tolower(family)
@@ -73,14 +88,11 @@ rtrunc <- function(n, family = "gaussian", ...) {
   class(extra_n) <- class(n) <- trunc_class
 
   # Generating sample --------------------------------------------------------
-  sample <- rtrunc.generic(n, ...)
-  saved_attributes <- attributes(sample)
-
-  # Attaching attributes -----------------------------------------------------
-  attributes(sample) <- saved_attributes
-
-  # Returning sampled elements -----------------------------------------------
-  return(sample)
+  if (faster) {
+    sample <- rtrunc_direct(n, family, ...)
+  } else {
+    sample <- rtrunc.generic(n, ...)
+  }
 }
 
 rtrunc.generic <- function(n, ...) {

@@ -26,6 +26,17 @@ dcontbern <- function(x, lambda) {
   return(d)
 }
 
+qcontbern <- function(p, lambda) {
+  if (lambda == .5) {
+    return(p)
+  } else {
+    term1 <- log(2 * lambda * p - p + 1 - lambda)
+    term2 <- log(1 - lambda)
+    term3 <- log(lambda)
+    return((term1 - term2) / (term3 - term2))
+  }
+}
+
 # untruncated version (not implemented in base R)
 pcontbern <- function(x, lambda) {
   p <- ((lambda^x) * (1 - lambda) ^ (1 - x) + lambda - 1) / (2 * lambda - 1)
@@ -40,11 +51,7 @@ dtrunc.trunc_contbern <- function(
     eta <- parameters2natural.trunc_contbern(c("lambda" = lambda))
   }
   lambda <- natural2parameters.trunc_contbern(eta)
-  dens <- ifelse((y <= a) | (y > b), 0, dcontbern(y, lambda = lambda))
-  F.a <- pcontbern(a, lambda)
-  F.b <- pcontbern(b, lambda)
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dcontbern, pcontbern, lambda)
   return(dens)
 }
 

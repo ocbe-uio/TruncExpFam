@@ -12,30 +12,24 @@ rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
   class(n) <- "trunc_beta"
   sampleFromTruncated(mget(ls()))
 }
+
+#' @rdname rtrunc
+#' @export
 rtruncbeta <- rtrunc.beta
 
+#' @importFrom stats dbeta pbeta
 #' @export
 dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
   if (missing(eta)) {
     eta <- parameters2natural.trunc_beta(c(shape1, shape2))
   }
   parm <- natural2parameters.trunc_beta(eta)
-  dens <- ifelse(
-    test = (y < a) | (y > b),
-    yes  = 0,
-    no   = dbeta(y, shape1 = parm[1], shape2 = parm[2])
-  )
-  F.a <- pbeta(a, shape1 = parm[1], shape2 = parm[2])
-  F.b <- pbeta(b, shape1 = parm[1], shape2 = parm[2])
-  dens <- dens / (F.b - F.a)
-  attributes(dens) <- attributes(y)
+  dens <- rescaledDensities(y, a, b, dbeta, pbeta, parm[1], parm[2])
   return(dens)
 }
 
-#' @importFrom stats dbeta pbeta
-#' @inheritParams rtrunc.beta
-#' @param eta vector of natural parameters
 #' @rdname dtrunc
+#' @inheritParams rtrunc
 #' @export
 dtruncbeta <- dtrunc.trunc_beta
 
@@ -80,6 +74,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   lo <- max(y.min, mean - 5 * sd)
   hi <- min(y.max, mean + 5 * sd)
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0 & out < 1] # prevents NaN as sufficient statistics
   class(out) <- class(y)
   return(out)
 }
