@@ -42,7 +42,7 @@ sufficientT.trunc_exp <- function(y) {
 natural2parameters.trunc_exp <- function(eta) {
   # eta: The natural parameters in an exponential distribution distribution
   # returns rate
-  lambda <- c(rate = -eta)
+  lambda <- c(rate = -eta[[1]])
   class(lambda) <- class(eta)
   return(lambda)
 }
@@ -51,7 +51,7 @@ natural2parameters.trunc_exp <- function(eta) {
 parameters2natural.trunc_exp <- function(parms) {
   # parms: The parameter lambda in an exponential distribution
   # returns the natural parameters
-  eta <- -parms
+  eta <- c("eta" = -parms[["rate"]])
   class(eta) <- class(parms)
   return(eta)
 }

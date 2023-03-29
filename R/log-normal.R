@@ -22,7 +22,7 @@ dtrunc.trunc_lognormal <- function(
   if (missing(eta)) {
     eta <- parameters2natural.trunc_lognormal(c("meanlog" = meanlog, "sdlog" = sdlog))
   }
-  parm <- natural2parameters.trunc_normal(eta)
+  parm <- natural2parameters.trunc_lognormal(eta)
   dens <- rescaledDensities(y, a, b, dlnorm, plnorm, parm[1], parm[2])
   return(dens)
 }
@@ -54,12 +54,16 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 
 #' @export
 natural2parameters.trunc_lognormal <- function(eta) {
-  natural2parameters.trunc_normal(eta)
+  parms <- c("meanlog" = -0.5 * eta[[1]] / eta[[2]], "sdlog" = sqrt(-0.5 / eta[[2]]))
+  class(parms) <- class(eta)
+  return(parms)
 }
 
 #' @export
 parameters2natural.trunc_lognormal <- function(parms) {
-  parameters2natural.trunc_normal(parms)
+  eta <- c(eta.1 = parms[["meanlog"]], eta.2 = -0.5) / parms[["sdlog"]]^2
+  class(eta) <- class(parms)
+  return(eta)
 }
 
 getGradETinv.trunc_lognormal <- function(eta) {

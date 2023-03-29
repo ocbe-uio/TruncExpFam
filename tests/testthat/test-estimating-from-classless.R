@@ -44,7 +44,7 @@ test_that("Estimation works, in general", {
     mlEstimationTruncDist(cont0inf, family = "invgauss", tol = .1), c("m", "s")
   )
   expect_named(
-    mlEstimationTruncDist(cont0inf, family = "lognormal"), c("mean", "sd")
+    mlEstimationTruncDist(cont0inf, family = "lognormal"), c("meanlog", "sdlog")
   )
   expect_named(
     mlEstimationTruncDist(disc0inf, family = "nbinom"), c("mean")

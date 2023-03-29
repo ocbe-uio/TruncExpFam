@@ -51,7 +51,7 @@ sufficientT.trunc_gamma <- function(y) {
 natural2parameters.trunc_gamma <- function(eta) {
   # eta: The natural parameters in a gamma distribution
   # returns (shape,rate)
-  parms <- c(shape = eta[1] + 1, rate = -eta[2])
+  parms <- c(shape = eta[[1]] + 1, rate = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }
@@ -60,7 +60,13 @@ natural2parameters.trunc_gamma <- function(eta) {
 parameters2natural.trunc_gamma <- function(parms) {
   # parms: The parameters shape and rate in a gamma distribution
   # returns the natural parameters
-  eta <- c(eta.1 = parms[1] - 1, eta.2 = -parms[2])
+  if (all(c("shape", "rate") %in% names(parms))) {
+    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -parms[["rate"]])
+  } else if (all(c("shape", "scale") %in% names(parms))) {
+    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
+  } else {
+    stop("Invalid gamma parameters: ", names(parms))
+  }
   class(eta) <- class(parms)
   return(eta)
 }

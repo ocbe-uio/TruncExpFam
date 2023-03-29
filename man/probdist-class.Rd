@@ -17,6 +17,8 @@ distribution.
 
 \examples{
 probdist(shape = 2, scale = .25, family = "gamma")
+probdist(mean = 2, sd = 10, family = "normal")
+probdist(eta1 = 2, eta2 = -1, family = "normal")
 }
 \author{
 Waldir Leoncio
