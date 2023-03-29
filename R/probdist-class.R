@@ -1,3 +1,15 @@
+#' @title Probability distribution class
+#' @description An R object describing the properties of a probability
+#' distribution.
+#' @return An RC class containing statistical properties of that distribution,
+#' namely its name, parameter names and values and natural parameter names and
+#' values.
+#' @author Waldir Leoncio
+#' @export probdist
+#' @examples
+#' probdist(shape = 2, scale = .25, family = "gamma")
+#' probdist(mean = 2, sd = 10, family = "normal")
+#' probdist(eta1 = 2, eta2 = -1, family = "normal")
 probdist <- setRefClass(
   Class  = "probdist",
   fields = list(
