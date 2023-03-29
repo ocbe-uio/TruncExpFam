@@ -77,7 +77,7 @@ sufficientT.trunc_contbern <- function(y) {
 natural2parameters.trunc_contbern <- function(eta) {
   # eta: The natural parameters in a continuous bernoulli distribution
   # returns rate
-  rate <- c(lambda = 1 / (1 + exp(-eta)))
+  rate <- c(lambda = 1 / (1 + exp(-eta[[1]])))
   class(rate) <- class(eta)
   return(rate)
 }

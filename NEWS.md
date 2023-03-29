@@ -11,6 +11,7 @@
 * Improved parameter parsing (issue #74)
 * Simplified codebase (issues #91, #77, #78)
 * Added a vignette (issue #53)
+* Created a function to pass and convert distribution parameters (issue #88)
 
 # TruncExpFam 1.0.0
 
