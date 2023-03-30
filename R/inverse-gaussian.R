@@ -57,6 +57,7 @@ parameters2natural.trunc_invgauss <- function(parms) {
 natural2parameters.trunc_invgauss <- function(eta) {
   # eta: The natural parameters in an inverse gaussian distribution
   # returns (mean,shape)
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
   mu <- sqrt(eta[[2]] / eta[[1]])
   lambda <- -2 * eta[[2]]
   parms <- c(m = mu, s = 1 / lambda)

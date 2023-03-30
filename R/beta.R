@@ -54,6 +54,7 @@ sufficientT.trunc_beta <- function(y) {
 natural2parameters.trunc_beta <- function(eta) {
   # eta: The natural parameters in a beta distribution
   # returns (alpha,beta)
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c(shape1 = eta[[1]], shape2 = eta[[2]])
   class(parms) <- class(eta)
   return(parms)

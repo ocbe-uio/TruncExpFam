@@ -54,6 +54,7 @@ sufficientT.trunc_binomial <- function(y) {
 natural2parameters.trunc_binomial <- function(eta) {
   # eta: The natural parameters in a binomial distribution
   # returns (p)
+  if (length(eta) != 1) stop("Eta must be one single number")
   p <- c(prob = 1 / (1 + exp(-eta[[1]])))
   class(p) <- class(eta)
   return(p)

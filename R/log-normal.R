@@ -54,6 +54,7 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 
 #' @export
 natural2parameters.trunc_lognormal <- function(eta) {
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c("meanlog" = -0.5 * eta[[1]] / eta[[2]], "sdlog" = sqrt(-0.5 / eta[[2]]))
   class(parms) <- class(eta)
   return(parms)

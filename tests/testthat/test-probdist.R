@@ -201,4 +201,27 @@ test_that("Poisson parameteres are properly converted", {
   expect_equal(prbdst_nat$nat_parms, c(eta = et))
 })
 
-test_that("Errors are properly caught", {})
+test_that("Errors are properly caught", {
+  expect_error(
+    probdist(shape1 = -1, shape2 = 1, family = "beta"),
+    "Invalid parameter domain"
+  )
+  expect_error(
+    probdist(m = -1, s = 1, family = "binomial"),
+    "The \\{m, s\\} parameter set does not match the binomial family"
+  )
+
+  eta_err_1 <- "Eta must be one single number"
+  eta_err_2 <- "Eta must be a vector of two elements"
+  expect_error(probdist(eta = -5, family = "beta"), eta_err_2)
+  expect_error(probdist(eta1 = 5, eta2 = -2, family = "binomial"), eta_err_1)
+  expect_error(probdist(eta1 = 5, eta2 = -2, family = "chisq"), eta_err_1)
+  expect_error(probdist(eta = -5, eta2 = -2, family = "contbern"), eta_err_1)
+  expect_error(probdist(eta1 = 5, eta2 = -2, family = "exp"), eta_err_1)
+  expect_error(probdist(eta = -5, family = "gamma"), eta_err_2)
+  expect_error(probdist(eta = -5, family = "invgamma"), eta_err_2)
+  expect_error(probdist(eta = -5, family = "invgauss"), eta_err_2)
+  expect_error(probdist(eta = -5, family = "lognormal"), eta_err_2)
+  expect_error(probdist(eta = -5, family = "normal"), eta_err_2)
+  expect_error(probdist(eta1 = 5, eta2 = -2, family = "poisson"), eta_err_1)
+})

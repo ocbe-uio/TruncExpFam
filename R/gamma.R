@@ -51,6 +51,7 @@ sufficientT.trunc_gamma <- function(y) {
 natural2parameters.trunc_gamma <- function(eta) {
   # eta: The natural parameters in a gamma distribution
   # returns (shape,rate)
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c(shape = eta[[1]] + 1, rate = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)

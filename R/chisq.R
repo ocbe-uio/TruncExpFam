@@ -41,6 +41,7 @@ sufficientT.trunc_chisq <- function(y) {
 natural2parameters.trunc_chisq <- function(eta) {
   # eta: The natural parameters in a Chi Square distribution
   # returns df
+  if (length(eta) != 1) stop("Eta must be one single number")
   df <- c(df = 2 * (eta[[1]] + 1))
   class(df) <- class(eta)
   return(df)
