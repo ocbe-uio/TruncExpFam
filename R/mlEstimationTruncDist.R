@@ -20,9 +20,6 @@
 #' maximum likelihood estimation of the parameters of the truncated normal and
 #' lognormal distributions"
 #' @author René Holst
-#' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm
-#' ppois rbinom rgamma rlnorm rnorm rpois var
-#' @importFrom methods is
 #' @examples
 #' sample_size <- 1000
 #' # Normal

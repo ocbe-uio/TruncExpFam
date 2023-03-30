@@ -3,7 +3,6 @@
 ##         Variant 1                                 ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats rbeta
 #' @param shape1 positive shape parameter alpha
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
@@ -17,7 +16,6 @@ rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
 #' @export
 rtruncbeta <- rtrunc.beta
 
-#' @importFrom stats dbeta pbeta
 #' @export
 dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
   if (missing(eta)) {

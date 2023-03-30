@@ -21,10 +21,8 @@ dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {
   return(dens)
 }
 
-#' @importFrom rmutil rinvgauss
 #' @rdname dtrunc
 #' @export
-#' @importFrom rmutil dinvgauss pinvgauss
 dtruncinvgauss <- dtrunc.trunc_invgauss
 
 #' @export

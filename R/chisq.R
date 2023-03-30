@@ -2,7 +2,6 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats dchisq pchisq rchisq
 #' @param df degrees of freedom for "parent" distribution
 #' @rdname rtrunc
 #' @export
