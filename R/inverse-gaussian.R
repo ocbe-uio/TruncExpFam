@@ -46,9 +46,9 @@ sufficientT.trunc_invgauss <- function(y) {
 parameters2natural.trunc_invgauss <- function(parms) {
   # parms: The parameters mean and shape in a normal distribution
   # returns the natural parameters
-  mu <- parms["m"]
-  lambda <- 1 / parms["s"]
-  eta <- c(eta.1 = -lambda / (2 * mu ^ 2), eta.2 = -lambda / 2)
+  mu <- parms[["m"]]
+  lambda <- 1 / parms[["s"]]
+  eta <- c(eta1 = -lambda / (2 * mu ^ 2), eta2 = -lambda / 2)
   class(eta) <- class(parms)
   return(eta)
 }
@@ -57,8 +57,9 @@ parameters2natural.trunc_invgauss <- function(parms) {
 natural2parameters.trunc_invgauss <- function(eta) {
   # eta: The natural parameters in an inverse gaussian distribution
   # returns (mean,shape)
-  mu <- sqrt(eta[2] / eta[1])
-  lambda <- -2 * eta[2]
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
+  mu <- sqrt(eta[[2]] / eta[[1]])
+  lambda <- -2 * eta[[2]]
   parms <- c(m = mu, s = 1 / lambda)
   class(parms) <- class(eta)
   return(parms)

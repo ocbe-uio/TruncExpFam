@@ -121,6 +121,7 @@ test_that("ML estimation iteration controls", {
   expect_error(mlEstimationTruncDist(sample.invgauss), "Failed to converge")
   expect_warning(mlEstimationTruncDist(sample.beta), "Maximum number of iter")
 })
+
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)
   expect_equal(unclass(ml_lognormal), c(meanlog = 2.5, sdlog = 0.5), tol = 1e-1)
@@ -132,7 +133,7 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_beta), c(shape1 = 15, shape2 = 4), tol = 1e-1)
   expect_equal(unclass(ml_chisq), c(df = 50), tol = 1e-1)
   expect_equal(unclass(ml_exp), c(rate = 6), tol = 1e-1)
-  expect_equal(unclass(ml_invgamma), c(shape = 23, rate = 24), tol = 1e-1)
+  expect_equal(unclass(ml_invgamma), c(shape = 23, scale = 24), tol = 1e-1)
   expect_equal(unclass(ml_invgauss), c(m = 3, s = 1), tol = 0.5)
 })
 

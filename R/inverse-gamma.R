@@ -51,7 +51,8 @@ sufficientT.trunc_invgamma <- function(y) {
 natural2parameters.trunc_invgamma <- function(eta) {
   # eta: The natural parameters in a inverse gamma distribution
   # returns (shape,rate)
-  parms <- c(shape = -eta[1] - 1, rate = -eta[2])
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
+  parms <- c(shape = -eta[[1]] - 1, scale = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }
@@ -60,7 +61,7 @@ natural2parameters.trunc_invgamma <- function(eta) {
 parameters2natural.trunc_invgamma <- function(parms) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
-  eta <- c(shape = -parms[1] - 1, rate = -parms[2])
+  eta <- c(eta1 = -parms[[1]] - 1, eta2 = -parms[[2]])
   class(eta) <- class(parms)
   return(eta)
 }

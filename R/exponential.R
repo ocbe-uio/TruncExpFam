@@ -42,6 +42,7 @@ sufficientT.trunc_exp <- function(y) {
 natural2parameters.trunc_exp <- function(eta) {
   # eta: The natural parameters in an exponential distribution distribution
   # returns rate
+  if (length(eta) != 1) stop("Eta must be one single number")
   lambda <- c(rate = -eta[[1]])
   class(lambda) <- class(eta)
   return(lambda)
