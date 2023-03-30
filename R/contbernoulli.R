@@ -2,7 +2,6 @@
 ##   Functions related to the continuous Bernoulli distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats runif
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export

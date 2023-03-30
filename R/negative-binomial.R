@@ -7,7 +7,6 @@
 #' distribution). Must be strictly positive, need not be integer.
 #' @param prob probability of success on each trial
 #' @param mu alternative parametrization via mean
-#' @importFrom stats rnbinom
 #' @rdname rtrunc
 #' @export
 rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
@@ -15,8 +14,6 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
   sampleFromTruncated(mget(ls()))
 }
 
-#' @export
-#' @importFrom stats dnbinom pnbinom
 #' @rdname dtrunc
 #' @param ... size
 #' @export

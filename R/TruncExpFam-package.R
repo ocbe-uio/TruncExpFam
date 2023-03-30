@@ -26,4 +26,11 @@
 #' and open source communities by opening an issue on our home page.
 #' Check the "BugReports" field on \code{packageDescription("TruncExpFam")} for
 #' the URL.
+#' @importFrom methods new is
+#' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm
+#' ppois rbinom rgamma rlnorm rnorm rpois var dbeta pbeta rbeta dchisq pchisq
+#' qexp qgamma rchisq runif rexp dexp pexp dnbinom pnbinom rnbinom qnorm qbeta
+#' qchisq
+#' @importFrom invgamma rinvgamma dinvgamma pinvgamma
+#' @importFrom rmutil rinvgauss dinvgauss pinvgauss
 NULL

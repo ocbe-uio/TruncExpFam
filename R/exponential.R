@@ -2,7 +2,6 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats rexp
 #' @param rate vector of rates
 #' @rdname rtrunc
 #' @export
@@ -21,7 +20,6 @@ dtrunc.trunc_exp <- function(y, rate = 1, eta, a = 0, b = Inf, ...) {
   return(dens)
 }
 
-#' @importFrom stats dexp pexp
 #' @rdname dtrunc
 #' @export
 dtruncexp <- dtrunc.trunc_exp

@@ -2,7 +2,6 @@
 ##   Functions related to the inverse gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom invgamma rinvgamma
 #' @param shape inverse gamma shape parameter
 #' @param rate inverse gamma rate parameter
 #' @param scale inverse gamma scale parameter
@@ -15,7 +14,6 @@ rtruncinvgamma <- rtrunc.invgamma <- function(
   sampleFromTruncated(mget(ls()))
 }
 
-#' @importFrom invgamma dinvgamma pinvgamma
 #' @export
 dtrunc.trunc_invgamma <- function(
   y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...

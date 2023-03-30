@@ -15,7 +15,6 @@ rtrunc_direct <- function(n, family = "gaussian", ...) {
 }
 
 #' @export
-#' @importFrom stats qnorm
 rtrunc_direct.normal <- function(n, family, mean = 0, sd = 1, a = -Inf, b = Inf, ...) {
   F_a <- cumDens(a, pnorm, mean, sd)
   F_b <- cumDens(b, pnorm, mean, sd)
@@ -24,7 +23,6 @@ rtrunc_direct.normal <- function(n, family, mean = 0, sd = 1, a = -Inf, b = Inf,
 }
 
 #' @export
-#' @importFrom stats qbeta
 rtrunc_direct.beta <- function(n, family, shape1, shape2, a = 0, b = 1, ...) {
   F_a <- cumDens(a, pbeta, shape1, shape2)
   F_b <- cumDens(b, pbeta, shape1, shape2)
@@ -33,7 +31,6 @@ rtrunc_direct.beta <- function(n, family, shape1, shape2, a = 0, b = 1, ...) {
 }
 
 #' @export
-#' @importFrom stats qchisq
 rtrunc_direct.chisq <- function(n, family, df, a = 0, b = Inf, ...) {
   F_a <- cumDens(a, pchisq, df)
   F_b <- cumDens(b, pchisq, df)
@@ -50,7 +47,6 @@ rtrunc_direct.contbern <- function(n, family, lambda, a = 0, b = 1, ...) {
 }
 
 #' @export
-#' @importFrom stats qexp
 rtrunc_direct.exp <- function(n, family, rate, a = 0, b = Inf, ...) {
   F_a <- cumDens(a, pexp, rate)
   F_b <- cumDens(b, pexp, rate)
@@ -59,7 +55,6 @@ rtrunc_direct.exp <- function(n, family, rate, a = 0, b = Inf, ...) {
 }
 
 #' @export
-#' @importFrom stats qgamma
 rtrunc_direct.gamma <- function(
   n, family, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ...
 ) {
