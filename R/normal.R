@@ -50,7 +50,7 @@ natural2parameters.trunc_normal <- function(eta) {
 parameters2natural.trunc_normal <- function(parms) {
   # parms: The parameters mean and sd in a normal distribution
   # returns the natural parameters
-  eta <- c(eta.1 = parms[["mean"]], eta.2 = -0.5) / parms[["sd"]]^2
+  eta <- c(eta1 = parms[["mean"]], eta2 = -0.5) / parms[["sd"]]^2
   class(eta) <- class(parms)
   return(eta)
 }

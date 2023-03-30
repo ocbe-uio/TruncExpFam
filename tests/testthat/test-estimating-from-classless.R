@@ -38,7 +38,7 @@ test_that("Estimation works, in general", {
     mlEstimationTruncDist(cont0inf, family = "gamma"), c("shape", "rate")
   )
   expect_named(
-    mlEstimationTruncDist(cont0inf, family = "invgamma"), c("shape", "rate")
+    mlEstimationTruncDist(cont0inf, family = "invgamma"), c("shape", "scale")
   )
   expect_named(
     mlEstimationTruncDist(cont0inf, family = "invgauss", tol = .1), c("m", "s")
@@ -101,7 +101,7 @@ test_that("Original parameters are retrieved", {
     tol = 1e-1, check.attributes = FALSE
   )
   expect_equal(
-    mlInvGamma[["rate"]] / (mlInvGamma[["shape"]] - 1), mean(cont0inf),
+    mlInvGamma[["scale"]] / (mlInvGamma[["shape"]] - 1), mean(cont0inf),
     tol = 1e-1
   )
   expect_equal(

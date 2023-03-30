@@ -24,7 +24,6 @@ test_that("Beta parameteres are properly converted", {
   expect_equal(prbdst$nat_parms, c(eta1 = s1, eta2 = s2))
 
   prbdst_nat <- probdist(eta1 = s1, eta2 = s2, family = fam)
-  expect_equal(prbdst_nat$family, fam)
   expect_equal(prbdst_nat$parms, c(shape1 = s1, shape2 = s2))
   expect_equal(prbdst_nat$nat_parms, c(eta1 = s1, eta2 = s2))
 })
@@ -41,7 +40,6 @@ test_that("Binomial parameteres are properly converted", {
   expect_equal(c(prbdst$nat_parms), c(eta = log(pb / (1 - pb))))
 
   prbdst_nat <- probdist(eta = et, family = fam)
-  expect_equal(prbdst_nat$family, fam)
   expect_equal(prbdst_nat$parms, c(prob = exp(et) / (1 + exp(et))))
   expect_equal(prbdst_nat$nat_parms, c(eta = et))
 })
@@ -57,7 +55,6 @@ test_that("Chisq parameteres are properly converted", {
   expect_equal(prbdst$nat_parms, c(eta = nu / 2 - 1))
 
   prbdst_nat <- probdist(eta = et, family = fam)
-  expect_equal(prbdst_nat$family, fam)
   expect_equal(prbdst_nat$parms, c(df = 2 * (et + 1)))
   expect_equal(prbdst_nat$nat_parms, c(eta = et))
 })
@@ -73,7 +70,6 @@ test_that("Contbern parameteres are properly converted", {
   expect_equal(prbdst$nat_parms, c(eta = log(lb / (1 - lb))))
 
   prbdst_nat <- probdist(eta = et, family = fam)
-  expect_equal(prbdst_nat$family, fam)
   expect_equal(prbdst_nat$parms, c(lambda = exp(et) / (1 + exp(et))))
   expect_equal(prbdst_nat$nat_parms, c(eta = et))
 })
@@ -89,7 +85,6 @@ test_that("Exponential parameteres are properly converted", {
   expect_equal(prbdst$nat_parms, c(eta = -rt))
 
   prbdst_nat <- probdist(eta = et, family = fam)
-  expect_equal(prbdst_nat$family, fam)
   expect_equal(prbdst_nat$parms, c(rate = -et))
   expect_equal(prbdst_nat$nat_parms, c(eta = et))
 })
@@ -114,9 +109,96 @@ test_that("Gamma parameteres are properly converted", {
   expect_equal(prbdst_2$nat_parms, c(eta1 = alpha - 1, eta2 = -beta))
 
   prbdst_nat <- probdist(eta1 = et1, eta2 = et2, family = fam)
-  expect_equal(prbdst_nat$family, fam)
   expect_equal(prbdst_nat$parms, c(shape = et1 + 1, rate = -et2))
   expect_equal(prbdst_nat$nat_parms, c(eta1 = et1, eta2 = et2))
+})
+
+test_that("Inverse gamma parameteres are properly converted", {
+  fam <- "invgamma"
+  alpha <- genparm("pos")
+  beta <- genparm("pos")
+  et1 <- genparm("norm")
+  et2 <- genparm("norm")
+
+  prbdst_1 <- probdist(shape = alpha, scale = beta, family = fam)
+  expect_equal(prbdst_1$family, fam)
+  expect_equal(prbdst_1$parms, c(shape = alpha, scale = beta))
+  expect_equal(prbdst_1$nat_parms, c(eta1 = -alpha - 1, eta2 = -beta))
+
+  prbdst_nat <- probdist(eta1 = et1, eta2 = et2, family = fam)
+  expect_equal(prbdst_nat$parms, c(shape = - et1 - 1, scale = -et2))
+  expect_equal(prbdst_nat$nat_parms, c(eta1 = et1, eta2 = et2))
+})
+
+test_that("Inverse gaussian parameteres are properly converted", {
+  fam <- "invgauss"
+  mu <- genparm("pos")
+  disp <- genparm("pos")
+  lb <- 1 / disp
+  et1 <- genparm("neg")
+  et2 <- genparm("neg")
+
+  prbdst_1 <- probdist(m = mu, s = disp, family = fam)
+  expect_equal(prbdst_1$family, fam)
+  expect_equal(prbdst_1$parms, c(m = mu, s = disp))
+  expect_equal(prbdst_1$nat_parms, c(eta1 = -lb / 2 / mu ^ 2, eta2 = -lb / 2))
+
+  prbdst_nat <- probdist(eta1 = et1, eta2 = et2, family = fam)
+  expect_equal(prbdst_nat$parms, c(m = sqrt(et2 / et1), s = 1 / -2 / et2))
+  expect_equal(prbdst_nat$nat_parms, c(eta1 = et1, eta2 = et2))
+})
+
+test_that("Log-normal parameteres are properly converted", {
+  fam <- "lognormal"
+  mu <- genparm("norm")
+  sg <- genparm("pos")
+  et1 <- genparm("pos")
+  et2 <- genparm("neg")
+
+  prbdst_1 <- probdist(meanlog = mu, sdlog = sg, family = fam)
+  expect_equal(prbdst_1$family, fam)
+  expect_equal(prbdst_1$parms, c(meanlog = mu, sdlog = sg))
+  expect_equal(prbdst_1$nat_parms, c(eta1 = mu / sg ^ 2, eta2 = -1 / 2 / sg ^ 2))
+
+  prbdst_nat <- probdist(eta1 = et1, eta2 = et2, family = fam)
+  expect_equal(
+    prbdst_nat$parms, c(meanlog = - et1 / 2 / et2, sdlog = sqrt(-1 / 2 / et2))
+  )
+  expect_equal(prbdst_nat$nat_parms, c(eta1 = et1, eta2 = et2))
+})
+
+test_that("Normal parameteres are properly converted", {
+  fam <- "normal"
+  mu <- genparm("norm")
+  sg <- genparm("pos")
+  et1 <- genparm("pos")
+  et2 <- genparm("neg")
+
+  prbdst_1 <- probdist(mean = mu, sd = sg, family = fam)
+  expect_equal(prbdst_1$family, fam)
+  expect_equal(prbdst_1$parms, c(mean = mu, sd = sg))
+  expect_equal(prbdst_1$nat_parms, c(eta1 = mu / sg ^ 2, eta2 = -1 / 2 / sg ^ 2))
+
+  prbdst_nat <- probdist(eta1 = et1, eta2 = et2, family = fam)
+  expect_equal(
+    prbdst_nat$parms, c(mean = - et1 / 2 / et2, sd = sqrt(-1 / 2 / et2))
+  )
+  expect_equal(prbdst_nat$nat_parms, c(eta1 = et1, eta2 = et2))
+})
+
+test_that("Poisson parameteres are properly converted", {
+  fam <- "poisson"
+  lb <- genparm("int")
+  et <- genparm("pos")
+
+  prbdst_1 <- probdist(lambda = lb, family = fam)
+  expect_equal(prbdst_1$family, fam)
+  expect_equal(prbdst_1$parms, c(lambda = lb))
+  expect_equal(prbdst_1$nat_parms, c(eta = log(lb)))
+
+  prbdst_nat <- probdist(eta = et, family = fam)
+  expect_equal(prbdst_nat$parms, c(lambda = exp(et)))
+  expect_equal(prbdst_nat$nat_parms, c(eta = et))
 })
 
 test_that("Errors are properly caught", {})

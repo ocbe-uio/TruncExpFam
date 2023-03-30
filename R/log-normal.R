@@ -61,7 +61,7 @@ natural2parameters.trunc_lognormal <- function(eta) {
 
 #' @export
 parameters2natural.trunc_lognormal <- function(parms) {
-  eta <- c(eta.1 = parms[["meanlog"]], eta.2 = -0.5) / parms[["sdlog"]]^2
+  eta <- c(eta1 = parms[["meanlog"]], eta2 = -0.5) / parms[["sdlog"]]^2
   class(eta) <- class(parms)
   return(eta)
 }

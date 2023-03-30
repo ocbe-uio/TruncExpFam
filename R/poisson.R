@@ -40,7 +40,7 @@ sufficientT.trunc_poisson <- function(y) {
 natural2parameters.trunc_poisson <- function(eta) {
   # eta: The natural parameters in a Poisson distribution
   # returns (mean,sigma)
-  lambda <- c(lambda = exp(eta))
+  lambda <- c(lambda = exp(eta[[1]]))
   class(lambda) <- class(eta)
   return(lambda)
 }
