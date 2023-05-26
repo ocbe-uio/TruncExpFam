@@ -34,3 +34,18 @@ empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE,
   if (natural) parms <- parameters2natural(parms)
   return(parms)
 }
+
+#' @export
+parameters2natural.numeric <- function(parms, family) {
+  # Validation and reformatting
+  family <- useStandardFamilyName(family)
+  if (is.null(names(parms))) {
+    stop("Please provide a named parameter vector")
+  } else {
+    validateFamilyParms(family, names(parms))
+  }
+  class(parms) <- paste0("trunc_", family)
+
+  # Dispatching
+  return(parameters2natural(parms))
+}

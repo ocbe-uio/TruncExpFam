@@ -39,7 +39,7 @@ natural2parameters <- function(eta) {
 #' # Poisson distribution
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 #' parameters2natural(empiricalParameters(samp))
-parameters2natural <- function(parms) {
+parameters2natural <- function(parms, ...) {
   UseMethod("parameters2natural")
 }
 
