@@ -18,6 +18,7 @@ empiricalParameters <- function(y, ...) {
 
 #' @title Convert natural parameters to distribution parameters
 #' @param eta vector of natural parameters
+#' @param ... other arguments passed to methods
 #' @return A vector of the original distribution parameters
 #' @export
 #' @seealso [parameters2natural()]
@@ -33,6 +34,7 @@ natural2parameters <- function(eta, ...) {
 #' @title Convert distribution parameters to natural parameters
 #' @param parms A vector of parameters in a distribution distribution
 #' @return A vector containing the natural parameters
+#' @param ... other arguments passed to methods
 #' @export
 #' @seealso [natural2parameters()]
 #' @examples

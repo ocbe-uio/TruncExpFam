@@ -50,7 +50,7 @@ sufficientT.trunc_nbinom <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_nbinom <- function(eta) {
+natural2parameters.trunc_nbinom <- function(eta, ...) {
   # eta: The natural parameters in a negative binomial distribution
   p <- c(mean = exp(eta))
   class(p) <- class(eta)
@@ -58,7 +58,7 @@ natural2parameters.trunc_nbinom <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_nbinom <- function(parms) {
+parameters2natural.trunc_nbinom <- function(parms, ...) {
   # parms: The p parameter in a negative binomial distribution
   # returns the natural parameters
   if (all(names(parms) == c("size", "prob"))) {

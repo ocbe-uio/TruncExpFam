@@ -36,7 +36,7 @@ empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE,
 }
 
 #' @export
-parameters2natural.numeric <- function(parms, family = "gaussian") {
+parameters2natural.numeric <- function(parms, family = "gaussian", ...) {
   # Validation and reformatting
   family <- useStandardFamilyName(family)
   if (is.null(names(parms))) {
@@ -51,12 +51,12 @@ parameters2natural.numeric <- function(parms, family = "gaussian") {
 }
 
 #' @export
-natural2parameters.numeric <- function(parms, family = "gaussian") {
+natural2parameters.numeric <- function(eta, family = "gaussian", ...) {
   # Validation and reformatting
   family <- useStandardFamilyName(family)
-  validateNaturalParms(names(parms))
-  class(parms) <- paste0("trunc_", family)
+  validateNaturalParms(names(eta))
+  class(eta) <- paste0("trunc_", family)
 
   # Dispatching
-  return(natural2parameters(parms))
+  return(natural2parameters(eta))
 }

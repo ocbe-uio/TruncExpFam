@@ -48,7 +48,7 @@ sufficientT.trunc_gamma <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_gamma <- function(eta) {
+natural2parameters.trunc_gamma <- function(eta, ...) {
   # eta: The natural parameters in a gamma distribution
   # returns (shape,rate)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -58,7 +58,7 @@ natural2parameters.trunc_gamma <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_gamma <- function(parms) {
+parameters2natural.trunc_gamma <- function(parms, ...) {
   # parms: The parameters shape and rate in a gamma distribution
   # returns the natural parameters
   if (all(c("shape", "rate") %in% names(parms))) {

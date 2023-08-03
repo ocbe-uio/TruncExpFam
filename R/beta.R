@@ -49,7 +49,7 @@ sufficientT.trunc_beta <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_beta <- function(eta) {
+natural2parameters.trunc_beta <- function(eta, ...) {
   # eta: The natural parameters in a beta distribution
   # returns (alpha,beta)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -59,7 +59,7 @@ natural2parameters.trunc_beta <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_beta <- function(parms) {
+parameters2natural.trunc_beta <- function(parms, ...) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
   eta <- prepEta(c(parms[1], parms[2]), class(parms))

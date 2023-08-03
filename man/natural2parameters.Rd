@@ -8,6 +8,8 @@ natural2parameters(eta, ...)
 }
 \arguments{
 \item{eta}{vector of natural parameters}
+
+\item{...}{other arguments passed to methods}
 }
 \value{
 A vector of the original distribution parameters

@@ -53,7 +53,7 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 }
 
 #' @export
-natural2parameters.trunc_lognormal <- function(eta) {
+natural2parameters.trunc_lognormal <- function(eta, ...) {
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c("meanlog" = -0.5 * eta[[1]] / eta[[2]], "sdlog" = sqrt(-0.5 / eta[[2]]))
   class(parms) <- class(eta)
@@ -61,7 +61,7 @@ natural2parameters.trunc_lognormal <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_lognormal <- function(parms) {
+parameters2natural.trunc_lognormal <- function(parms, ...) {
   eta <- c(eta1 = parms[["meanlog"]], eta2 = -0.5) / parms[["sdlog"]]^2
   class(eta) <- class(parms)
   return(eta)

@@ -38,7 +38,7 @@ sufficientT.trunc_normal <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_normal <- function(eta) {
+natural2parameters.trunc_normal <- function(eta, ...) {
   # eta: The natural parameters in a normal distribution
   # returns (mean,sigma)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -48,7 +48,7 @@ natural2parameters.trunc_normal <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_normal <- function(parms) {
+parameters2natural.trunc_normal <- function(parms, ...) {
   # parms: The parameters mean and sd in a normal distribution
   # returns the natural parameters
   eta <- c(eta1 = parms[["mean"]], eta2 = -0.5) / parms[["sd"]]^2

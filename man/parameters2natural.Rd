@@ -8,6 +8,8 @@ parameters2natural(parms, ...)
 }
 \arguments{
 \item{parms}{A vector of parameters in a distribution distribution}
+
+\item{...}{other arguments passed to methods}
 }
 \value{
 A vector containing the natural parameters
