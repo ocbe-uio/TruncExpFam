@@ -26,7 +26,7 @@ empiricalParameters <- function(y, ...) {
 #' lambda_hat <- empiricalParameters(samp)
 #' eta_hat <- parameters2natural(lambda_hat)
 #' natural2parameters(eta_hat)  # yields back lambda
-natural2parameters <- function(eta) {
+natural2parameters <- function(eta, ...) {
   UseMethod("natural2parameters")
 }
 

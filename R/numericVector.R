@@ -49,3 +49,13 @@ parameters2natural.numeric <- function(parms, family) {
   # Dispatching
   return(parameters2natural(parms))
 }
+
+#' @export
+natural2parameters.numeric <- function(parms, family) {
+  # Validation and reformatting
+  family <- useStandardFamilyName(family)
+  class(parms) <- paste0("trunc_", family)
+
+  # Dispatching
+  return(natural2parameters(parms))
+}
