@@ -8,100 +8,61 @@ test_that("Wrong combinations trigger errors", {
   expect_error(natural2parameters(c(1)), "must be a vector of two elements")
 })
 
+# Sampling values ==============================================================
+x1 <- sample(1:100, 1)
+x2 <- sample(1:100, 1)
+p1 <- runif(1)
+parm_beta <- c(shape1 = x1, shape2 = x2)
+eta_beta <- c(eta1 = x1, eta2 = x2)
+parm_bin <- c(size = x1, prob = p1)
+eta_bin <- c(eta = log(p1 / (1 - p1)))
+parm_ch <- c(df = x1)
+eta_ch <- c(eta = x1 / 2 - 1)
+parm_cbn <- c(lambda = p1)
+eta_cbn <- c(eta = log(p1 / (1 - p1)))
+parm_exp <- c(rate = x1)
+eta_exp <- c(eta = -x1)
+parm_gm1 <- c(shape = x1, rate = x2)
+eta_gm1 <- c(eta1 = x1 - 1, eta2 = -x2)
+parm_gm2 <- c(shape = x1, scale = x2)
+eta_gm2 <- c(eta1 = x1 - 1, eta2 = -1 / x2)
+parm_igm <- c(shape = x1, scale = x2)
+eta_igm <- c(eta1 = -x1 - 1, eta2 = -x2)
+parm_iga <- c(m = x1, s = x2)
+eta_iga <- c(eta1 = - (1 / x2) / 2 / x1 ^ 2, eta2 = - (1 / x2) / 2)
+parm_lnm <- c(meanlog = x1, sdlog = x2)
+eta_lnm <- c(eta1 = x1 / x2 ^ 2, eta2 = - 1 / 2 / x2 ^ 2)
+parm_nrm <- c(mean = x1, sd = x2)
+eta_nrm <- c(eta1 = x1 / x2 ^ 2, eta2 = - 1 / 2 / x2 ^ 2)
+parm_poi <- c(lambda = x1)
+eta_poi <- c(eta = log(x1))
+
+# Testing convertions ==========================================================
 test_that("Converting to natural", {
-  expect_equivalent(
-    unclass(parameters2natural(c(shape1 = 7, shape2 = 3), "beta")),
-    c(eta1 = 7, eta2 = 3)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(size = 7, prob = .3), "binomial")),
-    c(eta = log(.3 / .7))
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(df = 7), "chisq")),
-    c(eta = 7 / 2 - 1)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(lambda = .7), "contbern")),
-    c(eta = log(.7 / .3))
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(rate = 7), "exp")),
-    c(eta = -7)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(shape = 7, rate = 3), "gamma")),
-    c(eta1 = 7 - 1, eta2 = -3)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(shape = 7, scale = 3), "gamma")),
-    c(eta1 = 7 - 1, eta2 = - 1 / 3)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(shape = 7, rate = 3), "invgamma")),
-    c(eta1 = - 7 - 1, eta2 = -3)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(m = 7, s = 3), "invgauss")),
-    c(eta1 = - (1 / 3) / 2 / 7 ^ 2, eta2 = - (1 / 3) / 2)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(meanlog = 7, sdlog = 3), "lognormal")),
-    c(eta1 = 7 / 3 ^ 2, eta2 = - 1 / 2 / 3 ^ 2)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(mean = 7, sd = 3), "normal")),
-    c(eta1 = 7 / 3 ^ 2, eta2 = - 1 / 2 / 3 ^ 2)
-  )
-  expect_equivalent(
-    unclass(parameters2natural(c(lambda = 7), "poisson")),
-    c(eta = log(7))
-  )
+  expect_equivalent(unclass(parameters2natural(parm_beta, "beta")), eta_beta)
+  expect_equivalent(unclass(parameters2natural(parm_bin, "binomial")), eta_bin)
+  expect_equivalent(unclass(parameters2natural(parm_ch, "chisq")), eta_ch)
+  expect_equivalent(unclass(parameters2natural(parm_cbn, "contbern")), eta_cbn)
+  expect_equivalent(unclass(parameters2natural(parm_exp, "exp")), eta_exp)
+  expect_equivalent(unclass(parameters2natural(parm_gm1, "gamma")), eta_gm1)
+  expect_equivalent(unclass(parameters2natural(parm_gm2, "gamma")), eta_gm2)
+  expect_equivalent(unclass(parameters2natural(parm_igm, "invgamma")), eta_igm)
+  expect_equivalent(unclass(parameters2natural(parm_iga, "invgauss")), eta_iga)
+  expect_equivalent(unclass(parameters2natural(parm_lnm, "lognormal")), eta_lnm)
+  expect_equivalent(unclass(parameters2natural(parm_nrm, "normal")), eta_nrm)
+  expect_equivalent(unclass(parameters2natural(parm_poi, "poisson")), eta_poi)
 })
 
 test_that("Converting from natural", {
-  expect_equivalent(
-    unclass(natural2parameters(c(eta1 = 7, eta2 = 3), "beta")),
-    c(shape1 = 7, shape2 = 3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta = log(.3 / .7)), "binomial")),
-    c(prob = .3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta = 7 / 2 - 1), "chisq")),
-    c(df = 7)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta = log(.7 / .3)), "contbern")),
-    c(lambda = .7)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta = -7), "exp")),
-    c(rate = 7)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta1 = 7 - 1, eta2 = -3), "gamma")),
-    c(shape = 7, rate = 3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta1 = - 7 - 1, eta2 = -3), "invgamma")),
-    c(shape = 7, rate = 3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta1 = - (1 / 3) / 2 / 7 ^ 2, eta2 = - (1 / 3) / 2), "invgauss")),
-    c(m = 7, s = 3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta1 = 7 / 3 ^ 2, eta2 = - 1 / 2 / 3 ^ 2), "lognormal")),
-    c(meanlog = 7, sdlog = 3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta1 = 7 / 3 ^ 2, eta2 = - 1 / 2 / 3 ^ 2), "normal")),
-    c(mean = 7, sd = 3)
-  )
-  expect_equivalent(
-    unclass(natural2parameters(c(eta = log(7)), "poisson")),
-    c(lambda = 7)
-  )
+  expect_equivalent(unclass(natural2parameters(eta_beta, "beta")), parm_beta)
+  expect_equivalent(unclass(natural2parameters(eta_bin, "binomial")), parm_bin[2])
+  expect_equivalent(unclass(natural2parameters(eta_ch, "chisq")), parm_ch)
+  expect_equivalent(unclass(natural2parameters(eta_cbn, "contbern")), parm_cbn)
+  expect_equivalent(unclass(natural2parameters(eta_exp, "exp")), parm_exp)
+  expect_equivalent(unclass(natural2parameters(eta_gm1, "gamma")), parm_gm1)
+  expect_equivalent(unclass(natural2parameters(eta_igm, "invgamma")), parm_igm)
+  expect_equivalent(unclass(natural2parameters(eta_iga, "invgauss")), parm_iga)
+  expect_equivalent(unclass(natural2parameters(eta_lnm, "lognormal")), parm_lnm)
+  expect_equivalent(unclass(natural2parameters(eta_nrm, "normal")), parm_nrm)
+  expect_equivalent(unclass(natural2parameters(eta_poi, "poisson")), parm_poi)
 })
