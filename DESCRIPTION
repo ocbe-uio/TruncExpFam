@@ -1,12 +1,7 @@
 Package: TruncExpFam
 Title: Truncated Exponential Family
-<<<<<<< HEAD
-Version: 1.0.0.9026
-Date: 2022-09-14
-=======
 Version: 1.0.1
 Date: 2023-08-21
->>>>>>> hotfix-1.0.1
 Authors@R:
 	c(
 		person(
