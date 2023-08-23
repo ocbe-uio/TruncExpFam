@@ -33,4 +33,4 @@
 #' qchisq
 #' @importFrom invgamma rinvgamma dinvgamma pinvgamma
 #' @importFrom rmutil rinvgauss dinvgauss pinvgauss
-NULL
+"_PACKAGE"

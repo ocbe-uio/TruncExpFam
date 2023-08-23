@@ -78,7 +78,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_beta <- function(eta) {
+getGradETinv.trunc_beta <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   # Uses approximation for the digamma function: digamma(x) ~ ln(x) - 1 / 2 / x

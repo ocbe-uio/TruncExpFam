@@ -3,6 +3,7 @@
 \docType{package}
 \name{TruncExpFam}
 \alias{TruncExpFam}
+\alias{TruncExpFam-package}
 \title{Truncated Exponential Family}
 \description{
 TruncExpFam is an R package to handle truncated members from the
@@ -38,3 +39,20 @@ the URL.
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ocbe-uio/TruncExpFam}
+  \item Report bugs at \url{https://github.com/ocbe-uio/TruncExpFam/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Waldir Leoncio \email{w.l.netto@medisin.uio.no}
+
+Authors:
+\itemize{
+  \item René Holst \email{rene.holst@medisin.uio.no}
+}
+
+}
