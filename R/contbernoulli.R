@@ -54,6 +54,10 @@ dtrunc.trunc_contbern <- function(
   return(dens)
 }
 
+#' @rdname dtrunc
+#' @export
+dtrunccontbern <- dtrunc.trunc_contbern
+
 #' @export
 #' @param eta vector of natural parameters
 #' @rdname dtrunc
@@ -100,7 +104,7 @@ getYseq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_contbern <- function(eta) {
+getGradETinv.trunc_contbern <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   exp.eta <- exp(eta)

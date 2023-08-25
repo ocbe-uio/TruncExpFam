@@ -3,10 +3,18 @@
 #' exponential family.
 #' @docType package
 #' @name TruncExpFam
-#' @details This package offers truncated versions of popular distribution
-#' functions from the stats package, as well as functions to retrieve the
-#' original distribution parameters from a truncated sample. For more info,
-#' please check [rtrunc()], [dtrunc()] and [print.trunc()].
+#' @details This package offers truncated counterparts of the density-,
+#' distribution-, quantile- and sampling-functions for a broad range of
+#' distributions from the exponential family, as implemented in the [stats]
+#' package.
+#'
+#' The package also provides functions for estimating the parameters of the
+#' distributions from data, given the truncation limits.
+#'
+#' For more info, please check [rtrunc()], [dtrunc()] and [print.trunc()].
+#' Counterparts for density and probability functions are on the roadmap for
+#' a future release.
+#'
 #' @section Supported distributions:
 #' \itemize{
 #'  \item Beta
@@ -33,4 +41,4 @@
 #' qchisq
 #' @importFrom invgamma rinvgamma dinvgamma pinvgamma
 #' @importFrom rmutil rinvgauss dinvgauss pinvgauss
-NULL
+"_PACKAGE"

@@ -29,6 +29,11 @@ dtrunc.trunc_nbinom <- function(
   return(dens)
 }
 
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncnbinom <- dtrunc.trunc_nbinom
+
 #' @export
 #' @rdname dtrunc
 dtruncnbinom <- dtrunc.trunc_nbinom
