@@ -18,6 +18,7 @@ empiricalParameters <- function(y, ...) {
 
 #' @title Convert natural parameters to distribution parameters
 #' @param eta vector of natural parameters
+#' @param ... other arguments passed to methods
 #' @return A vector of the original distribution parameters
 #' @export
 #' @seealso [parameters2natural()]
@@ -26,20 +27,21 @@ empiricalParameters <- function(y, ...) {
 #' lambda_hat <- empiricalParameters(samp)
 #' eta_hat <- parameters2natural(lambda_hat)
 #' natural2parameters(eta_hat)  # yields back lambda
-natural2parameters <- function(eta) {
+natural2parameters <- function(eta, ...) {
   UseMethod("natural2parameters")
 }
 
 #' @title Convert distribution parameters to natural parameters
 #' @param parms A vector of parameters in a distribution distribution
 #' @return A vector containing the natural parameters
+#' @param ... other arguments passed to methods
 #' @export
 #' @seealso [natural2parameters()]
 #' @examples
 #' # Poisson distribution
 #' samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
 #' parameters2natural(empiricalParameters(samp))
-parameters2natural <- function(parms) {
+parameters2natural <- function(parms, ...) {
   UseMethod("parameters2natural")
 }
 

@@ -41,7 +41,7 @@ sufficientT.trunc_invgauss <- function(y) {
 }
 
 #' @export
-parameters2natural.trunc_invgauss <- function(parms) {
+parameters2natural.trunc_invgauss <- function(parms, ...) {
   # parms: The parameters mean and shape in a normal distribution
   # returns the natural parameters
   mu <- parms[["m"]]
@@ -52,7 +52,7 @@ parameters2natural.trunc_invgauss <- function(parms) {
 }
 
 #' @export
-natural2parameters.trunc_invgauss <- function(eta) {
+natural2parameters.trunc_invgauss <- function(eta, ...) {
   # eta: The natural parameters in an inverse gaussian distribution
   # returns (mean,shape)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")

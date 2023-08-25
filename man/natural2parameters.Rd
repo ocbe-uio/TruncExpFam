@@ -4,10 +4,12 @@
 \alias{natural2parameters}
 \title{Convert natural parameters to distribution parameters}
 \usage{
-natural2parameters(eta)
+natural2parameters(eta, ...)
 }
 \arguments{
 \item{eta}{vector of natural parameters}
+
+\item{...}{other arguments passed to methods}
 }
 \value{
 A vector of the original distribution parameters

@@ -4,10 +4,12 @@
 \alias{parameters2natural}
 \title{Convert distribution parameters to natural parameters}
 \usage{
-parameters2natural(parms)
+parameters2natural(parms, ...)
 }
 \arguments{
 \item{parms}{A vector of parameters in a distribution distribution}
+
+\item{...}{other arguments passed to methods}
 }
 \value{
 A vector containing the natural parameters

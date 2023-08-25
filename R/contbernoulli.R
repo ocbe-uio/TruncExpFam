@@ -77,7 +77,7 @@ sufficientT.trunc_contbern <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_contbern <- function(eta) {
+natural2parameters.trunc_contbern <- function(eta, ...) {
   # eta: The natural parameters in a continuous bernoulli distribution
   # returns rate
   if (length(eta) != 1) stop("Eta must be one single number")
@@ -87,7 +87,7 @@ natural2parameters.trunc_contbern <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_contbern <- function(parms) {
+parameters2natural.trunc_contbern <- function(parms, ...) {
   # parms: The parameter lambda in a continuous bernoulli distribution
   # returns the natural parameters
   eta <- prepEta(log(parms / (1 - parms)), class(parms))
