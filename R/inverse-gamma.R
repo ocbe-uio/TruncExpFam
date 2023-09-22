@@ -22,7 +22,7 @@ dtrunc.trunc_invgamma <- function(
     eta <- parameters2natural.trunc_invgamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_invgamma(eta)
-  dens <- rescaledDensities(y, a, b, dinvgamma, pinvgamma, parm[1], parm[2])
+  dens <- rescaledDensities(y, a, b, dinvgamma, pinvgamma, parm["shape"], parm["rate"])
 }
 
 #' @rdname dtrunc
@@ -50,7 +50,7 @@ natural2parameters.trunc_invgamma <- function(eta, ...) {
   # eta: The natural parameters in a inverse gamma distribution
   # returns (shape,rate)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
-  parms <- c(shape = -eta[[1]] - 1, scale = -eta[[2]])
+  parms <- c("shape" = -eta[[1]] - 1, "rate" = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }

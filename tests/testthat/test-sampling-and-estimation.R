@@ -133,7 +133,7 @@ test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_beta), c(shape1 = 15, shape2 = 4), tol = 1e-1)
   expect_equal(unclass(ml_chisq), c(df = 50), tol = 1e-1)
   expect_equal(unclass(ml_exp), c(rate = 6), tol = 1e-1)
-  expect_equal(unclass(ml_invgamma), c(shape = 23, scale = 24), tol = 1e-1)
+  expect_equal(unclass(ml_invgamma), c(shape = 23, rate = 24), tol = 1e-1)
   expect_equal(unclass(ml_invgauss), c(m = 3, s = 1), tol = 0.5)
 })
 

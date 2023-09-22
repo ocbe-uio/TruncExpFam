@@ -39,6 +39,6 @@
 #' ppois rbinom rgamma rlnorm rnorm rpois var dbeta pbeta rbeta dchisq pchisq
 #' qexp qgamma rchisq runif rexp dexp pexp dnbinom pnbinom rnbinom qnorm qbeta
 #' qchisq
-#' @importFrom invgamma rinvgamma dinvgamma pinvgamma
+#' @importFrom invgamma rinvgamma dinvgamma pinvgamma qinvgamma
 #' @importFrom rmutil rinvgauss dinvgauss pinvgauss
 "_PACKAGE"
