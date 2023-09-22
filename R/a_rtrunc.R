@@ -92,6 +92,7 @@ rtrunc <- function(n, family = "gaussian", faster = FALSE, ...) {
   } else {
     sample <- rtrunc.generic(n, ...)
   }
+  return(sample)
 }
 
 rtrunc.generic <- function(n, ...) {
