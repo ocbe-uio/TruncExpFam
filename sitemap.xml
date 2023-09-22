@@ -7,13 +7,25 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>/articles/Sampling_and_ML_estimation.html</loc>
+  </url>
+  <url>
+    <loc>/articles/index.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/news/index.html</loc>
+  </url>
+  <url>
     <loc>/reference/TruncExpFam.html</loc>
+  </url>
+  <url>
+    <loc>/reference/averageT.html</loc>
   </url>
   <url>
     <loc>/reference/dot-onAttach.html</loc>
@@ -22,13 +34,16 @@
     <loc>/reference/dtrunc.html</loc>
   </url>
   <url>
+    <loc>/reference/empiricalParameters.html</loc>
+  </url>
+  <url>
+    <loc>/reference/empiricalParameters.numeric.html</loc>
+  </url>
+  <url>
     <loc>/reference/genrtruncClass.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/init.parms.html</loc>
   </url>
   <url>
     <loc>/reference/mlEstimationTruncDist.html</loc>
@@ -41,6 +56,9 @@
   </url>
   <url>
     <loc>/reference/print.trunc.html</loc>
+  </url>
+  <url>
+    <loc>/reference/probdist-class.html</loc>
   </url>
   <url>
     <loc>/reference/rtrunc.html</loc>
