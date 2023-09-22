@@ -263,6 +263,45 @@ test_that("Truncation is not a speed limiter", {
     rtrunc(n, family = "gamma", shape = 5, rate = 4, a = 4, faster = TRUE),
     n
   )
+
+  # Inv Gamma
+  expect_error({
+      setTimeLimit(time_limit)
+      summary(rtrunc(n, family = "invgamma", shape = 5, rate = 4, a = 4))
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, family = "invgamma", shape = 5, rate = 4, a = 4, faster = TRUE),
+    n
+  )
+
+  # Inv Gauss
+  expect_error({
+      setTimeLimit(time_limit)
+      summary(rtrunc(n, family = "invgauss", m = 5, s = 4, a = 4, b = 100))
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, family = "invgauss", m = 5, s = 4, a = 4, b = 100, faster = TRUE),
+    n
+  )
+
+  # Lognormal
+  expect_error({
+      setTimeLimit(time_limit)
+      rtrunc(n, family = "lognormal", meanlog = 5, sdlog = 2, a = 150, b = 160)
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(
+      n, family = "lognormal", meanlog = 5, sdlog = 2, a = 150, b = 160,
+      faster = TRUE
+    ),
+    n
+  )
 })
 
 setTimeLimit(Inf)
