@@ -49,7 +49,7 @@ the URL.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/ocbe-uio/TruncExpFam}
+  \item \url{https://ocbe-uio.github.io/TruncExpFam/}
   \item Report bugs at \url{https://github.com/ocbe-uio/TruncExpFam/issues}
 }
 

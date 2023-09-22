@@ -154,9 +154,6 @@ welcomeToFamily <- function(y, family) {
   if (!is.null(family)) {
     # Adding proper family attributes
     family <- useStandardFamilyName(family)
-    if (!is(y, "numeric")) {
-      message("Data is originally ", class(y), ". Treating as ", family)
-    }
     class(y) <- paste0("trunc_", family)
     attr(y, "continuous") <- valid_fam_parm[[family]][["cont"]]
     attr(y, "parameters") <- switch(

@@ -63,10 +63,8 @@ parameters2natural.trunc_gamma <- function(parms, ...) {
   # returns the natural parameters
   if (all(c("shape", "rate") %in% names(parms))) {
     eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -parms[["rate"]])
-  } else if (all(c("shape", "scale") %in% names(parms))) {
-    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
   } else {
-    stop("Invalid gamma parameters: ", names(parms))
+    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
   }
   class(eta) <- class(parms)
   return(eta)
@@ -88,7 +86,7 @@ getGradETinv.trunc_gamma <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   dpsi.dx <- function(x, k = 10000) {
-    # Returns the derivative of the psi function above
+    # Returns the derivative of the psi function (removed)
     sum((1 / ((0:k) + x))^2)
   }
   A_inv <- matrix(

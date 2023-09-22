@@ -17,9 +17,6 @@ dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {
     eta <- parameters2natural.trunc_invgauss(c("m" = m, "s" = s))
   }
   parm <- natural2parameters.trunc_invgauss(eta)
-  if (any(y <= 0)) {
-    stop("Sample must be strictly positive. Reconsider your parameters")
-  }
   dens <- rescaledDensities(y, a, b, dinvgauss, pinvgauss, parm["m"], parm["s"])
   return(dens)
 }

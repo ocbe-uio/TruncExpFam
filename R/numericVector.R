@@ -22,11 +22,7 @@
 empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE, ...) {
 
   # Assigning trunc family, if necessary
-  if (substring(class(y), 1, 5) == "trunc") {
-    message("Object is ", class(y), ". Ignoring family argument.")
-  } else {
-    class(y) <- paste0("trunc_", useStandardFamilyName(family))
-  }
+  class(y) <- paste0("trunc_", useStandardFamilyName(family))
 
   # Estimating and validating parameters
   parms <- empiricalParameters(y, ...)
