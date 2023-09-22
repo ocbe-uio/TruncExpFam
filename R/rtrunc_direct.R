@@ -92,6 +92,16 @@ rtrunc_direct.invgauss <- function(
   return(q_T)
 }
 
+#' @export
+rtrunc_direct.lognormal <- function(
+  n, family, meanlog, sdlog, a = 0, b = Inf, ...
+) {
+  F_a <- cumDens(a, plnorm, meanlog, sdlog)
+  F_b <- cumDens(b, plnorm, meanlog, sdlog)
+  q_T <- truncated_q(qlnorm(rescaled_q(n, F_a, F_b), meanlog, sdlog), mget(ls()))
+  return(q_T)
+}
+
 cumDens <- function(x, probFunction, ...) {
   if (x == -Inf || x == 0) {
     return(0)

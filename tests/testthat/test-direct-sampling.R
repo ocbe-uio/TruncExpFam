@@ -170,6 +170,23 @@ test_that("Original attributes are retrieved", {
     c("m" = 61, "s" = 7),
     tolerance= 1e-1
   )
+
+  # Log-normal
+  invlnorm <- rtrunc(1e5, meanlog = 4, sdlog = 1, faster = TRUE, family = "lognormal")
+  expect_equal(
+    attributes(invlnorm),
+    list(
+      "class" = "trunc_lognormal",
+      "parameters" = list("meanlog" = 4, "sdlog" = 1),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(invlnorm),
+    c("meanlog" = 4, "sdlog" = 1),
+    tolerance= 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")
