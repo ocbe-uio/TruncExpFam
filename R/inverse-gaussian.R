@@ -17,7 +17,10 @@ dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {
     eta <- parameters2natural.trunc_invgauss(c("m" = m, "s" = s))
   }
   parm <- natural2parameters.trunc_invgauss(eta)
-  dens <- rescaledDensities(y, a, b, dinvgauss, pinvgauss, parm[1], parm[2])
+  if (any(y <= 0)) {
+    stop("Sample must be strictly positive. Reconsider your parameters")
+  }
+  dens <- rescaledDensities(y, a, b, dinvgauss, pinvgauss, parm["m"], parm["s"])
   return(dens)
 }
 
@@ -69,6 +72,7 @@ getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
   lo <- max(0, y.min, m - 3.5 * sd)
   hi <- min(y.max, m + 3.5 * sd)
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0] # y must be positive
   class(out) <- class(y)
   return(out)
 }

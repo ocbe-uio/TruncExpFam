@@ -153,6 +153,23 @@ test_that("Original attributes are retrieved", {
     c("shape" = 4, "rate" = 1 / 3),
     tolerance= 1e-1
   )
+
+  # Inv Gauss
+  invgauss <- rtrunc(1e5, m = 61, s = 7, faster = TRUE, family = "invgauss")
+  expect_equal(
+    attributes(invgauss),
+    list(
+      "class" = "trunc_invgauss",
+      "parameters" = list("m" = 61, "s" = 7),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(invgauss, delta = .01),
+    c("m" = 61, "s" = 7),
+    tolerance= 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")

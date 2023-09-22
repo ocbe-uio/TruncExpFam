@@ -40,5 +40,5 @@
 #' qexp qgamma rchisq runif rexp dexp pexp dnbinom pnbinom rnbinom qnorm qbeta
 #' qchisq
 #' @importFrom invgamma rinvgamma dinvgamma pinvgamma qinvgamma
-#' @importFrom rmutil rinvgauss dinvgauss pinvgauss
+#' @importFrom rmutil rinvgauss dinvgauss pinvgauss qinvgauss
 "_PACKAGE"
