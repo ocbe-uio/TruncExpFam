@@ -38,7 +38,7 @@
 #' @importFrom stats dbinom dgamma dlnorm dnorm dpois pbinom pgamma plnorm pnorm
 #' ppois rbinom rgamma rlnorm rnorm rpois var dbeta pbeta rbeta dchisq pchisq
 #' qexp qgamma rchisq runif rexp dexp pexp dnbinom pnbinom rnbinom qnorm qbeta
-#' qchisq
+#' qchisq qlnorm
 #' @importFrom invgamma rinvgamma dinvgamma pinvgamma qinvgamma
-#' @importFrom rmutil rinvgauss dinvgauss pinvgauss
+#' @importFrom rmutil rinvgauss dinvgauss pinvgauss qinvgauss
 "_PACKAGE"

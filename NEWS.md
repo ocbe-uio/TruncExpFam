@@ -12,6 +12,7 @@
 * Simplified codebase (issues #91, #77, #78)
 * Added a vignette (issue #53)
 * Enabled usage of `parameters2natural()` and `natural2parameters()` with numeric vectors (issue #88)
+* Faster calculation of `rtrunc()` for continuous distributions (issue #78)
 
 # TruncExpFam 1.0.0
 
