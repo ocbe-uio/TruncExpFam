@@ -89,19 +89,68 @@ test_that("Original attributes are retrieved", {
   )
 
   # Gamma
-  gamma_1 <- rtrunc(1e5, rate = 3, shape = .4, faster = TRUE, family = "gamma")
+  gamma_1 <- rtrunc(1e5, rate = 3, shape = 4, faster = TRUE, family = "gamma")
   expect_equal(
     attributes(gamma_1),
     list(
       "class" = "trunc_gamma",
-      "parameters" = list("shape" = .4, "rate" = 3),
+      "parameters" = list("shape" = 4, "rate" = 3),
       "truncation_limits" = list("a" = 0, "b" = Inf),
       "continuous" = TRUE
     )
   )
   expect_equal(
     mlEstimationTruncDist(gamma_1),
-    c("shape" = 3, "rate" = .4),
+    c("shape" = 4, "rate" = 3),
+    tolerance= 1e-1
+  )
+
+  gamma_2 <- rtrunc(1e5, scale = 3, shape = 4, faster = TRUE, family = "gamma")
+  expect_equal(
+    attributes(gamma_2),
+    list(
+      "class" = "trunc_gamma",
+      "parameters" = list("shape" = 4, "rate" = 1 / 3),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(gamma_2),
+    c("shape" = 4, "rate" = 1 / 3),
+    tolerance= 1e-1
+  )
+
+  # Inv Gamma
+  invgamma_1 <- rtrunc(1e5, rate = 3, shape = 4, faster = TRUE, family = "invgamma")
+  expect_equal(
+    attributes(invgamma_1),
+    list(
+      "class" = "trunc_invgamma",
+      "parameters" = list("shape" = 4, "rate" = 3),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(invgamma_1),
+    c("shape" = 4, "rate" = 3),
+    tolerance= 1e-1
+  )
+
+  invgamma_2 <- rtrunc(1e5, scale = 3, shape = 4, faster = TRUE, family = "invgamma")
+  expect_equal(
+    attributes(invgamma_2),
+    list(
+      "class" = "trunc_invgamma",
+      "parameters" = list("shape" = 4, "rate" = 1 / 3),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = TRUE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(invgamma_2),
+    c("shape" = 4, "rate" = 1 / 3),
     tolerance= 1e-1
   )
 })

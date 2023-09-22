@@ -126,7 +126,7 @@ test_that("Inverse gamma parameteres are properly converted", {
   expect_equal(prbdst_1$nat_parms, c(eta1 = -alpha - 1, eta2 = -beta))
 
   prbdst_nat <- probdist(eta1 = et1, eta2 = et2, family = fam)
-  expect_equal(prbdst_nat$parms, c(shape = - et1 - 1, scale = -et2))
+  expect_equal(prbdst_nat$parms, c(shape = - et1 - 1, rate = -et2))
   expect_equal(prbdst_nat$nat_parms, c(eta1 = et1, eta2 = et2))
 })
 

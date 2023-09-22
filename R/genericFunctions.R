@@ -59,6 +59,7 @@ getGradETinv <- function(eta, ...) {
 
 #' @title Probability Density Function
 #' @description Calculates the PDF for a given truncated distribution
+#' @note Either the common or the natural parameters must be provided.
 #' @param y output from rtrunc or any valid numeric value(s).
 #' @export
 #' @return The density of y for the given values of the \code{eta} parameter.

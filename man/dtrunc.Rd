@@ -101,6 +101,9 @@ The density of y for the given values of the \code{eta} parameter.
 \description{
 Calculates the PDF for a given truncated distribution
 }
+\note{
+Either the common or the natural parameters must be provided.
+}
 \examples{
 # Using the output of rtrunc
 y <- rtrunc(50, mean = 5, sd = 2)

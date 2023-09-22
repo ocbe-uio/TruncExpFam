@@ -2,6 +2,24 @@
 ##   Functions related to the continuous Bernoulli distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
+# Sampling function for a continuous bernoulli distribution
+# This distribution is not implemented in Base R
+# Used in the sampling of the truncated continuous bernoulli
+rcontbern <- function(n, lambda) {
+  if ((lambda < 0) || (lambda > 1)) {
+    stop("lambda must be in (0, 1)")
+  }
+  u <- runif(n)
+  if (lambda == 0.5) {
+    return(u)
+  }
+
+  # The inverse of the CDF for a cont. bernoulli distribution
+  x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) /
+    log(lambda / (1 - lambda))
+  return(x)
+}
+
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export
