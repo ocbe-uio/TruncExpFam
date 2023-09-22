@@ -88,7 +88,7 @@ getGradETinv.trunc_gamma <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   dpsi.dx <- function(x, k = 10000) {
-    # Returns the derivative of the psi function above
+    # Returns the derivative of the psi function (removed)
     sum((1 / ((0:k) + x))^2)
   }
   A_inv <- matrix(
