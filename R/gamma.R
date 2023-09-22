@@ -24,7 +24,7 @@ dtrunc.trunc_gamma <- function(
     eta <- parameters2natural.trunc_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_gamma(eta)
-  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm[1], parm[2])
+  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm["shape"], parm["rate"])
   return(dens)
 }
 
@@ -52,7 +52,7 @@ natural2parameters.trunc_gamma <- function(eta, ...) {
   # eta: The natural parameters in a gamma distribution
   # returns (shape,rate)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
-  parms <- c(shape = eta[[1]] + 1, rate = -eta[[2]])
+  parms <- c("shape" = eta[[1]] + 1, "rate" = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }

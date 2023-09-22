@@ -58,9 +58,15 @@ rtrunc_direct.exp <- function(n, family, rate, a = 0, b = Inf, ...) {
 rtrunc_direct.gamma <- function(
   n, family, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ...
 ) {
-  F_a <- cumDens(a, pgamma, rate, scale)
-  F_b <- cumDens(b, pgamma, rate, scale)
-  q_T <- truncated_q(qgamma(rescaled_q(n, F_a, F_b), rate, scale), mget(ls()))
+  F_a <- cumDens(a, pgamma, shape, rate)
+  F_b <- cumDens(b, pgamma, shape, rate)
+  if (scale != 1 / rate) {
+    rate <- 1 / scale
+    parms$rate <- rate
+  }
+  q_T <- truncated_q(qgamma(rescaled_q(n, F_a, F_b), shape, rate), mget(ls()))
+  return(q_T)
+}
   return(q_T)
 }
 
