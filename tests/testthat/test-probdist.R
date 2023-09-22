@@ -225,3 +225,10 @@ test_that("Errors are properly caught", {
   expect_error(probdist(eta = -5, family = "normal"), eta_err_2)
   expect_error(probdist(eta1 = 5, eta2 = -2, family = "poisson"), eta_err_1)
 })
+
+test_that("Print method works", {
+  expect_output(
+    print(probdist(mean = 100, sd = 4, family = "gaussian")),
+    "Family:\\s+Normal\\nParameters:\\s+mean = 100\\s+sd   = 4"
+  )
+})

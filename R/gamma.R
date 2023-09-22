@@ -63,10 +63,8 @@ parameters2natural.trunc_gamma <- function(parms, ...) {
   # returns the natural parameters
   if (all(c("shape", "rate") %in% names(parms))) {
     eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -parms[["rate"]])
-  } else if (all(c("shape", "scale") %in% names(parms))) {
-    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
   } else {
-    stop("Invalid gamma parameters: ", names(parms))
+    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
   }
   class(eta) <- class(parms)
   return(eta)
