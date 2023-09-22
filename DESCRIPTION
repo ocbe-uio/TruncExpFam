@@ -33,6 +33,6 @@ Suggests:
     knitr,
     rmarkdown,
     testthat
-URL: https://github.com/ocbe-uio/TruncExpFam
+URL: https://ocbe-uio.github.io/TruncExpFam/
 BugReports: https://github.com/ocbe-uio/TruncExpFam/issues
 VignetteBuilder: knitr
