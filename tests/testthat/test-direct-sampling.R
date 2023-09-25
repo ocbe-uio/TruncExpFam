@@ -187,6 +187,24 @@ test_that("Original attributes are retrieved", {
     c("meanlog" = 4, "sdlog" = 1),
     tolerance= 1e-1
   )
+
+  # Poisson
+  lb <- 29L
+  smp <- rtrunc(1e5, lambda = lb, faster = TRUE, family = "poisson")
+  expect_equal(
+    attributes(smp),
+    list(
+      "class" = "trunc_poisson",
+      "parameters" = list("lambda" = lb),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = FALSE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(smp),
+    c("lambda" = lb),
+    tolerance= 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")
@@ -300,6 +318,20 @@ test_that("Truncation is not a speed limiter", {
       n, family = "lognormal", meanlog = 5, sdlog = 2, a = 150, b = 160,
       faster = TRUE
     ),
+    n
+  )
+
+  # Poisson
+  n <- 1e5L
+  expect_error({
+      setTimeLimit(time_limit)
+      rtrunc(n, family = "poisson", lambda = 10, a = 8, b = 15)
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(
+      n, family = "poisson", lambda = 10, a = 8, b = 15, faster = TRUE),
     n
   )
 })
