@@ -125,3 +125,49 @@ truncated_q <- function(q_T, parms) {
 rescaled_q <- function(n, F_a, F_b) {
   return(runif(n) * (F_b - F_a) + F_a)
 }
+
+#' @export
+rtrunc_direct.poisson <- function(n, family, lambda, a = 0, b = Inf, ...) {
+  F_a <- cumDens(a, ppois, lambda)
+  F_b <- cumDens(b, ppois, lambda)
+  # Choose a practical b because a:Inf doesn't work
+  practical_b <- ifelse(
+    test = b == Inf,
+    yes  = qpois(p = 1e-50, lambda = lambda, lower.tail = FALSE),
+    no   = b
+  )
+  weights <- dpois(a:practical_b, lambda) / (F_b - F_a)
+  trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
+  f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
+  return(f_T)
+}
+
+#' @export
+rtrunc_direct.binomial <- function(
+  n, family, size, prob, a = 0, b = size, ...
+) {
+  F_a <- cumDens(a, pbinom, size, prob)
+  F_b <- cumDens(b, pbinom, size, prob)
+  weights <- dbinom(a:b, size, prob) / (F_b - F_a)
+  trunc_samp <- sample(a:b, size = n, replace = TRUE, prob = weights)
+  f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
+  return(f_T)
+}
+
+#' @export
+rtrunc_direct.nbinom <- function(
+  n, family, size, prob, mu, a = 0, b = Inf, ...
+) {
+  F_a <- cumDens(a, pnbinom, size, prob, mu)
+  F_b <- cumDens(b, pnbinom, size, prob, mu)
+  # Choose a practical b because a:Inf doesn't work
+  practical_b <- ifelse(
+    test = b == Inf,
+    yes  = qnbinom(p = 1e-50, size, prob, mu, lower.tail = FALSE),
+    no   = b
+  )
+  weights <- dnbinom(a:practical_b, size, prob, mu) / (F_b - F_a)
+  trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
+  f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
+  return(f_T)
+}
