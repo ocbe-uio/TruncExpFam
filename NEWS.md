@@ -13,6 +13,7 @@
 * Added a vignette (issue #53)
 * Enabled usage of `parameters2natural()` and `natural2parameters()` with numeric vectors (issue #88)
 * Faster calculation of `rtrunc()` for continuous distributions (issue #78)
+* Faster calculation of `rtrunc()` for discrete distributions (issue #77)
 * Created package page on https://ocbe-uio.github.io/TruncExpFam/ (issues #100, #101)
 
 # TruncExpFam 1.0.0
