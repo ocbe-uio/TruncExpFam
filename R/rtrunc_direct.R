@@ -153,3 +153,21 @@ rtrunc_direct.binomial <- function(
   f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
   return(f_T)
 }
+
+#' @export
+rtrunc_direct.nbinom <- function(
+  n, family, size, prob, mu, a = 0, b = Inf, ...
+) {
+  F_a <- cumDens(a, pnbinom, size, prob, mu)
+  F_b <- cumDens(b, pnbinom, size, prob, mu)
+  # Choose a practical b because a:Inf doesn't work
+  practical_b <- ifelse(
+    test = b == Inf,
+    yes  = qnbinom(p = 1e-50, size, prob, mu, lower.tail = FALSE),
+    no   = b
+  )
+  weights <- dnbinom(a:practical_b, size, prob, mu) / (F_b - F_a)
+  trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
+  f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
+  return(f_T)
+}

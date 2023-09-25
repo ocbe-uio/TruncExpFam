@@ -224,6 +224,25 @@ test_that("Original attributes are retrieved", {
     c("prob" = pb),
     tolerance= 1e-1
   )
+
+  # Negative Binomial
+  sz <- rpois(1, 20)
+  pb <- runif(1)
+  smp <- rtrunc(1e5, size = sz, prob = pb, faster = TRUE, family = "nbinom")
+  expect_equal(
+    attributes(smp),
+    list(
+      "class" = "trunc_nbinom",
+      "parameters" = list("size" = sz, "prob" = pb),
+      "truncation_limits" = list("a" = 0, "b" = Inf),
+      "continuous" = FALSE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(smp),
+    c("mean" = sz * (1 - pb) / pb),
+    tolerance = 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")
@@ -364,6 +383,19 @@ test_that("Truncation is not a speed limiter", {
   )
   expect_length(
     rtrunc(n, family = "binomial", size = 10, prob = .1, a = 5, faster = TRUE),
+    n
+  )
+
+  # Negative Binomial
+  n <- 1e5L
+  expect_error({
+      setTimeLimit(time_limit)
+      rtrunc(n, family = "nbinom", size = 100, prob = .8, b = 10)
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, family = "nbinom", size = 100, prob = .8, b = 10, faster = TRUE),
     n
   )
 })
