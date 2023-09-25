@@ -205,6 +205,25 @@ test_that("Original attributes are retrieved", {
     c("lambda" = lb),
     tolerance= 1e-1
   )
+
+  # Binomial
+  sz <- rpois(1, 20)
+  pb <- runif(1)
+  smp <- rtrunc(1e5, size = sz, prob = pb, faster = TRUE, family = "binomial")
+  expect_equal(
+    attributes(smp),
+    list(
+      "class" = "trunc_binomial",
+      "parameters" = list("size" = sz, "prob" = pb),
+      "truncation_limits" = list("a" = 0, "b" = sz),
+      "continuous" = FALSE
+    )
+  )
+  expect_equal(
+    mlEstimationTruncDist(smp),
+    c("prob" = pb),
+    tolerance= 1e-1
+  )
 })
 
 Sys.setenv("LANGUAGE" = "en")
@@ -332,6 +351,19 @@ test_that("Truncation is not a speed limiter", {
   expect_length(
     rtrunc(
       n, family = "poisson", lambda = 10, a = 8, b = 15, faster = TRUE),
+    n
+  )
+
+  # Binomial
+  n <- 1e5L
+  expect_error({
+      setTimeLimit(time_limit)
+      rtrunc(n, family = "binomial", size = 10, prob = .1, a = 5)
+    },
+    "reached CPU time limit"
+  )
+  expect_length(
+    rtrunc(n, family = "binomial", size = 10, prob = .1, a = 5, faster = TRUE),
     n
   )
 })

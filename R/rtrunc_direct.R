@@ -141,3 +141,15 @@ rtrunc_direct.poisson <- function(n, family, lambda, a = 0, b = Inf, ...) {
   f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
   return(f_T)
 }
+
+#' @export
+rtrunc_direct.binomial <- function(
+  n, family, size, prob, a = 0, b = size, ...
+) {
+  F_a <- cumDens(a, pbinom, size, prob)
+  F_b <- cumDens(b, pbinom, size, prob)
+  weights <- dbinom(a:b, size, prob) / (F_b - F_a)
+  trunc_samp <- sample(a:b, size = n, replace = TRUE, prob = weights)
+  f_T <- truncated_q(trunc_samp, mget(ls()))  # just to add the attributes
+  return(f_T)
+}
