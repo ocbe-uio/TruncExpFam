@@ -125,3 +125,17 @@ truncated_q <- function(q_T, parms) {
 rescaled_q <- function(n, F_a, F_b) {
   return(runif(n) * (F_b - F_a) + F_a)
 }
+
+#' @export
+rtrunc_direct.poisson <- function(n, family, lambda, a = 0, b = Inf, ...) {
+  if (b == Inf) {
+    # Choose a practical b because a:Inf doesn't work
+    b <- qpois(p = 1e-10, lambda = lambda, lower.tail = FALSE)
+  }
+  weights <- dpois(a:b, lambda)
+  trunc_samp <- sample(a:b, size = n, replace = TRUE, prob = weights)
+  F_a <- cumDens(a, ppois, lambda)
+  F_b <- cumDens(b, ppois, lambda)
+  f_T <- as.integer(trunc_samp / (F_b - F_a))
+  return(f_T)
+}
