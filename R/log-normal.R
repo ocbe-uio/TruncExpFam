@@ -68,5 +68,5 @@ parameters2natural.trunc_lognormal <- function(parms, ...) {
 }
 
 getGradETinv.trunc_lognormal <- function(eta, ...) {
-  getGradETinv.trunc_normal(eta)
+  getGradETinv.trunc_normal(eta, ...)
 }
