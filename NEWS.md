@@ -16,6 +16,11 @@
 * Faster calculation of `rtrunc()` for discrete distributions (issue #77)
 * Created package page on https://ocbe-uio.github.io/TruncExpFam/ (issues #100, #101)
 
+# TruncExpFam 1.0.1
+
+* Hotfix for package documentation (https://github.com/r-lib/roxygen2/issues/1491)
+* Improved argument consistency between generic and methods
+
 # TruncExpFam 1.0.0
 
 * CRAN debut
