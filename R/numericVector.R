@@ -40,7 +40,7 @@ parameters2natural.numeric <- function(parms, family = "gaussian", ...) {
   } else {
     validateFamilyParms(family, names(parms))
   }
-  class(parms) <- paste0("trunc_", family)
+  class(parms) <- paste0("parms_", family)
 
   # Dispatching
   return(parameters2natural(parms))
@@ -51,7 +51,7 @@ natural2parameters.numeric <- function(eta, family = "gaussian", ...) {
   # Validation and reformatting
   family <- useStandardFamilyName(family)
   validateNaturalParms(names(eta))
-  class(eta) <- paste0("trunc_", family)
+  class(eta) <- paste0("parms_", family)
 
   # Dispatching
   return(natural2parameters(eta))

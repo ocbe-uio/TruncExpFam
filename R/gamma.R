@@ -21,9 +21,9 @@ dtrunc.trunc_gamma <- function(
   y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
+    eta <- parameters2natural.parms_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
-  parm <- natural2parameters.trunc_gamma(eta)
+  parm <- natural2parameters.parms_gamma(eta)
   dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm["shape"], parm["rate"])
   return(dens)
 }
@@ -39,7 +39,7 @@ empiricalParameters.trunc_gamma <- function(y, ...) {
   avar <- var(y)
   shp <- amean^2 / avar
   parms <- c(shape = shp, rate = shp / amean)
-  class(parms) <- "trunc_gamma"
+  class(parms) <- "parms_gamma"
   return(parms)
 }
 
@@ -48,7 +48,7 @@ sufficientT.trunc_gamma <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_gamma <- function(eta, ...) {
+natural2parameters.parms_gamma <- function(eta, ...) {
   # eta: The natural parameters in a gamma distribution
   # returns (shape,rate)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -58,7 +58,7 @@ natural2parameters.trunc_gamma <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_gamma <- function(parms, ...) {
+parameters2natural.parms_gamma <- function(parms, ...) {
   # parms: The parameters shape and rate in a gamma distribution
   # returns the natural parameters
   if (all(c("shape", "rate") %in% names(parms))) {
@@ -82,7 +82,7 @@ getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_gamma <- function(eta, ...) {
+getGradETinv.parms_gamma <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   dpsi.dx <- function(x, k = 10000) {

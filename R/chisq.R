@@ -13,9 +13,9 @@ rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
 #' @export
 dtrunc.trunc_chisq <- function(y, df, eta, a = 0, b = Inf, ...) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_chisq(c("df" = df))
+    eta <- parameters2natural.parms_chisq(c("df" = df))
   }
-  df <- natural2parameters.trunc_chisq(eta)
+  df <- natural2parameters.parms_chisq(eta)
   dens <- rescaledDensities(y, a, b, dchisq, pchisq, df)
   return(dens)
 }
@@ -28,7 +28,7 @@ dtruncchisq <- dtrunc.trunc_chisq
 empiricalParameters.trunc_chisq <- function(y, ...) {
   # Returns empirical parameter estimate for df
   parms <- c("df" = mean(y))
-  class(parms) <- "trunc_chisq"
+  class(parms) <- "parms_chisq"
   return(parms)
 }
 
@@ -37,7 +37,7 @@ sufficientT.trunc_chisq <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_chisq <- function(eta, ...) {
+natural2parameters.parms_chisq <- function(eta, ...) {
   # eta: The natural parameters in a Chi Square distribution
   # returns df
   if (length(eta) != 1) stop("Eta must be one single number")
@@ -47,14 +47,14 @@ natural2parameters.trunc_chisq <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_chisq <- function(parms, ...) {
+parameters2natural.parms_chisq <- function(parms, ...) {
   # parms: The parameter lambda in a Chi Square distribution
   # returns the natural parameters
   eta <- prepEta(parms / 2 - 1, class(parms))
   return(eta)
 }
 
-getGradETinv.trunc_chisq <- function(eta, ...) {
+getGradETinv.parms_chisq <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = 1 / sum(1 / (as.vector(eta) + (1:1e6))^2))

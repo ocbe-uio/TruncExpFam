@@ -143,7 +143,7 @@ test_that("mlEstimationTruncDist works", {
 
 context("Parameter conversion")
 
-eta.hat <- parameters2natural.trunc_gamma(ml_gamma)
+eta.hat <- parameters2natural.parms_gamma(ml_gamma)
 
 test_that("Converting parameters", {
   expect_equal(

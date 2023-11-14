@@ -19,9 +19,9 @@ rtruncbeta <- rtrunc.beta
 #' @export
 dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_beta(c(shape1, shape2))
+    eta <- parameters2natural.parms_beta(c(shape1, shape2))
   }
-  parm <- natural2parameters.trunc_beta(eta)
+  parm <- natural2parameters.parms_beta(eta)
   dens <- rescaledDensities(y, a, b, dbeta, pbeta, parm[1], parm[2])
   return(dens)
 }
@@ -39,7 +39,7 @@ empiricalParameters.trunc_beta <- function(y, ...) {
   alpha <- amean^2 * (1 - amean) / avar - amean
   beta <- alpha * (1 / amean - 1)
   parms <- c(shape1 = alpha, shape2 = beta)
-  class(parms) <- "trunc_beta"
+  class(parms) <- "parms_beta"
   return(parms)
 }
 
@@ -49,7 +49,7 @@ sufficientT.trunc_beta <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_beta <- function(eta, ...) {
+natural2parameters.parms_beta <- function(eta, ...) {
   # eta: The natural parameters in a beta distribution
   # returns (alpha,beta)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -59,7 +59,7 @@ natural2parameters.trunc_beta <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_beta <- function(parms, ...) {
+parameters2natural.parms_beta <- function(parms, ...) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
   eta <- prepEta(c(parms[1], parms[2]), class(parms))
@@ -78,7 +78,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_beta <- function(eta, ...) {
+getGradETinv.parms_beta <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   # Uses approximation for the digamma function: digamma(x) ~ ln(x) - 1 / 2 / x

@@ -21,7 +21,7 @@ dtrunc.trunc_nbinom <- function(
   y, size, prob, eta, a = 0, b = Inf, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_nbinom(c("size" = size, "prob" = prob))
+    eta <- parameters2natural.parms_nbinom(c("size" = size, "prob" = prob))
   }
   nsize <- attr(y, "parameters")$size
   proba <- attr(y, "parameters")$prob
@@ -46,7 +46,7 @@ empiricalParameters.trunc_nbinom <- function(y, r, k, ...) {
   } else {
     parms <- c("size" = r, "prob" = (r - 1) / (r + k - 1))
   }
-  class(parms) <- "trunc_nbinom"
+  class(parms) <- "parms_nbinom"
   return(parms)
 }
 
@@ -55,7 +55,7 @@ sufficientT.trunc_nbinom <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_nbinom <- function(eta, ...) {
+natural2parameters.parms_nbinom <- function(eta, ...) {
   # eta: The natural parameters in a negative binomial distribution
   p <- c(mean = exp(eta))
   class(p) <- class(eta)
@@ -63,7 +63,7 @@ natural2parameters.trunc_nbinom <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_nbinom <- function(parms, ...) {
+parameters2natural.parms_nbinom <- function(parms, ...) {
   # parms: The p parameter in a negative binomial distribution
   # returns the natural parameters
   if (all(names(parms) == c("size", "prob"))) {
@@ -75,7 +75,7 @@ parameters2natural.trunc_nbinom <- function(parms, ...) {
   return(eta)
 }
 
-getGradETinv.trunc_nbinom <- function(eta, r = 1e3, ...) {
+getGradETinv.parms_nbinom <- function(eta, r = 1e3, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   p <- exp(eta)

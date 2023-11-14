@@ -13,9 +13,9 @@ rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf) {
 #' @export
 dtrunc.trunc_exp <- function(y, rate = 1, eta, a = 0, b = Inf, ...) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_exp(c("rate" = rate))
+    eta <- parameters2natural.parms_exp(c("rate" = rate))
   }
-  rate <- natural2parameters.trunc_exp(eta)
+  rate <- natural2parameters.parms_exp(eta)
   dens <- rescaledDensities(y, a, b, dexp, pexp, rate)
   return(dens)
 }
@@ -28,7 +28,7 @@ dtruncexp <- dtrunc.trunc_exp
 empiricalParameters.trunc_exp <- function(y, ...) {
   # Returns empirical parameter estimate for the rate parameter
   parms <- c("rate" = mean(y))
-  class(parms) <- "trunc_exp"
+  class(parms) <- "parms_exp"
   return(parms)
 }
 
@@ -37,7 +37,7 @@ sufficientT.trunc_exp <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_exp <- function(eta, ...) {
+natural2parameters.parms_exp <- function(eta, ...) {
   # eta: The natural parameters in an exponential distribution distribution
   # returns rate
   if (length(eta) != 1) stop("Eta must be one single number")
@@ -47,7 +47,7 @@ natural2parameters.trunc_exp <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_exp <- function(parms, ...) {
+parameters2natural.parms_exp <- function(parms, ...) {
   # parms: The parameter lambda in an exponential distribution
   # returns the natural parameters
   eta <- c("eta" = -parms[["rate"]])
@@ -55,7 +55,7 @@ parameters2natural.trunc_exp <- function(parms, ...) {
   return(eta)
 }
 
-getGradETinv.trunc_exp <- function(eta, ...) {
+getGradETinv.parms_exp <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = eta^2)

@@ -14,6 +14,7 @@
 * Faster calculation of `rtrunc()` for continuous distributions (issue #78)
 * Faster calculation of `rtrunc()` for discrete distributions (issue #77)
 * Created package page on https://ocbe-uio.github.io/TruncExpFam/ (issues #100, #101)
+* Reclassified `eta` and `parms` arguments as `parms_*` instead of `trunc_*` (issue #97)
 
 # TruncExpFam 1.0.1
 
