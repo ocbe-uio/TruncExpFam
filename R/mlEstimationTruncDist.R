@@ -90,6 +90,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
   # Now iterate
+  if (print.iter) cat(" it\t delta.L2\t parameter(s)\n")
   while ((delta.L2 > tol) && (it < max.it)) {
     parm.j <- natural2parameters(eta.j)
     T.minus.E.T <- getTminusET(
@@ -107,9 +108,9 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     if (print.iter) {
       if (it %% as.numeric(print.iter) == 0) {
         cat(
-          "it:", formatC(it, width = floor(log(max.it, 10))),
-          "delta.L2:", formatC(delta.L2, width = 10),
-          "parm:", round(parm.j, 3), "\n"
+          formatC(it, width = floor(log(max.it, 10))), "\t",
+          formatC(delta.L2, width = 9), "\t",
+          round(parm.j, 3), "\n"
         )
       }
     }
