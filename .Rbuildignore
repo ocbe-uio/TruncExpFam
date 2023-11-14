@@ -5,3 +5,11 @@ createLogo.R
 logo.png
 Makefile
 README\..?md
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^doc$
+^Meta$
+^CRAN-SUBMISSION$
+^cran-comments\.md$

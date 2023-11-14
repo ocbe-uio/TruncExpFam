@@ -1,20 +1,17 @@
-library(hexSticker)
-library(ggplot2)
-library(TruncExpFam)
 set.seed(31898546)
 lo <- -4
 hi <- 2
-x <- rtrunc(1e4, mean = 0, sd = 2, a = -5, b = 5)
+x <- TruncExpFam::rtrunc(1e4, mean = 0, sd = 2, a = -5, b = 5)
 dfx <- data.frame(x = as.numeric(x))
 dfx$cut <- dfx$x < lo | dfx$x > hi
-p <- ggplot(dfx, aes(x, fill = cut)) +
-	geom_histogram(breaks = seq(-5, 5, .2), col = "#f4f6ff", size = .3)
+p <- ggplot2::ggplot(dfx, aes(x, fill = cut)) +
+	ggplot2::geom_histogram(breaks = seq(-5, 5, .2), col = "#f4f6ff", size = .3)
 p <- p +
-	theme_transparent() +
-	theme_void() +
-	theme(legend.position = "none") +
-	scale_fill_manual(values = c("#000000", "#f4f6ff"))
-sticker(
+	ggplot2::theme_transparent() +
+	ggplot2::theme_void() +
+	ggplot2::theme(legend.position = "none") +
+	ggplot2::scale_fill_manual(values = c("#000000", "#f4f6ff"))
+hexSticker::sticker(
 	subplot    = p,
 	package    = "TruncExpFam",
 	filename   = "logo.png",
