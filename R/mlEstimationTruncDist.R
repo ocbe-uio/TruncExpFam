@@ -14,6 +14,11 @@
 #' estimations but slower iterations
 #' @param family distribution family to use
 #' @param ... other parameters passed to subfunctions
+#' @details If \code{print.iter = TRUE}, the function prints the iteration,
+#' the sum of squares of delta.eta.j (\code{delta.L2}), and the current
+#' parameter estimates. The \code{delta} argument of this function is a factor
+#' in the calculation of \code{delta.eta.j}, which in turn is a factor in the
+#' calculation of \code{delta.L2}.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the
 #' maximum likelihood estimation of the parameters of the truncated normal and
 #' lognormal distributions"

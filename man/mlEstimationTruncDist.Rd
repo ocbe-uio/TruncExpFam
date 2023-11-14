@@ -49,9 +49,12 @@ estmation of the underlying distribution * parameters.
 ML-estimation of the parameters of the distribution of the
 specified family, truncated at y.min and y.max
 }
-\note{
-\code{print.iter} can be \code{TRUE}, \code{FALSE} or an integer indicating
-an interval for printing every \code{X} iterations.
+\details{
+If \code{print.iter = TRUE}, the function prints the iteration,
+the sum of squares of delta.eta.j (\code{delta.L2}), and the current
+parameter estimates. The \code{delta} argument of this function is a factor
+in the calculation of \code{delta.eta.j}, which in turn is a factor in the
+calculation of \code{delta.L2}.
 }
 \examples{
 sample_size <- 1000
