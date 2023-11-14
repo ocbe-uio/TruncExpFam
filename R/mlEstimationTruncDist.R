@@ -14,8 +14,6 @@
 #' estimations but slower iterations
 #' @param family distribution family to use
 #' @param ... other parameters passed to subfunctions
-#' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating
-#' an interval for printing every `X` iterations.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the
 #' maximum likelihood estimation of the parameters of the truncated normal and
 #' lognormal distributions"
