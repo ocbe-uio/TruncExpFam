@@ -191,16 +191,16 @@ distribution). Must be strictly positive, need not be integer.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Using the output of rtrunc</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="rtrunc.html">rtrunc</a></span><span class="op">(</span><span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">dtrunc</span><span class="op">(</span><span class="va">y</span>, eta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.541937e-03 1.516136e-14 7.281693e-09 1.608385e-12 5.758350e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 9.532056e-07 5.898802e-12 7.193656e-23 3.879641e-21 8.583961e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 4.889517e-01 1.045403e-05 7.958695e-10 1.501012e-12 3.167504e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 2.504583e-24 1.628453e-21 1.486600e-11 4.979495e-15 3.754201e-19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 9.927216e-02 1.088125e-10 8.187891e-10 1.978259e-21 7.890745e-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] 1.116393e-10 4.829750e-25 1.316257e-10 9.055831e-05 2.358995e-19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 8.913979e-06 5.781013e-07 3.272734e-02 9.964500e-28 2.377022e-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [36] 2.304182e-22 2.798979e-06 1.468778e-05 3.435643e-22 2.478521e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 1.643322e-22 1.492212e-09 1.187803e-10 1.670258e-11 1.195956e-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46] 1.192451e-03 2.622214e-06 5.886634e-02 3.837980e-17 6.516522e-25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 4.481669e-18 3.659815e-26 3.910768e-12 1.550663e-01 5.918820e-26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 1.407054e-02 9.380308e-12 1.647591e-15 3.208378e-07 1.383983e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 5.880745e-22 3.085828e-15 1.263352e-09 6.914270e-14 2.904154e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 3.872933e-02 1.619296e-06 7.161229e-05 4.257140e-37 2.043294e-36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 1.548370e-05 1.635665e-37 3.604975e-09 3.498987e-13 9.175167e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] 1.717692e-18 1.330180e-13 1.399520e-09 1.192037e-20 8.452870e-18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 8.894600e-18 3.647713e-22 4.456825e-07 2.942876e-26 1.060707e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36] 7.447901e-09 7.646676e-16 3.282544e-16 3.942371e-29 5.421024e-20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 3.523915e-11 9.127441e-14 7.522436e-13 5.251304e-02 4.610956e-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] 2.489087e-14 5.722406e-17 1.619154e-15 6.880829e-06 2.739204e-19</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Directly-inputting values</span></span></span>
 <span class="r-in"><span><span class="fu">dtruncnorm</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">10</span><span class="op">)</span>, eta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></span>
