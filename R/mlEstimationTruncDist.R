@@ -108,7 +108,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
       if (it %% as.numeric(print.iter) == 0) {
         cat(
           "it:", formatC(it, width = floor(log(max.it, 10))),
-          "delta:", formatC(delta.L2, width = 10),
+          "delta.L2:", formatC(delta.L2, width = 10),
           "parm:", round(parm.j, 3), "\n"
         )
       }
