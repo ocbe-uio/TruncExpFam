@@ -14,8 +14,11 @@
 #' estimations but slower iterations
 #' @param family distribution family to use
 #' @param ... other parameters passed to subfunctions
-#' @note `print.iter` can be `TRUE`, `FALSE` or an integer indicating
-#' an interval for printing every `X` iterations.
+#' @details If \code{print.iter = TRUE}, the function prints the iteration,
+#' the sum of squares of delta.eta.j (\code{delta.L2}), and the current
+#' parameter estimates. The \code{delta} argument of this function is a factor
+#' in the calculation of \code{delta.eta.j}, which in turn is a factor in the
+#' calculation of \code{delta.L2}.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the
 #' maximum likelihood estimation of the parameters of the truncated normal and
 #' lognormal distributions"
@@ -90,6 +93,7 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   it <- 0
   delta.L2 <- 10000 # sum of squares of individual delta.eta.j (see below)
   # Now iterate
+  if (print.iter) cat(" it\t delta.L2\t parameter(s)\n")
   while ((delta.L2 > tol) && (it < max.it)) {
     parm.j <- natural2parameters(eta.j)
     T.minus.E.T <- getTminusET(
@@ -107,9 +111,9 @@ mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
     if (print.iter) {
       if (it %% as.numeric(print.iter) == 0) {
         cat(
-          "it:", formatC(it, width = floor(log(max.it, 10))),
-          "delta:", formatC(delta.L2, width = 10),
-          "parm:", round(parm.j, 3), "\n"
+          formatC(it, width = floor(log(max.it, 10))), "\t",
+          formatC(delta.L2, width = 9), "\t",
+          round(parm.j, 3), "\n"
         )
       }
     }

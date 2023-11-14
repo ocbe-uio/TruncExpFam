@@ -114,7 +114,7 @@ test_that("ML estimation iteration controls", {
         object = capture.output(
           mlEstimationTruncDist(sample.norm, print.iter = i)
         ),
-        n = floor(tot_iter / i) + 2
+        n = floor((tot_iter - 1) / i) + 3
       )
     )
   }
