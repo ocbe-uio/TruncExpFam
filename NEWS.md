@@ -11,6 +11,15 @@
 * Improved parameter parsing (issue #74)
 * Simplified codebase (issues #91, #77, #78)
 * Added a vignette (issue #53)
+* Enabled usage of `parameters2natural()` and `natural2parameters()` with numeric vectors (issue #88)
+* Faster calculation of `rtrunc()` for continuous distributions (issue #78)
+* Faster calculation of `rtrunc()` for discrete distributions (issue #77)
+* Created package page on https://ocbe-uio.github.io/TruncExpFam/ (issues #100, #101)
+
+# TruncExpFam 1.0.1
+
+* Hotfix for package documentation (https://github.com/r-lib/roxygen2/issues/1491)
+* Improved argument consistency between generic and methods
 
 # TruncExpFam 1.0.0
 

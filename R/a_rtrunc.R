@@ -32,7 +32,6 @@
 #' sample for untruncated distributions called through `rtrunc()` will no longer
 #' match their \code{stats}-package counterparts for the same seed.
 #'
-#' @importFrom methods new
 #' @return vector of one of the \code{rtrunc_*} classes containing the sample
 #' elements, as well as some attributes related to the chosen distribution.
 #' @examples
@@ -93,6 +92,7 @@ rtrunc <- function(n, family = "gaussian", faster = FALSE, ...) {
   } else {
     sample <- rtrunc.generic(n, ...)
   }
+  return(sample)
 }
 
 rtrunc.generic <- function(n, ...) {

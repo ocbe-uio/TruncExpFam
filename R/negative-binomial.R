@@ -7,7 +7,6 @@
 #' distribution). Must be strictly positive, need not be integer.
 #' @param prob probability of success on each trial
 #' @param mu alternative parametrization via mean
-#' @importFrom stats rnbinom
 #' @rdname rtrunc
 #' @export
 rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
@@ -15,8 +14,6 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
   sampleFromTruncated(mget(ls()))
 }
 
-#' @export
-#' @importFrom stats dnbinom pnbinom
 #' @rdname dtrunc
 #' @param ... size
 #' @export
@@ -31,6 +28,11 @@ dtrunc.trunc_nbinom <- function(
   dens <- rescaledDensities(y, a, b, dnbinom, pnbinom, nsize, proba)
   return(dens)
 }
+
+#' @rdname dtrunc
+#' @param ... size
+#' @export
+dtruncnbinom <- dtrunc.trunc_nbinom
 
 #' @export
 #' @rdname dtrunc
@@ -53,7 +55,7 @@ sufficientT.trunc_nbinom <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_nbinom <- function(eta) {
+natural2parameters.trunc_nbinom <- function(eta, ...) {
   # eta: The natural parameters in a negative binomial distribution
   p <- c(mean = exp(eta))
   class(p) <- class(eta)
@@ -61,7 +63,7 @@ natural2parameters.trunc_nbinom <- function(eta) {
 }
 
 #' @export
-parameters2natural.trunc_nbinom <- function(parms) {
+parameters2natural.trunc_nbinom <- function(parms, ...) {
   # parms: The p parameter in a negative binomial distribution
   # returns the natural parameters
   if (all(names(parms) == c("size", "prob"))) {

@@ -28,6 +28,8 @@ dtruncchisq(y, df, eta, a = 0, b = Inf, ...)
 
 dtrunccontbern(y, lambda, eta, a = 0, b = 1, ...)
 
+dtrunccontbern(y, lambda, eta, a = 0, b = 1, ...)
+
 dtruncexp(y, rate = 1, eta, a = 0, b = Inf, ...)
 
 dtruncgamma(y, shape, rate = 1, scale = 1/rate, eta, a = 0, b = Inf, ...)
@@ -41,6 +43,8 @@ dtruncinvgauss(y, m, s, eta, a = 0, b = Inf, ...)
 dtrunclnorm(y, meanlog = 0, sdlog = 1, eta, a = 0, b = Inf, ...)
 
 \method{dtrunc}{trunc_nbinom}(y, size, prob, eta, a = 0, b = Inf, ...)
+
+dtruncnbinom(y, size, prob, eta, a = 0, b = Inf, ...)
 
 dtruncnbinom(y, size, prob, eta, a = 0, b = Inf, ...)
 
@@ -96,6 +100,9 @@ The density of y for the given values of the \code{eta} parameter.
 }
 \description{
 Calculates the PDF for a given truncated distribution
+}
+\note{
+Either the common or the natural parameters must be provided.
 }
 \examples{
 # Using the output of rtrunc

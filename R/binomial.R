@@ -51,16 +51,17 @@ sufficientT.trunc_binomial <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_binomial <- function(eta) {
+natural2parameters.trunc_binomial <- function(eta, ...) {
   # eta: The natural parameters in a binomial distribution
   # returns (p)
-  p <- c(prob = 1 / (1 + exp(-eta)))
+  if (length(eta) != 1) stop("Eta must be one single number")
+  p <- c(prob = 1 / (1 + exp(-eta[[1]])))
   class(p) <- class(eta)
   return(p)
 }
 
 #' @export
-parameters2natural.trunc_binomial <- function(parms) {
+parameters2natural.trunc_binomial <- function(parms, ...) {
   # parms: The probability parameter p in a binomial distribution
   # returns the natural parameters
   prob <- parms[["prob"]]

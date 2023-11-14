@@ -121,9 +121,10 @@ test_that("ML estimation iteration controls", {
   expect_error(mlEstimationTruncDist(sample.invgauss), "Failed to converge")
   expect_warning(mlEstimationTruncDist(sample.beta), "Maximum number of iter")
 })
+
 test_that("mlEstimationTruncDist works", {
   expect_equal(unclass(ml_gaussian), c(mean = 2, sd = 1.5), tol = 1e-1)
-  expect_equal(unclass(ml_lognormal), c(mean = 2.5, sd = 0.5), tol = 1e-1)
+  expect_equal(unclass(ml_lognormal), c(meanlog = 2.5, sdlog = 0.5), tol = 1e-1)
   expect_equal(unclass(ml_poisson), c(lambda = 10), tol = 1e-1)
   expect_equal(unclass(ml_binom), c(prob = 0.6), tol = 1e-1)
   expect_equal(unclass(ml_gamma), c(shape = 6, rate = 2), tol = 1e-1)
@@ -142,12 +143,12 @@ test_that("mlEstimationTruncDist works", {
 
 context("Parameter conversion")
 
-eta.hat <- parameters2natural.trunc_gamma(ml_lognormal)
+eta.hat <- parameters2natural.trunc_gamma(ml_gamma)
 
 test_that("Converting parameters", {
   expect_equal(
     unclass(eta.hat),
-    c(eta.1.mean = 1.5, eta.2.sd = -0.5),
+    c(eta1 = 5.344562, eta2 = -2.065129),
     tol = 5e-1
   )
 })

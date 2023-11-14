@@ -3,7 +3,6 @@
 ##         Variant 1                                 ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats rbeta
 #' @param shape1 positive shape parameter alpha
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
@@ -17,7 +16,6 @@ rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
 #' @export
 rtruncbeta <- rtrunc.beta
 
-#' @importFrom stats dbeta pbeta
 #' @export
 dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {
   if (missing(eta)) {
@@ -51,16 +49,17 @@ sufficientT.trunc_beta <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_beta <- function(eta) {
+natural2parameters.trunc_beta <- function(eta, ...) {
   # eta: The natural parameters in a beta distribution
   # returns (alpha,beta)
-  parms <- c(shape1 = eta[1], shape2 = eta[2])
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
+  parms <- c(shape1 = eta[[1]], shape2 = eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }
 
 #' @export
-parameters2natural.trunc_beta <- function(parms) {
+parameters2natural.trunc_beta <- function(parms, ...) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
   eta <- prepEta(c(parms[1], parms[2]), class(parms))
@@ -79,7 +78,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_beta <- function(eta) {
+getGradETinv.trunc_beta <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   # Uses approximation for the digamma function: digamma(x) ~ ln(x) - 1 / 2 / x

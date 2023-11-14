@@ -2,7 +2,24 @@
 ##   Functions related to the continuous Bernoulli distribution  ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats runif
+# Sampling function for a continuous bernoulli distribution
+# This distribution is not implemented in Base R
+# Used in the sampling of the truncated continuous bernoulli
+rcontbern <- function(n, lambda) {
+  if ((lambda < 0) || (lambda > 1)) {
+    stop("lambda must be in (0, 1)")
+  }
+  u <- runif(n)
+  if (lambda == 0.5) {
+    return(u)
+  }
+
+  # The inverse of the CDF for a cont. bernoulli distribution
+  x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) /
+    log(lambda / (1 - lambda))
+  return(x)
+}
+
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export
@@ -55,6 +72,10 @@ dtrunc.trunc_contbern <- function(
   return(dens)
 }
 
+#' @rdname dtrunc
+#' @export
+dtrunccontbern <- dtrunc.trunc_contbern
+
 #' @export
 #' @param eta vector of natural parameters
 #' @rdname dtrunc
@@ -74,16 +95,17 @@ sufficientT.trunc_contbern <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_contbern <- function(eta) {
+natural2parameters.trunc_contbern <- function(eta, ...) {
   # eta: The natural parameters in a continuous bernoulli distribution
   # returns rate
-  rate <- c(lambda = 1 / (1 + exp(-eta)))
+  if (length(eta) != 1) stop("Eta must be one single number")
+  rate <- c(lambda = 1 / (1 + exp(-eta[[1]])))
   class(rate) <- class(eta)
   return(rate)
 }
 
 #' @export
-parameters2natural.trunc_contbern <- function(parms) {
+parameters2natural.trunc_contbern <- function(parms, ...) {
   # parms: The parameter lambda in a continuous bernoulli distribution
   # returns the natural parameters
   eta <- prepEta(log(parms / (1 - parms)), class(parms))
@@ -100,7 +122,7 @@ getYseq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_contbern <- function(eta) {
+getGradETinv.trunc_contbern <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   exp.eta <- exp(eta)

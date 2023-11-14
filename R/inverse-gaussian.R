@@ -17,14 +17,12 @@ dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {
     eta <- parameters2natural.trunc_invgauss(c("m" = m, "s" = s))
   }
   parm <- natural2parameters.trunc_invgauss(eta)
-  dens <- rescaledDensities(y, a, b, dinvgauss, pinvgauss, parm[1], parm[2])
+  dens <- rescaledDensities(y, a, b, dinvgauss, pinvgauss, parm["m"], parm["s"])
   return(dens)
 }
 
-#' @importFrom rmutil rinvgauss
 #' @rdname dtrunc
 #' @export
-#' @importFrom rmutil dinvgauss pinvgauss
 dtruncinvgauss <- dtrunc.trunc_invgauss
 
 #' @export
@@ -43,22 +41,23 @@ sufficientT.trunc_invgauss <- function(y) {
 }
 
 #' @export
-parameters2natural.trunc_invgauss <- function(parms) {
+parameters2natural.trunc_invgauss <- function(parms, ...) {
   # parms: The parameters mean and shape in a normal distribution
   # returns the natural parameters
-  mu <- parms["m"]
-  lambda <- 1 / parms["s"]
-  eta <- c(eta.1 = -lambda / (2 * mu ^ 2), eta.2 = -lambda / 2)
+  mu <- parms[["m"]]
+  lambda <- 1 / parms[["s"]]
+  eta <- c(eta1 = -lambda / (2 * mu ^ 2), eta2 = -lambda / 2)
   class(eta) <- class(parms)
   return(eta)
 }
 
 #' @export
-natural2parameters.trunc_invgauss <- function(eta) {
+natural2parameters.trunc_invgauss <- function(eta, ...) {
   # eta: The natural parameters in an inverse gaussian distribution
   # returns (mean,shape)
-  mu <- sqrt(eta[2] / eta[1])
-  lambda <- -2 * eta[2]
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
+  mu <- sqrt(eta[[2]] / eta[[1]])
+  lambda <- -2 * eta[[2]]
   parms <- c(m = mu, s = 1 / lambda)
   class(parms) <- class(eta)
   return(parms)
@@ -70,11 +69,12 @@ getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
   lo <- max(0, y.min, m - 3.5 * sd)
   hi <- min(y.max, m + 3.5 * sd)
   out <- seq(lo, hi, length = n)
+  out <- out[out > 0] # y must be positive
   class(out) <- class(y)
   return(out)
 }
 
-getGradETinv.trunc_invgauss <- function(eta) {
+getGradETinv.trunc_invgauss <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   mx_11 <- -sqrt(eta[2] / eta[1] ^ 3)

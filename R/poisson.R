@@ -37,23 +37,24 @@ sufficientT.trunc_poisson <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_poisson <- function(eta) {
+natural2parameters.trunc_poisson <- function(eta, ...) {
   # eta: The natural parameters in a Poisson distribution
   # returns (mean,sigma)
-  lambda <- c(lambda = exp(eta))
+  if (length(eta) != 1) stop("Eta must be one single number")
+  lambda <- c(lambda = exp(eta[[1]]))
   class(lambda) <- class(eta)
   return(lambda)
 }
 
 #' @export
-parameters2natural.trunc_poisson <- function(parms) {
+parameters2natural.trunc_poisson <- function(parms, ...) {
   # parms: The parameter lambda in a Poisson distribution
   # returns the natural parameters
   eta <- prepEta(log(parms), class(parms))
   return(eta)
 }
 
-getGradETinv.trunc_poisson <- function(eta) {
+getGradETinv.trunc_poisson <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = exp(-eta))

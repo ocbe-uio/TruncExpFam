@@ -24,7 +24,7 @@ dtrunc.trunc_gamma <- function(
     eta <- parameters2natural.trunc_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_gamma(eta)
-  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm[1], parm[2])
+  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm["shape"], parm["rate"])
   return(dens)
 }
 
@@ -48,19 +48,24 @@ sufficientT.trunc_gamma <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_gamma <- function(eta) {
+natural2parameters.trunc_gamma <- function(eta, ...) {
   # eta: The natural parameters in a gamma distribution
   # returns (shape,rate)
-  parms <- c(shape = eta[1] + 1, rate = -eta[2])
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
+  parms <- c("shape" = eta[[1]] + 1, "rate" = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }
 
 #' @export
-parameters2natural.trunc_gamma <- function(parms) {
+parameters2natural.trunc_gamma <- function(parms, ...) {
   # parms: The parameters shape and rate in a gamma distribution
   # returns the natural parameters
-  eta <- c(eta.1 = parms[1] - 1, eta.2 = -parms[2])
+  if (all(c("shape", "rate") %in% names(parms))) {
+    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -parms[["rate"]])
+  } else {
+    eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
+  }
   class(eta) <- class(parms)
   return(eta)
 }
@@ -77,11 +82,11 @@ getYseq.trunc_gamma <- function(y, y.min = 1e-6, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_gamma <- function(eta) {
+getGradETinv.trunc_gamma <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   dpsi.dx <- function(x, k = 10000) {
-    # Returns the derivative of the psi function above
+    # Returns the derivative of the psi function (removed)
     sum((1 / ((0:k) + x))^2)
   }
   A_inv <- matrix(

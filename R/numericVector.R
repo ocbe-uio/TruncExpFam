@@ -22,15 +22,37 @@
 empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE, ...) {
 
   # Assigning trunc family, if necessary
-  if (substring(class(y), 1, 5) == "trunc") {
-    message("Object is ", class(y), ". Ignoring family argument.")
-  } else {
-    class(y) <- paste0("trunc_", useStandardFamilyName(family))
-  }
+  class(y) <- paste0("trunc_", useStandardFamilyName(family))
 
   # Estimating and validating parameters
   parms <- empiricalParameters(y, ...)
   validateSupport(y, as.list(parms), ...)
   if (natural) parms <- parameters2natural(parms)
   return(parms)
+}
+
+#' @export
+parameters2natural.numeric <- function(parms, family = "gaussian", ...) {
+  # Validation and reformatting
+  family <- useStandardFamilyName(family)
+  if (is.null(names(parms))) {
+    stop("Please provide a named parameter vector")
+  } else {
+    validateFamilyParms(family, names(parms))
+  }
+  class(parms) <- paste0("trunc_", family)
+
+  # Dispatching
+  return(parameters2natural(parms))
+}
+
+#' @export
+natural2parameters.numeric <- function(eta, family = "gaussian", ...) {
+  # Validation and reformatting
+  family <- useStandardFamilyName(family)
+  validateNaturalParms(names(eta))
+  class(eta) <- paste0("trunc_", family)
+
+  # Dispatching
+  return(natural2parameters(eta))
 }

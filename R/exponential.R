@@ -2,7 +2,6 @@
 ##   Functions related to the Chi Square distribution    ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom stats rexp
 #' @param rate vector of rates
 #' @rdname rtrunc
 #' @export
@@ -21,7 +20,6 @@ dtrunc.trunc_exp <- function(y, rate = 1, eta, a = 0, b = Inf, ...) {
   return(dens)
 }
 
-#' @importFrom stats dexp pexp
 #' @rdname dtrunc
 #' @export
 dtruncexp <- dtrunc.trunc_exp
@@ -39,24 +37,25 @@ sufficientT.trunc_exp <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_exp <- function(eta) {
+natural2parameters.trunc_exp <- function(eta, ...) {
   # eta: The natural parameters in an exponential distribution distribution
   # returns rate
-  lambda <- c(rate = -eta)
+  if (length(eta) != 1) stop("Eta must be one single number")
+  lambda <- c(rate = -eta[[1]])
   class(lambda) <- class(eta)
   return(lambda)
 }
 
 #' @export
-parameters2natural.trunc_exp <- function(parms) {
+parameters2natural.trunc_exp <- function(parms, ...) {
   # parms: The parameter lambda in an exponential distribution
   # returns the natural parameters
-  eta <- -parms
+  eta <- c("eta" = -parms[["rate"]])
   class(eta) <- class(parms)
   return(eta)
 }
 
-getGradETinv.trunc_exp <- function(eta) {
+getGradETinv.trunc_exp <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = eta^2)

@@ -2,7 +2,6 @@
 ##   Functions related to the inverse gamma distribution     ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @importFrom invgamma rinvgamma
 #' @param shape inverse gamma shape parameter
 #' @param rate inverse gamma rate parameter
 #' @param scale inverse gamma scale parameter
@@ -15,7 +14,6 @@ rtruncinvgamma <- rtrunc.invgamma <- function(
   sampleFromTruncated(mget(ls()))
 }
 
-#' @importFrom invgamma dinvgamma pinvgamma
 #' @export
 dtrunc.trunc_invgamma <- function(
   y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...
@@ -24,7 +22,7 @@ dtrunc.trunc_invgamma <- function(
     eta <- parameters2natural.trunc_invgamma(c("shape" = shape, "rate" = rate, "scale" = scale))
   }
   parm <- natural2parameters.trunc_invgamma(eta)
-  dens <- rescaledDensities(y, a, b, dinvgamma, pinvgamma, parm[1], parm[2])
+  dens <- rescaledDensities(y, a, b, dinvgamma, pinvgamma, parm["shape"], parm["rate"])
 }
 
 #' @rdname dtrunc
@@ -48,19 +46,20 @@ sufficientT.trunc_invgamma <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_invgamma <- function(eta) {
+natural2parameters.trunc_invgamma <- function(eta, ...) {
   # eta: The natural parameters in a inverse gamma distribution
   # returns (shape,rate)
-  parms <- c(shape = -eta[1] - 1, rate = -eta[2])
+  if (length(eta) != 2) stop("Eta must be a vector of two elements")
+  parms <- c("shape" = -eta[[1]] - 1, "rate" = -eta[[2]])
   class(parms) <- class(eta)
   return(parms)
 }
 
 #' @export
-parameters2natural.trunc_invgamma <- function(parms) {
+parameters2natural.trunc_invgamma <- function(parms, ...) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
-  eta <- c(shape = -parms[1] - 1, rate = -parms[2])
+  eta <- c(eta1 = -parms[[1]] - 1, eta2 = -parms[[2]])
   class(eta) <- class(parms)
   return(eta)
 }
@@ -76,7 +75,7 @@ getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max = 1, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_invgamma <- function(eta) {
+getGradETinv.trunc_invgamma <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A.11 <- sum(1 / (0:10000 + eta[1] + 1)^2)
