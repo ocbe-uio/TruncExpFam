@@ -14,9 +14,9 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a = 0, b = Inf) {
 #' @export
 dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_invgauss(c("m" = m, "s" = s))
+    eta <- parameters2natural.parms_invgauss(c("m" = m, "s" = s))
   }
-  parm <- natural2parameters.trunc_invgauss(eta)
+  parm <- natural2parameters.parms_invgauss(eta)
   dens <- rescaledDensities(y, a, b, dinvgauss, pinvgauss, parm["m"], parm["s"])
   return(dens)
 }
@@ -32,7 +32,7 @@ empiricalParameters.trunc_invgauss <- function(y, ...) {
   sd <- sd(y)
   lambda <- mean ^ 3 / sd ^ 2
   parms <- c(m = mean, s = 1 / lambda)
-  class(parms) <- "trunc_invgauss"
+  class(parms) <- "parms_invgauss"
   return(parms)
 }
 
@@ -41,7 +41,7 @@ sufficientT.trunc_invgauss <- function(y) {
 }
 
 #' @export
-parameters2natural.trunc_invgauss <- function(parms, ...) {
+parameters2natural.parms_invgauss <- function(parms, ...) {
   # parms: The parameters mean and shape in a normal distribution
   # returns the natural parameters
   mu <- parms[["m"]]
@@ -52,7 +52,7 @@ parameters2natural.trunc_invgauss <- function(parms, ...) {
 }
 
 #' @export
-natural2parameters.trunc_invgauss <- function(eta, ...) {
+natural2parameters.parms_invgauss <- function(eta, ...) {
   # eta: The natural parameters in an inverse gaussian distribution
   # returns (mean,shape)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -74,7 +74,7 @@ getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_invgauss <- function(eta, ...) {
+getGradETinv.parms_invgauss <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   mx_11 <- -sqrt(eta[2] / eta[1] ^ 3)

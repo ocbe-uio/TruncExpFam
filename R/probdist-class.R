@@ -36,10 +36,10 @@ probdist$methods(
     # Converting parameters ----------------------------------------------------
     if (is_natural) {
       nat_parms <<- parms
-      convFun <- get(paste0("natural2parameters.trunc_", .self$family))
+      convFun <- get(paste0("natural2parameters.parms_", .self$family))
       parms <<- convFun(nat_parms)
     } else {
-      convFun <- get(paste0("parameters2natural.trunc_", .self$family))
+      convFun <- get(paste0("parameters2natural.parms_", .self$family))
       nat_parms <<- unclass(convFun(parms))
     }
   },

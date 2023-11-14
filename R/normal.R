@@ -14,9 +14,9 @@ rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
 #' @export
 dtrunc.trunc_normal <- function(y, mean = 0, sd = 1, eta, a = -Inf, b = Inf, ...) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_normal(c("mean" = mean, "sd" = sd))
+    eta <- parameters2natural.parms_normal(c("mean" = mean, "sd" = sd))
   }
-  parm <- natural2parameters.trunc_normal(eta)
+  parm <- natural2parameters.parms_normal(eta)
   dens <- rescaledDensities(y, a, b, dnorm, pnorm, parm[1], parm[2])
   return(dens)
 }
@@ -29,7 +29,7 @@ dtruncnorm <- dtrunc.trunc_normal
 empiricalParameters.trunc_normal <- function(y, ...) {
   # Returns empirical parameter estimates mean and sd
   parms <- c(mean = mean(y), sd = sqrt(var(y)))
-  class(parms) <- "trunc_normal"
+  class(parms) <- "parms_normal"
   return(parms)
 }
 
@@ -38,7 +38,7 @@ sufficientT.trunc_normal <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_normal <- function(eta, ...) {
+natural2parameters.parms_normal <- function(eta, ...) {
   # eta: The natural parameters in a normal distribution
   # returns (mean,sigma)
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
@@ -48,7 +48,7 @@ natural2parameters.trunc_normal <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_normal <- function(parms, ...) {
+parameters2natural.parms_normal <- function(parms, ...) {
   # parms: The parameters mean and sd in a normal distribution
   # returns the natural parameters
   eta <- c(eta1 = parms[["mean"]], eta2 = -0.5) / parms[["sd"]]^2
@@ -66,7 +66,7 @@ getYseq.trunc_normal <- function(y, y.min, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_normal <- function(eta, ...) {
+getGradETinv.parms_normal <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
   A_inv <- 0.5 * matrix(

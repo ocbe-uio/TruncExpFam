@@ -16,7 +16,7 @@ dtrunc.trunc_binomial <- function(
   y, size, prob, eta, a = 0, b = attr(y, "parameters")$size, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_binomial(c("size" = size, "prob" = prob))
+    eta <- parameters2natural.parms_binomial(c("size" = size, "prob" = prob))
   }
   nsize <- attr(y, "parameters")$size
   my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
@@ -42,7 +42,7 @@ empiricalParameters.trunc_binomial <- function(y, size, ...) {
     size <- max(y)
   }
   parms <- c("size" = size, "prob" = mean(y) / size)
-  class(parms) <- "trunc_binomial"
+  class(parms) <- "parms_binomial"
   return(parms)
 }
 
@@ -51,7 +51,7 @@ sufficientT.trunc_binomial <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_binomial <- function(eta, ...) {
+natural2parameters.parms_binomial <- function(eta, ...) {
   # eta: The natural parameters in a binomial distribution
   # returns (p)
   if (length(eta) != 1) stop("Eta must be one single number")
@@ -61,7 +61,7 @@ natural2parameters.trunc_binomial <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_binomial <- function(parms, ...) {
+parameters2natural.parms_binomial <- function(parms, ...) {
   # parms: The probability parameter p in a binomial distribution
   # returns the natural parameters
   prob <- parms[["prob"]]
@@ -70,7 +70,7 @@ parameters2natural.trunc_binomial <- function(parms, ...) {
   return(eta)
 }
 
-getGradETinv.trunc_binomial <- function(eta, ...) {
+getGradETinv.parms_binomial <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   nsize <- attr(eta, "nsize")

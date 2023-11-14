@@ -13,7 +13,7 @@ rtruncpois <- rtrunc.poisson <- function(n, lambda, a = 0, b = Inf) {
 #' @export
 dtrunc.trunc_poisson <- function(y, lambda, eta, a = 0, b = Inf, ...) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_poisson(lambda)
+    eta <- parameters2natural.parms_poisson(lambda)
   }
   parm <- exp(eta)
   dens <- rescaledDensities(y, a - 1, b, dpois, ppois, parm)
@@ -28,7 +28,7 @@ dtruncpois <- dtrunc.trunc_poisson
 empiricalParameters.trunc_poisson <- function(y, ...) {
   # Returns empirical parameter estimate for lambda
   parms <- c("lambda" = mean(y))
-  class(parms) <- "trunc_poisson"
+  class(parms) <- "parms_poisson"
   return(parms)
 }
 
@@ -37,7 +37,7 @@ sufficientT.trunc_poisson <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_poisson <- function(eta, ...) {
+natural2parameters.parms_poisson <- function(eta, ...) {
   # eta: The natural parameters in a Poisson distribution
   # returns (mean,sigma)
   if (length(eta) != 1) stop("Eta must be one single number")
@@ -47,14 +47,14 @@ natural2parameters.trunc_poisson <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_poisson <- function(parms, ...) {
+parameters2natural.parms_poisson <- function(parms, ...) {
   # parms: The parameter lambda in a Poisson distribution
   # returns the natural parameters
   eta <- prepEta(log(parms), class(parms))
   return(eta)
 }
 
-getGradETinv.trunc_poisson <- function(eta, ...) {
+getGradETinv.parms_poisson <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = exp(-eta))

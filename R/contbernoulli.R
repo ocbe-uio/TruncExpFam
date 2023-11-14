@@ -65,9 +65,9 @@ dtrunc.trunc_contbern <- function(
   y, lambda, eta, a = 0, b = 1, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.trunc_contbern(c("lambda" = lambda))
+    eta <- parameters2natural.parms_contbern(c("lambda" = lambda))
   }
-  lambda <- natural2parameters.trunc_contbern(eta)
+  lambda <- natural2parameters.parms_contbern(eta)
   dens <- rescaledDensities(y, a, b, dcontbern, pcontbern, lambda)
   return(dens)
 }
@@ -86,7 +86,7 @@ empiricalParameters.trunc_contbern <- function(y, ...) {
   # Returns empirical parameter estimate for the lambda parameter
   # Note: lambda cannot be expressed in closed form as a function of the mean
   parms <- c("lambda" = mean(y))
-  class(parms) <- "trunc_contbern"
+  class(parms) <- "parms_contbern"
   return(parms)
 }
 
@@ -95,7 +95,7 @@ sufficientT.trunc_contbern <- function(y) {
 }
 
 #' @export
-natural2parameters.trunc_contbern <- function(eta, ...) {
+natural2parameters.parms_contbern <- function(eta, ...) {
   # eta: The natural parameters in a continuous bernoulli distribution
   # returns rate
   if (length(eta) != 1) stop("Eta must be one single number")
@@ -105,7 +105,7 @@ natural2parameters.trunc_contbern <- function(eta, ...) {
 }
 
 #' @export
-parameters2natural.trunc_contbern <- function(parms, ...) {
+parameters2natural.parms_contbern <- function(parms, ...) {
   # parms: The parameter lambda in a continuous bernoulli distribution
   # returns the natural parameters
   eta <- prepEta(log(parms / (1 - parms)), class(parms))
@@ -122,7 +122,7 @@ getYseq.trunc_contbern <- function(y, y.min = 0, y.max, n = 100) {
   return(out)
 }
 
-getGradETinv.trunc_contbern <- function(eta, ...) {
+getGradETinv.parms_contbern <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   exp.eta <- exp(eta)
