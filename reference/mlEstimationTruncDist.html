@@ -12,7 +12,7 @@ specified family, truncated at y.min and y.max"><meta property="og:image" conten
     
     <a class="navbar-brand me-2" href="../index.html">TruncExpFam</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,9 +127,12 @@ estimations but slower iterations</p></dd>
 estmation of the underlying distribution * parameters.</p>
     </div>
     <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p><code>print.iter</code> can be <code>TRUE</code>, <code>FALSE</code> or an integer indicating
-an interval for printing every <code>X</code> iterations.</p>
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>If <code>print.iter = TRUE</code>, the function prints the iteration,
+the sum of squares of delta.eta.j (<code>delta.L2</code>), and the current
+parameter estimates. The <code>delta</code> argument of this function is a factor
+in the calculation of <code>delta.eta.j</code>, which in turn is a factor in the
+calculation of <code>delta.L2</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -153,19 +156,20 @@ lognormal distributions"</p>
 <span class="r-in"><span>  print.iter <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Estimating parameters for the normal distribution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  1 delta:   0.001317 parm: 2.107 1.401 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  2 delta:     0.0007 parm: 2.091 1.42 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  3 delta:  0.0003904 parm: 2.079 1.434 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  4 delta:  0.0002254 parm: 2.07 1.445 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  5 delta:  0.0001334 parm: 2.063 1.453 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  6 delta:  8.053e-05 parm: 2.057 1.46 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  7 delta:   4.93e-05 parm: 2.052 1.465 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  8 delta:  3.053e-05 parm: 2.049 1.469 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  9 delta:  1.907e-05 parm: 2.046 1.472 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it: 10 delta:  1.199e-05 parm: 2.044 1.474 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it: 11 delta:  7.579e-06 parm: 2.042 1.477 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  it	 delta.L2	 parameter(s)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1 	  0.001339 	 2.085 1.394 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2 	  0.000712 	 2.069 1.412 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3 	 0.0003973 	 2.057 1.426 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4 	 0.0002296 	 2.048 1.437 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5 	 0.0001361 	 2.04 1.445 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6 	  8.22e-05 	 2.035 1.452 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7 	 5.039e-05 	 2.03 1.457 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8 	 3.124e-05 	 2.027 1.461 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9 	 1.954e-05 	 2.024 1.464 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 	  1.23e-05 	 2.022 1.467 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 	 7.788e-06 	 2.02 1.469 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean       sd </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2.040792 1.478154 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.018574 1.470391 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Log-Normal</span></span></span>
 <span class="r-in"><span><span class="va">sample.lognorm</span> <span class="op">&lt;-</span> <span class="fu"><a href="rtrunc.html">rtrunc</a></span><span class="op">(</span></span></span>
@@ -178,7 +182,7 @@ lognormal distributions"</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ml_lognormal</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   meanlog     sdlog </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2.4922992 0.4916553 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.5119192 0.4703477 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Poisson</span></span></span>
 <span class="r-in"><span><span class="va">sample.pois</span> <span class="op">&lt;-</span> <span class="fu"><a href="rtrunc.html">rtrunc</a></span><span class="op">(</span></span></span>
@@ -190,8 +194,9 @@ lognormal distributions"</p>
 <span class="r-in"><span>  print.iter <span class="op">=</span> <span class="fl">5</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Estimating parameters for the poisson distribution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   lambda </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9.914884 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  it	 delta.L2	 parameter(s)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  lambda </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.1341 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Gamma</span></span></span>
 <span class="r-in"><span><span class="va">sample.gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="rtrunc.html">rtrunc</a></span><span class="op">(</span></span></span>
@@ -203,15 +208,16 @@ lognormal distributions"</p>
 <span class="r-in"><span>  print.iter <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Estimating parameters for the gamma distribution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  10 delta:    0.01848 parm: 8.37 2.621 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  20 delta:   0.003384 parm: 7.462 2.39 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  30 delta:  0.0009041 parm: 7.041 2.281 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  40 delta:  0.0002921 parm: 6.813 2.223 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  50 delta:  0.0001046 parm: 6.681 2.188 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  60 delta:  3.972e-05 parm: 6.601 2.167 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> it:  70 delta:  1.563e-05 parm: 6.551 2.154 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  it	 delta.L2	 parameter(s)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  10 	   0.01638 	 7.668 2.373 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  20 	  0.003152 	 6.804 2.159 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  30 	 0.0008834 	 6.393 2.055 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  40 	 0.0003009 	 6.165 1.997 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  50 	 0.0001141 	 6.029 1.963 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  60 	 4.609e-05 	 5.944 1.941 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  70 	 1.936e-05 	 5.89 1.927 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    shape     rate </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.530127 2.149169 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.857061 1.919191 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Negative binomial</span></span></span>
 <span class="r-in"><span><span class="va">sample.nbinom</span> <span class="op">&lt;-</span> <span class="fu"><a href="rtrunc.html">rtruncnbinom</a></span><span class="op">(</span></span></span>
@@ -220,7 +226,7 @@ lognormal distributions"</p>
 <span class="r-in"><span><span class="fu">mlEstimationTruncDist</span><span class="op">(</span><span class="va">sample.nbinom</span>, r<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Maximum number of iterations reached. Convergence is not guaranteed. You might want to run again with a higher value for max.it</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62.87075 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64.32786 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

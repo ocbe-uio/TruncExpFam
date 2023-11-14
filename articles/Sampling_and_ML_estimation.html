@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">TruncExpFam</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,8 +96,8 @@ TruncExpFam, available on CRAN:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"TruncExpFam"</span><span class="op">)</span></span></code></pre></div>
 <p>After successful installation, the package can be loaded with</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ocbe-uio/TruncExpFam" class="external-link">TruncExpFam</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Welcome to TruncExpFam 1.0.1.9005.</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ocbe-uio.github.io/TruncExpFam/" class="external-link">TruncExpFam</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Welcome to TruncExpFam 1.1.0.</span></span>
 <span><span class="co">#&gt; Please read the documentation on ?TruncExpFam to learn more about the package.</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -236,19 +236,20 @@ generate <code>y2</code> is by running the
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mlEstimationTruncDist.html">mlEstimationTruncDist</a></span><span class="op">(</span><span class="va">y2</span>, print.iter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Estimating parameters for the poisson distribution</span></span>
-<span><span class="co">#&gt; it:  1 delta:  0.0007325 parm: 11.626 </span></span>
-<span><span class="co">#&gt; it:  2 delta:  0.0005043 parm: 11.315 </span></span>
-<span><span class="co">#&gt; it:  3 delta:  0.0003465 parm: 11.064 </span></span>
-<span><span class="co">#&gt; it:  4 delta:  0.0002378 parm: 10.86 </span></span>
-<span><span class="co">#&gt; it:  5 delta:  0.0001631 parm: 10.694 </span></span>
-<span><span class="co">#&gt; it:  6 delta:  0.0001119 parm: 10.558 </span></span>
-<span><span class="co">#&gt; it:  7 delta:  7.674e-05 parm: 10.447 </span></span>
-<span><span class="co">#&gt; it:  8 delta:  5.264e-05 parm: 10.356 </span></span>
-<span><span class="co">#&gt; it:  9 delta:  3.611e-05 parm: 10.281 </span></span>
-<span><span class="co">#&gt; it: 10 delta:  2.478e-05 parm: 10.219 </span></span>
-<span><span class="co">#&gt; it: 11 delta:    1.7e-05 parm: 10.169 </span></span>
-<span><span class="co">#&gt; it: 12 delta:  1.167e-05 parm: 10.127 </span></span>
-<span><span class="co">#&gt; it: 13 delta:  8.007e-06 parm: 10.092</span></span>
+<span><span class="co">#&gt;  it   delta.L2    parameter(s)</span></span>
+<span><span class="co">#&gt;  1    0.0007325   11.626 </span></span>
+<span><span class="co">#&gt;  2    0.0005043   11.315 </span></span>
+<span><span class="co">#&gt;  3    0.0003465   11.064 </span></span>
+<span><span class="co">#&gt;  4    0.0002378   10.86 </span></span>
+<span><span class="co">#&gt;  5    0.0001631   10.694 </span></span>
+<span><span class="co">#&gt;  6    0.0001119   10.558 </span></span>
+<span><span class="co">#&gt;  7    7.674e-05   10.447 </span></span>
+<span><span class="co">#&gt;  8    5.264e-05   10.356 </span></span>
+<span><span class="co">#&gt;  9    3.611e-05   10.281 </span></span>
+<span><span class="co">#&gt; 10    2.478e-05   10.219 </span></span>
+<span><span class="co">#&gt; 11      1.7e-05   10.169 </span></span>
+<span><span class="co">#&gt; 12    1.167e-05   10.127 </span></span>
+<span><span class="co">#&gt; 13    8.007e-06   10.092</span></span>
 <span><span class="va">lambda</span></span>
 <span><span class="co">#&gt;   lambda </span></span>
 <span><span class="co">#&gt; 10.06366</span></span></code></pre></div>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">TruncExpFam</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,16 +191,16 @@ distribution). Must be strictly positive, need not be integer.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Using the output of rtrunc</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="rtrunc.html">rtrunc</a></span><span class="op">(</span><span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">dtrunc</span><span class="op">(</span><span class="va">y</span>, eta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2.082002e-08 5.604174e-02 4.030260e-05 7.297060e-21 5.409898e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 2.193120e-14 1.011832e-18 4.604881e-03 6.714258e-09 5.397098e-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 1.254620e-17 5.894749e-21 1.508426e-10 1.820841e-16 9.300672e-22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 3.456687e-03 1.670212e-27 4.093839e-10 5.091836e-15 1.669986e-34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 5.578294e-02 3.091524e-10 2.364320e-14 2.381100e-28 8.424712e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] 5.583366e-26 2.887397e-12 1.080874e-24 2.178164e-04 3.811762e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 2.102152e-05 1.234233e-04 2.862834e-03 3.172851e-08 2.080539e-20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [36] 7.514738e-03 3.447753e-26 6.987159e-02 3.128524e-20 1.575422e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 6.705878e-08 1.686733e-22 5.026313e-19 7.342844e-17 6.013648e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46] 6.188648e-07 1.627188e-07 3.384811e-20 1.206769e-09 4.573594e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1.541937e-03 1.516136e-14 7.281693e-09 1.608385e-12 5.758350e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 9.532056e-07 5.898802e-12 7.193656e-23 3.879641e-21 8.583961e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 4.889517e-01 1.045403e-05 7.958695e-10 1.501012e-12 3.167504e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 2.504583e-24 1.628453e-21 1.486600e-11 4.979495e-15 3.754201e-19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 9.927216e-02 1.088125e-10 8.187891e-10 1.978259e-21 7.890745e-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] 1.116393e-10 4.829750e-25 1.316257e-10 9.055831e-05 2.358995e-19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 8.913979e-06 5.781013e-07 3.272734e-02 9.964500e-28 2.377022e-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36] 2.304182e-22 2.798979e-06 1.468778e-05 3.435643e-22 2.478521e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 1.643322e-22 1.492212e-09 1.187803e-10 1.670258e-11 1.195956e-23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] 1.192451e-03 2.622214e-06 5.886634e-02 3.837980e-17 6.516522e-25</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Directly-inputting values</span></span></span>
 <span class="r-in"><span><span class="fu">dtruncnorm</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">10</span><span class="op">)</span>, eta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></span>
