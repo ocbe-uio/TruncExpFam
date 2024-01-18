@@ -36,12 +36,15 @@ ptrunc.normal <- function(
   p_a <- pnorm(a, mean, sd, lower.tail = TRUE, log.p)
   p_b <- pnorm(b, mean, sd, lower.tail = TRUE, log.p)
   if (log.p) {
-    p <- log((exp(p_q) - exp(p_a)) / exp(p_b) - exp(p_a))
+    p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
+    if (!lower.tail) {
+      p <- log(1 - exp(p))
+    }
   } else {
     p <- (p_q - p_a) / p_b - p_a
-  }
-  if (!lower.tail) {
-    p <- ifelse(log.p, log(1 - exp(p)), 1 - p)
+    if (!lower.tail) {
+      p <- 1 - p
+    }
   }
   return(p)
 }
