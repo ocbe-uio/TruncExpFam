@@ -49,4 +49,6 @@ Either the common or the natural parameters must be provided.
 }
 \examples{
 ptrunc(0)
+ptrunc(6, family = "gaussian", mean = 5, sd = 10, b = 7)
+pnorm(6, mean = 5, sd = 10) # for comparison
 }
