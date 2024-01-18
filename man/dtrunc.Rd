@@ -96,7 +96,7 @@ distribution). Must be strictly positive, need not be integer.}
 \item{sd}{standard deviation is parent distribution}
 }
 \value{
-The density of y for the given values of the \code{eta} parameter.
+The density of \code{y} for the given values of the \code{eta} parameter.
 }
 \description{
 Calculates the PDF for a given truncated distribution

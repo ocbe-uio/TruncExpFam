@@ -2,23 +2,23 @@
 #' @description ML-estimation of the parameters of the distribution of the
 #' specified family, truncated at y.min and y.max
 #' @param y Sequence spanning the domain of the truncated distribution
-#' @param y.min Lower bound for y
-#' @param y.max Upper bound for y
+#' @param y.min Lower bound for `y`
+#' @param y.max Upper bound for `y`
 #' @param tol Error tolerance for parameter estimation
 #' @param delta Indirectly, the difference between consecutive iterations to
 #' compare with the error tolerance
 #' @param max.it Maximum number of iterations
 #' @param print.iter Determines the frequency of printing
-#' (i.e., prints every \code{print.iter} iterations)
-#' @param ny size of intermediate y range sequence. Higher values yield better
+#' (i.e., prints every `print.iter` iterations)
+#' @param ny size of intermediate `y` range sequence. Higher values yield better
 #' estimations but slower iterations
 #' @param family distribution family to use
 #' @param ... other parameters passed to subfunctions
-#' @details If \code{print.iter = TRUE}, the function prints the iteration,
-#' the sum of squares of delta.eta.j (\code{delta.L2}), and the current
-#' parameter estimates. The \code{delta} argument of this function is a factor
-#' in the calculation of \code{delta.eta.j}, which in turn is a factor in the
-#' calculation of \code{delta.L2}.
+#' @details If `print.iter = TRUE`, the function prints the iteration,
+#' the sum of squares of `delta.eta.j` (`delta.L2`), and the current
+#' parameter estimates. The `delta` argument of this function is a factor
+#' in the calculation of `delta.eta.j`, which in turn is a factor in the
+#' calculation of `delta.L2`.
 #' @references Inspired by Salvador: Pueyo: "Algorithm for the
 #' maximum likelihood estimation of the parameters of the truncated normal and
 #' lognormal distributions"
@@ -70,7 +70,7 @@
 #' )
 #' mlEstimationTruncDist(sample.nbinom, r=10)
 #' @export
-#' @return A vector of class \code{trunc_*} containing the maximum-likelihood
+#' @return A vector of class `trunc_*` containing the maximum-likelihood
 #' estmation of the underlying distribution * parameters.
 mlEstimationTruncDist <- function(y, y.min = attr(y, "truncation_limits")$a,
   y.max = attr(y, "truncation_limits")$b, tol = 1e-5, max.it = 100,

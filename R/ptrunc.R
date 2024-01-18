@@ -3,7 +3,7 @@
 #' @note Either the common or the natural parameters must be provided.
 #' @param q vector of quantiles
 #' @param family distribution family to use
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}.
+#' @param lower.tail logical; if `TRUE`, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}.
 #' @param ... additional parameters to be passed to the distribution function.
 #' @export
 #' @return The cummulative probability of y.

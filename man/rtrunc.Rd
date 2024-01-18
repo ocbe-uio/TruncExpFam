@@ -102,7 +102,7 @@ distribution (more info in details)}
 \value{
 A sample of size n drawn from a truncated distribution
 
-vector of one of the \code{rtrunc_*} classes containing the sample
+vector of one of the \verb{rtrunc_*} classes containing the sample
 elements, as well as some attributes related to the chosen distribution.
 }
 \description{
@@ -114,11 +114,7 @@ information on how to use this function.
 One way to use this function is by calling the \code{rtrunc}
 generic with the \code{family} parameter of your choice. You can also
 specifically call one of the methods (e.g. \code{rtruncpois(10, lambda=3)}
-instead of `rtrunc(10, family="poisson", lambda=3)). The latter is more
-flexible (i.e., easily programmable) and more robust (i.e., it contains
-better error handling and validation procedures), while the former better
-conforms with the nomenclature from other distribution-related functions in
-the \code{stats} package.
+instead of \verb{rtrunc(10, family="poisson", lambda=3)). The latter is more flexible (i.e., easily programmable) and more robust (i.e., it contains better error handling and validation procedures), while the former better conforms with the nomenclature from other distribution-related functions in the }stats` package.
 
 Setting \code{faster=TRUE} uses a new algorithm that samples directly from
 the truncated distribution, as opposed to the old algorithm that samples
@@ -126,7 +122,7 @@ from the untruncated distribution and then truncates the result. The
 advantage of the new algorithm is that it is way faster than the old one,
 particularly for highly-truncated distributions. On the other hand, the
 sample for untruncated distributions called through \code{rtrunc()} will no longer
-match their \code{stats}-package counterparts for the same seed.
+match their \link{stats}-package counterparts for the same seed.
 }
 \note{
 The current sample-generating algorithm may be slow if the distribution

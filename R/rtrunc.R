@@ -6,7 +6,7 @@
 #' @param a point of left truncation
 #' @param b point of right truncation
 #' @param family distribution family to use
-#' @param faster if \code{TRUE}, samples directly from the truncated
+#' @param faster if `TRUE`, samples directly from the truncated
 #' distribution (more info in details)
 #' @param ... individual arguments to each distribution
 #' @return A sample of size n drawn from a truncated distribution
@@ -22,17 +22,17 @@
 #' flexible (i.e., easily programmable) and more robust (i.e., it contains
 #' better error handling and validation procedures), while the former better
 #' conforms with the nomenclature from other distribution-related functions in
-#' the \code{stats} package.
+#' the `stats` package.
 #'
-#' Setting \code{faster=TRUE} uses a new algorithm that samples directly from
+#' Setting `faster=TRUE` uses a new algorithm that samples directly from
 #' the truncated distribution, as opposed to the old algorithm that samples
 #' from the untruncated distribution and then truncates the result. The
 #' advantage of the new algorithm is that it is way faster than the old one,
 #' particularly for highly-truncated distributions. On the other hand, the
 #' sample for untruncated distributions called through `rtrunc()` will no longer
-#' match their \code{stats}-package counterparts for the same seed.
+#' match their [stats]-package counterparts for the same seed.
 #'
-#' @return vector of one of the \code{rtrunc_*} classes containing the sample
+#' @return vector of one of the `rtrunc_*` classes containing the sample
 #' elements, as well as some attributes related to the chosen distribution.
 #' @examples
 #' # Truncated binomial distribution
