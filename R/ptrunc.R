@@ -41,7 +41,7 @@ ptrunc.normal <- function(
       p <- log(1 - exp(p))
     }
   } else {
-    p <- (p_q - p_a) / p_b - p_a
+    p <- (p_q - p_a) / (p_b - p_a)
     if (!lower.tail) {
       p <- 1 - p
     }
