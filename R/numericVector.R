@@ -1,6 +1,6 @@
 #' @title Extract parameters
 #' @param y Numeric vector containing observations from a random variable
-#' @param family Distribution family to assume for \code{y}
+#' @param family Distribution family to assume for `y`
 #' @param natural Should output be in terms of the natural parameter eta?
 #' @param ... arguments passed to [empiricalParameters()]
 #' @export

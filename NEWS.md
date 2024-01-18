@@ -1,3 +1,7 @@
+# TruncExpFam (development version)
+
+* Implemented `ptrunc()` for some distributions (issue #54)
+
 # TruncExpFam 1.1.0
 
 * Added a `NEWS.md` file to track changes to the package.
