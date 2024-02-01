@@ -38,6 +38,9 @@ ptrunc.normal <- function(q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tai
 }
 
 ptrunc.beta <- function(q, shape1, shape2, a = 0, b = 1, ..., lower.tail, log.p) {
+  if (any(q < a) || any(q > b)) {
+    stop("q must be in [a, b]")
+  }
   p_q <- pbeta(q, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_a <- pbeta(a, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_b <- pbeta(b, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
