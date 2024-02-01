@@ -3,36 +3,37 @@
 #' @note Either the common or the natural parameters must be provided.
 #' @param q vector of quantiles
 #' @param family distribution family to use
-#' @param lower.tail logical; if `TRUE`, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}.
-#' @param ... additional parameters to be passed to the distribution function.
+#' @param lower.tail logical; if `TRUE`, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}
+#' @param log.p logical; if TRUE, probabilities p are given as log(p)
+#' @param ... distribution parameters
 #' @export
 #' @return The cummulative probability of y.
 #' @examples
 #' ptrunc(0)
 #' ptrunc(6, family = "gaussian", mean = 5, sd = 10, b = 7)
 #' pnorm(6, mean = 5, sd = 10) # for comparison
-ptrunc <- function(q, family = "gaussian", lower.tail = TRUE, ...) {
+ptrunc <- function(q, family, lower.tail = TRUE, log.p = FALSE, ...) {
+  # This is a pseudo-generic function to pre-process arguments and call the
+  # actual generic, ptrunc.generic().
+
   # Validating ---------------------------------------------------------------
+  if (missing(family)) family <- "gaussian"
   family <- tolower(family)
   validateFamilyName(family)
 
-  # Determining object class -------------------------------------------------
-  parms <- list(...)
-  exclude_parms <- c("log.p")
-  parms <- parms[!(names(parms) %in% exclude_parms)]
-  class(q) <- genrtruncClass(q, family, names(parms))
+  # Reclassifying q and dispatching -------------------------------------------
+  class(q) <- genrtruncClass(q, family, NULL)
+  prob <- ptrunc.generic(q, lower.tail, log.p, ...)
+  return(unclass(prob))
+}
 
-  # Dispatching to appropriate funcion ---------------------------------------
+ptrunc.generic <- function(q, lower.tail, log.p, ...) {
   UseMethod("ptrunc", q)
 }
 
-#' @param log.p logical; if TRUE, probabilities p are given as log(p).
-#' @rdname ptrunc
-#' @inheritParams rtrunc
 #' @export
 ptrunc.normal <- function(
-  q, family, lower.tail = TRUE, log.p = FALSE, mean = 0, sd = 1,
-  a = -Inf, b = Inf, ...
+  q, lower.tail, log.p, mean = 0, sd = 1, a = -Inf, b = Inf, ...
 ) {
   # Basic elements -----------------------------------------------------------
   p_q <- pnorm(q, mean, sd, lower.tail = TRUE, log.p)
