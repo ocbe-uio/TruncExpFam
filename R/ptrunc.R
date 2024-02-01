@@ -53,3 +53,26 @@ ptrunc.normal <- function(
   }
   return(p)
 }
+
+#' @export
+ptrunc.beta <- function(
+  q, lower.tail, log.p, shape1, shape2, a = 0, b = 1, ...
+) {
+  # Basic elements -----------------------------------------------------------
+  p_q <- pbeta(q, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
+  p_a <- pbeta(a, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
+  p_b <- pbeta(b, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
+  # Accounting for log.p and lower.tail --------------------------------------
+  if (log.p) {
+    p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
+    if (!lower.tail) {
+      p <- log(1 - exp(p))
+    }
+  } else {
+    p <- (p_q - p_a) / (p_b - p_a)
+    if (!lower.tail) {
+      p <- 1 - p
+    }
+  }
+  return(p)
+}

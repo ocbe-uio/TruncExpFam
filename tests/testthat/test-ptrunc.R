@@ -23,6 +23,27 @@ test_that("untruncated ptrunc() works as expected (normal)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (beta)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shp1 <- sample(1:10, 1L)
+        shp2 <- sample(1:10, 1L)
+        qt <- rbeta(i, shp1, shp2)
+        p_trunc <- ptrunc(qt, "beta", lt, lg, shape1 = shp1, shape2 = shp2)
+        p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          }
+          expect_equal(p_trunc[q], p_beta[q])
+        }
+      }
+    }
+  }
+})
+
 context("ptrunc(), truncated")
 
 test_that("doubly-truncated ptrunc works as expected (normal)", {
