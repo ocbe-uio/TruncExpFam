@@ -34,33 +34,22 @@ ptrunc.generic <- function(q, lower.tail, log.p, ...) {
 ptrunc.normal <- function(
   q, lower.tail, log.p, mean = 0, sd = 1, a = -Inf, b = Inf, ...
 ) {
-  # Basic elements -----------------------------------------------------------
   p_q <- pnorm(q, mean, sd, lower.tail = TRUE, log.p)
   p_a <- pnorm(a, mean, sd, lower.tail = TRUE, log.p)
   p_b <- pnorm(b, mean, sd, lower.tail = TRUE, log.p)
-  # Accounting for log.p and lower.tail --------------------------------------
-  if (log.p) {
-    p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
-    if (!lower.tail) {
-      p <- log(1 - exp(p))
-    }
-  } else {
-    p <- (p_q - p_a) / (p_b - p_a)
-    if (!lower.tail) {
-      p <- 1 - p
-    }
-  }
-  return(p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
 ptrunc.beta <- function(
   q, lower.tail, log.p, shape1, shape2, a = 0, b = 1, ...
 ) {
-  # Basic elements -----------------------------------------------------------
   p_q <- pbeta(q, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_a <- pbeta(a, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_b <- pbeta(b, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
-  # Accounting for log.p and lower.tail --------------------------------------
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
+truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
   if (log.p) {
     p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
     if (!lower.tail) {
