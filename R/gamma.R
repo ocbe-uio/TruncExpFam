@@ -21,10 +21,14 @@ dtrunc.trunc_gamma <- function(
   y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.parms_gamma(c("shape" = shape, "rate" = rate, "scale" = scale))
+    eta <- parameters2natural.parms_gamma(
+      c("shape" = shape, "rate" = rate, "scale" = scale)
+    )
   }
   parm <- natural2parameters.parms_gamma(eta)
-  dens <- rescaledDensities(y, a, b, dgamma, pgamma, parm["shape"], parm["rate"])
+  dens <- rescaledDensities(
+    y, a, b, dgamma, pgamma, parm["shape"], parm["rate"]
+  )
   return(dens)
 }
 

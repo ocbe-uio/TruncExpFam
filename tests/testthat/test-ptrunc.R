@@ -57,7 +57,9 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
         qt <- rnorm(1L, mn, sg)
         a <- qt - rchisq(1L, 5L)
         b <- qt + rchisq(1L, 5L)
-        p_trunc <- ptrunc(qt, "gaussian", mn, sg, a, b, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "gaussian", mn, sg, a, b, lower.tail = lt, log.p = lg
+        )
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         if (!lg) {
           expect_gte(p_trunc, 0)
@@ -79,7 +81,9 @@ test_that("doubly-truncated ptrunc() works as expected (beta)", {
         b <- runif(1)
         a <- b * runif(1)
         qt <- runif(1L, a, b)
-        p_trunc <- ptrunc(qt, "beta", shp1, shp2, a, b, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "beta", shp1, shp2, a, b, lower.tail = lt, log.p = lg
+        )
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
         if (!lg) {
           expect_gte(p_trunc, 0)
@@ -102,7 +106,9 @@ test_that("upper-truncation works as expected (normal)", {
         sg <- rchisq(1L, 5L)
         qt <- rnorm(1L, mn, sg)
         b <- qt + rchisq(1L, 5L)
-        p_trunc <- ptrunc(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg, b = b)
+        p_trunc <- ptrunc(
+          qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg, b = b
+        )
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         if (!lg) {
           expect_gte(p_trunc, 0)
@@ -128,7 +134,9 @@ test_that("upper-truncation works as expected (beta)", {
         shp2 <- sample(1:10, 1L)
         b <- runif(1)
         qt <- runif(1L, 0, b)
-        p_trunc <- ptrunc(qt, "beta", shp1, shp2, b = b, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "beta", shp1, shp2, b = b, lower.tail = lt, log.p = lg
+        )
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
         if (!lg) {
           expect_gte(p_trunc, 0)
@@ -156,7 +164,9 @@ test_that("lower-truncation works as expected (normal)", {
         sg <- rchisq(1L, 5L)
         qt <- rnorm(1L, mn, sg)
         a <- qt - rchisq(1L, 5L)
-        p_trunc <- ptrunc(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg, a = a)
+        p_trunc <- ptrunc(
+          qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg, a = a
+        )
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         if (!lg) {
           expect_gte(p_trunc, 0)
@@ -184,7 +194,9 @@ test_that("lower-truncation works as expected (beta)", {
           setNames(as.list(sort(rbeta(2L, shp1, shp2))), c("a", "qt")),
           envir = .GlobalEnv
         )
-        p_trunc <- ptrunc(qt, "beta", shp1, shp2, a = a, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "beta", shp1, shp2, a = a, lower.tail = lt, log.p = lg
+        )
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
         if (!lg) {
           expect_gte(p_trunc, 0)
@@ -204,8 +216,8 @@ test_that("lower-truncation works as expected (beta)", {
 
 test_that("Basic errors are caught", {
   for (distro in c("normal", "beta")) { # TODO: eventually use valid_distros
-    expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "q must be in \\[a, b\\]")
-    expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "q must be in \\[a, b\\]")
+    expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
+    expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
   }
 })

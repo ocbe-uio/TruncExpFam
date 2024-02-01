@@ -51,7 +51,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(chisq_1),
     c("df" = 30),
-    tolerance= 1e-2
+    tolerance = 1e-2
   )
 
   # Contbern
@@ -68,7 +68,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(contbern_1),
     c("lambda" = .6),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Exp
@@ -85,7 +85,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(exp_1),
     c("rate" = 1 / 64),
-    tolerance= 1e-2
+    tolerance = 1e-2
   )
 
   # Gamma
@@ -102,7 +102,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(gamma_1),
     c("shape" = 4, "rate" = 3),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   gamma_2 <- rtrunc(1e5, scale = 3, shape = 4, faster = TRUE, family = "gamma")
@@ -118,11 +118,13 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(gamma_2),
     c("shape" = 4, "rate" = 1 / 3),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Inv Gamma
-  invgamma_1 <- rtrunc(1e5, rate = 3, shape = 4, faster = TRUE, family = "invgamma")
+  invgamma_1 <- rtrunc(
+    1e5, rate = 3, shape = 4, faster = TRUE, family = "invgamma"
+  )
   expect_equal(
     attributes(invgamma_1),
     list(
@@ -135,10 +137,12 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(invgamma_1),
     c("shape" = 4, "rate" = 3),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
-  invgamma_2 <- rtrunc(1e5, scale = 3, shape = 4, faster = TRUE, family = "invgamma")
+  invgamma_2 <- rtrunc(
+    1e5, scale = 3, shape = 4, faster = TRUE, family = "invgamma"
+  )
   expect_equal(
     attributes(invgamma_2),
     list(
@@ -151,7 +155,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(invgamma_2),
     c("shape" = 4, "rate" = 1 / 3),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Inv Gauss
@@ -168,11 +172,13 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(invgauss, delta = .01),
     c("m" = 61, "s" = 7),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Log-normal
-  invlnorm <- rtrunc(1e5, meanlog = 4, sdlog = 1, faster = TRUE, family = "lognormal")
+  invlnorm <- rtrunc(
+    1e5, meanlog = 4, sdlog = 1, faster = TRUE, family = "lognormal"
+  )
   expect_equal(
     attributes(invlnorm),
     list(
@@ -185,7 +191,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(invlnorm),
     c("meanlog" = 4, "sdlog" = 1),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Poisson
@@ -203,7 +209,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(smp),
     c("lambda" = lb),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Binomial
@@ -222,7 +228,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(smp),
     c("prob" = pb),
-    tolerance= 1e-1
+    tolerance = 1e-1
   )
 
   # Negative Binomial
@@ -404,11 +410,15 @@ setTimeLimit(Inf)
 
 test_that("Truncation limits are respected for faster = TRUE", {
   sz <- 1e3L
-  smp <- rtrunc(sz, "beta", shape1 = 4, shape2 = 5, faster = TRUE, a = .5, b = .7)
+  smp <- rtrunc(
+    sz, "beta", shape1 = 4, shape2 = 5, faster = TRUE, a = .5, b = .7
+  )
   expect_gte(min(smp), .5)
   expect_lte(max(smp), .7)
 
-  smp <- rtrunc(sz, "binomial", size = 93, prob = .39, faster = TRUE, a = 33, b = 40)
+  smp <- rtrunc(
+    sz, "binomial", size = 93, prob = .39, faster = TRUE, a = 33, b = 40
+  )
   expect_gte(min(smp), 33)
   expect_lte(max(smp), 40)
 
@@ -424,11 +434,15 @@ test_that("Truncation limits are respected for faster = TRUE", {
   expect_gte(min(smp), .1)
   expect_lte(max(smp), .2)
 
-  smp <- rtrunc(sz, "gamma", shape = 18, rate = 70, faster = TRUE, a = .2, b = .5)
+  smp <- rtrunc(
+    sz, "gamma", shape = 18, rate = 70, faster = TRUE, a = .2, b = .5
+  )
   expect_gte(min(smp), .2)
   expect_lte(max(smp), .5)
 
-  smp <- rtrunc(sz, "invgamma", shape = 1, rate = 7, faster = TRUE, a = 10, b = 20)
+  smp <- rtrunc(
+    sz, "invgamma", shape = 1, rate = 7, faster = TRUE, a = 10, b = 20
+  )
   expect_gte(min(smp), 10)
   expect_lte(max(smp), 20)
 
@@ -436,11 +450,15 @@ test_that("Truncation limits are respected for faster = TRUE", {
   expect_gte(min(smp), 30)
   expect_lte(max(smp), 40)
 
-  smp <- rtrunc(sz, "lognormal", meanlog = 23, sdlog = 6, faster = TRUE, a = 10, b = 100)
+  smp <- rtrunc(
+    sz, "lognormal", meanlog = 23, sdlog = 6, faster = TRUE, a = 10, b = 100
+  )
   expect_gte(min(smp), 10)
   expect_lte(max(smp), 100)
 
-  smp <- rtrunc(sz, "nbinom", size = 54, prob = .33, faster = TRUE, a = 60, b = 80)
+  smp <- rtrunc(
+    sz, "nbinom", size = 54, prob = .33, faster = TRUE, a = 60, b = 80
+  )
   expect_gte(min(smp), 60)
   expect_lte(max(smp), 80)
 

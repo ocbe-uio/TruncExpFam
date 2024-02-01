@@ -15,7 +15,9 @@ rtrunc_direct <- function(n, family = "gaussian", ...) {
 }
 
 #' @export
-rtrunc_direct.normal <- function(n, family, mean = 0, sd = 1, a = -Inf, b = Inf, ...) {
+rtrunc_direct.normal <- function(
+  n, family, mean = 0, sd = 1, a = -Inf, b = Inf, ...
+) {
   F_a <- cumDens(a, pnorm, mean, sd)
   F_b <- cumDens(b, pnorm, mean, sd)
   q_T <- truncated_q(qnorm(rescaled_q(n, F_a, F_b), mean, sd), mget(ls()))
@@ -78,7 +80,9 @@ rtrunc_direct.invgamma <- function(
     rate <- 1 / scale
     parms$rate <- rate
   }
-  q_T <- truncated_q(qinvgamma(rescaled_q(n, F_a, F_b), shape, rate), mget(ls()))
+  q_T <- truncated_q(
+    qinvgamma(rescaled_q(n, F_a, F_b), shape, rate), mget(ls())
+  )
   return(q_T)
 }
 
@@ -98,7 +102,9 @@ rtrunc_direct.lognormal <- function(
 ) {
   F_a <- cumDens(a, plnorm, meanlog, sdlog)
   F_b <- cumDens(b, plnorm, meanlog, sdlog)
-  q_T <- truncated_q(qlnorm(rescaled_q(n, F_a, F_b), meanlog, sdlog), mget(ls()))
+  q_T <- truncated_q(
+    qlnorm(rescaled_q(n, F_a, F_b), meanlog, sdlog), mget(ls())
+  )
   return(q_T)
 }
 

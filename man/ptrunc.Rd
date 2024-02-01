@@ -11,9 +11,11 @@ ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
 
 \item{family}{distribution family to use}
 
-\item{...}{\emph{named} distribution parameters and/or truncation limits (\code{a}, \code{b})}
+\item{...}{\emph{named} distribution parameters and/or truncation limits
+(\code{a}, \code{b})}
 
-\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}}
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are
+\eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}}
 
 \item{log.p}{logical; if \code{TRUE}, probabilities p are given as \code{log(p)}}
 }
@@ -21,7 +23,8 @@ ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
 The cummulative probability of y.
 }
 \description{
-Calculates the cumulative probability for a given truncated distribution
+Calculates the cumulative probability for a given truncated
+distribution
 }
 \examples{
 ptrunc(0)

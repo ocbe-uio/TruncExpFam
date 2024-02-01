@@ -1,10 +1,13 @@
 #' @title Cummulative Distribution Function
-#' @description Calculates the cumulative probability for a given truncated distribution
+#' @description Calculates the cumulative probability for a given truncated
+#' distribution
 #' @param q vector of quantiles
 #' @param family distribution family to use
-#' @param lower.tail logical; if `TRUE`, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}
+#' @param lower.tail logical; if `TRUE`, probabilities are
+#' \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}
 #' @param log.p logical; if `TRUE`, probabilities p are given as `log(p)`
-#' @param ... \emph{named} distribution parameters and/or truncation limits (`a`, `b`)
+#' @param ... \emph{named} distribution parameters and/or truncation limits
+#' (`a`, `b`)
 #' @export
 #' @return The cummulative probability of y.
 #' @examples
@@ -30,7 +33,9 @@ ptrunc.generic <- function(q, ..., lower.tail, log.p) {
   UseMethod("ptrunc", q)
 }
 
-ptrunc.normal <- function(q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p) {
+ptrunc.normal <- function(
+  q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
+  ) {
   validate_q_a_b(q, a, b)
   p_q <- pnorm(q, mean, sd, lower.tail = TRUE, log.p)
   p_a <- pnorm(a, mean, sd, lower.tail = TRUE, log.p)
@@ -38,7 +43,9 @@ ptrunc.normal <- function(q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tai
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
-ptrunc.beta <- function(q, shape1, shape2, a = 0, b = 1, ..., lower.tail, log.p) {
+ptrunc.beta <- function(
+  q, shape1, shape2, a = 0, b = 1, ..., lower.tail, log.p
+) {
   validate_q_a_b(q, a, b)
   p_q <- pbeta(q, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_a <- pbeta(a, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
