@@ -34,9 +34,11 @@ ptrunc.normal <- function(
   q, family, lower.tail = TRUE, log.p = FALSE, mean = 0, sd = 1,
   a = -Inf, b = Inf, ...
 ) {
+  # Basic elements -----------------------------------------------------------
   p_q <- pnorm(q, mean, sd, lower.tail = TRUE, log.p)
   p_a <- pnorm(a, mean, sd, lower.tail = TRUE, log.p)
   p_b <- pnorm(b, mean, sd, lower.tail = TRUE, log.p)
+  # Accounting for log.p and lower.tail --------------------------------------
   if (log.p) {
     p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
     if (!lower.tail) {

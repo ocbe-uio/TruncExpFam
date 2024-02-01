@@ -11,6 +11,8 @@ test_that("untruncated ptrunc() works as expected (normal)", {
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         for (q in seq_along(qt)) {
           if (!lg) {
+            # because I couldn't figure out the relationship between p_trunc
+            # and p_norm in the log.p = TRUE case
             expect_gte(p_trunc[q], 0)
             expect_lte(p_trunc[q], 1)
           }
