@@ -31,7 +31,6 @@ ptrunc.generic <- function(q, lower.tail, log.p, ...) {
   UseMethod("ptrunc", q)
 }
 
-#' @export
 ptrunc.normal <- function(
   q, lower.tail, log.p, mean = 0, sd = 1, a = -Inf, b = Inf, ...
 ) {
@@ -54,7 +53,6 @@ ptrunc.normal <- function(
   return(p)
 }
 
-#' @export
 ptrunc.beta <- function(
   q, lower.tail, log.p, shape1, shape2, a = 0, b = 1, ...
 ) {
