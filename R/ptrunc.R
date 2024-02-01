@@ -1,6 +1,5 @@
 #' @title Cummulative Distribution Function
 #' @description Calculates the cumulative probability for a given truncated distribution
-#' @note Either the common or the natural parameters must be provided.
 #' @param q vector of quantiles
 #' @param family distribution family to use
 #' @param lower.tail logical; if `TRUE`, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}

@@ -23,9 +23,6 @@ The cummulative probability of y.
 \description{
 Calculates the cumulative probability for a given truncated distribution
 }
-\note{
-Either the common or the natural parameters must be provided.
-}
 \examples{
 ptrunc(0)
 ptrunc(6, family = "gaussian", mean = 5, sd = 10, b = 7)
