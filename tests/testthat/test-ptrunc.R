@@ -30,7 +30,7 @@ test_that("untruncated ptrunc() works as expected (beta)", {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         qt <- rbeta(i, shp1, shp2)
-        p_trunc <- ptrunc(qt, "beta", lt, lg, shape1 = shp1, shape2 = shp2)
+        p_trunc <- ptrunc(qt, "beta", shp1, shp2, lower.tail = lt, log.p = lg)
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
         for (q in seq_along(qt)) {
           if (!lg) {
@@ -57,7 +57,7 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
         qt <- rnorm(1L, mn, sg)
         a <- qt - rchisq(1L, 5L)
         b <- qt + rchisq(1L, 5L)
-        p_trunc <- ptrunc(qt, "gaussian", lt, lg, mn, sg, a, b)
+        p_trunc <- ptrunc(qt, "gaussian", mn, sg, a, b, lower.tail = lt, log.p = lg)
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         if (!lg) {
           expect_gte(p_trunc, 0)

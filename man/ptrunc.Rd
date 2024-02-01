@@ -4,18 +4,18 @@
 \alias{ptrunc}
 \title{Cummulative Distribution Function}
 \usage{
-ptrunc(q, family, lower.tail = TRUE, log.p = FALSE, ...)
+ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
 \item{q}{vector of quantiles}
 
 \item{family}{distribution family to use}
 
+\item{...}{\emph{named} distribution parameters and/or truncation limits (\code{a}, \code{b})}
+
 \item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}}
 
-\item{log.p}{logical; if TRUE, probabilities p are given as log(p)}
-
-\item{...}{distribution parameters}
+\item{log.p}{logical; if \code{TRUE}, probabilities p are given as \code{log(p)}}
 }
 \value{
 The cummulative probability of y.
