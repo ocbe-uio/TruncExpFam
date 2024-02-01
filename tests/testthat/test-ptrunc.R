@@ -180,8 +180,10 @@ test_that("lower-truncation works as expected (beta)", {
       for (i in seq_len(10)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
-        a <- runif(1)
-        qt <- runif(1L, a, 1)
+        list2env(
+          setNames(as.list(sort(rbeta(2L, shp1, shp2))), c("a", "qt")),
+          envir = .GlobalEnv
+        )
         p_trunc <- ptrunc(qt, "beta", shp1, shp2, a = a, lower.tail = lt, log.p = lg)
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
         if (!lg) {
