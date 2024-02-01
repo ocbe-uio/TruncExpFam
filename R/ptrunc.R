@@ -31,6 +31,7 @@ ptrunc.generic <- function(q, ..., lower.tail, log.p) {
 }
 
 ptrunc.normal <- function(q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p) {
+  validate_q_a_b(q, a, b)
   p_q <- pnorm(q, mean, sd, lower.tail = TRUE, log.p)
   p_a <- pnorm(a, mean, sd, lower.tail = TRUE, log.p)
   p_b <- pnorm(b, mean, sd, lower.tail = TRUE, log.p)
@@ -38,9 +39,7 @@ ptrunc.normal <- function(q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tai
 }
 
 ptrunc.beta <- function(q, shape1, shape2, a = 0, b = 1, ..., lower.tail, log.p) {
-  if (any(q < a) || any(q > b)) {
-    stop("q must be in [a, b]")
-  }
+  validate_q_a_b(q, a, b)
   p_q <- pbeta(q, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_a <- pbeta(a, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
   p_b <- pbeta(b, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
@@ -60,4 +59,9 @@ truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
     }
   }
   return(p)
+}
+
+validate_q_a_b <- function(q, a, b) {
+  if (a > b) stop("a must be <= b")
+  if (any(q < a) || any(q > b)) stop("q must be in [a, b]")
 }

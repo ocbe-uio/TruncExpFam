@@ -203,5 +203,9 @@ test_that("lower-truncation works as expected (beta)", {
 })
 
 test_that("Basic errors are caught", {
-  expect_error(ptrunc(.5, "beta", 1, 1, a = 0, b = .4))
+  for (distro in c("normal", "beta")) { # TODO: eventually use valid_distros
+    expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "q must be in \\[a, b\\]")
+    expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "q must be in \\[a, b\\]")
+    expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
+  }
 })
