@@ -70,6 +70,28 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
   }
 })
 
+test_that("doubly-truncated ptrunc() works as expected (beta)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shp1 <- sample(1:10, 1L)
+        shp2 <- sample(1:10, 1L)
+        b <- runif(1)
+        a <- b * runif(1)
+        qt <- runif(1L, a, b)
+        p_trunc <- ptrunc(qt, "beta", shp1, shp2, a, b, lower.tail = lt, log.p = lg)
+        p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lt(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
 test_that("upper-truncation works as expected (normal)", {
   lt <- TRUE
   lg <- FALSE
@@ -89,6 +111,32 @@ test_that("upper-truncation works as expected (normal)", {
             expect_gt(p_trunc, p_norm)
           } else {
             expect_lt(p_trunc, p_norm)
+          }
+        } else {
+          expect_lt(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
+test_that("upper-truncation works as expected (beta)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shp1 <- sample(1:10, 1L)
+        shp2 <- sample(1:10, 1L)
+        b <- runif(1)
+        qt <- runif(1L, 0, b)
+        p_trunc <- ptrunc(qt, "beta", shp1, shp2, b = b, lower.tail = lt, log.p = lg)
+        p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          if (lt) {
+            expect_gt(p_trunc, p_beta)
+          } else {
+            expect_lt(p_trunc, p_beta)
           }
         } else {
           expect_lt(p_trunc, 0)
@@ -124,4 +172,34 @@ test_that("lower-truncation works as expected (normal)", {
       }
     }
   }
+})
+
+test_that("lower-truncation works as expected (beta)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shp1 <- sample(1:10, 1L)
+        shp2 <- sample(1:10, 1L)
+        a <- runif(1)
+        qt <- runif(1L, a, 1)
+        p_trunc <- ptrunc(qt, "beta", shp1, shp2, a = a, lower.tail = lt, log.p = lg)
+        p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          if (lt) {
+            expect_lt(p_trunc, p_beta)
+          } else {
+            expect_gt(p_trunc, p_beta)
+          }
+        } else {
+          expect_lt(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
+test_that("Basic errors are caught", {
+  expect_error(ptrunc(.5, "beta", 1, 1, a = 0, b = .4))
 })
