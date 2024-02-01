@@ -12,7 +12,9 @@ rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
 }
 
 #' @export
-dtrunc.trunc_normal <- function(y, mean = 0, sd = 1, eta, a = -Inf, b = Inf, ...) {
+dtrunc.trunc_normal <- function(
+  y, mean = 0, sd = 1, eta, a = -Inf, b = Inf, ...
+) {
   if (missing(eta)) {
     eta <- parameters2natural.parms_normal(c("mean" = mean, "sd" = sd))
   }

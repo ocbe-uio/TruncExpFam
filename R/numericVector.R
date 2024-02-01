@@ -19,7 +19,9 @@
 #' empiricalParameters(x, family = "binomial", nsize = max(x))
 #' empiricalParameters(x, family = "poisson", natural = FALSE)
 #' empiricalParameters(x, family = "poisson", natural = TRUE)
-empiricalParameters.numeric <- function(y, family = "gaussian", natural = FALSE, ...) {
+empiricalParameters.numeric <- function(
+  y, family = "gaussian", natural = FALSE, ...
+) {
 
   # Assigning trunc family, if necessary
   class(y) <- paste0("trunc_", useStandardFamilyName(family))

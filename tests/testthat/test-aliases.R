@@ -58,7 +58,10 @@ test_that("rtrunc works the same from generic and alias", {
   expect_identical(
     object = {
       set.seed(8)
-      rtrunc(1000, shape = 45, rate = 12, a = 1, b = 8, family = "gamma", faster = FALSE)
+      rtrunc(
+        1000, shape = 45, rate = 12, a = 1, b = 8, family = "gamma",
+        faster = FALSE
+      )
     },
     expected = {
       set.seed(8)
@@ -68,7 +71,10 @@ test_that("rtrunc works the same from generic and alias", {
   expect_identical(
     object = {
       set.seed(8)
-      rtrunc(1000, shape = 45, rate = 12, a = 0.2, b = 0.3, family = "invgamma", faster = FALSE)
+      rtrunc(
+        1000, shape = 45, rate = 12, a = 0.2, b = 0.3, family = "invgamma",
+        faster = FALSE
+      )
     },
     expected = {
       set.seed(8)

@@ -2,50 +2,29 @@
 % Please edit documentation in R/ptrunc.R
 \name{ptrunc}
 \alias{ptrunc}
-\alias{ptrunc.normal}
 \title{Cummulative Distribution Function}
 \usage{
-ptrunc(q, family = "gaussian", lower.tail = TRUE, ...)
-
-\method{ptrunc}{normal}(
-  q,
-  family,
-  lower.tail = TRUE,
-  log.p = FALSE,
-  mean = 0,
-  sd = 1,
-  a = -Inf,
-  b = Inf,
-  ...
-)
+ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
 \item{q}{vector of quantiles}
 
 \item{family}{distribution family to use}
 
-\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}.}
+\item{...}{\emph{named} distribution parameters and/or truncation limits
+(\code{a}, \code{b})}
 
-\item{...}{additional parameters to be passed to the distribution function.}
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are
+\eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}}
 
-\item{log.p}{logical; if TRUE, probabilities p are given as log(p).}
-
-\item{mean}{mean of parent distribution}
-
-\item{sd}{standard deviation is parent distribution}
-
-\item{a}{point of left truncation}
-
-\item{b}{point of right truncation}
+\item{log.p}{logical; if \code{TRUE}, probabilities p are given as \code{log(p)}}
 }
 \value{
 The cummulative probability of y.
 }
 \description{
-Calculates the cumulative probability for a given truncated distribution
-}
-\note{
-Either the common or the natural parameters must be provided.
+Calculates the cumulative probability for a given truncated
+distribution
 }
 \examples{
 ptrunc(0)

@@ -20,7 +20,9 @@ dtrunc.trunc_lognormal <- function(
   y, meanlog = 0, sdlog = 1, eta, a = 0, b = Inf, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.parms_lognormal(c("meanlog" = meanlog, "sdlog" = sdlog))
+    eta <- parameters2natural.parms_lognormal(
+      c("meanlog" = meanlog, "sdlog" = sdlog)
+    )
   }
   parm <- natural2parameters.parms_lognormal(eta)
   dens <- rescaledDensities(y, a, b, dlnorm, plnorm, parm[1], parm[2])
@@ -55,7 +57,9 @@ getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
 #' @export
 natural2parameters.parms_lognormal <- function(eta, ...) {
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
-  parms <- c("meanlog" = -0.5 * eta[[1]] / eta[[2]], "sdlog" = sqrt(-0.5 / eta[[2]]))
+  parms <- c(
+    "meanlog" = -0.5 * eta[[1]] / eta[[2]], "sdlog" = sqrt(-0.5 / eta[[2]])
+  )
   class(parms) <- class(eta)
   return(parms)
 }

@@ -19,10 +19,14 @@ dtrunc.trunc_invgamma <- function(
   y, shape, rate = 1, scale = 1 / rate, eta, a = 0, b = Inf, ...
 ) {
   if (missing(eta)) {
-    eta <- parameters2natural.parms_invgamma(c("shape" = shape, "rate" = rate, "scale" = scale))
+    eta <- parameters2natural.parms_invgamma(
+      c("shape" = shape, "rate" = rate, "scale" = scale)
+    )
   }
   parm <- natural2parameters.parms_invgamma(eta)
-  dens <- rescaledDensities(y, a, b, dinvgamma, pinvgamma, parm["shape"], parm["rate"])
+  dens <- rescaledDensities(
+    y, a, b, dinvgamma, pinvgamma, parm["shape"], parm["rate"]
+  )
 }
 
 #' @rdname dtrunc
