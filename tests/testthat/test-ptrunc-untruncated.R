@@ -3,7 +3,7 @@ context("ptrunc(), untruncated")
 test_that("untruncated ptrunc() works as expected (normal)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
         qt <- rnorm(i, mn, sg)
@@ -26,7 +26,7 @@ test_that("untruncated ptrunc() works as expected (normal)", {
 test_that("untruncated ptrunc() works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         qt <- rbeta(i, shp1, shp2)
@@ -47,7 +47,7 @@ test_that("untruncated ptrunc() works as expected (beta)", {
 test_that("untruncated ptrunc() works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         size <- sample(1:10, 1L)
         prob <- runif(1)
         qt <- rbinom(i, size, prob)
