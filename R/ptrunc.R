@@ -53,7 +53,23 @@ ptrunc.beta <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+ptrunc.binomial <- function(
+  q, size, prob, a = 0, b = size, ..., lower.tail, log.p
+) {
+  validate_q_a_b(q, a, b)
+  p_q <- pbinom(q, size, prob, lower.tail = TRUE, log.p)
+  p_a <- pbinom(a - 1L, size, prob, lower.tail = TRUE, log.p)
+  p_b <- pbinom(b, size, prob, lower.tail = TRUE, log.p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
+  if (!log.p && p_a == p_b) {
+    return(as.numeric(lower.tail))
+  }
+  if (log.p && exp(p_a) == exp(p_b)) {
+    return(0)
+  }
   if (log.p) {
     p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
     if (!lower.tail) {

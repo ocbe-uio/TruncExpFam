@@ -44,6 +44,27 @@ test_that("untruncated ptrunc() works as expected (beta)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        size <- sample(1:10, 1L)
+        prob <- runif(1)
+        qt <- rbinom(i, size, prob)
+        p_trunc <- ptrunc(qt, "binomial", size, prob, lower.tail = lt, log.p = lg)
+        p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          }
+          expect_equal(p_trunc[q], p_binom[q])
+        }
+      }
+    }
+  }
+})
+
 context("ptrunc(), truncated")
 
 test_that("doubly-truncated ptrunc works as expected (normal)", {
@@ -65,7 +86,7 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
         } else {
-          expect_lt(p_trunc, 0)
+          expect_lte(p_trunc, 0)
         }
       }
     }
@@ -89,7 +110,31 @@ test_that("doubly-truncated ptrunc() works as expected (beta)", {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
         } else {
-          expect_lt(p_trunc, 0)
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
+test_that("doubly-truncated ptrunc() works as expected (binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        size <- sample(10:50, 1L)
+        prob <- runif(1)
+        a <- sample(1:(size - 4L), 1L)
+        b <- sample((a + 3L):size, 1L)
+        qt <- sample(seq(a + 1L, b - 1L), 1L)
+        p_trunc <- ptrunc(
+          qt, "binomial", size, prob, a, b, lower.tail = lt, log.p = lg
+        )
+        p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
         }
       }
     }
