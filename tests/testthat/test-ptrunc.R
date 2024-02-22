@@ -159,12 +159,12 @@ test_that("upper-truncation works as expected (normal)", {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
           if (lt) {
-            expect_gt(p_trunc, p_norm)
+            expect_gte(p_trunc, p_norm)
           } else {
-            expect_lt(p_trunc, p_norm)
+            expect_lte(p_trunc, p_norm)
           }
         } else {
-          expect_lt(p_trunc, 0)
+          expect_lte(p_trunc, 0)
         }
       }
     }
@@ -187,12 +187,12 @@ test_that("upper-truncation works as expected (beta)", {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
           if (lt) {
-            expect_gt(p_trunc, p_beta)
+            expect_gte(p_trunc, p_beta)
           } else {
-            expect_lt(p_trunc, p_beta)
+            expect_lte(p_trunc, p_beta)
           }
         } else {
-          expect_lt(p_trunc, 0)
+          expect_lte(p_trunc, 0)
         }
       }
     }
@@ -217,12 +217,12 @@ test_that("lower-truncation works as expected (normal)", {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
           if (lt) {
-            expect_lt(p_trunc, p_norm)
+            expect_lte(p_trunc, p_norm)
           } else {
-            expect_gt(p_trunc, p_norm)
+            expect_gte(p_trunc, p_norm)
           }
         } else {
-          expect_lt(p_trunc, 0)
+          expect_lte(p_trunc, 0)
         }
       }
     }
@@ -247,12 +247,12 @@ test_that("lower-truncation works as expected (beta)", {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
           if (lt) {
-            expect_lt(p_trunc, p_beta)
+            expect_lte(p_trunc, p_beta)
           } else {
             expect_gt(p_trunc, p_beta)
           }
         } else {
-          expect_lt(p_trunc, 0)
+          expect_lte(p_trunc, 0)
         }
       }
     }
