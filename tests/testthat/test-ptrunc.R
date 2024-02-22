@@ -199,6 +199,36 @@ test_that("upper-truncation works as expected (beta)", {
   }
 })
 
+test_that("upper-truncation works as expected (binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        size <- sample(10:50, 1L)
+        prob <- runif(1)
+        b <- sample(2:(size - 1L), 1L)
+        qt <- sample(0:(b - 1L), 1L)
+        p_trunc <- ptrunc(
+          qt, "binomial", size, prob, b = b, lower.tail = lt, log.p = lg
+        )
+        p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          if (abs(p_trunc - p_binom) > 1e-10) {  # adding tolerance
+            if (lt) {
+              expect_gte(p_trunc, p_binom)
+            } else {
+              expect_lte(p_trunc, p_binom)
+            }
+          }
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
 test_that("lower-truncation works as expected (normal)", {
   lt <- TRUE
   lg <- FALSE
@@ -259,8 +289,31 @@ test_that("lower-truncation works as expected (beta)", {
   }
 })
 
+test_that("lower-truncation works as expected (binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        size <- sample(10:50, 1L)
+        prob <- runif(1)
+        a <- sample(1:(size - 4L), 1L)
+        qt <- sample(seq(a + 1L, size - 1L), 1L)
+        p_trunc <- ptrunc(
+          qt, "binomial", size, prob, a = a, lower.tail = lt, log.p = lg
+        )
+        p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
