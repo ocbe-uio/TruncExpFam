@@ -19,12 +19,10 @@ dtrunc.trunc_binomial <- function(
     eta <- parameters2natural.parms_binomial(c("size" = size, "prob" = prob))
   }
   nsize <- attr(y, "parameters")$size
-  my.dbinom <- function(nsize) dbinom(y, size = nsize, prob = proba)
-  my.pbinom <- function(z, nsize) pbinom(z, size = nsize, prob = proba)
   proba <- 1 / (1 + exp(-eta))
-  dens <- ifelse((y < a) | (y > b), 0, my.dbinom(nsize))
-  F.a <- my.pbinom(a - 1, nsize)
-  F.b <- my.pbinom(b, nsize)
+  dens <- ifelse((y < a) | (y > b), 0, dbinom(y, size = nsize, prob = proba))
+  F.a <- pbinom(a - 1L, size = nsize, prob = proba) # -1L because a = 0 means no truncation
+  F.b <- pbinom(b, size = nsize, prob = proba)
   dens <- dens / (F.b - F.a)
   attributes(dens) <- attributes(y)
   return(dens)
