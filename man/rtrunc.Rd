@@ -49,7 +49,7 @@ rtruncpois(n, lambda, a = 0, b = Inf)
 
 rtrunc(n, family = "gaussian", faster = FALSE, ...)
 
-rtrunc_direct(n, family = "gaussian", ...)
+rtrunc_direct(n, family = "gaussian", parms, ...)
 }
 \arguments{
 \item{n}{sample size}
@@ -98,6 +98,7 @@ distribution). Must be strictly positive, need not be integer.}
 distribution (more info in details)}
 
 \item{...}{individual arguments to each distribution}
+
 \item{parms}{list of distribution parameters}
 }
 \value{
