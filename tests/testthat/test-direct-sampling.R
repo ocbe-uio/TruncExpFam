@@ -291,7 +291,7 @@ test_that("Truncation is not a speed limiter", {
   )
 
   # Contbern
-  expect_error({\item{...}{individual arguments to each distribution}
+  expect_error({
       setTimeLimit(time_limit)
       rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2)
     },
