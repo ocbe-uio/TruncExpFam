@@ -1,4 +1,5 @@
 #' @rdname rtrunc
+#' @param parms list of distribution parameters
 #' @export
 rtrunc_direct <- function(n, family = "gaussian", parms, ...) {
 
