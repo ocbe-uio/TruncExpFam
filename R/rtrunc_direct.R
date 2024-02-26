@@ -147,31 +147,6 @@ rtrunc_direct.lognormal <- function(n, family, parms, a = 0, b = Inf, ...) {
   return(q_T)
 }
 
-cumDens <- function(x, probFunction, ...) {
-  if (x == -Inf || x == 0) {
-    return(0)
-  } else if (x == Inf || x == 1) {
-    return(1)
-  } else {
-    return(probFunction(x, ...))
-  }
-}
-
-truncated_q <- function(q_T, family, parms) {
-  family <- useStandardFamilyName(family)
-  class(q_T) <- paste0("trunc_", family)
-  q_T <- attachDistroAttributes(
-    sample = q_T,
-    family = family,
-    parms  = parms
-  )
-  return(q_T)
-}
-
-rescaled_q <- function(n, F_a, F_b) {
-  return(runif(n) * (F_b - F_a) + F_a)
-}
-
 #' @export
 rtrunc_direct.poisson <- function(n, family, parms, a = 0, b = Inf, ...) {
   F_a <- cumDens(a, ppois, parms[["lambda"]])
@@ -228,4 +203,29 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
   f_T <- truncated_q(trunc_samp, family, parms)  # just to add the attributes
   return(f_T)
+}
+
+cumDens <- function(x, probFunction, ...) {
+  if (x == -Inf || x == 0) {
+    return(0)
+  } else if (x == Inf || x == 1) {
+    return(1)
+  } else {
+    return(probFunction(x, ...))
+  }
+}
+
+truncated_q <- function(q_T, family, parms) {
+  family <- useStandardFamilyName(family)
+  class(q_T) <- paste0("trunc_", family)
+  q_T <- attachDistroAttributes(
+    sample = q_T,
+    family = family,
+    parms  = parms
+  )
+  return(q_T)
+}
+
+rescaled_q <- function(n, F_a, F_b) {
+  return(runif(n) * (F_b - F_a) + F_a)
 }
