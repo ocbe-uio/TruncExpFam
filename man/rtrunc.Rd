@@ -98,6 +98,7 @@ distribution). Must be strictly positive, need not be integer.}
 distribution (more info in details)}
 
 \item{...}{individual arguments to each distribution}
+\item{parms}{list of distribution parameters}
 }
 \value{
 A sample of size n drawn from a truncated distribution

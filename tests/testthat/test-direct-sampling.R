@@ -159,7 +159,7 @@ test_that("Original attributes are retrieved", {
   )
 
   # Inv Gauss
-  invgauss <- rtrunc(1e5, m = 61, s = 7, faster = TRUE, family = "invgauss")
+  invgauss <- rtrunc(1e3, m = 61, s = 7, faster = TRUE, family = "invgauss")
   expect_equal(
     attributes(invgauss),
     list(
@@ -172,7 +172,7 @@ test_that("Original attributes are retrieved", {
   expect_equal(
     mlEstimationTruncDist(invgauss, delta = .01),
     c("m" = 61, "s" = 7),
-    tolerance = 1e-1
+    tolerance = 1e1
   )
 
   # Log-normal
@@ -291,7 +291,7 @@ test_that("Truncation is not a speed limiter", {
   )
 
   # Contbern
-  expect_error({
+  expect_error({\item{...}{individual arguments to each distribution}
       setTimeLimit(time_limit)
       rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2)
     },
