@@ -23,7 +23,7 @@ validateSupport.trunc_contbern <- function(n, parms, ...) {
 }
 
 validateSupport.trunc_exp <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "()") # Wiki says [0, Inf]; R uses (0,Inf)
+  support <- createSupport(0, Inf, "[)")
   judgeSupportLimits(n, parms, support)
 }
 
@@ -39,7 +39,7 @@ validateSupport.trunc_invgamma <- function(n, parms, ...) {
 
 validateSupport.trunc_invgauss <- function(n, parms, ...) {
   support <- createSupport(0, Inf, "()")
-  judgeSupportLimits(n, parms, support)
+  judgeSupportLimits(n, parms, support) # FIXME: zeros are passing through unless cont = FALSE
 }
 
 validateSupport.trunc_lognormal <- function(n, parms, ...) {
@@ -88,7 +88,7 @@ createSupport <- function(lower, upper, inclusion_brackets) {
 }
 
 judgeSupportLimits <- function(
-  data, parms, support, cont = TRUE, no_complex = FALSE
+  data, parms, support, cont = TRUE, no_complex = FALSE # TODO: change "cont" to "closed interval"?
 ) {
   # Data circuit breaker =======================================================
   if (any(data < support$l) || any(data > support$u)) {
@@ -105,7 +105,7 @@ judgeSupportLimits <- function(
     split_brackets <- strsplit(support$txt, "")[[1]]
     if (!is.null(parms$a) && !is.null(parms$b)) {
       if (cont) {
-        cond_al <- parms$a < support$l
+        cond_al <- parms$a < support$l # FIXME: problematic for invgauss ONLY
         cond_au <- parms$a >= support$u
         cond_bl <- parms$b <= support$l
         cond_bu <- parms$b > support$u

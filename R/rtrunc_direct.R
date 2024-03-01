@@ -208,9 +208,10 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
 }
 
 cumDens <- function(x, probFunction, ...) {
-  if (x == -Inf || x == 0) {
+  # TODOS: x should check against the support of the distro, not -Inf, 0, Inf, 1
+  if (x == -Inf || x == 0) { # TODO: check. x can be 0 and still have F(x) > 0.
     return(0)
-  } else if (x == Inf || x == 1) {
+  } else if (x == Inf || x == 1) { # TODO: check. x can be 1 and still have F(x) < 1
     return(1)
   } else {
     return(probFunction(x, ...))
