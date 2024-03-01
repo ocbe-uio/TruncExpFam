@@ -1,6 +1,6 @@
 context("ptrunc(), lower truncation")
 
-test_that("lower-truncation works as expected (normal)", {
+test_that("lower truncation works as expected (normal)", {
   lt <- TRUE
   lg <- FALSE
   for (lt in c(TRUE, FALSE)) {
@@ -30,7 +30,7 @@ test_that("lower-truncation works as expected (normal)", {
   }
 })
 
-test_that("lower-truncation works as expected (beta)", {
+test_that("lower truncation works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
       for (i in seq_len(10)) {
@@ -60,7 +60,7 @@ test_that("lower-truncation works as expected (beta)", {
   }
 })
 
-test_that("lower-truncation works as expected (binomial)", {
+test_that("lower truncation works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
       for (i in seq_len(10)) {
@@ -72,6 +72,29 @@ test_that("lower-truncation works as expected (binomial)", {
           qt, "binomial", size, prob, a = a, lower.tail = lt, log.p = lg
         )
         p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
+test_that("lower truncation works as expected (poisson)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        lambda <- sample(10:50, 1L)
+        max_qt <- qpois(p = .99, lambda)
+        a <- sample(seq(1L, max_qt - 3L), 1L)
+        qt <- sample(seq(a + 1L, max_qt), 1L)
+        p_trunc <- ptrunc(
+          qt, "poisson", lambda, a = a, lower.tail = lt, log.p = lg
+        )
+        p_pois <- ppois(qt, lambda, lower.tail = lt, log.p = lg)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)

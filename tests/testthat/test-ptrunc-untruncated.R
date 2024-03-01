@@ -65,8 +65,28 @@ test_that("untruncated ptrunc() works as expected (binomial)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (poisson)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        lambda <- sample(1:50, 1L)
+        qt <- rpois(i, lambda)
+        p_trunc <- ptrunc(qt, "poisson", lambda, lower.tail = lt, log.p = lg)
+        p_pois <- ppois(qt, lambda, lower.tail = lt, log.p = lg)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          }
+          expect_equal(p_trunc[q], p_pois[q])
+        }
+      }
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta", "binomial")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial", "poisson")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
