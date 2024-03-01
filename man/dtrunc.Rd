@@ -61,7 +61,8 @@ dtruncpois(y, lambda, eta, a = 0, b = Inf, ...)
 
 \item{eta}{vector of natural parameters}
 
-\item{a}{point of left truncation}
+\item{a}{point of left truncation. For discrete distributions, \code{a} will be
+included in the support of the truncated distribution.}
 
 \item{b}{point of right truncation}
 

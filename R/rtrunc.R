@@ -3,7 +3,8 @@
 #' distributions. Please ferer to the "Details" and "Examples" section for more
 #' information on how to use this function.
 #' @param n sample size
-#' @param a point of left truncation
+#' @param a point of left truncation. For discrete distributions, `a` will be
+#'  included in the support of the truncated distribution.
 #' @param b point of right truncation
 #' @param family distribution family to use
 #' @param faster if `TRUE`, samples directly from the truncated
