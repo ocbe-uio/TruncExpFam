@@ -4,8 +4,8 @@ rescaledDensities <- function(y, a, b, densFunction, probFunction, ...) {
     yes  = 0,
     no   = densFunction(y, ...)
   )
-  F.a <- ifelse(a == 0, 0, probFunction(a, ...))
-  F.b <- ifelse(is.infinite(b), 1, probFunction(b, ...))
+  F.a <- probFunction(a, ...) # TODO: check. a can be 0 and still have F.a > 0
+  F.b <- probFunction(b, ...)
   dens <- dens / (F.b - F.a)
   attributes(dens) <- attributes(y)
   return(dens)
