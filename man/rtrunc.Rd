@@ -58,7 +58,8 @@ rtrunc_direct(n, family = "gaussian", parms, ...)
 
 \item{shape2}{positive shape parameter beta}
 
-\item{a}{point of left truncation}
+\item{a}{point of left truncation. For discrete distributions, \code{a} will be
+included in the support of the truncated distribution.}
 
 \item{b}{point of right truncation}
 
