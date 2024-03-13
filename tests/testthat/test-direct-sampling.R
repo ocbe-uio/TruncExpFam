@@ -251,8 +251,6 @@ test_that("Original attributes are retrieved", {
   )
 })
 
-Sys.setenv("LANGUAGE" = "en")
-
 test_that("Truncation is not a speed limiter", {
   time_limit <- 2
   n <- 1e4L
