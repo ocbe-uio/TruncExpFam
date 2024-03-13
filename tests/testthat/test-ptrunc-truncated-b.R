@@ -1,6 +1,6 @@
 context("ptrunc(), upper truncation")
 
-test_that("upper-truncation works as expected (normal)", {
+test_that("upper truncation works as expected (normal)", {
   lt <- TRUE
   lg <- FALSE
   for (lt in c(TRUE, FALSE)) {
@@ -30,7 +30,7 @@ test_that("upper-truncation works as expected (normal)", {
   }
 })
 
-test_that("upper-truncation works as expected (beta)", {
+test_that("upper truncation works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
       for (i in seq_len(10)) {
@@ -58,7 +58,7 @@ test_that("upper-truncation works as expected (beta)", {
   }
 })
 
-test_that("upper-truncation works as expected (binomial)", {
+test_that("upper truncation works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
       for (i in seq_len(10)) {
@@ -78,6 +78,36 @@ test_that("upper-truncation works as expected (binomial)", {
               expect_gte(p_trunc, p_binom)
             } else {
               expect_lte(p_trunc, p_binom)
+            }
+          }
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
+test_that("upper truncation works as expected (poisson)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        lambda <- sample(10:50, 1L)
+        max_qt <- qpois(p = .99, lambda)
+        b <- sample(seq(lambda, max_qt), 1L)
+        qt <- sample(seq(1L, b - 1L), 1L)
+        p_trunc <- ptrunc(
+          qt, "poisson", lambda, b = b, lower.tail = lt, log.p = lg
+        )
+        p_pois <- ppois(qt, lambda, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          if (abs(p_trunc - p_pois) > 1e-10) {  # adding tolerance
+            if (lt) {
+              expect_gte(p_trunc, p_pois)
+            } else {
+              expect_lte(p_trunc, p_pois)
             }
           }
         } else {
