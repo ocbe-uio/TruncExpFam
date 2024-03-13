@@ -89,9 +89,6 @@ rtrunc_direct.gamma <- function(n, family, parms, a = 0, b = Inf, ...) {
     parms[["scale"]] <- 1 / parms[["rate"]]
   } else if (is.null(parms[["rate"]])) {
     parms[["rate"]] <- 1 / parms[["scale"]]
-  } else if (parms[["scale"]] != 1 / parms[["rate"]]) {
-    rate <- 1 / parms[["scale"]]
-    parms[["rate"]] <- rate
   }
   q_T <- truncated_q(
     q_T = qgamma(rescaled_q(n, F_a, F_b), parms[["shape"]], parms[["rate"]]),
@@ -110,9 +107,6 @@ rtrunc_direct.invgamma <- function(n, family, parms, a = 0, b = Inf, ...) {
     parms[["scale"]] <- 1 / parms[["rate"]]
   } else if (is.null(parms[["rate"]])) {
     parms[["rate"]] <- 1 / parms[["scale"]]
-  } else if (parms[["scale"]] != 1 / parms[["rate"]]) {
-    rate <- 1 / parms[["scale"]]
-    parms[["rate"]] <- rate
   }
   q_T <- truncated_q(
     q_T = qinvgamma(rescaled_q(n, F_a, F_b), parms[["shape"]], parms[["rate"]]),
