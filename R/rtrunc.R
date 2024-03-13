@@ -84,13 +84,13 @@ rtrunc <- function(n, family = "gaussian", faster = FALSE, ...) {
   # Determining object class -------------------------------------------------
   parms <- list(...)
   trunc_class <- genrtruncClass(n, family, names(parms))
-  extra_n <- 1 # to generate extra observations to complete n from input
-  class(extra_n) <- class(n) <- trunc_class
 
   # Generating sample --------------------------------------------------------
   if (faster) {
     sample <- rtrunc_direct(n, family, parms, ...)
   } else {
+    extra_n <- 1 # to generate extra observations to complete n from input
+    class(extra_n) <- class(n) <- trunc_class
     sample <- rtrunc.generic(n, ...)
   }
   return(sample)
