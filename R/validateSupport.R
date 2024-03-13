@@ -3,7 +3,7 @@ validateSupport <- function(n, ...) {
 }
 
 validateSupport.trunc_beta <- function(n, parms, ...) {
-  support <- createSupport(0, 1, "()")
+  support <- createSupport(0, 1, "[]")
   judgeSupportLimits(n, parms, support)
 }
 
@@ -13,7 +13,11 @@ validateSupport.trunc_binomial <- function(n, parms, nsize = parms$size, ...) {
 }
 
 validateSupport.trunc_chisq <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "())") # Wikipedia uses [0, Inf) for df > 1
+  if (is.null(parms) || parms$df > 1) {
+    support <- createSupport(0, Inf, "[)")
+  } else {
+    support <- createSupport(0, Inf, "()")
+  }
   judgeSupportLimits(n, parms, support)
 }
 
@@ -39,7 +43,7 @@ validateSupport.trunc_invgamma <- function(n, parms, ...) {
 
 validateSupport.trunc_invgauss <- function(n, parms, ...) {
   support <- createSupport(0, Inf, "()")
-  judgeSupportLimits(n, parms, support) # FIXME: zeros are passing through unless cont = FALSE
+  judgeSupportLimits(n, parms, support)
 }
 
 validateSupport.trunc_lognormal <- function(n, parms, ...) {
@@ -63,11 +67,10 @@ validateSupport.trunc_poisson <- function(n, parms, ...) {
 }
 
 createSupport <- function(lower, upper, inclusion_brackets) {
-  out <- list(
-    l = lower,
-    u = upper,
-    txt = vector("character")
-  )
+  # This function outputs a list of numbers and texts related to the support
+  # of a truncated distribution. It does not evaluate or validate anything,
+  # it just blindly builds the output.
+  out <- list(l = lower, u = upper, txt = vector("character"))
   split_brackets <- strsplit(inclusion_brackets, "")
   for (i in seq_along(split_brackets)) {
     lower_symbol <- split_brackets[[i]][1]
@@ -88,15 +91,28 @@ createSupport <- function(lower, upper, inclusion_brackets) {
 }
 
 judgeSupportLimits <- function(
-  data, parms, support, cont = TRUE, no_complex = FALSE # TODO: change "cont" to "closed interval"?
+  data, parms, support, cont = TRUE, no_complex = FALSE
 ) {
   # Data circuit breaker =======================================================
-  if (any(data < support$l) || any(data > support$u)) {
+  operator_1 <- strsplit(support[["txt"]], "")[[1]][1]
+  operator_2 <- strsplit(support[["txt"]], "")[[1]][nchar(support[["txt"]])]
+  if (operator_1 %in% c("{", "[")) {
+    operator_1 <- get('<')
+  } else {
+    operator_1 <- get('<=')
+  }
+  if (operator_2 %in% c("}", "]")) {
+    operator_2 <- get('>')
+  } else {
+    operator_2 <- get('>=')
+  }
+  if (any(operator_1(data, support$l)) || any(operator_2(data, support$u))) {
     stop("Sample contains values outside of support ", support$txt)
   }
 
+  # Truncation limits circuit breaker ==========================================
   if (!is.null(parms$a) && !is.null(parms$b)) {
-    # Complex numbers circuit breaker ==========================================
+    # Treating complex numbers =================================================
     if (no_complex && (is.complex(parms$a) || is.complex(parms$b))) {
       stop("Truncation limits may not contain complex numbers")
     }
@@ -105,9 +121,9 @@ judgeSupportLimits <- function(
     split_brackets <- strsplit(support$txt, "")[[1]]
     if (!is.null(parms$a) && !is.null(parms$b)) {
       if (cont) {
-        cond_al <- parms$a < support$l # FIXME: problematic for invgauss ONLY
-        cond_au <- parms$a >= support$u
-        cond_bl <- parms$b <= support$l
+        cond_al <- parms$a < support$l
+        cond_au <- parms$a >= support$u # would leave no margin for sampling
+        cond_bl <- parms$b <= support$l # would leave no margin for sampling
         cond_bu <- parms$b > support$u
       } else {
         cond_al <- parms$a < support$l
@@ -117,7 +133,7 @@ judgeSupportLimits <- function(
       }
     }
 
-    # Judging suppor limits ====================================================
+    # Judging support limits ===================================================
     if (parms$a == parms$b) {
       stop("Identical truncation limits: a = b = ", parms$a)
     } else if (cond_au || cond_bl) {
