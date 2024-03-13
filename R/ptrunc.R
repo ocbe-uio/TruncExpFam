@@ -63,7 +63,7 @@ ptrunc.binomial <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
-ptrunc.poisson <- function( # TODO: stash, related #54
+ptrunc.poisson <- function(
   q, lambda, a = 0, b = Inf, ..., lower.tail, log.p
 ) {
   validate_q_a_b(q, a, b)
