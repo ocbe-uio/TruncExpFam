@@ -1,8 +1,7 @@
 #' @rdname rtrunc
-#' @param parms list of distribution parameters
+#' @inheritParams genrtruncClass
 #' @export
-rtrunc_direct <- function(n, family = "gaussian", parms, ...) {
-  # TODO: remove "..." (it's not used by any method). Check Writing R extensions 1st
+rtrunc_direct <- function(n, family = "gaussian", parms, a, b, ...) {
   # TODO: fix all code smells: https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam
 
   # Validating ---------------------------------------------------------------

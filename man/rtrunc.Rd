@@ -49,7 +49,7 @@ rtruncpois(n, lambda, a = 0, b = Inf)
 
 rtrunc(n, family = "gaussian", faster = FALSE, ...)
 
-rtrunc_direct(n, family = "gaussian", parms, ...)
+rtrunc_direct(n, family = "gaussian", parms, a, b, ...)
 }
 \arguments{
 \item{n}{sample size}
@@ -100,7 +100,7 @@ distribution (more info in details)}
 
 \item{...}{individual arguments to each distribution}
 
-\item{parms}{list of distribution parameters}
+\item{parms}{list of parameters passed to rtrunc (through the \code{...} element)}
 }
 \value{
 A sample of size n drawn from a truncated distribution
