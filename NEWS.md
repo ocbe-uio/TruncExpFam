@@ -1,6 +1,7 @@
 # TruncExpFam (development version)
 
 * Implemented `ptrunc()` for some distributions (issue #54)
+* Refactoring (issue #104)
 
 # TruncExpFam 1.1.1
 
