@@ -172,6 +172,10 @@ rtrunc_direct.binomial <- function(n, family, parms, a = 0, b = parms[["size"]],
 
 #' @export
 rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
+  if (is.null(parms[["prob"]])) {
+    parms[["prob"]] <- (parms[["size"]]) / (parms[["size"]] + parms[["mu"]])
+    parms[["mu"]] <- NULL
+  }
   if (is.null(parms[["mu"]])) {
     F_a <- cumDens(a, pnbinom, parms[["size"]], parms[["prob"]])
     F_b <- cumDens(b, pnbinom, parms[["size"]], parms[["prob"]])
@@ -182,17 +186,6 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
       no   = b
     )
     weights <- dnbinom(a:practical_b, parms[["size"]], parms[["prob"]]) / (F_b - F_a)
-  } else if (is.null(parms[["prob"]])) {
-    F_a <- cumDens(a, pnbinom, parms[["size"]], mu = parms[["mu"]])
-    F_b <- cumDens(b, pnbinom, parms[["size"]], mu = parms[["mu"]])
-    # Choose a practical b because a:Inf doesn't work
-    practical_b <- ifelse(
-      test = b == Inf,
-      yes  = qnbinom(p = 1e-50, parms[["size"]],  mu = parms[["mu"]], lower.tail = FALSE),
-      no   = b
-    )
-    weights <- dnbinom(a:practical_b, parms[["size"]], mu = parms[["mu"]]) / (F_b - F_a)
-
   }
   trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
   parms <- c(parms, "n" = n, "a" = a, "b" = b)

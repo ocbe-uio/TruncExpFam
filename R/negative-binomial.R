@@ -11,6 +11,10 @@
 #' @export
 rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
   class(n) <- "trunc_nbinom"
+  if (missing(prob)) {
+    prob <- (size) / (size + mu)
+    mu <- ""
+  }
   sampleFromTruncated(mget(ls()))
 }
 
