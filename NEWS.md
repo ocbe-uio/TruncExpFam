@@ -2,6 +2,7 @@
 
 * Implemented `ptrunc()` for some distributions (issue #54)
 * Refactoring (issue #104)
+* Fixed bugs related to using the Negative Binomial with `mu` instead of `prob` (issue #107)
 
 # TruncExpFam 1.1.1
 
