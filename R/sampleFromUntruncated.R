@@ -14,10 +14,9 @@ sampleFromTruncated <- function(parms) {
     parms$rate <- NULL
   } else if (family == "nbinom") {
     if (parms$mu == "") {
+      # This also works when mu was passed instead of prob, because the latter
+      # has been calculated from the former in the rtrunc method.
       parms$mu <- NULL
-    } else if (parms$prob == "") {
-      parms$prob <- NULL
-      class(parms$n) <- "trunc_nbinom_mu"
     }
   }
   common_parms <- c("a", "b", "n")

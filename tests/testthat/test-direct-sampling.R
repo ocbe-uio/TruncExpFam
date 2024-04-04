@@ -455,7 +455,7 @@ test_that("Truncation limits are respected for faster = TRUE", {
   expect_lte(max(smp), 100)
 
   smp <- rtrunc(
-    sz, "nbinom", size = 54, prob = .33, faster = TRUE, a = 60, b = 80
+    sz, "nbinom", size = 54, mu = 33, faster = TRUE, a = 60, b = 80
   )
   expect_gte(min(smp), 60)
   expect_lte(max(smp), 80)
