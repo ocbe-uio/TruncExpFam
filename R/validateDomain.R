@@ -59,8 +59,15 @@ validateDomain.trunc_gamma <- function(n, parms, ...) {
 #' @method validateDomain trunc_invgamma
 validateDomain.trunc_invgamma <- function(n, parms, ...) {
   if (parms$shape <= 0) stop("Invalid parameter domain. shape must be > 0.")
-  if (parms$scale <= 0) {
-    stop("Invalid parameter domain. rate/scale must be > 0.")
+  if (!is.null(parms$rate)) {
+      if (parms$rate <= 0) {
+        stop("Invalid parameter domain. rate must be > 0.")
+      }
+  }
+  if (!is.null(parms$scale)) {
+    if (parms$scale <= 0) {
+        stop("Invalid parameter domain. scale must be > 0.")
+      }
   }
 }
 
@@ -86,8 +93,10 @@ validateDomain.trunc_nbinom <- function(n, parms, ...) {
   if (parms$size != as.integer(parms$size) || parms$size < 0) {
     stop("Invalid parameter domain. size must be a natural number.")
   }
-  if (parms$prob != "" && (parms$prob < 0 || parms$prob > 1)) {
-    stop("Invalid parameter domain. prob must be [0, 1].")
+  if (!is.na(match("prob", names(parms)))) {
+    if (parms$prob < 0 || parms$prob > 1) {
+      stop("Invalid parameter domain. prob must be [0, 1].")
+    }
   }
 }
 

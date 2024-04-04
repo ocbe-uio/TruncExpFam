@@ -5,8 +5,10 @@ rtrunc_direct <- function(n, family = "gaussian", parms, a, b, ...) {
   # TODO: fix all code smells: https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam
 
   # Validating ---------------------------------------------------------------
-  family <- tolower(family)
+  family <-  useStandardFamilyName(tolower(family))
+  class(family) <- paste0("trunc_", family)
   validateFamilyName(family)
+  validateDomain(family, parms)
 
   # Determining object class -------------------------------------------------
   class(n) <- genrtruncClass(n, family, names(parms))
