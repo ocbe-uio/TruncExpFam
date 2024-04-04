@@ -43,6 +43,7 @@ empiricalParameters.trunc_beta <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_beta
 sufficientT.trunc_beta <- function(y) {
   # Calculates the sufficient statistic T(y)
   return(suff.T = cbind(log(y), log(1 - y)))
@@ -66,6 +67,7 @@ parameters2natural.parms_beta <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getYseq trunc_beta
 getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   # needs chekking
   mean <- mean(y, na.rm = TRUE)
@@ -78,6 +80,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   return(out)
 }
 
+#' @method getGradETinv parms_beta
 getGradETinv.parms_beta <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix

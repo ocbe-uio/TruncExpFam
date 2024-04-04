@@ -45,6 +45,7 @@ empiricalParameters.trunc_invgamma <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_invgamma
 sufficientT.trunc_invgamma <- function(y) {
   return(suff.T = cbind(log(y), 1 / y))
 }
@@ -68,6 +69,7 @@ parameters2natural.parms_invgamma <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getYseq trunc_invgamma
 getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max = 1, n = 100) {
   # needs chekking
   mean <- mean(y, na.rm = TRUE)
@@ -79,6 +81,7 @@ getYseq.trunc_invgamma <- function(y, y.min = 1e-10, y.max = 1, n = 100) {
   return(out)
 }
 
+#' @method getGradETinv parms_invgamma
 getGradETinv.parms_invgamma <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix

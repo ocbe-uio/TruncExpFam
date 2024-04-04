@@ -36,6 +36,7 @@ empiricalParameters.trunc_invgauss <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_invgauss
 sufficientT.trunc_invgauss <- function(y) {
   return(suff.T = cbind(y, 1 / y))
 }
@@ -63,6 +64,7 @@ natural2parameters.parms_invgauss <- function(eta, ...) {
   return(parms)
 }
 
+#' @method getYseq trunc_invgauss
 getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
   m <- mean(y, na.rm = TRUE)
   sd <- sd(y, na.rm = TRUE)
@@ -74,6 +76,7 @@ getYseq.trunc_invgauss <- function(y, y.min, y.max, n = 100) {
   return(out)
 }
 
+#' @method getGradETinv parms_invgauss
 getGradETinv.parms_invgauss <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix
