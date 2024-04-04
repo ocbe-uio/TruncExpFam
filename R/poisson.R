@@ -32,6 +32,7 @@ empiricalParameters.trunc_poisson <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_poisson
 sufficientT.trunc_poisson <- function(y) {
   return(suff.T = y)
 }
@@ -54,12 +55,14 @@ parameters2natural.parms_poisson <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getGradETinv parms_poisson
 getGradETinv.parms_poisson <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = exp(-eta))
 }
 
+#' @method getYseq trunc_poisson
 getYseq.trunc_poisson <- function(y, y.min = 0, y.max, n = 100) {
   mean <- mean(y, na.rm = TRUE)
   var.y <- var(y, na.rm = TRUE)

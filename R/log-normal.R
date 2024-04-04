@@ -11,6 +11,7 @@ rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = 0, b = Inf) {
   sampleFromTruncated(mget(ls()))
 }
 
+#' @method sufficientT trunc_lognormal
 sufficientT.trunc_lognormal <- function(y) {
   return(suff.T = cbind(log(y), log(y)^2))
 }
@@ -43,6 +44,7 @@ empiricalParameters.trunc_lognormal <- function(y, ...) {
   return(parms)
 }
 
+#' @method getYseq trunc_lognormal
 getYseq.trunc_lognormal <- function(y, y.min, y.max, n = 100) {
   x <- log(y)
   mean <- mean(x, na.rm = TRUE)
@@ -71,6 +73,7 @@ parameters2natural.parms_lognormal <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getYseq parms_lognormal
 getGradETinv.parms_lognormal <- function(eta, ...) {
   getGradETinv.parms_normal(eta, ...)
 }

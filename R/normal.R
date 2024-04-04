@@ -35,6 +35,7 @@ empiricalParameters.trunc_normal <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_normal
 sufficientT.trunc_normal <- function(y) {
   return(suff.T = cbind(y, y^2))
 }
@@ -58,6 +59,7 @@ parameters2natural.parms_normal <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getYseq trunc_normal
 getYseq.trunc_normal <- function(y, y.min, y.max, n = 100) {
   mean <- mean(y, na.rm = TRUE)
   sd <- var(y, na.rm = TRUE)^0.5
@@ -68,6 +70,7 @@ getYseq.trunc_normal <- function(y, y.min, y.max, n = 100) {
   return(out)
 }
 
+#' @method getGradETinv parms_normal
 getGradETinv.parms_normal <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta' : p x p matrix

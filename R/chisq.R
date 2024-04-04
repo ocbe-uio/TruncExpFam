@@ -32,6 +32,7 @@ empiricalParameters.trunc_chisq <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_chisq
 sufficientT.trunc_chisq <- function(y) {
   return(suff.T = log(y))
 }
@@ -54,12 +55,14 @@ parameters2natural.parms_chisq <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getGradETinv parms_chisq
 getGradETinv.parms_chisq <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = 1 / sum(1 / (as.vector(eta) + (1:1e6))^2))
 }
 
+#' @method getYseq trunc_chisq
 getYseq.trunc_chisq <- function(y, y.min = 0, y.max, n = 100) {
   mean <- mean(y, na.rm = TRUE)
   var.y <- var(y, na.rm = TRUE)

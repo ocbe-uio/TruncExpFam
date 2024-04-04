@@ -32,6 +32,7 @@ empiricalParameters.trunc_exp <- function(y, ...) {
   return(parms)
 }
 
+#' @method sufficientT trunc_exp
 sufficientT.trunc_exp <- function(y) {
   return(suff.T = y)
 }
@@ -55,12 +56,14 @@ parameters2natural.parms_exp <- function(parms, ...) {
   return(eta)
 }
 
+#' @method getGradETinv parms_exp
 getGradETinv.parms_exp <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
   return(A = eta^2)
 }
 
+#' @method getYseq trunc_exp
 getYseq.trunc_exp <- function(y, y.min = 0, y.max, n = 100) {
   mean <- mean(y, na.rm = TRUE)
   var.y <- var(y, na.rm = TRUE)
