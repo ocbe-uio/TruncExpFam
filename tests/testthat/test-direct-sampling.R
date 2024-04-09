@@ -5,8 +5,8 @@ test_that("Original attributes are retrieved", {
 
   # Normal
   norm <- list(
-    rtrunc(1e6, mean = 1, sd = 2, faster = TRUE),
-    rtruncnorm(1e6, mean = 1, sd = 2, faster = TRUE)
+    rtrunc(1e4, mean = 1, sd = 2, faster = TRUE),
+    rtruncnorm(1e4, mean = 1, sd = 2, faster = TRUE)
   )
   for (norm_1 in norm) {
     expect_equal(
@@ -27,8 +27,8 @@ test_that("Original attributes are retrieved", {
 
   # Beta
   beta <- list(
-    rtrunc(1e5, shape1 = 3, shape2 = 9, faster = TRUE, family = "beta"),
-    rtruncbeta(1e5, shape1 = 3, shape2 = 9, faster = TRUE)
+    rtrunc(1e4, shape1 = 3, shape2 = 9, faster = TRUE, family = "beta"),
+    rtruncbeta(1e4, shape1 = 3, shape2 = 9, faster = TRUE)
   )
   for (beta_1 in beta) {
     expect_equal(
@@ -49,8 +49,8 @@ test_that("Original attributes are retrieved", {
 
   # Chisq
   chisq <- list(
-    rtrunc(1e5, df = 30, faster = TRUE, family = "chisq"),
-    rtruncchisq(1e5, df = 30, faster = TRUE)
+    rtrunc(1e4, df = 30, faster = TRUE, family = "chisq"),
+    rtruncchisq(1e4, df = 30, faster = TRUE)
   )
   for (chisq_1 in chisq) {
     expect_equal(
@@ -71,8 +71,8 @@ test_that("Original attributes are retrieved", {
 
   # Contbern
   contbern <- list(
-    rtrunc(1e5, lambda = .6, faster = TRUE, family = "contbern"),
-    rtrunccontbern(1e5, lambda = .6, faster = TRUE)
+    rtrunc(1e4, lambda = .6, faster = TRUE, family = "contbern"),
+    rtrunccontbern(1e4, lambda = .6, faster = TRUE)
   )
   for (contbern_1 in contbern) {
     expect_equal(
@@ -93,8 +93,8 @@ test_that("Original attributes are retrieved", {
 
   # Exp
   exp <- list(
-    rtrunc(1e5, rate = 64, faster = TRUE, family = "exp"),
-    rtruncexp(1e5, rate = 64, faster = TRUE)
+    rtrunc(1e4, rate = 64, faster = TRUE, family = "exp"),
+    rtruncexp(1e4, rate = 64, faster = TRUE)
   )
   for (exp_1 in exp) {
     expect_equal(
@@ -115,8 +115,8 @@ test_that("Original attributes are retrieved", {
 
   # Gamma
   gamma <- list(
-    rtrunc(1e5, shape = 4, rate = 3, faster = TRUE, family = "gamma"),
-    rtruncgamma(1e5, shape = 4, rate = 3, faster = TRUE)
+    rtrunc(1e4, shape = 4, rate = 3, faster = TRUE, family = "gamma"),
+    rtruncgamma(1e4, shape = 4, rate = 3, faster = TRUE)
   )
   for (gamma_1 in gamma) {
     expect_equal(
@@ -136,8 +136,8 @@ test_that("Original attributes are retrieved", {
   }
 
   gamma <- list(
-    rtrunc(1e5, scale = 3, shape = 4, faster = TRUE, family = "gamma"),
-    rtruncgamma(1e5, scale = 3, shape = 4, faster = TRUE)
+    rtrunc(1e4, scale = 3, shape = 4, faster = TRUE, family = "gamma"),
+    rtruncgamma(1e4, scale = 3, shape = 4, faster = TRUE)
   )
   for (gamma_2 in gamma) {
     expect_equal(
@@ -158,8 +158,8 @@ test_that("Original attributes are retrieved", {
 
   # Inv Gamma
   invgamma <- list(
-    rtrunc(1e5, rate = 3, shape = 4, faster = TRUE, family = "invgamma"),
-    rtruncinvgamma(1e5, rate = 3, shape = 4, faster = TRUE)
+    rtrunc(1e4, rate = 3, shape = 4, faster = TRUE, family = "invgamma"),
+    rtruncinvgamma(1e4, rate = 3, shape = 4, faster = TRUE)
   )
   for (invgamma_1 in invgamma) {
     expect_equal(
@@ -179,8 +179,8 @@ test_that("Original attributes are retrieved", {
   }
 
   invgamma <- list(
-    rtrunc(1e5, scale = 3, shape = 4, faster = TRUE, family = "invgamma"),
-    rtruncinvgamma(1e5, scale = 3, shape = 4, faster = TRUE)
+    rtrunc(1e4, scale = 3, shape = 4, faster = TRUE, family = "invgamma"),
+    rtruncinvgamma(1e4, scale = 3, shape = 4, faster = TRUE)
   )
   for (invgamma_2 in invgamma) {
     expect_equal(
@@ -201,8 +201,8 @@ test_that("Original attributes are retrieved", {
 
   # Inv Gauss
   invgausses <- list(
-    rtrunc(1e5, m = 61, s = 7, faster = TRUE, family = "invgauss"),
-    rtruncinvgauss(1e5, m = 61, s = 7, faster = TRUE)
+    rtrunc(1e3, m = 61, s = 7, faster = TRUE, family = "invgauss"),
+    rtruncinvgauss(1e3, m = 61, s = 7, faster = TRUE)
   )
   for (invgauss in invgausses) {
     expect_equal(
@@ -223,8 +223,8 @@ test_that("Original attributes are retrieved", {
 
   # Log-normal
   invlnorm <- list(
-    rtrunc(1e5, meanlog = 4, sdlog = 1, faster = TRUE, family = "lognormal"),
-    rtrunclnorm(1e5, meanlog = 4, sdlog = 1, faster = TRUE)
+    rtrunc(1e4, meanlog = 4, sdlog = 1, faster = TRUE, family = "lognormal"),
+    rtrunclnorm(1e4, meanlog = 4, sdlog = 1, faster = TRUE)
   )
   for (iv in invlnorm) {
     expect_equal(
@@ -246,8 +246,8 @@ test_that("Original attributes are retrieved", {
   # Poisson
   lb <- 29L
   poissons <- list(
-    rtrunc(1e5, lambda = lb, faster = TRUE, family = "poisson"),
-    rtruncpois(1e5, lambda = lb, faster = TRUE)
+    rtrunc(1e4, lambda = lb, faster = TRUE, family = "poisson"),
+    rtruncpois(1e4, lambda = lb, faster = TRUE)
   )
   for (smp in poissons) {
     expect_equal(
@@ -270,8 +270,8 @@ test_that("Original attributes are retrieved", {
   sz <- rpois(1, 20)
   pb <- runif(1)
   binomials <- list(
-    rtrunc(1e5, size = sz, prob = pb, faster = TRUE, family = "binomial"),
-    rtruncbinom(1e5, size = sz, prob = pb, faster = TRUE)
+    rtrunc(1e4, size = sz, prob = pb, faster = TRUE, family = "binomial"),
+    rtruncbinom(1e4, size = sz, prob = pb, faster = TRUE)
   )
   for (smp in binomials) {
     expect_equal(
@@ -294,8 +294,8 @@ test_that("Original attributes are retrieved", {
   sz <- rpois(1, 20)
   pb <- runif(1)
   nbinomials <- list(
-    rtrunc(1e5, size = sz, prob = pb, faster = TRUE, family = "nbinom"),
-    rtruncnbinom(1e5, size = sz, prob = pb, faster = TRUE)
+    rtrunc(1e4, size = sz, prob = pb, faster = TRUE, family = "nbinom"),
+    rtruncnbinom(1e4, size = sz, prob = pb, faster = TRUE)
   )
   for (smp in nbinomials) {
     expect_equal(
@@ -315,7 +315,7 @@ test_that("Original attributes are retrieved", {
   }
 })
 
-test_that("Truncation is not a speed limiter", {
+test_that("Tight truncation limits is not a speed limiter", {
   time_limit <- 2
   n <- 1e4L
 
@@ -379,7 +379,7 @@ test_that("Truncation is not a speed limiter", {
   # Gamma
   expect_error({
       setTimeLimit(time_limit)
-      summary(rtrunc(n, family = "gamma", shape = 5, rate = 4, a = 4))
+      rtrunc(n, family = "gamma", shape = 5, rate = 4, a = 4)
     },
     "reached CPU time limit"
   )
@@ -391,7 +391,7 @@ test_that("Truncation is not a speed limiter", {
   # Inv Gamma
   expect_error({
       setTimeLimit(time_limit)
-      summary(rtrunc(n, family = "invgamma", shape = 5, rate = 4, a = 4))
+      rtrunc(n, family = "invgamma", shape = 5, rate = 4, a = 4)
     },
     "reached CPU time limit"
   )
@@ -403,7 +403,7 @@ test_that("Truncation is not a speed limiter", {
   # Inv Gauss
   expect_error({
       setTimeLimit(time_limit)
-      summary(rtrunc(n, family = "invgauss", m = 5, s = 4, a = 4, b = 100))
+      rtrunc(n, family = "invgauss", m = 5, s = 4, a = 4, b = 100)
     },
     "reached CPU time limit"
   )
