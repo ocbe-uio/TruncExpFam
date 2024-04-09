@@ -5,9 +5,16 @@
 #' @param rate vector of rates
 #' @rdname rtrunc
 #' @export
-rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf) {
+rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_exp"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @export

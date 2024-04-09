@@ -9,13 +9,20 @@
 #' @param mu alternative parametrization via mean
 #' @rdname rtrunc
 #' @export
-rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf) {
+rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_nbinom"
   if (missing(prob)) {
     prob <- (size) / (size + mu)
     mu <- ""
   }
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$|^mu$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @rdname dtrunc

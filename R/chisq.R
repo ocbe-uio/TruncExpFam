@@ -5,9 +5,16 @@
 #' @param df degrees of freedom for "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf) {
+rtruncchisq <- rtrunc.chisq <- function(n, df, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_chisq"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @export

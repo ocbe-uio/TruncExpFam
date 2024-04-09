@@ -5,6 +5,7 @@
 * Fixed bugs related to using the Negative Binomial with `mu` instead of `prob` (issue #107)
 * Fixed domain validation on Negative Binomial and Inverse Gamma
 * Added domain validation to `rtrunc(..., faster = TRUE)` (issue #109)
+* Added `faster` argument to `rtrunc()` aliases (issue #110)
 
 # TruncExpFam 1.1.1
 

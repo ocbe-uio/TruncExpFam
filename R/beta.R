@@ -7,9 +7,16 @@
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
 #' @export
-rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1) {
+rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1, faster = FALSE) {
   class(n) <- "trunc_beta"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @rdname rtrunc

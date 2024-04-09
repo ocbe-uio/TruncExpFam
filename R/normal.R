@@ -6,9 +6,16 @@
 #' @param sd standard deviation is parent distribution
 #' @rdname rtrunc
 #' @export
-rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf) {
+rtruncnorm <- rtrunc.normal <- function(n, mean, sd, a = -Inf, b = Inf, faster = FALSE) {
   class(n) <- "trunc_normal"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @export

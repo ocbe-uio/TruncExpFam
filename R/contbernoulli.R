@@ -23,9 +23,16 @@ rcontbern <- function(n, lambda) {
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1) {
+rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1, faster = FALSE) {
   class(n) <- "trunc_contbern"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 # The two functions 'dcontbern' and 'pcontbern' below act in support of the
