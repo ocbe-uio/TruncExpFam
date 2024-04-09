@@ -96,3 +96,26 @@ test_that("doubly-truncated ptrunc() works as expected (poisson)", {
     }
   }
 })
+
+test_that("doubly-truncated ptrunc() works as expected (chisq)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        df <- sample(1:100, 1L)
+        a <- min(rchisq(10L, df))
+        b <- max(rchisq(10L, df))
+        qt <- runif(1L, a, b)
+        p_trunc <- ptrunc(
+          qt, "chisq", df, a, b, lower.tail = lt, log.p = lg
+        )
+        p_chisq <- pchisq(qt, df, ncp = 0, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})

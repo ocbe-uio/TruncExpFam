@@ -105,3 +105,25 @@ test_that("lower truncation works as expected (poisson)", {
     }
   }
 })
+
+test_that("lower truncation works as expected (chisq)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        df <- sample(1:100, 1L)
+        a <- min(rchisq(10L, df))
+        qt <- max(rchisq(10L, df), a)
+        p_trunc <- ptrunc(
+          qt, "chisq", df, a = a, lower.tail = lt, log.p = lg
+        )
+        p_chisq <- pchisq(qt, df, ncp = 0, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})

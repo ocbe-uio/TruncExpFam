@@ -85,8 +85,28 @@ test_that("untruncated ptrunc() works as expected (poisson)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (chisq)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        df <- sample(1:10, 1L)
+        qt <- rchisq(i, df)
+        p_trunc <- ptrunc(qt, "chisq", df, lower.tail = lt, log.p = lg)
+        p_chisq <- pchisq(qt, df, lower.tail = lt, log.p = lg)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          }
+          expect_equal(p_trunc[q], p_chisq[q])
+        }
+      }
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta", "binomial", "poisson")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial", "poisson", "chisq")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
