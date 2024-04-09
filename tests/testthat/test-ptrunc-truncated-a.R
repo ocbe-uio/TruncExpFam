@@ -105,3 +105,58 @@ test_that("lower truncation works as expected (poisson)", {
     }
   }
 })
+
+test_that("lower truncation works as expected (chisq)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        df <- sample(1:100, 1L)
+        a <- min(rchisq(10L, df))
+        qt <- max(rchisq(10L, df), a)
+        p_trunc <- ptrunc(
+          qt, "chisq", df, a = a, lower.tail = lt, log.p = lg
+        )
+        p_chisq <- pchisq(qt, df, ncp = 0, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
+
+test_that("lower truncation works as expected (contbern)", {
+  for (i in seq_len(10)) {
+    lambda <- runif(1L)
+    a <- runif(1L)
+    qt <- runif(1L, a, 1L)
+    p_trunc <- ptrunc(qt, "contbern", lambda, a = a)
+    p_contbern <- pcontbern(qt, lambda)
+    expect_lte(p_trunc, p_contbern)
+  }
+})
+
+test_that("lower truncation works as expected (exp)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        rate <- rchisq(1L, df = 10L)
+        a <- rexp(1L, rate)
+        qt <- max(rexp(10L, rate), a)
+        p_trunc <- ptrunc(
+          qt, "exp", rate, a = a, lower.tail = lt, log.p = lg
+        )
+        p_exp <- pexp(qt, rate, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
