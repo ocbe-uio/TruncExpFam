@@ -157,3 +157,32 @@ test_that("upper truncation works as expected (contbern)", {
     expect_gte(p_trunc, p_contbern)
   }
 })
+
+test_that("upper truncation works as expected (exp)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        rate <- rchisq(1L, df = 10L)
+        b <- rexp(1L, rate)
+        qt <- min(rexp(10L, rate), b)
+        p_trunc <- ptrunc(
+          qt, "exp", rate, b = b, lower.tail = lt, log.p = lg
+        )
+        p_exp <- pexp(qt, rate, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          if (abs(p_trunc - p_exp) > 1e-10) {  # adding tolerance
+            if (lt) {
+              expect_gte(p_trunc, p_exp)
+            } else {
+              expect_lte(p_trunc, p_exp)
+            }
+          }
+        } else {
+          expect_lte(p_trunc, 0)
+        }
+      }
+    }
+  }
+})
