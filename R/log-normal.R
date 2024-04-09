@@ -6,9 +6,16 @@
 #' @param sdlog standard deviation of un-truncated distribution
 #' @rdname rtrunc
 #' @export
-rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = 0, b = Inf) {
+rtrunclnorm <- rtrunc.lognormal <- function(n, meanlog, sdlog, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_lognormal"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @method sufficientT trunc_lognormal

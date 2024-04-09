@@ -8,10 +8,17 @@
 #' @rdname rtrunc
 #' @export
 rtruncinvgamma <- rtrunc.invgamma <- function(
-  n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf
+  n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, faster = FALSE
 ) {
   class(n) <- "trunc_invgamma"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$|^rate$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @export

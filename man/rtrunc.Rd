@@ -21,31 +21,39 @@
 \alias{rtrunc_direct}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc.beta(n, shape1, shape2, a = 0, b = 1)
+rtrunc.beta(n, shape1, shape2, a = 0, b = 1, faster = FALSE)
 
-rtruncbeta(n, shape1, shape2, a = 0, b = 1)
+rtruncbeta(n, shape1, shape2, a = 0, b = 1, faster = FALSE)
 
-rtruncbinom(n, size, prob, a = 0, b = size)
+rtruncbinom(n, size, prob, a = 0, b = size, faster = FALSE)
 
-rtruncchisq(n, df, a = 0, b = Inf)
+rtruncchisq(n, df, a = 0, b = Inf, faster = FALSE)
 
-rtrunccontbern(n, lambda, a = 0, b = 1)
+rtrunccontbern(n, lambda, a = 0, b = 1, faster = FALSE)
 
-rtruncexp(n, rate = 1, a = 0, b = Inf)
+rtruncexp(n, rate = 1, a = 0, b = Inf, faster = FALSE)
 
-rtruncgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
+rtruncgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf, faster = FALSE)
 
-rtruncinvgamma(n, shape, rate = 1, scale = 1/rate, a = 0, b = Inf)
+rtruncinvgamma(
+  n,
+  shape,
+  rate = 1,
+  scale = 1/rate,
+  a = 0,
+  b = Inf,
+  faster = FALSE
+)
 
-rtruncinvgauss(n, m, s, a = 0, b = Inf)
+rtruncinvgauss(n, m, s, a = 0, b = Inf, faster = FALSE)
 
-rtrunclnorm(n, meanlog, sdlog, a = 0, b = Inf)
+rtrunclnorm(n, meanlog, sdlog, a = 0, b = Inf, faster = FALSE)
 
-rtruncnbinom(n, size, prob, mu, a = 0, b = Inf)
+rtruncnbinom(n, size, prob, mu, a = 0, b = Inf, faster = FALSE)
 
-rtruncnorm(n, mean, sd, a = -Inf, b = Inf)
+rtruncnorm(n, mean, sd, a = -Inf, b = Inf, faster = FALSE)
 
-rtruncpois(n, lambda, a = 0, b = Inf)
+rtruncpois(n, lambda, a = 0, b = Inf, faster = FALSE)
 
 rtrunc(n, family = "gaussian", faster = FALSE, ...)
 
@@ -62,6 +70,9 @@ rtrunc_direct(n, family = "gaussian", parms, a, b, ...)
 included in the support of the truncated distribution.}
 
 \item{b}{point of right truncation}
+
+\item{faster}{if \code{TRUE}, samples directly from the truncated
+distribution (more info in details)}
 
 \item{size}{target for number of successful trials,
 or dispersion parameter (the shape parameter of the gamma mixing
@@ -94,9 +105,6 @@ distribution). Must be strictly positive, need not be integer.}
 \item{sd}{standard deviation is parent distribution}
 
 \item{family}{distribution family to use}
-
-\item{faster}{if \code{TRUE}, samples directly from the truncated
-distribution (more info in details)}
 
 \item{...}{individual arguments to each distribution}
 

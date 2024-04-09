@@ -7,13 +7,21 @@
 #' @param scale scale of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtruncgamma <- rtrunc.gamma <- function(n, shape, rate = 1, scale = 1 / rate,
-                                        a = 0, b = Inf) {
+rtruncgamma <- rtrunc.gamma <- function(
+  n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, faster = FALSE)
+{
   if (!missing(rate) && !missing(scale)) {
     stop("specify 'rate' or 'scale' but not both")
   }
   class(n) <- "trunc_gamma"
-  sampleFromTruncated(mget(ls()))
+  if (faster) {
+    family <- gsub("trunc_", "", class(n))
+    parms <- mget(ls())[grep("^faster$|^n$|^family$|^rate$", ls(), invert = TRUE)]
+    return(rtrunc_direct(n, family, parms, a, b))
+  } else {
+    parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
+    return(sampleFromTruncated(parms))
+  }
 }
 
 #' @export
