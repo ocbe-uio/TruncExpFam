@@ -127,3 +127,14 @@ test_that("lower truncation works as expected (chisq)", {
     }
   }
 })
+
+test_that("lower truncation works as expected (contbern)", {
+  for (i in seq_len(10)) {
+    lambda <- runif(1L)
+    a <- runif(1L)
+    qt <- runif(1L, a, 1L)
+    p_trunc <- ptrunc(qt, "contbern", lambda, a = a)
+    p_contbern <- pcontbern(qt, lambda)
+    expect_lte(p_trunc, p_contbern)
+  }
+})

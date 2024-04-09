@@ -119,3 +119,15 @@ test_that("doubly-truncated ptrunc() works as expected (chisq)", {
     }
   }
 })
+
+test_that("doubly-truncated ptrunc() works as expected (contbern)", {
+  for (i in seq_len(10)) {
+    lambda <- runif(1L)
+    a <- runif(1L)
+    b <- runif(1L, a, 1L)
+    qt <- runif(1L, a, b)
+    p_trunc <- ptrunc(qt, "contbern", lambda, b = b)
+    p_contbern <- pcontbern(qt, lambda)
+    expect_gte(p_trunc, p_contbern)
+  }
+})

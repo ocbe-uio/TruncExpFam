@@ -105,8 +105,20 @@ test_that("untruncated ptrunc() works as expected (chisq)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (contbern)", {
+  for (i in seq_len(5)) {
+    lambda <- runif(1)
+    qt <- rcontbern(i, lambda)
+    p_trunc <- ptrunc(qt, "contbern", lambda)
+    p_contbern <- pcontbern(qt, lambda)
+    for (q in seq_along(qt)) {
+      expect_equal(p_trunc[q], p_contbern[q])
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta", "binomial", "poisson", "chisq")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")

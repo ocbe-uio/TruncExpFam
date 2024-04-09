@@ -81,6 +81,14 @@ ptrunc.chisq <- function(q, df, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+ptrunc.contbern <- function(q, lambda, a = 0, b = 1, ...) {
+  validate_q_a_b(q, a, b)
+  p_q <- pcontbern(q, lambda)
+  p_a <- pcontbern(a, lambda)
+  p_b <- pcontbern(b, lambda)
+  return(truncated_p(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
   # Handling exceptions ------------------------------------------------------
   if (!log.p && p_a == p_b) {
