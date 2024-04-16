@@ -220,3 +220,19 @@ test_that("doubly-truncated ptrunc() works as expected (invgamma)", {
     }
   }
 })
+
+test_that("doubly-truncated ptrunc() works as expected (invgauss)", {
+  for (i in seq_len(5)) {
+    m <- rchisq(1L, df = 10L)
+    s <- rchisq(1L, df = 10L)
+    a <- min(rinvgauss(10L, m, s))
+    b <- max(rinvgauss(10L, m, s), a)
+    qt <- runif(i, a, b)
+    p_trunc <- ptrunc(qt, "invgauss", m, s, a = a, b = b)
+    p_invgauss <- pinvgauss(qt, m, s)
+    for (q in seq_along(qt)) {
+      expect_gte(p_trunc[q], 0)
+      expect_lte(p_trunc[q], 1)
+    }
+  }
+})

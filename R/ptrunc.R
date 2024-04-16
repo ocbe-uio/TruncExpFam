@@ -123,6 +123,14 @@ ptrunc.invgamma <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
+  validate_q_a_b(q, a, b)
+  p_q <- pinvgauss(q, m, s)
+  p_a <- ifelse(a == 0, 0, pinvgauss(a, m, s))
+  p_b <- ifelse(b == Inf, 1, pinvgauss(b, m, s))
+  return(truncated_p(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
   # Handling exceptions ------------------------------------------------------
   if (!log.p && p_a == p_b) {

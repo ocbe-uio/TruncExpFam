@@ -193,8 +193,23 @@ test_that("untruncated ptrunc() works as expected (invgamma)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (invgauss)", {
+  for (i in seq_len(5)) {
+    m <- rchisq(1L, df = 10L)
+    s <- rchisq(1L, df = 10L)
+    qt <- rinvgauss(i, m, s)
+    p_trunc <- ptrunc(qt, "invgauss", m, s)
+    p_invgauss <- pinvgauss(qt, m, s)
+    for (q in seq_along(qt)) {
+      expect_gte(p_trunc[q], 0)
+      expect_lte(p_trunc[q], 1)
+      expect_equal(p_trunc[q], p_invgauss[q])
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma", "invgamma")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma", "invgamma", "invgauss")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")

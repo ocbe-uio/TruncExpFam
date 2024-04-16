@@ -222,3 +222,19 @@ test_that("lower truncation works as expected (invgamma)", {
     }
   }
 })
+
+test_that("lower truncation works as expected (invgauss)", {
+  for (i in seq_len(5)) {
+    m <- rchisq(1L, df = 10L)
+    s <- rchisq(1L, df = 10L)
+    a <- rinvgauss(1L, m, s)
+    qt <- max(rinvgauss(10L, m, s), a)
+    p_trunc <- ptrunc(qt, "invgauss", m, s, a)
+    p_invgauss <- pinvgauss(qt, m, s)
+    for (q in seq_along(qt)) {
+      expect_gte(p_trunc[q], 0)
+      expect_lte(p_trunc[q], 1)
+      expect_lte(p_trunc[q], p_invgauss[q])
+    }
+  }
+})
