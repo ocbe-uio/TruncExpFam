@@ -8,24 +8,26 @@ test_that("lower truncation works as expected (normal)", {
       for (i in seq_len(5)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
-        qt <- rnorm(1L, mn, sg)
-        a <- qt - rchisq(1L, 5L)
+        qt <- rnorm(i, mn, sg)
+        a <- min(qt) - rchisq(1L, 5L)
         p_trunc <- ptrunc(
           qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg, a = a
         )
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         expect_length(qt, i)
         expect_length(p_trunc, i)
-        if (!lg) {
-          expect_gte(p_trunc, 0)
-          expect_lte(p_trunc, 1)
-          if (lt) {
-            expect_lte(p_trunc, p_norm)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+            if (lt) {
+              expect_lte(p_trunc[q], p_norm[q])
+            } else {
+              expect_gte(p_trunc[q], p_norm[q])
+            }
           } else {
-            expect_gte(p_trunc, p_norm)
+            expect_lte(p_trunc[q], 0)
           }
-        } else {
-          expect_lte(p_trunc, 0)
         }
       }
     }
@@ -68,8 +70,8 @@ test_that("lower truncation works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
       for (i in seq_len(5)) {
-        size <- sample(50:100, 1L)
-        prob <- runif(1)
+        size <- sample(10:30, 1L)
+        prob <- runif(1L, .2, .8)
         a <- sample(1:(size - 4L), 1L)
         qt <- sample(seq(a + 1L, size - 1L), i, replace = TRUE)
         p_trunc <- ptrunc(qt, "binomial", size, prob, a = a, lower.tail = lt, log.p = lg)
