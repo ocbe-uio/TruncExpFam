@@ -15,6 +15,7 @@ test_that("upper truncation works as expected (normal)", {
         )
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -44,6 +45,7 @@ test_that("upper truncation works as expected (beta)", {
         )
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -73,6 +75,7 @@ test_that("upper truncation works as expected (binomial)", {
         )
         p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -104,6 +107,7 @@ test_that("upper truncation works as expected (poisson)", {
         )
         p_pois <- ppois(qt, lambda, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -134,6 +138,7 @@ test_that("upper truncation works as expected (chisq)", {
         )
         p_chisq <- pchisq(qt, df, ncp = 0, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -160,6 +165,7 @@ test_that("upper truncation works as expected (contbern)", {
     p_trunc <- ptrunc(qt, "contbern", lambda, b = b)
     p_contbern <- pcontbern(qt, lambda)
     expect_length(qt, i)
+    expect_length(p_trunc, i)
     expect_gte(p_trunc, p_contbern)
   }
 })
@@ -176,6 +182,7 @@ test_that("upper truncation works as expected (exp)", {
         )
         p_exp <- pexp(qt, rate, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -210,6 +217,7 @@ test_that("upper truncation works as expected (gamma)", {
         )
         p_gamma <- pgamma(qt, shp, rate = rte, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -250,6 +258,7 @@ test_that("upper truncation works as expected (invgamma)", {
         )
         p_invgamma <- pinvgamma(qt, shp, rate = rte, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
+        expect_length(p_trunc, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -283,6 +292,7 @@ test_that("upper truncation works as expected (invgauss)", {
     p_trunc <- ptrunc(qt, "invgauss", m, s, b = b)
     p_invgauss <- pinvgauss(qt, m, s)
     expect_length(qt, i)
+    expect_length(p_trunc, i)
     for (q in seq_along(qt)) {
       expect_gte(p_trunc[q], 0)
       expect_lte(p_trunc[q], 1)
