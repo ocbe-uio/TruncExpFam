@@ -97,6 +97,19 @@ ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+ptrunc.gamma <- function(
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  validate_q_a_b(q, a, b)
+  if (!missing(rate) && !missing(scale)) {
+    stop("specify 'rate' or 'scale' but not both")
+  }
+  p_q <- pgamma(q, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  p_a <- pgamma(a, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  p_b <- pgamma(b, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
   # Handling exceptions ------------------------------------------------------
   if (!log.p && p_a == p_b) {

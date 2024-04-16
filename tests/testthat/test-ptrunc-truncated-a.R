@@ -160,3 +160,34 @@ test_that("lower truncation works as expected (exp)", {
     }
   }
 })
+
+test_that("lower truncation works as expected (gamma)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shape <- rchisq(1L, df = 10L)
+        rate <- rchisq(1L, df = 10L)
+        a <- rgamma(1L, shape, rate)
+        qt <- max(rgamma(10L, shape, rate), a)
+        p_trunc <- ptrunc(
+          qt, "gamma", shape, rate, a = a, lower.tail = lt, log.p = lg
+        )
+        p_trunc_2 <- ptrunc(
+          qt, "gamma", shape, scale = 1 / rate, a = a, lower.tail = lt,
+          log.p = lg
+        )
+        p_gamma <- pgamma(qt, shape, rate, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          expect_gte(p_trunc_2, 0)
+          expect_lte(p_trunc_2, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+          expect_lte(p_trunc_2, 0)
+        }
+        expect_equal(p_trunc, p_trunc_2)
+      }
+    }
+  }
+})
