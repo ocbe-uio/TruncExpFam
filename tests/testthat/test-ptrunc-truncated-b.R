@@ -225,3 +225,42 @@ test_that("upper truncation works as expected (gamma)", {
     }
   }
 })
+
+test_that("upper truncation works as expected (invgamma)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        b <- rinvgamma(1L, shp, rte)
+        qt <- runif(1L, 0, b)
+        p_trunc <- ptrunc(
+          qt, "invgamma", shp, rate = rte, b = b, lower.tail = lt, log.p = lg
+        )
+        p_trunc_2 <- ptrunc(
+          qt, "invgamma", shp, scale = 1 / rte, b = b, lower.tail = lt, log.p = lg
+        )
+        p_invgamma <- pinvgamma(qt, shp, rate = rte, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          expect_gte(p_trunc_2, 0)
+          expect_lte(p_trunc_2, 1)
+          if (abs(p_trunc - p_invgamma) > 1e-10) {  # adding tolerance
+            if (lt) {
+              expect_gte(p_trunc, p_invgamma)
+              expect_gte(p_trunc_2, p_invgamma)
+            } else {
+              expect_lte(p_trunc, p_invgamma)
+              expect_lte(p_trunc_2, p_invgamma)
+            }
+          }
+        } else {
+          expect_lte(p_trunc, 0)
+          expect_lte(p_trunc_2, 0)
+        }
+        expect_equal(p_trunc, p_trunc_2)
+      }
+    }
+  }
+})

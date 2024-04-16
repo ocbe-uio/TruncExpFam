@@ -187,3 +187,36 @@ test_that("doubly-truncated ptrunc() works as expected (gamma)", {
     }
   }
 })
+
+test_that("doubly-truncated ptrunc() works as expected (invgamma)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(10)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        ab <- rinvgamma(2L, shp, rte)
+        a <- min(ab)
+        b <- max(ab)
+        qt <- runif(1L, a, b)
+        p_trunc <- ptrunc(
+          qt, "invgamma", shape = shp, rate = rte, a = a, b = b, lower.tail = lt, log.p = lg
+        )
+        p_trunc_2 <- ptrunc(
+          qt, "invgamma", shape = shp, scale = 1 / rte, a = a, b = b,
+          lower.tail = lt, log.p = lg
+        )
+        p_invgamma <- pinvgamma(qt, shape = shp, rate = rte, lower.tail = lt, log.p = lg)
+        if (!lg) {
+          expect_gte(p_trunc, 0)
+          expect_lte(p_trunc, 1)
+          expect_gte(p_trunc_2, 0)
+          expect_lte(p_trunc_2, 1)
+        } else {
+          expect_lte(p_trunc, 0)
+          expect_lte(p_trunc_2, 0)
+        }
+        expect_equal(p_trunc, p_trunc_2)
+      }
+    }
+  }
+})

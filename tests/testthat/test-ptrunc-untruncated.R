@@ -165,8 +165,36 @@ test_that("untruncated ptrunc() works as expected (gamma)", {
   }
 })
 
+test_that("untruncated ptrunc() works as expected (invgamma)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        shp <- rchisq(1L, df = 10L)
+        rate <- rchisq(1L, df = 10L)
+        qt <- rinvgamma(i, shp, rate)
+        p_trunc <- ptrunc(qt, "invgamma", shp, rate, lower.tail = lt, log.p = lg)
+        p_trunc_2 <- ptrunc(
+          qt, "invgamma", shp, scale = 1 / rate, lower.tail = lt, log.p = lg
+        )
+        p_invgamma <- pinvgamma(qt, shp, rate, lower.tail = lt, log.p = lg)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+            expect_gte(p_trunc_2[q], 0)
+            expect_lte(p_trunc_2[q], 1)
+          }
+          expect_equal(p_trunc[q], p_invgamma[q])
+          expect_equal(p_trunc_2[q], p_invgamma[q])
+        }
+        expect_equal(p_trunc, p_trunc_2)
+      }
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma", "invgamma")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
