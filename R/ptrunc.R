@@ -132,13 +132,6 @@ ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
 }
 
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
-  # Handling exceptions ------------------------------------------------------
-  if (!log.p && p_a == p_b) {
-    return(as.numeric(lower.tail))
-  }
-  if (log.p && exp(p_a) == exp(p_b)) {
-    return(0)
-  }
   # Usual cases --------------------------------------------------------------
   if (log.p) {
     p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))

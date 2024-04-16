@@ -277,3 +277,19 @@ test_that("doubly-truncated ptrunc() works as expected (invgauss)", {
     }
   }
 })
+
+test_that("Basic errors are caught", {
+  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma", "invgamma", "invgauss")) { # TODO: eventually use valid_distros
+    expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
+    expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
+    expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")
+  }
+  expect_error(
+    ptrunc(9, "gamma", scale = 2, rate = 3),
+    "specify 'rate' or 'scale' but not both"
+  )
+  expect_error(
+    ptrunc(9, "invgamma", scale = 2, rate = 3),
+    "specify 'rate' or 'scale' but not both"
+  )
+})
