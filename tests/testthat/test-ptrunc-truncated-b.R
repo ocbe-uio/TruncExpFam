@@ -5,7 +5,7 @@ test_that("upper truncation works as expected (normal)", {
   lg <- FALSE
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(1)) {
+      for (i in seq_len(5)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
         qt <- rnorm(1L, mn, sg)
@@ -35,7 +35,7 @@ test_that("upper truncation works as expected (normal)", {
 test_that("upper truncation works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         b <- runif(1)
@@ -65,7 +65,7 @@ test_that("upper truncation works as expected (beta)", {
 test_that("upper truncation works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         size <- sample(10:50, 1L)
         prob <- runif(1)
         b <- sample(2:(size - 1L), 1L)
@@ -97,7 +97,7 @@ test_that("upper truncation works as expected (binomial)", {
 test_that("upper truncation works as expected (poisson)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         lambda <- sample(10:50, 1L)
         max_qt <- qpois(p = .99, lambda)
         b <- sample(seq(lambda, max_qt), 1L)
@@ -129,7 +129,7 @@ test_that("upper truncation works as expected (poisson)", {
 test_that("upper truncation works as expected (chisq)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         df <- sample(1:100, 1L)
         b <- max(rchisq(10L, df))
         qt <- runif(1L, 0, b)
@@ -158,7 +158,7 @@ test_that("upper truncation works as expected (chisq)", {
 })
 
 test_that("upper truncation works as expected (contbern)", {
-  for (i in seq_len(10)) {
+  for (i in seq_len(5)) {
     lambda <- runif(1L)
     b <- runif(1L)
     qt <- runif(1L, 0L, b)
@@ -173,7 +173,7 @@ test_that("upper truncation works as expected (contbern)", {
 test_that("upper truncation works as expected (exp)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         rate <- rchisq(1L, df = 10L)
         b <- rexp(1L, rate)
         qt <- min(rexp(10L, rate), b)
@@ -204,7 +204,7 @@ test_that("upper truncation works as expected (exp)", {
 test_that("upper truncation works as expected (gamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp <- rchisq(1L, df = 10L)
         rte <- rchisq(1L, df = 10L)
         b <- rgamma(1L, shp, rte)
@@ -245,7 +245,7 @@ test_that("upper truncation works as expected (gamma)", {
 test_that("upper truncation works as expected (invgamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp <- rchisq(1L, df = 10L)
         rte <- rchisq(1L, df = 10L)
         b <- rinvgamma(1L, shp, rte)

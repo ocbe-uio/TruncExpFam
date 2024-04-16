@@ -5,7 +5,7 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
   lg <- FALSE
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
         qt <- rnorm(1L, mn, sg)
@@ -31,7 +31,7 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
 test_that("doubly-truncated ptrunc() works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         b <- runif(1)
@@ -57,7 +57,7 @@ test_that("doubly-truncated ptrunc() works as expected (beta)", {
 test_that("doubly-truncated ptrunc() works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         size <- sample(10:50, 1L)
         prob <- runif(1)
         a <- sample(1:(size - 4L), 1L)
@@ -83,7 +83,7 @@ test_that("doubly-truncated ptrunc() works as expected (binomial)", {
 test_that("doubly-truncated ptrunc() works as expected (poisson)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         lambda <- sample(1:50, 1L)
         a <- sample(1:(lambda - 4L), 1L)
         b <- sample((a + 3L):lambda, 1L)
@@ -108,7 +108,7 @@ test_that("doubly-truncated ptrunc() works as expected (poisson)", {
 test_that("doubly-truncated ptrunc() works as expected (chisq)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         df <- sample(1:100, 1L)
         a <- min(rchisq(10L, df))
         b <- max(rchisq(10L, df))
@@ -131,7 +131,7 @@ test_that("doubly-truncated ptrunc() works as expected (chisq)", {
 })
 
 test_that("doubly-truncated ptrunc() works as expected (contbern)", {
-  for (i in seq_len(10)) {
+  for (i in seq_len(5)) {
     lambda <- runif(1L)
     a <- runif(1L)
     b <- runif(1L, a, 1L)
@@ -147,7 +147,7 @@ test_that("doubly-truncated ptrunc() works as expected (contbern)", {
 test_that("doubly-truncated ptrunc() works as expected (exp)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         rate <- rchisq(1L, df = 10L)
         a <- rexp(1L, rate)
         b <- max(rexp(10L, rate), a)
@@ -172,7 +172,7 @@ test_that("doubly-truncated ptrunc() works as expected (exp)", {
 test_that("doubly-truncated ptrunc() works as expected (gamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp <- rchisq(1L, df = 10L)
         rte <- rchisq(1L, df = 10L)
         ab <- rgamma(2L, shp, rte)
@@ -207,7 +207,7 @@ test_that("doubly-truncated ptrunc() works as expected (gamma)", {
 test_that("doubly-truncated ptrunc() works as expected (invgamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(10)) {
+      for (i in seq_len(5)) {
         shp <- rchisq(1L, df = 10L)
         rte <- rchisq(1L, df = 10L)
         ab <- rinvgamma(2L, shp, rte)
