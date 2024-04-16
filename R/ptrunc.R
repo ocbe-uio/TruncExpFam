@@ -97,14 +97,41 @@ ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+ptrunc.gamma <- function(
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  validate_q_a_b(q, a, b)
+  if (!missing(rate) && !missing(scale)) {
+    stop("specify 'rate' or 'scale' but not both")
+  }
+  p_q <- pgamma(q, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  p_a <- pgamma(a, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  p_b <- pgamma(b, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
+ptrunc.invgamma <- function(
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  validate_q_a_b(q, a, b)
+  if (!missing(rate) && !missing(scale)) {
+    stop("specify 'rate' or 'scale' but not both")
+  }
+  p_q <- pinvgamma(q, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  p_a <- pinvgamma(a, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  p_b <- pinvgamma(b, shape, scale = scale, lower.tail = TRUE, log.p = log.p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
+ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
+  validate_q_a_b(q, a, b)
+  p_q <- pinvgauss(q, m, s)
+  p_a <- ifelse(a == 0, 0, pinvgauss(a, m, s))
+  p_b <- ifelse(b == Inf, 1, pinvgauss(b, m, s))
+  return(truncated_p(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
-  # Handling exceptions ------------------------------------------------------
-  if (!log.p && p_a == p_b) {
-    return(as.numeric(lower.tail))
-  }
-  if (log.p && exp(p_a) == exp(p_b)) {
-    return(0)
-  }
   # Usual cases --------------------------------------------------------------
   if (log.p) {
     p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
