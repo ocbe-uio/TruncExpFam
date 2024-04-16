@@ -15,6 +15,7 @@ test_that("doubly-truncated ptrunc works as expected (normal)", {
           qt, "gaussian", mn, sg, a, b, lower.tail = lt, log.p = lg
         )
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -39,6 +40,7 @@ test_that("doubly-truncated ptrunc() works as expected (beta)", {
           qt, "beta", shp1, shp2, a, b, lower.tail = lt, log.p = lg
         )
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -63,6 +65,7 @@ test_that("doubly-truncated ptrunc() works as expected (binomial)", {
           qt, "binomial", size, prob, a, b, lower.tail = lt, log.p = lg
         )
         p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -86,6 +89,7 @@ test_that("doubly-truncated ptrunc() works as expected (poisson)", {
           qt, "poisson", lambda, a, b, lower.tail = lt, log.p = lg
         )
         p_pois <- ppois(qt, lambda, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -109,6 +113,7 @@ test_that("doubly-truncated ptrunc() works as expected (chisq)", {
           qt, "chisq", df, a, b, lower.tail = lt, log.p = lg
         )
         p_chisq <- pchisq(qt, df, ncp = 0, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -128,6 +133,7 @@ test_that("doubly-truncated ptrunc() works as expected (contbern)", {
     qt <- runif(1L, a, b)
     p_trunc <- ptrunc(qt, "contbern", lambda, b = b)
     p_contbern <- pcontbern(qt, lambda)
+    expect_length(qt, i)
     expect_gte(p_trunc, p_contbern)
   }
 })
@@ -144,6 +150,7 @@ test_that("doubly-truncated ptrunc() works as expected (exp)", {
           qt, "exp", rate, a, b, lower.tail = lt, log.p = lg
         )
         p_exp <- pexp(qt, rate, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -173,6 +180,7 @@ test_that("doubly-truncated ptrunc() works as expected (gamma)", {
           lower.tail = lt, log.p = lg
         )
         p_gamma <- pgamma(qt, shape = shp, rate = rte, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -206,6 +214,7 @@ test_that("doubly-truncated ptrunc() works as expected (invgamma)", {
           lower.tail = lt, log.p = lg
         )
         p_invgamma <- pinvgamma(qt, shape = shp, rate = rte, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         if (!lg) {
           expect_gte(p_trunc, 0)
           expect_lte(p_trunc, 1)
@@ -230,6 +239,7 @@ test_that("doubly-truncated ptrunc() works as expected (invgauss)", {
     qt <- runif(i, a, b)
     p_trunc <- ptrunc(qt, "invgauss", m, s, a = a, b = b)
     p_invgauss <- pinvgauss(qt, m, s)
+    expect_length(qt, i)
     for (q in seq_along(qt)) {
       expect_gte(p_trunc[q], 0)
       expect_lte(p_trunc[q], 1)

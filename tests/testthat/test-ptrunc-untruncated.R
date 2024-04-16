@@ -9,6 +9,7 @@ test_that("untruncated ptrunc() works as expected (normal)", {
         qt <- rnorm(i, mn, sg)
         p_trunc <- ptrunc(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
         p_norm <- pnorm(qt, lower.tail = lt, log.p = lg, mean = mn, sd = sg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             # because I couldn't figure out the relationship between p_trunc
@@ -32,6 +33,7 @@ test_that("untruncated ptrunc() works as expected (beta)", {
         qt <- rbeta(i, shp1, shp2)
         p_trunc <- ptrunc(qt, "beta", shp1, shp2, lower.tail = lt, log.p = lg)
         p_beta <- pbeta(qt, shp1, shp2, ncp = 0, lt, lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -53,6 +55,7 @@ test_that("untruncated ptrunc() works as expected (binomial)", {
         qt <- rbinom(i, size, prob)
         p_trunc <- ptrunc(qt, "binomial", size, prob, lower.tail = lt, log.p = lg)
         p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -73,6 +76,7 @@ test_that("untruncated ptrunc() works as expected (poisson)", {
         qt <- rpois(i, lambda)
         p_trunc <- ptrunc(qt, "poisson", lambda, lower.tail = lt, log.p = lg)
         p_pois <- ppois(qt, lambda, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -93,6 +97,7 @@ test_that("untruncated ptrunc() works as expected (chisq)", {
         qt <- rchisq(i, df)
         p_trunc <- ptrunc(qt, "chisq", df, lower.tail = lt, log.p = lg)
         p_chisq <- pchisq(qt, df, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -111,6 +116,7 @@ test_that("untruncated ptrunc() works as expected (contbern)", {
     qt <- rcontbern(i, lambda)
     p_trunc <- ptrunc(qt, "contbern", lambda)
     p_contbern <- pcontbern(qt, lambda)
+    expect_length(qt, i)
     for (q in seq_along(qt)) {
       expect_equal(p_trunc[q], p_contbern[q])
     }
@@ -125,6 +131,7 @@ test_that("untruncated ptrunc() works as expected (exp)", {
         qt <- rexp(i, rate)
         p_trunc <- ptrunc(qt, "exp", rate, lower.tail = lt, log.p = lg)
         p_exp <- pexp(qt, rate, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -149,6 +156,7 @@ test_that("untruncated ptrunc() works as expected (gamma)", {
           qt, "gamma", shp, scale = 1 / rate, lower.tail = lt, log.p = lg
         )
         p_gamma <- pgamma(qt, shp, rate, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -177,6 +185,7 @@ test_that("untruncated ptrunc() works as expected (invgamma)", {
           qt, "invgamma", shp, scale = 1 / rate, lower.tail = lt, log.p = lg
         )
         p_invgamma <- pinvgamma(qt, shp, rate, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
@@ -200,6 +209,7 @@ test_that("untruncated ptrunc() works as expected (invgauss)", {
     qt <- rinvgauss(i, m, s)
     p_trunc <- ptrunc(qt, "invgauss", m, s)
     p_invgauss <- pinvgauss(qt, m, s)
+    expect_length(qt, i)
     for (q in seq_along(qt)) {
       expect_gte(p_trunc[q], 0)
       expect_lte(p_trunc[q], 1)
