@@ -63,10 +63,16 @@ test_that("doubly-truncated ptrunc() works as expected (binomial)", {
     for (lg in c(FALSE, TRUE)) {
       for (i in seq_len(5)) {
         size <- sample(10:50, 1L)
-        prob <- runif(1)
-        a <- sample(1:(size - 4L), 1L)
-        b <- sample((a + 3L):size, 1L)
-        qt <- sample(seq(a + 1L, b - 1L), i, replace = TRUE)
+        prob <- runif(1L)
+        qt <- rbinom(i, size, prob)
+        a  <- rbinom(1L, size, prob)
+        b  <- rbinom(1L, size, prob)
+        while (any(a > qt)) {
+          a <- rbinom(1L, size, prob)
+        }
+        while (any(b < qt)) {
+          b <- rbinom(1L, size, prob)
+        }
         p_trunc <- ptrunc(
           qt, "binomial", size, prob, a, b, lower.tail = lt, log.p = lg
         )
