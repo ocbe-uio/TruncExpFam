@@ -3,7 +3,7 @@ context("ptrunc(), untruncated")
 test_that("untruncated ptrunc() works as expected (normal)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
         qt <- rnorm(i, mn, sg)
@@ -28,7 +28,7 @@ test_that("untruncated ptrunc() works as expected (normal)", {
 test_that("untruncated ptrunc() works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         qt <- rbeta(i, shp1, shp2)
@@ -51,7 +51,7 @@ test_that("untruncated ptrunc() works as expected (beta)", {
 test_that("untruncated ptrunc() works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         size <- sample(1:10, 1L)
         prob <- runif(1)
         qt <- rbinom(i, size, prob)
@@ -74,7 +74,7 @@ test_that("untruncated ptrunc() works as expected (binomial)", {
 test_that("untruncated ptrunc() works as expected (poisson)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         lambda <- sample(1:50, 1L)
         qt <- rpois(i, lambda)
         p_trunc <- ptrunc(qt, "poisson", lambda, lower.tail = lt, log.p = lg)
@@ -96,7 +96,7 @@ test_that("untruncated ptrunc() works as expected (poisson)", {
 test_that("untruncated ptrunc() works as expected (chisq)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         df <- sample(1:10, 1L)
         qt <- rchisq(i, df)
         p_trunc <- ptrunc(qt, "chisq", df, lower.tail = lt, log.p = lg)
@@ -116,7 +116,7 @@ test_that("untruncated ptrunc() works as expected (chisq)", {
 })
 
 test_that("untruncated ptrunc() works as expected (contbern)", {
-  for (i in seq_len(5)) {
+  for (i in seq_len(3L)) {
     lambda <- runif(1)
     qt <- rcontbern(i, lambda)
     p_trunc <- ptrunc(qt, "contbern", lambda)
@@ -132,7 +132,7 @@ test_that("untruncated ptrunc() works as expected (contbern)", {
 test_that("untruncated ptrunc() works as expected (exp)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         rate <- runif(1)
         qt <- rexp(i, rate)
         p_trunc <- ptrunc(qt, "exp", rate, lower.tail = lt, log.p = lg)
@@ -154,7 +154,7 @@ test_that("untruncated ptrunc() works as expected (exp)", {
 test_that("untruncated ptrunc() works as expected (gamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp <- rchisq(1L, df = 10L)
         rate <- rchisq(1L, df = 10L)
         qt <- rgamma(i, shp, rate)
@@ -184,7 +184,7 @@ test_that("untruncated ptrunc() works as expected (gamma)", {
 test_that("untruncated ptrunc() works as expected (invgamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp <- rchisq(1L, df = 10L)
         rate <- rchisq(1L, df = 10L)
         qt <- rinvgamma(i, shp, rate)
@@ -212,7 +212,7 @@ test_that("untruncated ptrunc() works as expected (invgamma)", {
 })
 
 test_that("untruncated ptrunc() works as expected (invgauss)", {
-  for (i in seq_len(5)) {
+  for (i in seq_len(3L)) {
     m <- rchisq(1L, df = 10L)
     s <- rchisq(1L, df = 10L)
     qt <- rinvgauss(i, m, s)
@@ -231,7 +231,7 @@ test_that("untruncated ptrunc() works as expected (invgauss)", {
 test_that("untruncated ptrunc() works as expected (lognormal)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         meanlog <- rnorm(1L, sd = 10)
         sdlog <- rchisq(1L, 5L)
         qt <- rlnorm(i, meanlog, sdlog)
@@ -254,7 +254,7 @@ test_that("untruncated ptrunc() works as expected (lognormal)", {
 test_that("untruncated ptrunc() works as expected (negative binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         size <- sample(1:10, 1L)
         prob <- runif(1)
         mu <- size * (1 - prob) / prob

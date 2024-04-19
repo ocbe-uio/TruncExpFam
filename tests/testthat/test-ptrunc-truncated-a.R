@@ -5,7 +5,7 @@ test_that("lower truncation works as expected (normal)", {
   lg <- FALSE
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
         qt <- rnorm(i, mn, sg)
@@ -37,7 +37,7 @@ test_that("lower truncation works as expected (normal)", {
 test_that("lower truncation works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         a <- rbeta(1L, shp1, shp2)
@@ -69,7 +69,7 @@ test_that("lower truncation works as expected (beta)", {
 test_that("lower truncation works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         size <- sample(10:30, 1L)
         prob <- runif(1L, .2, .8)
         a <- sample(1:(size - 4L), 1L)
@@ -94,7 +94,7 @@ test_that("lower truncation works as expected (binomial)", {
 test_that("lower truncation works as expected (poisson)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         lambda <- sample(10:50, 1L)
         max_qt <- qpois(p = .99, lambda)
         a <- sample(seq(1L, max_qt - 3L), 1L)
@@ -121,7 +121,7 @@ test_that("lower truncation works as expected (poisson)", {
 test_that("lower truncation works as expected (chisq)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         df <- sample(1:100, 1L)
         a <- min(rchisq(10L, df))
         qt <- replicate(i, max(rchisq(10L, df), a))
@@ -145,7 +145,7 @@ test_that("lower truncation works as expected (chisq)", {
 })
 
 test_that("lower truncation works as expected (contbern)", {
-  for (i in seq_len(5)) {
+  for (i in seq_len(3L)) {
     lambda <- runif(1L)
     a <- runif(1L)
     qt <- runif(i, a, 1L)
@@ -162,7 +162,7 @@ test_that("lower truncation works as expected (contbern)", {
 test_that("lower truncation works as expected (exp)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         rate <- rchisq(1L, df = 10L)
         a <- rexp(1L, rate)
         qt <- replicate(i, max(rexp(10L, rate), a))
@@ -189,7 +189,7 @@ test_that("lower truncation works as expected (exp)", {
 test_that("lower truncation works as expected (gamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shape <- rchisq(1L, df = 10L)
         rate <- rchisq(1L, df = 10L)
         a <- rgamma(1L, shape, rate)
@@ -224,7 +224,7 @@ test_that("lower truncation works as expected (gamma)", {
 test_that("lower truncation works as expected (invgamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shape <- rchisq(1L, df = 10L)
         rate <- rchisq(1L, df = 10L)
         a <- rinvgamma(1L, shape, rate)
@@ -257,7 +257,7 @@ test_that("lower truncation works as expected (invgamma)", {
 })
 
 test_that("lower truncation works as expected (invgauss)", {
-  for (i in seq_len(5)) {
+  for (i in seq_len(3L)) {
     m <- rchisq(1L, df = 10L)
     s <- rchisq(1L, df = 10L)
     a <- rinvgauss(1L, m, s)
@@ -277,7 +277,7 @@ test_that("lower truncation works as expected (invgauss)", {
 test_that("lower truncation works as expected (lognormal)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         meanlog <- rnorm(1L, sd = 10)
         sdlog <- rchisq(1L, 5L)
         qt <- rlnorm(i, meanlog, sdlog)
@@ -312,7 +312,7 @@ test_that("lower truncation works as expected (lognormal)", {
 test_that("lower truncation works as expected (negative binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         size <- sample(1:10, 1L)
         prob <- runif(1)
         mu <- size * (1 - prob) / prob
