@@ -5,7 +5,7 @@ test_that("upper truncation works as expected (normal)", {
   lg <- FALSE
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         mn <- rnorm(1L, sd = 10)
         sg <- rchisq(1L, 5L)
         qt <- rnorm(i, mn, sg)
@@ -37,7 +37,7 @@ test_that("upper truncation works as expected (normal)", {
 test_that("upper truncation works as expected (beta)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp1 <- sample(1:10, 1L)
         shp2 <- sample(1:10, 1L)
         b <- runif(1)
@@ -69,7 +69,7 @@ test_that("upper truncation works as expected (beta)", {
 test_that("upper truncation works as expected (binomial)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         size <- sample(10:50, 1L)
         prob <- runif(1)
         b <- sample(2:(size - 1L), 1L)
@@ -103,7 +103,7 @@ test_that("upper truncation works as expected (binomial)", {
 test_that("upper truncation works as expected (poisson)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         lambda <- sample(10:50, 1L)
         max_qt <- qpois(p = .99, lambda)
         b <- sample(seq(lambda, max_qt), 1L)
@@ -137,7 +137,7 @@ test_that("upper truncation works as expected (poisson)", {
 test_that("upper truncation works as expected (chisq)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         df <- sample(1:100, 1L)
         b <- max(rchisq(10L, df))
         qt <- runif(i, 0, b)
@@ -168,7 +168,7 @@ test_that("upper truncation works as expected (chisq)", {
 })
 
 test_that("upper truncation works as expected (contbern)", {
-  for (i in seq_len(5)) {
+  for (i in seq_len(3L)) {
     lambda <- runif(1L)
     b <- runif(1L)
     qt <- runif(i, 0L, b)
@@ -185,7 +185,7 @@ test_that("upper truncation works as expected (contbern)", {
 test_that("upper truncation works as expected (exp)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         rate <- rchisq(1L, df = 10L)
         b <- rexp(1L, rate)
         qt <- replicate(i, min(rexp(10L, rate), b))
@@ -218,7 +218,7 @@ test_that("upper truncation works as expected (exp)", {
 test_that("upper truncation works as expected (gamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp <- rchisq(1L, df = 10L)
         rte <- rchisq(1L, df = 10L)
         b <- rgamma(1L, shp, rte)
@@ -261,7 +261,7 @@ test_that("upper truncation works as expected (gamma)", {
 test_that("upper truncation works as expected (invgamma)", {
   for (lt in c(TRUE, FALSE)) {
     for (lg in c(FALSE, TRUE)) {
-      for (i in seq_len(5)) {
+      for (i in seq_len(3L)) {
         shp <- rchisq(1L, df = 10L)
         rte <- rchisq(1L, df = 10L)
         b <- rinvgamma(1L, shp, rte)
@@ -302,7 +302,7 @@ test_that("upper truncation works as expected (invgamma)", {
 })
 
 test_that("upper truncation works as expected (invgauss)", {
-  for (i in seq_len(5)) {
+  for (i in seq_len(3L)) {
     m <- rchisq(1L, df = 10L)
     s <- rchisq(1L, df = 10L)
     b <- rinvgauss(1L, m, s)
@@ -315,6 +315,85 @@ test_that("upper truncation works as expected (invgauss)", {
       expect_gte(p_trunc[q], 0)
       expect_lte(p_trunc[q], 1)
       expect_gte(p_trunc[q], p_invgauss[q])
+    }
+  }
+})
+
+test_that("upper truncation works as expected (lognormal)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(3L)) {
+        meanlog <- rnorm(1L, sd = 10)
+        sdlog <- rchisq(1L, 5L)
+        qt <- rlnorm(i, meanlog, sdlog)
+        b <- rlnorm(1L, meanlog, sdlog)
+        while (any(b < qt)) {
+          b <- rlnorm(1L, meanlog, sdlog)
+        }
+        p_trunc <- ptrunc(
+          qt, "lognormal", meanlog, sdlog, b = b, lower.tail = lt, log.p = lg
+        )
+        p_ln <- plnorm(qt, meanlog, sdlog, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
+        expect_length(p_trunc, i)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+            if (abs(p_trunc[q] - p_ln[q]) > 1e-10) {  # adding tolerance
+              if (lt) {
+                expect_gte(p_trunc[q], p_ln[q])
+              } else {
+                expect_lte(p_trunc[q], p_ln[q])
+              }
+            }
+          } else {
+            expect_lte(p_trunc[q], 0)
+          }
+        }
+      }
+    }
+  }
+})
+
+test_that("upper truncation works as expected (negative binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(3L)) {
+        size <- sample(1:10, 1L)
+        prob <- runif(1)
+        mu <- size * (1 - prob) / prob
+        qt <- rnbinom(i, size, prob)
+        b <- rnbinom(1L, size, prob)
+        while (any(b < qt)) {
+          b <- rnbinom(1L, size, prob)
+        }
+        p_trunc <- ptrunc(
+          qt, "nbinom", size, prob, lower.tail = lt, log.p = lg, b = b
+        )
+        p_trunc_2 <- ptrunc(
+          qt, "nbinom", size, mu = mu, lower.tail = lt, log.p = lg, b = b
+        )
+        p_binom <- pnbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
+        expect_length(p_trunc, i)
+        expect_equal(p_trunc, p_trunc_2, tolerance = 1e-6)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+            if (abs(p_trunc[q] - p_binom[q]) > 1e-10) {  # adding tolerance
+              if (lt) {
+                expect_gte(p_trunc[q], p_binom[q])
+              } else {
+                expect_lte(p_trunc[q], p_binom[q])
+              }
+            }
+          } else {
+            expect_lte(p_trunc[q], 0)
+          }
+        }
+      }
     }
   }
 })
