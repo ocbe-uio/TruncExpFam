@@ -131,6 +131,16 @@ ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
   return(truncated_p(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE))
 }
 
+ptrunc.lognormal <- function(
+  q, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  validate_q_a_b(q, a, b)
+  p_q <- plnorm(q, meanlog, sdlog, lower.tail = TRUE, log.p)
+  p_a <- plnorm(a, meanlog, sdlog, lower.tail = TRUE, log.p)
+  p_b <- plnorm(b, meanlog, sdlog, lower.tail = TRUE, log.p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
   # Usual cases --------------------------------------------------------------
   if (log.p) {

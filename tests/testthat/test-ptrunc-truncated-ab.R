@@ -278,8 +278,43 @@ test_that("doubly-truncated ptrunc() works as expected (invgauss)", {
   }
 })
 
+test_that("doubly-truncated ptrunc() works as expected (lognormal)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        meanlog <- rnorm(1L, sd = 10)
+        sdlog <- rchisq(1L, 5L)
+        qt <- rlnorm(i, meanlog, sdlog)
+        a <- rlnorm(1L, meanlog, sdlog)
+        b <- rlnorm(1L, meanlog, sdlog)
+        while (any(a > qt)) {
+          a <- rlnorm(1L, meanlog, sdlog)
+        }
+        while (any(b < qt)) {
+          b <- rlnorm(1L, meanlog, sdlog)
+        }
+        p_trunc <- ptrunc(
+          qt, "lognormal", meanlog, sdlog, a = a, b = b, lower.tail = lt,
+          log.p = lg
+        )
+        p_ln <- plnorm(qt, meanlog, sdlog, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
+        expect_length(p_trunc, i)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          } else {
+            expect_lte(p_trunc[q], 0)
+          }
+        }
+      }
+    }
+  }
+})
+
 test_that("Basic errors are caught", {
-  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma", "invgamma", "invgauss")) { # TODO: eventually use valid_distros
+  for (distro in c("normal", "beta", "binomial", "poisson", "chisq", "contbern", "exp", "gamma", "invgamma", "invgauss", "lognormal")) { # TODO: eventually use valid_distros
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 4), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 0, b = 1), "must be in \\[a, b\\]")
     expect_error(ptrunc(2, distro, 1, 1, a = 3, b = 1), "a must be <= b")

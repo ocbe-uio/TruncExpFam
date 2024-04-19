@@ -227,3 +227,26 @@ test_that("untruncated ptrunc() works as expected (invgauss)", {
     }
   }
 })
+
+test_that("untruncated ptrunc() works as expected (lognormal)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        meanlog <- rnorm(1L, sd = 10)
+        sdlog <- rchisq(1L, 5L)
+        qt <- rlnorm(i, meanlog, sdlog)
+        p_trunc <- ptrunc(qt, "lognormal", meanlog, sdlog, lower.tail = lt, log.p = lg)
+        p_lnorm <- plnorm(qt, meanlog, sdlog, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
+        expect_length(p_trunc, i)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          }
+          expect_equal(p_trunc[q], p_lnorm[q])
+        }
+      }
+    }
+  }
+})
