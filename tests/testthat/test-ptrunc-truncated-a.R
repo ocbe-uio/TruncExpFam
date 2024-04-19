@@ -308,3 +308,43 @@ test_that("lower truncation works as expected (lognormal)", {
     }
   }
 })
+
+test_that("lower truncation works as expected (negative binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        size <- sample(1:10, 1L)
+        prob <- runif(1)
+        mu <- size * (1 - prob) / prob
+        qt <- rnbinom(i, size, prob)
+        a <- rnbinom(1L, size, prob)
+        while (any(a > qt)) {
+          a <- rnbinom(1L, size, prob)
+        }
+        p_trunc <- ptrunc(
+          qt, "nbinom", size, prob, lower.tail = lt, log.p = lg, a = a
+        )
+        p_trunc_2 <- ptrunc(
+          qt, "nbinom", size, mu = mu, lower.tail = lt, log.p = lg, a = a
+        )
+        p_binom <- pnbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
+        expect_length(p_trunc, i)
+        expect_equal(p_trunc, p_trunc_2, tolerance = 1e-6)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+            if (lt) {
+              expect_lte(p_trunc[q], p_binom[q])
+            } else {
+              expect_gte(round(p_trunc[q], 6), round(p_binom[q], 6))
+            }
+          } else {
+            expect_lte(p_trunc[q], 0)
+          }
+        }
+      }
+    }
+  }
+})

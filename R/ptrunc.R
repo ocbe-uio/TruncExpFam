@@ -141,6 +141,20 @@ ptrunc.lognormal <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+ptrunc.nbinom <- function(
+  q, size, prob, mu, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  if (missing(prob)) {
+    prob <- size / (size + mu) # from help("pnbinom")
+    mu <- NULL
+  }
+  validate_q_a_b(q, a, b)
+  p_q <- pnbinom(q, size, prob, lower.tail = TRUE, log.p = log.p)
+  p_a <- pnbinom(a - 1L, size, prob, lower.tail = TRUE, log.p = log.p)
+  p_b <- pnbinom(b, size, prob, lower.tail = TRUE, log.p = log.p)
+  return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
+}
+
 truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
   # Usual cases --------------------------------------------------------------
   if (log.p) {

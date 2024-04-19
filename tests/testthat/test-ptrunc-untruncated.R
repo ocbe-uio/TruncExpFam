@@ -250,3 +250,29 @@ test_that("untruncated ptrunc() works as expected (lognormal)", {
     }
   }
 })
+
+test_that("untruncated ptrunc() works as expected (negative binomial)", {
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(5)) {
+        size <- sample(1:10, 1L)
+        prob <- runif(1)
+        mu <- size * (1 - prob) / prob
+        qt <- rnbinom(i, size, prob)
+        p_trunc <- ptrunc(qt, "nbinom", size, prob, lower.tail = lt, log.p = lg)
+        p_trunc_2 <- ptrunc(qt, "nbinom", size, mu = mu, lower.tail = lt, log.p = lg)
+        p_binom <- pnbinom(qt, size, prob, lower.tail = lt, log.p = lg)
+        expect_length(qt, i)
+        expect_length(p_trunc, i)
+        expect_equal(p_trunc, p_trunc_2, tolerance = 1e-06)
+        for (q in seq_along(qt)) {
+          if (!lg) {
+            expect_gte(p_trunc[q], 0)
+            expect_lte(p_trunc[q], 1)
+          }
+          expect_equal(p_trunc[q], p_binom[q])
+        }
+      }
+    }
+  }
+})
