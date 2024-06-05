@@ -45,12 +45,14 @@ qtrunc.normal <- function(
   for (tl in seq_along(p)) {
     iter <- 0L
     while (tol[tl] > 1e-10 && iter < 1e9) {
-      if (p_q[tl] < p[tl]) {
+      trigger <- ifelse(lower.tail, p_q[tl] < p[tl], p_q[tl] > p[tl])
+      if (trigger) {
         lower[tl] <- q[tl]
+        q[tl] <- mean(c(q[tl], upper[tl]))
       } else {
         upper[tl] <- q[tl]
+        q[tl] <- mean(c(lower[tl], q[tl]))
       }
-      q[tl] <- ifelse(p_q[tl] < p[tl], mean(c(q[tl], upper[tl])), mean(c(lower[tl], q[tl])))
       p_q[tl] <- ptrunc.normal(q[tl], mean, sd, a, b, lower.tail = lower.tail, log.p = log.p)
       tol[tl] <- abs(p_q[tl] - p[tl])
       iter <- iter + 1L

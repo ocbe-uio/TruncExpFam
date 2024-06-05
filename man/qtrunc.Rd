@@ -27,7 +27,7 @@ Calculates quantile for a given truncated distribution and
 probability.
 }
 \examples{
-qtrunc(0)
-qtrunc(.6, family = "gaussian", mean = 5, sd = 10, b = 7)
-qnorm(.6, mean = 5, sd = 10) # for comparison
+qtrunc(0.75)
+qtrunc(.2, family = "gaussian", mean = 5, sd = 10, b = 7)
+qnorm(.2, mean = 5, sd = 10) # for comparison
 }
