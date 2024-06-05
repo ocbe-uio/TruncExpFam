@@ -36,20 +36,25 @@ qtrunc.generic <- function(p, ..., lower.tail, log.p) {
 qtrunc.normal <- function(
   p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
-  lower <- ifelse(a == -Inf, -.Machine$double.xmax, a)
-  upper <- ifelse(b == +Inf, +.Machine$double.xmax, b)
-  q <- mean(c(lower, upper))
+  # Implements a simple bisection algorithm to find the quantile
+  lower <- rep(ifelse(a == -Inf, -.Machine$double.xmax, a), length(p))
+  upper <- rep(ifelse(b == +Inf, +.Machine$double.xmax, b), length(p))
+  q <- rowMeans(cbind(lower, upper))
   p_q <- ptrunc.normal(q, mean, sd, a, b, lower.tail = lower.tail, log.p = log.p)
   tol <- abs(p_q - p)
-  while (any(tol > 1e-10)) {
-    if (p_q < p) {
-      lower <- q
-    } else {
-      upper <- q
+  for (tl in seq_along(p)) {
+    iter <- 0L
+    while (tol[tl] > 1e-10 && iter < 1e9) {
+      if (p_q[tl] < p[tl]) {
+        lower[tl] <- q[tl]
+      } else {
+        upper[tl] <- q[tl]
+      }
+      q[tl] <- ifelse(p_q[tl] < p[tl], mean(c(q[tl], upper[tl])), mean(c(lower[tl], q[tl])))
+      p_q[tl] <- ptrunc.normal(q[tl], mean, sd, a, b, lower.tail = lower.tail, log.p = log.p)
+      tol[tl] <- abs(p_q[tl] - p[tl])
+      iter <- iter + 1L
     }
-    q <- ifelse(p_q < p, mean(c(q, upper)), mean(c(lower, q)))
-    p_q <- ptrunc.normal(q, mean, sd, a, b, lower.tail = lower.tail, log.p = log.p)
-    tol <- abs(p_q - p)
   }
   return(q)
 }
