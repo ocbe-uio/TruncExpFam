@@ -1,4 +1,4 @@
-context("qtrunc works as expected")
+context("qtrunc, untruncated")
 
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
