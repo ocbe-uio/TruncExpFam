@@ -1,6 +1,7 @@
 # TruncExpFam (development version)
 
 * Implemented `ptrunc()` for all distributions (issue #54)
+* Implemented `qtrunc()` for some distributions (issue #54)
 * Refactoring (issue #104)
 * Fixed bugs related to using the Negative Binomial with `mu` instead of `prob` (issue #107)
 * Fixed domain validation on Negative Binomial and Inverse Gamma
