@@ -33,6 +33,16 @@ qtrunc.generic <- function(p, ..., lower.tail, log.p) {
   UseMethod("qtrunc", p)
 }
 
+qtrunc.beta <- function(
+    p, shape1, shape2, a = 0, b = 1, ..., lower.tail, log.p
+  ) {
+  F_a <- pbeta(a, shape1, shape2, ncp = 0, lower.tail, FALSE)
+  F_b <- pbeta(b, shape1, shape2, ncp = 0, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qbeta(rescaled_p, shape1, shape2, ncp = 0, lower.tail, FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {

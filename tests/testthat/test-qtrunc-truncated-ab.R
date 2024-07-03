@@ -1,5 +1,34 @@
 context("qtrunc, upper truncation")
 
+test_that("qtrunc() works as expected (beta)", {
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        shp1 <- sample(1:10, 1L)
+        shp2 <- sample(1:10, 1L)
+        pt <- runif(i)
+        ab <- c(runif(100L), pt)
+        b <- qtrunc(max(pt), "beta", shp1, shp2, lower.tail = lt, log.p = FALSE)
+        a <- qtrunc(min(pt), "beta", shp1, shp2, lower.tail = lt, log.p = FALSE)
+        if (lg) pt <- log(pt)
+        q_trunc <- qtrunc(
+          pt, "beta", shp1, shp2, b = b, lower.tail = lt, log.p = lg
+        )
+        q_stats <- qbeta(pt, shp1, shp2, lower.tail = lt, log.p = lg)
+        expect_length(pt, i)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          # Working back to p from q
+          ptr <- ptrunc(
+            q_trunc[ii], "beta", shp1, shp2, lower.tail = lt, log.p = lg, b = b
+          )
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
