@@ -43,6 +43,16 @@ qtrunc.beta <- function(
   return(q)
 }
 
+qtrunc.binomial <- function(
+    p, size, prob, a = 0, b = size, ..., lower.tail, log.p
+  ) {
+  F_a <- pbinom(a - 1L, size, prob, lower.tail, FALSE)
+  F_b <- pbinom(b, size, prob, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qbinom(rescaled_p, size, prob, lower.tail, FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
