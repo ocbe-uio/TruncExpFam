@@ -53,6 +53,14 @@ qtrunc.binomial <- function(
   return(q)
 }
 
+qtrunc.chisq <- function(p, df, a = 0, b = Inf, ..., lower.tail, log.p) {
+  F_a <- pchisq(a - 1L, df, ncp = 0, lower.tail, FALSE)
+  F_b <- pchisq(b, df, ncp = 0, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qchisq(rescaled_p, df, ncp = 0, lower.tail, FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
