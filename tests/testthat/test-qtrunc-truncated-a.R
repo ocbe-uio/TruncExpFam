@@ -65,6 +65,29 @@ test_that("qtrunc() works as expected (binomial)", {
   }
 })
 
+test_that("qtrunc() works as expected (chisq)", {
+  fam <- "chisq"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        df <- sample(1:10, 1L)
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        a <- min(qtrunc(pt, fam, df, lower.tail = lt, log.p = lg) / 2)
+        q_trunc <- qtrunc(pt, fam, df, lower.tail = lt, log.p = lg, a = a)
+        q_stats <- qchisq(pt, df, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_gte(q_trunc[ii], q_stats[ii])
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc[ii], fam, df, lower.tail = lt, log.p = lg, a = a)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
