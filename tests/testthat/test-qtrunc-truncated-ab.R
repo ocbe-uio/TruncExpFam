@@ -133,6 +133,31 @@ test_that("qtrunc() works as expected (exp)", {
   }
 })
 
+test_that("qtrunc() works as expected (gamma)", {
+  fam <- "gamma"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        pt <- runif(i)
+        ab <- rgamma(2L, shp, rte)
+        a <- min(ab)
+        b <- max(ab)
+        if (lg) pt <- log(pt)
+        q_trunc <- qtrunc(pt, fam, shp, rte, lower.tail = lt, log.p = lg, a = a, b = b)
+        q_stats <- qgamma(pt, shp, rte, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc[ii], fam, shp, rte, lower.tail = lt, log.p = lg, a = a, b = b)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {

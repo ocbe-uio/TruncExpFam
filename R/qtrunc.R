@@ -77,6 +77,16 @@ qtrunc.exp <- function(p, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(q)
 }
 
+qtrunc.gamma <- function(
+  p, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  F_a <- pgamma(a, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  F_b <- pgamma(b, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qgamma(rescaled_p, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {

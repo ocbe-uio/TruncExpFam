@@ -165,6 +165,7 @@ test_that("untruncated ptrunc() works as expected (gamma)", {
         p_gamma <- pgamma(qt, shp, rate, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)
+        expect_equal(p_trunc, p_trunc_2)
         for (q in seq_along(qt)) {
           if (!lg) {
             expect_gte(p_trunc[q], 0)
