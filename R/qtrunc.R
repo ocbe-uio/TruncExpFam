@@ -61,6 +61,14 @@ qtrunc.chisq <- function(p, df, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(q)
 }
 
+qtrunc.contbern <- function(p, lambda, a = 0, b = 1, ..., lower.tail, log.p) {
+  F_a <- pcontbern(a, lambda)
+  F_b <- pcontbern(b, lambda)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qcontbern(rescaled_p, lambda)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
