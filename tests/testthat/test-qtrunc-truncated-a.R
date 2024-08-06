@@ -162,6 +162,37 @@ test_that("qtrunc() works as expected (gamma)", {
   }
 })
 
+test_that("qtrunc() works as expected (invgamma)", {
+  fam <- "invgamma"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        skl <- 1 / rte
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        a <- rinvgamma(1L, shp, rte)
+        q_trunc_sr <- qtrunc(
+          pt, fam, shp, rte, a = a, lower.tail = lt, log.p = lg
+        )
+        q_trunc_ss <- qtrunc(
+          pt, fam, shp, scale = skl, a = a, lower.tail = lt, log.p = lg
+        )
+        expect_length(q_trunc_sr, i)
+        expect_equal(q_trunc_sr, q_trunc_ss)
+        for (ii in seq_along(pt)) {
+          # Working back to p from q
+          ptr <- ptrunc(
+            q_trunc_sr[ii], fam, shp, rte, lower.tail = lt, log.p = lg, a = a
+          )
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {

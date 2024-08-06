@@ -158,6 +158,39 @@ test_that("qtrunc() works as expected (gamma)", {
   }
 })
 
+test_that("q_trunc() works as expected (invgamma)", {
+  fam <- "invgamma"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        skl <- 1 / rte
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        ab <- rinvgamma(2L, shp, rte)
+        a <- min(ab)
+        b <- max(ab)
+        q_trunc_sr <- qtrunc(pt, fam, shp, rte, a = a, b = b, lower.tail = lt, log.p = lg)
+        q_trunc_ss <- qtrunc(pt, fam, shp, scale = skl, a = a, b = b, lower.tail = lt, log.p = lg)
+        if (lg) {
+          q_stats <- qinvgamma(exp(pt), shp, rte, lower.tail = lt, log.p = FALSE)
+        } else {
+          q_stats <- qinvgamma(pt, shp, rte, lower.tail = lt, log.p = lg)
+        }
+        expect_length(pt, i)
+        expect_length(q_trunc_sr, i)
+        expect_equal(q_trunc_sr, q_trunc_ss)
+        for (ii in seq_along(pt)) {
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc_sr[ii], fam, shp, rte, lower.tail = lt, log.p = lg, a = a, b = b)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
