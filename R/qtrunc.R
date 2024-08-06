@@ -69,6 +69,14 @@ qtrunc.contbern <- function(p, lambda, a = 0, b = 1, ..., lower.tail, log.p) {
   return(q)
 }
 
+qtrunc.exp <- function(p, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
+  F_a <- pexp(a, rate, lower.tail, FALSE)
+  F_b <- pexp(b, rate, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qexp(rescaled_p, rate, lower.tail, FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {

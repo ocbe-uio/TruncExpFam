@@ -106,6 +106,29 @@ test_that("qtrunc() works as expected (contbern)", {
   }
 })
 
+test_that("qtrunc() works as expected (exp)", {
+  fam <- "exp"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        rate <- runif(1)
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        a <- qtrunc(min(pt) / 2, fam, rate, lower.tail = lt, log.p = lg)
+        q_trunc <- qtrunc(pt, fam, rate, a = a, lower.tail = lt, log.p = lg)
+        q_stats <- pexp(pt, rate, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_gt(q_trunc[ii], q_stats[ii])
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc[ii], fam, rate, lower.tail = lt, log.p = lg, a = a)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
