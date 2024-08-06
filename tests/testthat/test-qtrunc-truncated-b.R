@@ -92,6 +92,25 @@ test_that("qtrunc() works as expected (chisq)", {
   }
 })
 
+test_that("qtrunc() works as expected (contbern)", {
+  fam <- "contbern"
+  for (i in seq_len(3L)) {
+    lambda <- runif(1L)
+    pt <- runif(i)
+    b <- runif(1L)
+    q_trunc <- qtrunc(pt, fam, lambda, b = b)
+    q_stats <- qcontbern(pt, lambda)
+    expect_length(pt, i)
+    expect_length(q_trunc, i)
+    for (ii in seq_along(pt)) {
+      expect_lt(q_trunc[ii], q_stats[ii])
+      # Working back to p from q
+      ptr <- ptrunc(q_trunc[ii], fam, lambda, b = b)
+      expect_equal(pt[ii], ptr)
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
