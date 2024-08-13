@@ -233,6 +233,43 @@ test_that("qtrunc() works as expected (lognormal)", {
   }
 })
 
+test_that("qtrunc() works as expected (negbinom)", {
+  fam <- "nbinom"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        sz <- sample(1:10, 1L)
+        pb <- runif(1)
+        mu <- sz * (1 - pb) / pb
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        q_trunc_pb <- qtrunc(pt, fam, sz, pb, lower.tail = lt, log.p = lg)
+        q_trunc_mu <- qtrunc(pt, fam, sz, mu = mu, lower.tail = lt, log.p = lg)
+        q_stats <- qnbinom(pt, sz, pb, lower.tail = lt, log.p = lg)
+        expect_length(pt, i)
+        expect_length(q_trunc_pb, i)
+        expect_equal(q_trunc_pb, q_trunc_mu, tolerance = 1e-6)
+        for (ii in seq_along(pt)) {
+          expect_equal(q_trunc_pb[ii], q_stats[ii])
+          # Working back to p from q
+          q_lo <- max(q_trunc_pb[ii] - 1L, 0L)
+          q_hi <- min(q_trunc_pb[ii] + 1L, Inf)
+          ptr_1 <- ptrunc(q_lo, fam, sz, pb, lower.tail = lt, log.p = lg)
+          ptr_2 <- ptrunc(q_hi, fam, sz, pb, lower.tail = lt, log.p = lg)
+          # because pt will have been rounded
+          if (q_trunc_pb[ii] > 0L && lt) {
+            expect_gte(pt[ii], ptr_1)
+            expect_lte(pt[ii], ptr_2)
+          } else if (q_trunc_pb[ii] > 0L && !lt) {
+            expect_lte(pt[ii], ptr_1)
+            expect_gte(pt[ii], ptr_2)
+          }
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {

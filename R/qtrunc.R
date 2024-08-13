@@ -118,6 +118,20 @@ qtrunc.lognormal <- function(
   return(q)
 }
 
+qtrunc.nbinom <- function(
+    p, size, prob, mu, a = 0, b = Inf, ..., lower.tail, log.p
+  ) {
+  if (missing(prob)) {
+    prob <- size / (size + mu) # from help("pnbinom")
+    mu <- NULL
+  }
+  F_a <- pnbinom(a - 1L, size, prob, lower.tail = lower.tail, log.p = FALSE)
+  F_b <- pnbinom(b, size, prob, lower.tail = lower.tail, log.p = FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail = lower.tail, log.p = log.p)
+  q <- qnbinom(rescaled_p, size, prob, lower.tail = lower.tail, log.p = FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
