@@ -303,3 +303,33 @@ test_that("qtrunc() works as expected (normal)", {
     }
   }
 })
+
+test_that("qtrunc() works as expected (poisson)", {
+  fam <- "poisson"
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(3L)) {
+        lambda <- sample(1:50, 1L)
+        pt <- runif(i)
+        a <- qtrunc(min(pt) / 2, fam, lambda, lower.tail = TRUE, log.p = FALSE)
+        if (lg) pt <- log(pt)
+        q_trunc <- qtrunc(pt, fam, lambda, a = a, lower.tail = lt, log.p = lg)
+        q_stats <- qpois(pt, lambda, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_gte(q_trunc[ii], q_stats[ii])
+          q_hi <- min(q_trunc[ii] + 1L)
+          q_lo <- max(q_trunc[ii] - 1L, 0L, a)
+          ptr_1 <- ptrunc(q_lo, fam, lambda, a = a, lower.tail = lt, log.p = lg)
+          ptr_2 <- ptrunc(q_hi, fam, lambda, a = a, lower.tail = lt, log.p = lg)
+          # because pt will have been rounded
+          if (lt) {
+            expect_lte(ptr_1, ptr_2)
+          } else {
+            expect_gte(ptr_1, ptr_2)
+          }
+        }
+      }
+    }
+  }
+})

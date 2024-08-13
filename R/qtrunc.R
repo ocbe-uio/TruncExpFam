@@ -142,6 +142,14 @@ qtrunc.normal <- function(
   return(q)
 }
 
+qtrunc.poisson <- function(p, lambda, a = 0, b = Inf, ..., lower.tail, log.p) {
+  F_a <- ppois(a - 1L, lambda, lower.tail, FALSE)
+  F_b <- ppois(b, lambda, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qpois(rescaled_p, lambda, lower.tail, FALSE)
+  return(q)
+}
+
 rescale_p <- function(p, F_a, F_b, lower.tail, log.p) {
   if (log.p) {
     p <- exp(p)
