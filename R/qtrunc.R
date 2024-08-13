@@ -69,6 +69,69 @@ qtrunc.contbern <- function(p, lambda, a = 0, b = 1, ..., lower.tail, log.p) {
   return(q)
 }
 
+qtrunc.exp <- function(p, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
+  F_a <- pexp(a, rate, lower.tail, FALSE)
+  F_b <- pexp(b, rate, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qexp(rescaled_p, rate, lower.tail, FALSE)
+  return(q)
+}
+
+qtrunc.gamma <- function(
+  p, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  F_a <- pgamma(a, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  F_b <- pgamma(b, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qgamma(rescaled_p, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  return(q)
+}
+
+qtrunc.invgamma <- function(
+  p, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+) {
+  F_a <- pinvgamma(a, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  F_b <- pinvgamma(b, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qinvgamma(rescaled_p, shape, scale = scale, lower.tail = lower.tail, log.p = FALSE)
+  return(q)
+}
+
+qtrunc.invgauss <- function(p, m, s, a = 0, b = Inf, ..., lower.tail, log.p) {
+  if (!lower.tail || log.p) {
+    stop("Only lower.tail = TRUE and log.p = FALSE are supported.")
+  }
+  F_a <- ifelse(a == 0, 0, pinvgauss(a, m, s))
+  F_b <- ifelse(b == Inf, 1, pinvgauss(b, m, s))
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qinvgauss(rescaled_p, m, s)
+  return(q)
+}
+
+qtrunc.lognormal <- function(
+    p, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail, log.p
+  ) {
+  F_a <- plnorm(a, meanlog, sdlog, lower.tail, FALSE)
+  F_b <- plnorm(b, meanlog, sdlog, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qlnorm(rescaled_p, meanlog, sdlog, lower.tail, FALSE)
+  return(q)
+}
+
+qtrunc.nbinom <- function(
+    p, size, prob, mu, a = 0, b = Inf, ..., lower.tail, log.p
+  ) {
+  if (missing(prob)) {
+    prob <- size / (size + mu) # from help("pnbinom")
+    mu <- NULL
+  }
+  F_a <- pnbinom(a - 1L, size, prob, lower.tail = lower.tail, log.p = FALSE)
+  F_b <- pnbinom(b, size, prob, lower.tail = lower.tail, log.p = FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail = lower.tail, log.p = log.p)
+  q <- qnbinom(rescaled_p, size, prob, lower.tail = lower.tail, log.p = FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
@@ -76,6 +139,14 @@ qtrunc.normal <- function(
   F_b <- pnorm(b, mean, sd, lower.tail, FALSE)
   rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
   q <- qnorm(rescaled_p, mean, sd, lower.tail, FALSE)
+  return(q)
+}
+
+qtrunc.poisson <- function(p, lambda, a = 0, b = Inf, ..., lower.tail, log.p) {
+  F_a <- ppois(a - 1L, lambda, lower.tail, FALSE)
+  F_b <- ppois(b, lambda, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qpois(rescaled_p, lambda, lower.tail, FALSE)
   return(q)
 }
 

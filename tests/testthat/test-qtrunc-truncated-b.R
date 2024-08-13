@@ -111,6 +111,172 @@ test_that("qtrunc() works as expected (contbern)", {
   }
 })
 
+test_that("qtrunc() works as expected (exp)", {
+  fam <- "exp"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        rate <- rchisq(1L, df = 2L)
+        b <- max(rexp(10L, rate))
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        q_trunc <- qtrunc(pt, fam, rate, b = b, lower.tail = lt, log.p = lg)
+        q_stats <- qexp(pt, rate, lower.tail = lt, log.p = lg)
+        expect_length(pt, i)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_lt(q_trunc[ii], q_stats[ii])
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc[ii], fam, rate, lower.tail = lt, log.p = lg, b = b)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
+test_that("q_trunc() works as expected (gamma)", {
+  fam <- "gamma"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        skl <- 1 / rte
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        b <- max(rgamma(10L, shp, rte))
+        q_trunc_sr <- qtrunc(pt, fam, shp, rte, b = b, lower.tail = lt, log.p = lg)
+        q_trunc_ss <- qtrunc(pt, fam, shp, scale = skl, b = b, lower.tail = lt, log.p = lg)
+        q_stats <- qgamma(pt, shp, rte, lower.tail = lt, log.p = lg)
+        expect_length(pt, i)
+        expect_length(q_trunc_sr, i)
+        expect_equal(q_trunc_sr, q_trunc_ss)
+        for (ii in seq_along(pt)) {
+          expect_lt(q_trunc_sr[ii], q_stats[ii])
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc_sr[ii], fam, shp, rte, lower.tail = lt, log.p = lg, b = b)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
+test_that("q_trunc() works as expected (invgamma)", {
+  fam <- "invgamma"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        shp <- rchisq(1L, df = 10L)
+        rte <- rchisq(1L, df = 10L)
+        skl <- 1 / rte
+        pt <- runif(i)
+        if (lg) pt <- log(pt)
+        b <- max(rinvgamma(10L, shp, rte))
+        q_trunc_sr <- qtrunc(pt, fam, shp, rte, b = b, lower.tail = lt, log.p = lg)
+        q_trunc_ss <- qtrunc(pt, fam, shp, scale = skl, b = b, lower.tail = lt, log.p = lg)
+        if (lg) {
+          q_stats <- qinvgamma(exp(pt), shp, rte, lower.tail = lt, log.p = FALSE)
+        } else {
+          q_stats <- qinvgamma(pt, shp, rte, lower.tail = lt, log.p = lg)
+        }
+        expect_length(pt, i)
+        expect_length(q_trunc_sr, i)
+        expect_equal(q_trunc_sr, q_trunc_ss)
+        for (ii in seq_along(pt)) {
+          expect_lte(q_trunc_sr[ii], q_stats[ii])
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc_sr[ii], fam, shp, rte, lower.tail = lt, log.p = lg, b = b)
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
+test_that("qtrunc() works as expected (invgauss)", {
+  fam <- "invgauss"
+  for (i in seq_len(3L)) {
+    m <- rchisq(1L, df = 10L)
+    s <- rchisq(1L, df = 10L)
+    b <- rinvgauss(1L, m, s)
+    pt <- runif(i)
+    q_trunc <- qtrunc(pt, fam, m, s, b = b)
+    q_invgauss <- qinvgauss(pt, m, s)
+    expect_length(pt, i)
+    expect_length(q_trunc, i)
+    for (ii in seq_along(pt)) {
+      expect_lte(q_trunc[ii], q_invgauss[ii])
+      # Working back to p from q
+      ptr <- ptrunc(q_trunc[ii], fam, m, s, b = b)
+      expect_equal(pt[ii], ptr, tolerance = 1e-2)
+    }
+  }
+})
+
+test_that("qtrunc() works as expected (lognormal)", {
+  fam <- "lognormal"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        mn <- rnorm(1L, sd = 10)
+        sg <- rchisq(1L, 5L)
+        pt <- runif(i)
+        b <- qtrunc(sqrt(max(pt)), fam, mn, sg, lower.tail = lt, log.p = FALSE)
+        if (lg) pt <- log(pt)
+        q_trunc <- qtrunc(pt, fam, mn, sg, b = b, lower.tail = lt, log.p = lg)
+        q_norm <- qlnorm(pt, mn, sg, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_lt(q_trunc[ii], q_norm[ii])
+          # Working back to p from q
+          ptr <- ptrunc(
+            q_trunc[ii], fam, mn, sg, b = b, lower.tail = lt, log.p = lg
+          )
+          expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
+test_that("qtrunc() works as expected (negbinom)", {
+  fam <- "nbinom"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      for (i in seq_len(3L)) {
+        sz <- sample(1:10, 1L)
+        pb <- runif(1)
+        mu <- sz * (1 - pb) / pb
+        pt <- runif(i)
+        b <- qtrunc(sqrt(max(pt)), fam, sz, pb, lower.tail = lt, log.p = FALSE)
+        if (lg) pt <- log(pt)
+        q_trunc_pb <- qtrunc(pt, fam, sz, pb, b = b, lower.tail = lt, log.p = lg)
+        q_trunc_mu <- qtrunc(pt, fam, sz, mu = mu, b = b, lower.tail = lt, log.p = lg)
+        q_stats <- qnbinom(pt, sz, pb, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc_pb, i)
+        expect_equal(q_trunc_pb, q_trunc_mu, tolerance = 1e-6)
+        for (ii in seq_along(pt)) {
+          expect_lte(q_trunc_pb[ii], q_stats[ii])
+          # Working back to p from q
+          q_lo <- max(q_trunc_pb[ii] - 1L, 0L)
+          q_hi <- min(q_trunc_pb[ii] + 1L, b)
+          ptr_1 <- ptrunc(q_lo, fam, sz, pb, b = b, lower.tail = lt, log.p = lg)
+          ptr_2 <- ptrunc(q_hi, fam, sz, pb, b = b, lower.tail = lt, log.p = lg)
+          # because pt will have been rounded
+          if (lt) {
+            expect_lte(ptr_1, ptr_2)
+          } else {
+            expect_gte(ptr_1, ptr_2)
+          }
+        }
+      }
+    }
+  }
+})
+
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
@@ -137,6 +303,36 @@ test_that("qtrunc() works as expected (normal)", {
             lower.tail = lt, log.p = lg
           )
           expect_equal(pt[ii], ptr)
+        }
+      }
+    }
+  }
+})
+
+test_that("qtrunc() works as expected (poisson)", {
+  fam <- "poisson"
+  for (lt in c(TRUE, FALSE)) {
+    for (lg in c(FALSE, TRUE)) {
+      for (i in seq_len(3L)) {
+        lambda <- sample(1:50, 1L)
+        pt <- runif(i)
+        b <- qtrunc(sqrt(max(pt)), fam, lambda, lower.tail = TRUE, log.p = FALSE)
+        if (lg) pt <- log(pt)
+        q_trunc <- qtrunc(pt, fam, lambda, b = b, lower.tail = lt, log.p = lg)
+        q_stats <- qpois(pt, lambda, lower.tail = lt, log.p = lg)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_lte(q_trunc[ii], q_stats[ii])
+          q_lo <- max(q_trunc[ii] - 1L, 0L)
+          q_hi <- min(q_trunc[ii] + 1L, b)
+          ptr_1 <- ptrunc(q_lo, fam, lambda, b = b, lower.tail = lt, log.p = lg)
+          ptr_2 <- ptrunc(q_hi, fam, lambda, b = b, lower.tail = lt, log.p = lg)
+          # because pt will have been rounded
+          if (lt) {
+            expect_lte(ptr_1, ptr_2)
+          } else {
+            expect_gte(ptr_1, ptr_2)
+          }
         }
       }
     }
