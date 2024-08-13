@@ -108,6 +108,16 @@ qtrunc.invgauss <- function(p, m, s, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(q)
 }
 
+qtrunc.lognormal <- function(
+    p, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail, log.p
+  ) {
+  F_a <- plnorm(a, meanlog, sdlog, lower.tail, FALSE)
+  F_b <- plnorm(b, meanlog, sdlog, lower.tail, FALSE)
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qlnorm(rescaled_p, meanlog, sdlog, lower.tail, FALSE)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {
