@@ -180,6 +180,36 @@ test_that("qtrunc() works as expected (invgamma)", {
   }
 })
 
+test_that("qtrunc() works as expected (invgauss)", {
+  fam <- "invgauss"
+  for (lg in c(FALSE, TRUE)) {
+    for (lt in c(TRUE, FALSE)) {
+      if (!lt || lg) {
+        expect_error(
+          qtrunc(runif(1), fam, 1, 1, lower.tail = lt, log.p = lg),
+          "Only lower.tail = TRUE and log.p = FALSE are supported."
+        )
+        break
+      }
+      for (i in seq_len(3L)) {
+        mn <- rchisq(1L, df = 10L)
+        sg <- rchisq(1L, df = 10L)
+        pt <- runif(i)
+        q_trunc <- qtrunc(pt, fam, mn, sg)
+        q_stats <- qinvgauss(pt, mn, sg)
+        expect_length(pt, i)
+        expect_length(q_trunc, i)
+        for (ii in seq_along(pt)) {
+          expect_equal(q_trunc[ii], q_stats[ii])
+          # Working back to p from q
+          ptr <- ptrunc(q_trunc[ii], fam, mn, sg)
+          expect_equal(pt[ii], ptr, tolerance = 1e-3)
+        }
+      }
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {

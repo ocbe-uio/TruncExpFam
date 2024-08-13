@@ -97,6 +97,17 @@ qtrunc.invgamma <- function(
   return(q)
 }
 
+qtrunc.invgauss <- function(p, m, s, a = 0, b = Inf, ..., lower.tail, log.p) {
+  if (!lower.tail || log.p) {
+    stop("Only lower.tail = TRUE and log.p = FALSE are supported.")
+  }
+  F_a <- ifelse(a == 0, 0, pinvgauss(a, m, s))
+  F_b <- ifelse(b == Inf, 1, pinvgauss(b, m, s))
+  rescaled_p <- rescale_p(p, F_a, F_b, lower.tail, log.p)
+  q <- qinvgauss(rescaled_p, m, s)
+  return(q)
+}
+
 qtrunc.normal <- function(
     p, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
   ) {

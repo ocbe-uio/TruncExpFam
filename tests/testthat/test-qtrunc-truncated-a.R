@@ -193,6 +193,26 @@ test_that("qtrunc() works as expected (invgamma)", {
   }
 })
 
+test_that("qtrunc() works as expected (invgauss)", {
+  fam <- "invgauss"
+  for (i in seq_len(3L)) {
+    m <- rchisq(1L, df = 10L)
+    s <- rchisq(1L, df = 10L)
+    a <- rinvgauss(1L, m, s)
+    pt <- runif(i)
+    q_trunc <- qtrunc(pt, fam, m, s, a)
+    q_invgauss <- qinvgauss(pt, m, s)
+    expect_length(pt, i)
+    expect_length(q_trunc, i)
+    for (ii in seq_along(pt)) {
+      expect_gte(q_trunc[ii], q_invgauss[ii])
+      # Working back to p from q
+      ptr <- ptrunc(q_trunc[ii], fam, m, s, a)
+      expect_equal(pt[ii], ptr, tolerance = 1e-3)
+    }
+  }
+})
+
 test_that("qtrunc() works as expected (normal)", {
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
