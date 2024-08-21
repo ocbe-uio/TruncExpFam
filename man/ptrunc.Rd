@@ -2,9 +2,111 @@
 % Please edit documentation in R/ptrunc.R
 \name{ptrunc}
 \alias{ptrunc}
+\alias{ptruncnorm}
+\alias{ptruncbeta}
+\alias{ptruncbinom}
+\alias{ptruncpois}
+\alias{ptruncchisq}
+\alias{ptrunccontbern}
+\alias{ptruncexp}
+\alias{ptruncgamma}
+\alias{ptruncinvgamma}
+\alias{ptruncinvgauss}
+\alias{ptrunclnorm}
+\alias{ptruncnbinom}
 \title{Cummulative Distribution Function}
 \usage{
 ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
+
+ptruncnorm(
+  q,
+  mean = 0,
+  sd = 1,
+  a = -Inf,
+  b = Inf,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
+
+ptruncbeta(
+  q,
+  shape1,
+  shape2,
+  a = 0,
+  b = 1,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
+
+ptruncbinom(
+  q,
+  size,
+  prob,
+  a = 0,
+  b = size,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
+
+ptruncpois(q, lambda, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE)
+
+ptruncchisq(q, df, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE)
+
+ptrunccontbern(q, lambda, a = 0, b = 1, ...)
+
+ptruncexp(q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE)
+
+ptruncgamma(
+  q,
+  shape,
+  rate = 1,
+  scale = 1/rate,
+  a = 0,
+  b = Inf,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
+
+ptruncinvgamma(
+  q,
+  shape,
+  rate = 1,
+  scale = 1/rate,
+  a = 0,
+  b = Inf,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
+
+ptruncinvgauss(q, m, s, a = 0, b = Inf, ...)
+
+ptrunclnorm(
+  q,
+  meanlog = 0,
+  sdlog = 1,
+  a = 0,
+  b = Inf,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
+
+ptruncnbinom(
+  q,
+  size,
+  prob,
+  mu,
+  a = 0,
+  b = Inf,
+  ...,
+  lower.tail = TRUE,
+  log.p = FALSE
+)
 }
 \arguments{
 \item{q}{vector of quantiles}
@@ -18,6 +120,45 @@ ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
 \eqn{P(X <= x)}{P(X \leq x)} otherwise, \eqn{P(X > x)}}
 
 \item{log.p}{logical; if \code{TRUE}, probabilities p are given as \code{log(p)}}
+
+\item{mean}{mean of parent distribution}
+
+\item{sd}{standard deviation is parent distribution}
+
+\item{a}{point of left truncation. For discrete distributions, \code{a} will be
+included in the support of the truncated distribution.}
+
+\item{b}{point of right truncation}
+
+\item{shape1}{positive shape parameter alpha}
+
+\item{shape2}{positive shape parameter beta}
+
+\item{size}{target for number of successful trials,
+or dispersion parameter (the shape parameter of the gamma mixing
+distribution). Must be strictly positive, need not be integer.}
+
+\item{prob}{probability of success on each trial}
+
+\item{lambda}{mean and var of "parent" distribution}
+
+\item{df}{degrees of freedom for "parent" distribution}
+
+\item{rate}{inverse gamma rate parameter}
+
+\item{shape}{inverse gamma shape parameter}
+
+\item{scale}{inverse gamma scale parameter}
+
+\item{m}{vector of means}
+
+\item{s}{vector of dispersion parameters}
+
+\item{meanlog}{mean of un-truncated distribution}
+
+\item{sdlog}{standard deviation of un-truncated distribution}
+
+\item{mu}{alternative parametrization via mean}
 }
 \value{
 The cummulative probability of y.

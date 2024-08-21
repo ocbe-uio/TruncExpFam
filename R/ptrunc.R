@@ -34,7 +34,7 @@ ptrunc.generic <- function(q, ..., lower.tail, log.p) {
 }
 
 ptrunc.normal <- function(
-  q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail, log.p
+  q, mean = 0, sd = 1, a = -Inf, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
   ) {
   validate_q_a_b(q, a, b)
   p_q <- pnorm(q, mean, sd, lower.tail = TRUE, log.p)
@@ -43,8 +43,13 @@ ptrunc.normal <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncnorm <- ptrunc.normal
+
 ptrunc.beta <- function(
-  q, shape1, shape2, a = 0, b = 1, ..., lower.tail, log.p
+  q, shape1, shape2, a = 0, b = 1, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   p_q <- pbeta(q, shape1, shape2, ncp = 0, lower.tail = TRUE, log.p)
@@ -53,8 +58,13 @@ ptrunc.beta <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncbeta <- ptrunc.beta
+
 ptrunc.binomial <- function(
-  q, size, prob, a = 0, b = size, ..., lower.tail, log.p
+  q, size, prob, a = 0, b = size, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   p_q <- pbinom(q, size, prob, lower.tail = TRUE, log.p)
@@ -63,8 +73,13 @@ ptrunc.binomial <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncbinom <- ptrunc.binomial
+
 ptrunc.poisson <- function(
-  q, lambda, a = 0, b = Inf, ..., lower.tail, log.p
+  q, lambda, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   p_q <- ppois(q, lambda, lower.tail = TRUE, log.p)
@@ -73,13 +88,23 @@ ptrunc.poisson <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
-ptrunc.chisq <- function(q, df, a = 0, b = Inf, ..., lower.tail, log.p) {
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncpois <- ptrunc.poisson
+
+ptrunc.chisq <- function(q, df, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE) {
   validate_q_a_b(q, a, b)
   p_q <- pchisq(q, df, ncp = 0, lower.tail = TRUE, log.p)
   p_a <- pchisq(a - 1L, df, ncp = 0, lower.tail = TRUE, log.p)
   p_b <- pchisq(b, df, ncp = 0, lower.tail = TRUE, log.p)
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
+
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncchisq <- ptrunc.chisq
 
 ptrunc.contbern <- function(q, lambda, a = 0, b = 1, ...) {
   validate_q_a_b(q, a, b)
@@ -89,7 +114,12 @@ ptrunc.contbern <- function(q, lambda, a = 0, b = 1, ...) {
   return(truncated_p(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE))
 }
 
-ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptrunccontbern <- ptrunc.contbern
+
+ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE) {
   validate_q_a_b(q, a, b)
   p_q <- pexp(q, rate, lower.tail = TRUE, log.p)
   p_a <- pexp(a, rate, lower.tail = TRUE, log.p)
@@ -97,8 +127,13 @@ ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail, log.p) {
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncexp <- ptrunc.exp
+
 ptrunc.gamma <- function(
-  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   if (!missing(rate) && !missing(scale)) {
@@ -110,8 +145,13 @@ ptrunc.gamma <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncgamma <- ptrunc.gamma
+
 ptrunc.invgamma <- function(
-  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail, log.p
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   if (!missing(rate) && !missing(scale)) {
@@ -123,6 +163,11 @@ ptrunc.invgamma <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncinvgamma <- ptrunc.invgamma
+
 ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
   validate_q_a_b(q, a, b)
   p_q <- pinvgauss(q, m, s)
@@ -131,8 +176,13 @@ ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
   return(truncated_p(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncinvgauss <- ptrunc.invgauss
+
 ptrunc.lognormal <- function(
-  q, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail, log.p
+  q, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   p_q <- plnorm(q, meanlog, sdlog, lower.tail = TRUE, log.p)
@@ -141,8 +191,13 @@ ptrunc.lognormal <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptrunclnorm <- ptrunc.lognormal
+
 ptrunc.nbinom <- function(
-  q, size, prob, mu, a = 0, b = Inf, ..., lower.tail, log.p
+  q, size, prob, mu, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
 ) {
   if (missing(prob)) {
     prob <- size / (size + mu) # from help("pnbinom")
@@ -155,7 +210,12 @@ ptrunc.nbinom <- function(
   return(truncated_p(p_q, p_a, p_b, lower.tail, log.p))
 }
 
-truncated_p <- function(p_q, p_a, p_b, lower.tail, log.p) {
+#' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
+ptruncnbinom <- ptrunc.nbinom
+
+truncated_p <- function(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE) {
   # Usual cases --------------------------------------------------------------
   if (log.p) {
     p <- log((exp(p_q) - exp(p_a)) / (exp(p_b) - exp(p_a)))
