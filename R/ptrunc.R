@@ -44,6 +44,8 @@ ptrunc.normal <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncnorm <- ptrunc.normal
 
 ptrunc.beta <- function(
@@ -57,6 +59,8 @@ ptrunc.beta <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncbeta <- ptrunc.beta
 
 ptrunc.binomial <- function(
@@ -70,6 +74,8 @@ ptrunc.binomial <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncbinom <- ptrunc.binomial
 
 ptrunc.poisson <- function(
@@ -83,6 +89,8 @@ ptrunc.poisson <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncpois <- ptrunc.poisson
 
 ptrunc.chisq <- function(q, df, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE) {
@@ -94,6 +102,8 @@ ptrunc.chisq <- function(q, df, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = 
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncchisq <- ptrunc.chisq
 
 ptrunc.contbern <- function(q, lambda, a = 0, b = 1, ...) {
@@ -105,6 +115,8 @@ ptrunc.contbern <- function(q, lambda, a = 0, b = 1, ...) {
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptrunccontbern <- ptrunc.contbern
 
 ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE) {
@@ -116,6 +128,8 @@ ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncexp <- ptrunc.exp
 
 ptrunc.gamma <- function(
@@ -132,6 +146,8 @@ ptrunc.gamma <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncgamma <- ptrunc.gamma
 
 ptrunc.invgamma <- function(
@@ -148,6 +164,8 @@ ptrunc.invgamma <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncinvgamma <- ptrunc.invgamma
 
 ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
@@ -159,6 +177,8 @@ ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncinvgauss <- ptrunc.invgauss
 
 ptrunc.lognormal <- function(
@@ -172,6 +192,8 @@ ptrunc.lognormal <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptrunclnorm <- ptrunc.lognormal
 
 ptrunc.nbinom <- function(
@@ -189,6 +211,8 @@ ptrunc.nbinom <- function(
 }
 
 #' @export
+#' @rdname ptrunc
+#' @inheritParams rtrunc
 ptruncnbinom <- ptrunc.nbinom
 
 truncated_p <- function(p_q, p_a, p_b, lower.tail = TRUE, log.p = FALSE) {
