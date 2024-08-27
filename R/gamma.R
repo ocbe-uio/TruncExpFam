@@ -16,7 +16,7 @@ rtruncgamma <- function(
   class(n) <- "trunc_gamma"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
-    parms <- mget(ls())[grep("^faster$|^n$|^family$|^rate$", ls(), invert = TRUE)]
+    parms <- mget(ls())[grep("^faster$|^n$|^family$|^rate$", ls(), invert=TRUE)]
     return(rtrunc_direct(n, family, parms, a, b))
   } else {
     parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]
