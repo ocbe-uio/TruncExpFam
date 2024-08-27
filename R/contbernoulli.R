@@ -23,7 +23,7 @@ rcontbern <- function(n, lambda) {
 #' @param lambda mean of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1, faster = FALSE) {
+rtrunccontbern <- function(n, lambda, a = 0, b = 1, faster = FALSE) {
   class(n) <- "trunc_contbern"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -34,6 +34,7 @@ rtrunccontbern <- rtrunc.contbern <- function(n, lambda, a = 0, b = 1, faster = 
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.contbern <- rtrunccontbern
 
 # The two functions 'dcontbern' and 'pcontbern' below act in support of the
 # truncated continuous bernoulli distribution, as base R does not include

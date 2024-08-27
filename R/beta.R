@@ -7,7 +7,7 @@
 #' @param shape2 positive shape parameter beta
 #' @rdname rtrunc
 #' @export
-rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1, faster = FALSE) {
+rtruncbeta <- function(n, shape1, shape2, a = 0, b = 1, faster = FALSE) {
   class(n) <- "trunc_beta"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -19,9 +19,7 @@ rtrunc.beta <- function(n, shape1, shape2, a = 0, b = 1, faster = FALSE) {
   }
 }
 
-#' @rdname rtrunc
-#' @export
-rtruncbeta <- rtrunc.beta
+rtrunc.beta <- rtruncbeta
 
 #' @export
 dtrunc.trunc_beta <- function(y, shape1, shape2, eta, a = 0, b = 1, ...) {

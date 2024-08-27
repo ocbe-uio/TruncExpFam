@@ -9,7 +9,7 @@
 #' @param mu alternative parametrization via mean
 #' @rdname rtrunc
 #' @export
-rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf, faster = FALSE) {
+rtruncnbinom <- function(n, size, prob, mu, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_nbinom"
   if (missing(prob)) {
     prob <- (size) / (size + mu)
@@ -24,6 +24,7 @@ rtruncnbinom <- rtrunc.nbinom <- function(n, size, prob, mu, a = 0, b = Inf, fas
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.nbinom <- rtruncnbinom
 
 #' @rdname dtrunc
 #' @param ... size

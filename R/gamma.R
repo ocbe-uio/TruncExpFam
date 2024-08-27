@@ -7,7 +7,7 @@
 #' @param scale scale of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtruncgamma <- rtrunc.gamma <- function(
+rtruncgamma <- function(
   n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, faster = FALSE)
 {
   if (!missing(rate) && !missing(scale)) {
@@ -23,6 +23,7 @@ rtruncgamma <- rtrunc.gamma <- function(
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.gamma <- rtruncgamma
 
 #' @export
 dtrunc.trunc_gamma <- function(

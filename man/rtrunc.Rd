@@ -3,8 +3,7 @@
 %   R/contbernoulli.R, R/exponential.R, R/gamma.R, R/inverse-gamma.R,
 %   R/inverse-gaussian.R, R/log-normal.R, R/negative-binomial.R, R/normal.R,
 %   R/poisson.R, R/rtrunc.R, R/rtrunc_direct.R
-\name{rtrunc.beta}
-\alias{rtrunc.beta}
+\name{rtruncbeta}
 \alias{rtruncbeta}
 \alias{rtruncbinom}
 \alias{rtruncchisq}
@@ -21,8 +20,6 @@
 \alias{rtrunc_direct}
 \title{The Truncated Exponential Family}
 \usage{
-rtrunc.beta(n, shape1, shape2, a = 0, b = 1, faster = FALSE)
-
 rtruncbeta(n, shape1, shape2, a = 0, b = 1, faster = FALSE)
 
 rtruncbinom(n, size, prob, a = 0, b = size, faster = FALSE)

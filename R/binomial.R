@@ -6,7 +6,7 @@
 #' @param prob probability of success on each trial
 #' @rdname rtrunc
 #' @export
-rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size, faster = FALSE) {
+rtruncbinom <- function(n, size, prob, a = 0, b = size, faster = FALSE) {
   class(n) <- "trunc_binomial"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -17,6 +17,7 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size, faste
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.binomial <- rtruncbinom
 
 #' @export
 dtrunc.trunc_binomial <- function(

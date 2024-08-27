@@ -5,7 +5,7 @@
 #' @param rate vector of rates
 #' @rdname rtrunc
 #' @export
-rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf, faster = FALSE) {
+rtruncexp <- function(n, rate = 1, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_exp"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -16,6 +16,7 @@ rtruncexp <- rtrunc.exp <- function(n, rate = 1, a = 0, b = Inf, faster = FALSE)
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.exp <- rtruncexp
 
 #' @export
 dtrunc.trunc_exp <- function(y, rate = 1, eta, a = 0, b = Inf, ...) {
