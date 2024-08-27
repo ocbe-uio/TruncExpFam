@@ -5,7 +5,9 @@
 #' @param lambda mean and var of "parent" distribution
 #' @rdname rtrunc
 #' @export
-rtruncpois <- rtrunc.poisson <- function(n, lambda, a = 0, b = Inf, faster = FALSE) {
+rtruncpois <- rtrunc.poisson <- function(
+  n, lambda, a = 0, b = Inf, faster = FALSE
+) {
   class(n) <- "trunc_poisson"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -16,6 +18,7 @@ rtruncpois <- rtrunc.poisson <- function(n, lambda, a = 0, b = Inf, faster = FAL
     return(sampleFromTruncated(parms))
   }
 }
+
 
 #' @export
 dtrunc.trunc_poisson <- function(y, lambda, eta, a = 0, b = Inf, ...) {

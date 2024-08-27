@@ -8,15 +8,15 @@
 #' @rdname rtrunc
 #' @export
 rtruncgamma <- function(
-  n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, faster = FALSE)
-{
+  n, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, faster = FALSE
+) {
   if (!missing(rate) && !missing(scale)) {
     stop("specify 'rate' or 'scale' but not both")
   }
   class(n) <- "trunc_gamma"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
-    parms <- mget(ls())[grep("^faster$|^n$|^family$|^rate$", ls(), invert=TRUE)]
+    parms <- mget(ls())[grep("^faster$|^n$|^family$|^rate$", ls(), invert = TRUE)]
     return(rtrunc_direct(n, family, parms, a, b))
   } else {
     parms <- mget(ls())[grep("^faster$", ls(), invert = TRUE)]

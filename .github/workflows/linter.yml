@@ -40,7 +40,9 @@ jobs:
           run: |
             library(lintr)
             excluded_files <- list(
-              "vignettes/Sampling_and_ML_estimation.Rmd:29"
+              "vignettes/Sampling_and_ML_estimation.Rmd:29",
+              "R/probdist-class.R:25,29,38,40",
+              "R/prepEta.R:2"
             )
             style_rules <- list(
               T_and_F_symbol_linter(), assignment_linter(), brace_linter(),
