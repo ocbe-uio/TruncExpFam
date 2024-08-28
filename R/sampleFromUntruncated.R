@@ -71,5 +71,4 @@ sampleFromTruncated <- function(parms) {
   # Attaching attributes -------------------------------------------------------
   class(y) <- className
   y <- attachDistroAttributes(y, family, parms)
-  return(y)
 }

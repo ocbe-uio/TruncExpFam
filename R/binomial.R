@@ -49,12 +49,12 @@ empiricalParameters.trunc_binomial <- function(y, size, ...) {
   }
   parms <- c("size" = size, "prob" = mean(y) / size)
   class(parms) <- "parms_binomial"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_binomial
 sufficientT.trunc_binomial <- function(y) {
-  return(suff.T = y)
+  suff.T <- y
 }
 
 #' @export
@@ -64,7 +64,7 @@ natural2parameters.parms_binomial <- function(eta, ...) {
   if (length(eta) != 1) stop("Eta must be one single number")
   p <- c(prob = 1 / (1 + exp(-eta[[1]])))
   class(p) <- class(eta)
-  return(p)
+  p
 }
 
 #' @export
@@ -74,7 +74,7 @@ parameters2natural.parms_binomial <- function(parms, ...) {
   prob <- parms[["prob"]]
   eta <- prepEta(log(prob / (1 - prob)), class(parms))
   attr(eta, "nsize") <- parms[["size"]]
-  return(eta)
+  eta
 }
 
 #' @method getGradETinv parms_binomial
@@ -83,7 +83,7 @@ getGradETinv.parms_binomial <- function(eta, ...) {
   # return the inverse of E.T differentiated with respect to eta
   nsize <- attr(eta, "nsize")
   exp.eta <- exp(eta)
-  return(A = ((1 + exp.eta)^2 / exp.eta) / nsize)
+  ((1 + exp.eta)^2 / exp.eta) / nsize
 }
 
 #' @method getYseq trunc_binomial

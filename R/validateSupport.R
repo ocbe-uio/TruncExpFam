@@ -99,7 +99,7 @@ createSupport <- function(lower, upper, inclusion_brackets) {
     out$txt <- append(out$txt, new_txt)
   }
   out$txt <- paste(out$txt, collapse = " or ")
-  return(out)
+  out
 }
 
 judgeSupportLimits <- function(

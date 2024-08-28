@@ -53,12 +53,12 @@ empiricalParameters.trunc_gamma <- function(y, ...) {
   shp <- amean^2 / avar
   parms <- c(shape = shp, rate = shp / amean)
   class(parms) <- "parms_gamma"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_gamma
 sufficientT.trunc_gamma <- function(y) {
-  return(suff.T = cbind(log(y), y))
+  suff.T <- cbind(log(y), y)
 }
 
 #' @export
@@ -68,7 +68,7 @@ natural2parameters.parms_gamma <- function(eta, ...) {
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c("shape" = eta[[1]] + 1, "rate" = -eta[[2]])
   class(parms) <- class(eta)
-  return(parms)
+  parms
 }
 
 #' @export
@@ -81,7 +81,7 @@ parameters2natural.parms_gamma <- function(parms, ...) {
     eta <- c(eta1 = parms[["shape"]] - 1, eta2 = -1 / parms[["scale"]])
   }
   class(eta) <- class(parms)
-  return(eta)
+  eta
 }
 
 #' @method getYseq trunc_gamma
@@ -112,5 +112,5 @@ getGradETinv.parms_gamma <- function(eta, ...) {
     ),
     ncol = 2
   )
-  return(A = solve(A_inv))
+  A <- solve(A_inv)
 }

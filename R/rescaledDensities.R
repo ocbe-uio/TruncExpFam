@@ -8,5 +8,5 @@ rescaledDensities <- function(y, a, b, densFunction, probFunction, ...) {
   F.b <- ifelse(is.infinite(b), 1, probFunction(b, ...))
   dens <- dens / (F.b - F.a)
   attributes(dens) <- attributes(y)
-  return(dens)
+  dens
 }

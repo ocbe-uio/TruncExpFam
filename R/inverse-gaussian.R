@@ -41,12 +41,12 @@ empiricalParameters.trunc_invgauss <- function(y, ...) {
   lambda <- mean ^ 3 / sd ^ 2
   parms <- c(m = mean, s = 1 / lambda)
   class(parms) <- "parms_invgauss"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_invgauss
 sufficientT.trunc_invgauss <- function(y) {
-  return(suff.T = cbind(y, 1 / y))
+  cbind(y, 1 / y)
 }
 
 #' @export
@@ -57,7 +57,7 @@ parameters2natural.parms_invgauss <- function(parms, ...) {
   lambda <- 1 / parms[["s"]]
   eta <- c(eta1 = -lambda / (2 * mu ^ 2), eta2 = -lambda / 2)
   class(eta) <- class(parms)
-  return(eta)
+  eta
 }
 
 #' @export
@@ -69,7 +69,7 @@ natural2parameters.parms_invgauss <- function(eta, ...) {
   lambda <- -2 * eta[[2]]
   parms <- c(m = mu, s = 1 / lambda)
   class(parms) <- class(eta)
-  return(parms)
+  parms
 }
 
 #' @method getYseq trunc_invgauss
@@ -93,5 +93,5 @@ getGradETinv.parms_invgauss <- function(eta, ...) {
   mx_21 <- mx_12
   mx_22 <- (1 - eta[1] * sqrt(eta[2] / eta[1])) / (eta[2] ^ 2)
   A_inv <- 0.5 * matrix(c(mx_11, mx_12, mx_21, mx_22), ncol = 2)
-  return(A = solve(A_inv))
+  A <- solve(A_inv)
 }
