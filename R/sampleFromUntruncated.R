@@ -5,7 +5,8 @@ sampleFromTruncated <- function(parms) {
   # Generating empty structure with correct class ------------------------------
   className <- class(parms$n)
   family <- gsub("trunc_", "", className)
-  y <- structure(numeric(0), class = className)
+  y <- numeric(0)
+  class(y) = className
 
   # Checking domain and parmeters ----------------------------------------------
   validateDomain(y, parms)
