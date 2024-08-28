@@ -6,7 +6,7 @@ sampleFromTruncated <- function(parms) {
   className <- class(parms$n)
   family <- gsub("trunc_", "", className)
   y <- numeric(0)
-  class(y) = className
+  class(y) <- className
 
   # Checking domain and parmeters ----------------------------------------------
   validateDomain(y, parms)
