@@ -89,5 +89,5 @@ getGradETinv.parms_normal <- function(eta, ...) {
     ),
     ncol = 2
   )
-  return(A = solve(A_inv))
+  solve(A_inv)
 }

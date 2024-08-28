@@ -14,6 +14,7 @@ genrtruncClass <- function(n, family, parms) {
   validation_family_parms <- validateFamilyParms(family, parms)
   if (validation_family_parms$is_valid) {
     family <- validation_family_parms$family_name
-    return(family)
+  } else {
+    stop("Invalid family parameters")
   }
 }
