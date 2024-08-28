@@ -59,12 +59,12 @@ empiricalParameters.trunc_nbinom <- function(y, r, k, ...) {
     parms <- c("size" = r, "prob" = (r - 1) / (r + k - 1))
   }
   class(parms) <- "parms_nbinom"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_nbinom
 sufficientT.trunc_nbinom <- function(y) {
-  return(suff.T = y)
+  suff.T <- y
 }
 
 #' @export
@@ -72,7 +72,7 @@ natural2parameters.parms_nbinom <- function(eta, ...) {
   # eta: The natural parameters in a negative binomial distribution
   p <- c(mean = exp(eta))
   class(p) <- class(eta)
-  return(p)
+  p
 }
 
 #' @export
@@ -85,7 +85,6 @@ parameters2natural.parms_nbinom <- function(parms, ...) {
     mean <- parms[["mean"]]
   }
   eta <- prepEta(log(mean), class(parms))
-  return(eta)
 }
 
 #' @method getGradETinv parms_nbinom

@@ -204,9 +204,8 @@ cumDens <- function(x, probFunction, ...) {
     return(0)
   } else if (x == Inf || x == 1) {
     return(1)
-  } else {
-    return(probFunction(x, ...))
   }
+  probFunction(x, ...)
 }
 
 truncated_q <- function(q_T, family, parms) {
@@ -217,9 +216,8 @@ truncated_q <- function(q_T, family, parms) {
     family = family,
     parms  = parms
   )
-  return(q_T)
 }
 
 rescaled_q <- function(n, F_a, F_b) {
-  return(runif(n) * (F_b - F_a) + F_a)
+  runif(n) * (F_b - F_a) + F_a
 }

@@ -45,13 +45,13 @@ empiricalParameters.trunc_beta <- function(y, ...) {
   beta <- alpha * (1 / amean - 1)
   parms <- c(shape1 = alpha, shape2 = beta)
   class(parms) <- "parms_beta"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_beta
 sufficientT.trunc_beta <- function(y) {
   # Calculates the sufficient statistic T(y)
-  return(suff.T = cbind(log(y), log(1 - y)))
+  suff.T <- cbind(log(y), log(1 - y))
 }
 
 #' @export
@@ -61,7 +61,7 @@ natural2parameters.parms_beta <- function(eta, ...) {
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c(shape1 = eta[[1]], shape2 = eta[[2]])
   class(parms) <- class(eta)
-  return(parms)
+  parms
 }
 
 #' @export
@@ -69,7 +69,6 @@ parameters2natural.parms_beta <- function(parms, ...) {
   # parms: The parameters shape and rate in a beta distribution
   # returns the natural parameters
   eta <- prepEta(c(parms[1], parms[2]), class(parms))
-  return(eta)
 }
 
 #' @method getYseq trunc_beta
@@ -82,7 +81,7 @@ getYseq.trunc_beta <- function(y, y.min = 0, y.max = 1, n = 100) {
   out <- seq(lo, hi, length = n)
   out <- out[out > 0 & out < 1] # prevents NaN as sufficient statistics
   class(out) <- class(y)
-  return(out)
+  out
 }
 
 #' @method getGradETinv parms_beta
@@ -98,5 +97,5 @@ getGradETinv.parms_beta <- function(eta, ...) {
   term.12 <- -(1 + 2 * (x + y)) / (2 * (x + y) ^ 2)
   term.2 <- (x * (x + 2 * x * y + 2 * y * (1 + y))) / (2 * y ^ 2 * (x + y) ^ 2)
   A_inv <- matrix(c(term.1, term.12, term.12, term.2), ncol = 2)
-  return(A = solve(A_inv))
+  solve(A_inv)
 }

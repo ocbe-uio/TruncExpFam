@@ -146,8 +146,7 @@ getTminusET <- function(eta, y.seq, y.min, y.max, cont.dist, T.avg) {
       E.T.j <- E.T.j - delta.y * 0.5 * (T.f[1] + T.f[length(y.seq)])
     }
   }
-  T.bar.minus.E.T.j <- T.avg - E.T.j # 1 x p
-  return(T.bar.minus.E.T.j)
+  T.avg - E.T.j # 1 x p
 }
 
 welcomeToFamily <- function(y, family) {

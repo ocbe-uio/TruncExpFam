@@ -39,12 +39,12 @@ empiricalParameters.trunc_poisson <- function(y, ...) {
   # Returns empirical parameter estimate for lambda
   parms <- c("lambda" = mean(y))
   class(parms) <- "parms_poisson"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_poisson
 sufficientT.trunc_poisson <- function(y) {
-  return(suff.T = y)
+  y
 }
 
 #' @export
@@ -54,7 +54,7 @@ natural2parameters.parms_poisson <- function(eta, ...) {
   if (length(eta) != 1) stop("Eta must be one single number")
   lambda <- c(lambda = exp(eta[[1]]))
   class(lambda) <- class(eta)
-  return(lambda)
+  lambda
 }
 
 #' @export
@@ -62,14 +62,13 @@ parameters2natural.parms_poisson <- function(parms, ...) {
   # parms: The parameter lambda in a Poisson distribution
   # returns the natural parameters
   eta <- prepEta(log(parms), class(parms))
-  return(eta)
 }
 
 #' @method getGradETinv parms_poisson
 getGradETinv.parms_poisson <- function(eta, ...) {
   # eta: Natural parameter
   # return the inverse of E.T differentiated with respect to eta
-  return(A = exp(-eta))
+  exp(-eta)
 }
 
 #' @method getYseq trunc_poisson

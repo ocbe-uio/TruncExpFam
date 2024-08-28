@@ -72,5 +72,5 @@ printParm <- function(parms, max_name_width = 7L, max_value_width = 10L) {
 
 titleCase <- function(txt) {
   txt <- strsplit(txt, "")[[1]]
-  return(paste(append(toupper(txt[[1]]), txt[-1]), collapse = ""))
+  paste(append(toupper(txt[[1]]), txt[-1]), collapse = "")
 }

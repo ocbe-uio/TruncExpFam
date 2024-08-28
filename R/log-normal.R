@@ -21,7 +21,7 @@ rtrunc.lognormal <- rtrunclnorm
 
 #' @method sufficientT trunc_lognormal
 sufficientT.trunc_lognormal <- function(y) {
-  return(suff.T = cbind(log(y), log(y)^2))
+  cbind(log(y), log(y)^2)
 }
 
 #' @export
@@ -49,7 +49,7 @@ empiricalParameters.trunc_lognormal <- function(y, ...) {
   x <- log(y)
   parms <- c("meanlog" = mean(x), "sdlog" = sqrt(var(x)))
   class(parms) <- "parms_lognormal"
-  return(parms)
+  parms
 }
 
 #' @method getYseq trunc_lognormal
@@ -71,14 +71,14 @@ natural2parameters.parms_lognormal <- function(eta, ...) {
     "meanlog" = -0.5 * eta[[1]] / eta[[2]], "sdlog" = sqrt(-0.5 / eta[[2]])
   )
   class(parms) <- class(eta)
-  return(parms)
+  parms
 }
 
 #' @export
 parameters2natural.parms_lognormal <- function(parms, ...) {
   eta <- c(eta1 = parms[["meanlog"]], eta2 = -0.5) / parms[["sdlog"]]^2
   class(eta) <- class(parms)
-  return(eta)
+  eta
 }
 
 #' @method getYseq parms_lognormal

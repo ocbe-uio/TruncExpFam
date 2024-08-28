@@ -50,12 +50,12 @@ empiricalParameters.trunc_invgamma <- function(y, ...) {
   beta <- (alpha - 1) * amean
   parms <- c(shape = alpha, rate = beta)
   class(parms) <- "parms_invgamma"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_invgamma
 sufficientT.trunc_invgamma <- function(y) {
-  return(suff.T = cbind(log(y), 1 / y))
+  cbind(log(y), 1 / y)
 }
 
 #' @export
@@ -65,7 +65,7 @@ natural2parameters.parms_invgamma <- function(eta, ...) {
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c("shape" = -eta[[1]] - 1, "rate" = -eta[[2]])
   class(parms) <- class(eta)
-  return(parms)
+  parms
 }
 
 #' @export
@@ -74,7 +74,7 @@ parameters2natural.parms_invgamma <- function(parms, ...) {
   # returns the natural parameters
   eta <- c(eta1 = -parms[[1]] - 1, eta2 = -parms[[2]])
   class(eta) <- class(parms)
-  return(eta)
+  eta
 }
 
 #' @method getYseq trunc_invgamma
@@ -97,5 +97,5 @@ getGradETinv.parms_invgamma <- function(eta, ...) {
   A.22 <- sum((0:10000 + eta[1] + 1) / eta[2]^2)
   A.12 <- -1 / eta[2]
   inv_A <- matrix(c(A.11, A.12, A.12, A.22), ncol = 2)
-  return(A = solve(inv_A))
+  solve(inv_A)
 }

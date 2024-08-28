@@ -40,12 +40,12 @@ empiricalParameters.trunc_normal <- function(y, ...) {
   # Returns empirical parameter estimates mean and sd
   parms <- c(mean = mean(y), sd = sqrt(var(y)))
   class(parms) <- "parms_normal"
-  return(parms)
+  parms
 }
 
 #' @method sufficientT trunc_normal
 sufficientT.trunc_normal <- function(y) {
-  return(suff.T = cbind(y, y^2))
+  cbind(y, y^2)
 }
 
 #' @export
@@ -55,7 +55,7 @@ natural2parameters.parms_normal <- function(eta, ...) {
   if (length(eta) != 2) stop("Eta must be a vector of two elements")
   parms <- c("mean" = -0.5 * eta[[1]] / eta[[2]], "sd" = sqrt(-0.5 / eta[[2]]))
   class(parms) <- class(eta)
-  return(parms)
+  parms
 }
 
 #' @export
@@ -64,7 +64,7 @@ parameters2natural.parms_normal <- function(parms, ...) {
   # returns the natural parameters
   eta <- c(eta1 = parms[["mean"]], eta2 = -0.5) / parms[["sd"]]^2
   class(eta) <- class(parms)
-  return(eta)
+  eta
 }
 
 #' @method getYseq trunc_normal
