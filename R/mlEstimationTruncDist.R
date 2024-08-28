@@ -167,5 +167,5 @@ welcomeToFamily <- function(y, family) {
     )
     validateSupport(y, parms = attr(y, "parameters"))
   }
-  return(y)
+  y
 }
