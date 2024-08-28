@@ -109,14 +109,14 @@ judgeSupportLimits <- function(
   operator_1 <- strsplit(support[["txt"]], "")[[1]][1]
   operator_2 <- strsplit(support[["txt"]], "")[[1]][nchar(support[["txt"]])]
   if (operator_1 %in% c("{", "[")) {
-    operator_1 <- get('<')
+    operator_1 <- get("<")
   } else {
-    operator_1 <- get('<=')
+    operator_1 <- get("<=")
   }
   if (operator_2 %in% c("}", "]")) {
-    operator_2 <- get('>')
+    operator_2 <- get(">")
   } else {
-    operator_2 <- get('>=')
+    operator_2 <- get(">=")
   }
   if (any(operator_1(data, support$l)) || any(operator_2(data, support$u))) {
     stop("Sample contains values outside of support ", support$txt)
