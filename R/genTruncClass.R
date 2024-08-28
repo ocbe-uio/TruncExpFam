@@ -10,11 +10,6 @@ genrtruncClass <- function(n, family, parms) {
   # Dropping a and b (parameters not used for validating) -- #
   parms <- parms[!(parms %in% c("a", "b"))]
 
-  # Validating --------------------------------------------- #
   validation_family_parms <- validateFamilyParms(family, parms)
-  if (validation_family_parms$is_valid) {
-    family <- validation_family_parms$family_name
-  } else {
-    stop("Invalid family parameters")
-  }
+  family <- validation_family_parms$family_name
 }
