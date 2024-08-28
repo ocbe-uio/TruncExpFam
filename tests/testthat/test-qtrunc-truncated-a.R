@@ -1,6 +1,7 @@
 context("qtrunc, lower truncation")
 
 test_that("qtrunc() works as expected (beta)", {
+  fam <- "beta"
   for (lg in c(FALSE, TRUE)) {
     for (lt in c(TRUE, FALSE)) {
       for (i in seq_len(3L)) {
@@ -8,9 +9,9 @@ test_that("qtrunc() works as expected (beta)", {
         shp2 <- sample(1:10, 1L)
         pt <- runif(i)
         if (lg) pt <- log(pt)
-        a <- qtrunc(min(pt) / 2, "beta", shp1, shp2, lower.tail = lt, log.p = lg)
+        a <- qtrunc(min(pt) / 2, fam, shp1, shp2, lower.tail = lt, log.p = lg)
         q_trunc <- qtrunc(
-          pt, "beta", shp1, shp2, a = a, lower.tail = lt, log.p = lg
+          pt, fam, shp1, shp2, a = a, lower.tail = lt, log.p = lg
         )
         q_stats <- qbeta(pt, shp1, shp2, lower.tail = lt, log.p = lg)
         expect_length(pt, i)
@@ -19,7 +20,7 @@ test_that("qtrunc() works as expected (beta)", {
           expect_gt(q_trunc[ii], q_stats[ii])
           # Working back to p from q
           ptr <- ptrunc(
-            q_trunc[ii], "beta", shp1, shp2, lower.tail = lt, log.p = lg, a = a
+            q_trunc[ii], fam, shp1, shp2, lower.tail = lt, log.p = lg, a = a
           )
           expect_equal(pt[ii], ptr)
         }
@@ -80,7 +81,9 @@ test_that("qtrunc() works as expected (chisq)", {
         for (ii in seq_along(pt)) {
           expect_gte(q_trunc[ii], q_stats[ii])
           # Working back to p from q
-          ptr <- ptrunc(q_trunc[ii], fam, df, lower.tail = lt, log.p = lg, a = a)
+          ptr <- ptrunc(
+            q_trunc[ii], fam, df, lower.tail = lt, log.p = lg, a = a
+          )
           expect_equal(pt[ii], ptr)
         }
       }
@@ -121,7 +124,9 @@ test_that("qtrunc() works as expected (exp)", {
         for (ii in seq_along(pt)) {
           expect_gt(q_trunc[ii], q_stats[ii])
           # Working back to p from q
-          ptr <- ptrunc(q_trunc[ii], fam, rate, lower.tail = lt, log.p = lg, a = a)
+          ptr <- ptrunc(
+            q_trunc[ii], fam, rate, lower.tail = lt, log.p = lg, a = a
+          )
           expect_equal(pt[ii], ptr)
         }
       }
@@ -250,8 +255,12 @@ test_that("qtrunc() works as expected (negbinom)", {
         pt <- runif(i)
         if (lg) pt <- log(pt)
         a <- qtrunc(min(pt) / 2, fam, sz, pb, lower.tail = lt, log.p = lg)
-        q_trunc_pb <- qtrunc(pt, fam, sz, pb, a = a, lower.tail = lt, log.p = lg)
-        q_trunc_mu <- qtrunc(pt, fam, sz, mu = mu, a = a, lower.tail = lt, log.p = lg)
+        q_trunc_pb <- qtrunc(
+          pt, fam, sz, pb, a = a, lower.tail = lt, log.p = lg
+        )
+        q_trunc_mu <- qtrunc(
+          pt, fam, sz, mu = mu, a = a, lower.tail = lt, log.p = lg
+        )
         q_stats <- qnbinom(pt, sz, pb, lower.tail = lt, log.p = lg)
         expect_length(q_trunc_pb, i)
         expect_equal(q_trunc_pb, q_trunc_mu, tolerance = 1e-6)

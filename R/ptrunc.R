@@ -93,7 +93,9 @@ ptrunc.poisson <- function(
 #' @inheritParams rtrunc
 ptruncpois <- ptrunc.poisson
 
-ptrunc.chisq <- function(q, df, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE) {
+ptrunc.chisq <- function(
+  q, df, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
+) {
   validate_q_a_b(q, a, b)
   p_q <- pchisq(q, df, ncp = 0, lower.tail = TRUE, log.p)
   p_a <- pchisq(a - 1L, df, ncp = 0, lower.tail = TRUE, log.p)
@@ -119,7 +121,9 @@ ptrunc.contbern <- function(q, lambda, a = 0, b = 1, ...) {
 #' @inheritParams rtrunc
 ptrunccontbern <- ptrunc.contbern
 
-ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE) {
+ptrunc.exp <- function(
+  q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
+) {
   validate_q_a_b(q, a, b)
   p_q <- pexp(q, rate, lower.tail = TRUE, log.p)
   p_a <- pexp(a, rate, lower.tail = TRUE, log.p)
@@ -133,7 +137,8 @@ ptrunc.exp <- function(q, rate = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.
 ptruncexp <- ptrunc.exp
 
 ptrunc.gamma <- function(
-  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail = TRUE,
+  log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   if (!missing(rate) && !missing(scale)) {
@@ -151,7 +156,8 @@ ptrunc.gamma <- function(
 ptruncgamma <- ptrunc.gamma
 
 ptrunc.invgamma <- function(
-  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
+  q, shape, rate = 1, scale = 1 / rate, a = 0, b = Inf, ..., lower.tail = TRUE,
+  log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   if (!missing(rate) && !missing(scale)) {
@@ -182,7 +188,8 @@ ptrunc.invgauss <- function(q, m, s, a = 0, b = Inf, ...) {
 ptruncinvgauss <- ptrunc.invgauss
 
 ptrunc.lognormal <- function(
-  q, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail = TRUE, log.p = FALSE
+  q, meanlog = 0, sdlog = 1, a = 0, b = Inf, ..., lower.tail = TRUE,
+  log.p = FALSE
 ) {
   validate_q_a_b(q, a, b)
   p_q <- plnorm(q, meanlog, sdlog, lower.tail = TRUE, log.p)

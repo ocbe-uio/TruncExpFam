@@ -24,7 +24,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
         - name: Checking out the repository
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Setting up R
           uses: r-lib/actions/setup-r@v2
@@ -40,20 +40,22 @@ jobs:
           run: |
             library(lintr)
             excluded_files <- list(
-              "vignettes/Sampling_and_ML_estimation.Rmd:29"
+              "vignettes/Sampling_and_ML_estimation.Rmd" = 29,
+              "R/probdist-class.R" = c(25, 29, 38, 40, 43),
+              "R/prepEta.R" = 2
             )
             style_rules <- list(
               T_and_F_symbol_linter(), assignment_linter(), brace_linter(),
               commas_linter(), commented_code_linter(), todo_comment_linter(),
-              cyclocomp_linter(), equals_na_linter(),
+              equals_na_linter(),
               function_left_parentheses_linter(), infix_spaces_linter(),
-              line_length_linter(), no_tab_linter(), absolute_path_linter(),
+              line_length_linter(), whitespace_linter(), absolute_path_linter(),
               pipe_continuation_linter(),
-              semicolon_linter(), seq_linter(), single_quotes_linter(),
+              semicolon_linter(), seq_linter(), quotes_linter(),
               spaces_inside_linter(), spaces_left_parentheses_linter(),
               trailing_blank_lines_linter(), trailing_whitespace_linter(),
               undesirable_function_linter(), undesirable_operator_linter(),
-              unneeded_concatenation_linter()
+              unnecessary_concatenation_linter()
             )
             lint_package(linters = style_rules, exclusions = excluded_files)
           shell: Rscript {0}

@@ -2,7 +2,6 @@
 #' @inheritParams genrtruncClass
 #' @export
 rtrunc_direct <- function(n, family = "gaussian", parms, a, b, ...) {
-  # TODO: fix all code smells: https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam
 
   # Validating ---------------------------------------------------------------
   family <-  useStandardFamilyName(tolower(family))
@@ -162,7 +161,9 @@ rtrunc_direct.poisson <- function(n, family, parms, a = 0, b = Inf, ...) {
 }
 
 #' @export
-rtrunc_direct.binomial <- function(n, family, parms, a = 0, b = parms[["size"]], ...) {
+rtrunc_direct.binomial <- function(
+  n, family, parms, a = 0, b = parms[["size"]], ...
+) {
   F_a <- cumDens(a, pbinom, parms[["size"]], parms[["prob"]])
   F_b <- cumDens(b, pbinom, parms[["size"]], parms[["prob"]])
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
@@ -184,10 +185,13 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
     # Choose a practical b because a:Inf doesn't work
     practical_b <- ifelse(
       test = b == Inf,
-      yes  = qnbinom(p = 1e-50, parms[["size"]], parms[["prob"]], lower.tail = FALSE),
+      yes  = qnbinom(
+        p = 1e-50, parms[["size"]], parms[["prob"]], lower.tail = FALSE
+      ),
       no   = b
     )
-    weights <- dnbinom(a:practical_b, parms[["size"]], parms[["prob"]]) / (F_b - F_a)
+    d_a_practical_b <- dnbinom(a:practical_b, parms[["size"]], parms[["prob"]])
+    weights <- d_a_practical_b / (F_b - F_a)
   }
   trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
@@ -196,10 +200,9 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
 }
 
 cumDens <- function(x, probFunction, ...) {
-  # TODOS: x should check against the support of the distro, not -Inf, 0, Inf, 1
-  if (x == -Inf || x == 0) { # TODO: check. x can be 0 and still have F(x) > 0.
+  if (x == -Inf || x == 0) {
     return(0)
-  } else if (x == Inf || x == 1) { # TODO: check. x can be 1 and still have F(x) < 1
+  } else if (x == Inf || x == 1) {
     return(1)
   } else {
     return(probFunction(x, ...))

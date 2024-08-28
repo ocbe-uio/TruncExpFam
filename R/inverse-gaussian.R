@@ -6,7 +6,7 @@
 #' @param s vector of dispersion parameters
 #' @rdname rtrunc
 #' @export
-rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a = 0, b = Inf, faster = FALSE) {
+rtruncinvgauss <- function(n, m, s, a = 0, b = Inf, faster = FALSE) {
   class(n) <- "trunc_invgauss"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -17,6 +17,7 @@ rtruncinvgauss <- rtrunc.invgauss <- function(n, m, s, a = 0, b = Inf, faster = 
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.invgauss <- rtruncinvgauss
 
 #' @export
 dtrunc.trunc_invgauss <- function(y, m, s, eta, a = 0, b = Inf, ...) {

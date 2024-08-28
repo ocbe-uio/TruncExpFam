@@ -74,7 +74,9 @@ test_that("lower truncation works as expected (binomial)", {
         prob <- runif(1L, .2, .8)
         a <- sample(1:(size - 4L), 1L)
         qt <- sample(seq(a + 1L, size - 1L), i, replace = TRUE)
-        p_trunc <- ptrunc(qt, "binomial", size, prob, a = a, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "binomial", size, prob, a = a, lower.tail = lt, log.p = lg
+        )
         p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)

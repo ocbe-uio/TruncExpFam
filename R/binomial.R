@@ -6,7 +6,7 @@
 #' @param prob probability of success on each trial
 #' @rdname rtrunc
 #' @export
-rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size, faster = FALSE) {
+rtruncbinom <- function(n, size, prob, a = 0, b = size, faster = FALSE) {
   class(n) <- "trunc_binomial"
   if (faster) {
     family <- gsub("trunc_", "", class(n))
@@ -17,6 +17,7 @@ rtruncbinom <- rtrunc.binomial <- function(n, size, prob, a = 0, b = size, faste
     return(sampleFromTruncated(parms))
   }
 }
+rtrunc.binomial <- rtruncbinom
 
 #' @export
 dtrunc.trunc_binomial <- function(
@@ -28,7 +29,7 @@ dtrunc.trunc_binomial <- function(
   nsize <- attr(y, "parameters")$size
   proba <- 1 / (1 + exp(-eta))
   dens <- ifelse((y < a) | (y > b), 0, dbinom(y, size = nsize, prob = proba))
-  F.a <- pbinom(a - 1L, size = nsize, prob = proba) # -1L because a = 0 means no truncation
+  F.a <- pbinom(a - 1L, size = nsize, prob = proba) # -1 bc a = 0 is no trunc
   F.b <- pbinom(b, size = nsize, prob = proba)
   dens <- dens / (F.b - F.a)
   attributes(dens) <- attributes(y)

@@ -270,9 +270,12 @@ test_that("upper truncation works as expected (invgamma)", {
           qt, "invgamma", shp, rate = rte, b = b, lower.tail = lt, log.p = lg
         )
         p_trunc_2 <- ptrunc(
-          qt, "invgamma", shp, scale = 1 / rte, b = b, lower.tail = lt, log.p = lg
+          qt, "invgamma", shp, scale = 1 / rte, b = b, lower.tail = lt,
+          log.p = lg
         )
-        p_invgamma <- pinvgamma(qt, shp, rate = rte, lower.tail = lt, log.p = lg)
+        p_invgamma <- pinvgamma(
+          qt, shp, rate = rte, lower.tail = lt, log.p = lg
+        )
         expect_length(qt, i)
         expect_length(p_trunc, i)
         for (q in seq_along(qt)) {

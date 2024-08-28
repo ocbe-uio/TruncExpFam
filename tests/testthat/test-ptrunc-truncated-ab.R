@@ -203,13 +203,14 @@ test_that("doubly-truncated ptrunc() works as expected (gamma)", {
         b <- max(ab)
         qt <- runif(i, a, b)
         p_trunc <- ptrunc(
-          qt, "gamma", shape = shp, rate = rte, a = a, b = b, lower.tail = lt, log.p = lg
+          qt, "gamma", shape = shp, rate = rte, a = a, b = b, lower.tail = lt,
+          log.p = lg
         )
         p_trunc_2 <- ptrunc(
           qt, "gamma", shape = shp, scale = 1 / rte, a = a, b = b,
           lower.tail = lt, log.p = lg
         )
-        p_gamma <- pgamma(qt, shape = shp, rate = rte, lower.tail = lt, log.p = lg)
+        p_gamma <- pgamma(qt, shp, rte, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)
         for (q in seq_along(qt)) {
@@ -240,13 +241,14 @@ test_that("doubly-truncated ptrunc() works as expected (invgamma)", {
         b <- max(ab)
         qt <- runif(i, a, b)
         p_trunc <- ptrunc(
-          qt, "invgamma", shape = shp, rate = rte, a = a, b = b, lower.tail = lt, log.p = lg
+          qt, "invgamma", shape = shp, rate = rte, a = a, b = b,
+          lower.tail = lt, log.p = lg
         )
         p_trunc_2 <- ptrunc(
           qt, "invgamma", shape = shp, scale = 1 / rte, a = a, b = b,
           lower.tail = lt, log.p = lg
         )
-        p_invgamma <- pinvgamma(qt, shape = shp, rate = rte, lower.tail = lt, log.p = lg)
+        p_invgamma <- pinvgamma(qt, shp, rte, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)
         for (q in seq_along(qt)) {
