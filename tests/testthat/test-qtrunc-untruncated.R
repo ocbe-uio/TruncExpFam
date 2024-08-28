@@ -133,7 +133,9 @@ test_that("qtrunc() works as expected (gamma)", {
         pt <- runif(i)
         if (lg) pt <- log(pt)
         q_trunc_sr <- qtrunc(pt, fam, shp, rat, lower.tail = lt, log.p = lg)
-        q_trunc_ss <- qtrunc(pt, fam, shp, scale = skl, lower.tail = lt, log.p = lg)
+        q_trunc_ss <- qtrunc(
+          pt, fam, shp, scale = skl, lower.tail = lt, log.p = lg
+        )
         q_stats <- qgamma(pt, shp, rat, lower.tail = lt, log.p = lg)
         expect_length(pt, i)
         expect_length(q_trunc_sr, i)
@@ -141,7 +143,9 @@ test_that("qtrunc() works as expected (gamma)", {
         for (ii in seq_along(pt)) {
           expect_equal(q_trunc_sr[ii], q_stats[ii])
           # Working back to p from q
-          ptr <- ptrunc(q_trunc_sr[ii], fam, shp, rat, lower.tail = lt, log.p = lg)
+          ptr <- ptrunc(
+            q_trunc_sr[ii], fam, shp, rat, lower.tail = lt, log.p = lg
+          )
           expect_equal(pt[ii], ptr)
         }
       }
@@ -160,9 +164,13 @@ test_that("qtrunc() works as expected (invgamma)", {
         pt <- runif(i)
         if (lg) pt <- log(pt)
         q_trunc_sr <- qtrunc(pt, fam, shp, rat, lower.tail = lt, log.p = lg)
-        q_trunc_ss <- qtrunc(pt, fam, shp, scale = skl, lower.tail = lt, log.p = lg)
+        q_trunc_ss <- qtrunc(
+          pt, fam, shp, scale = skl, lower.tail = lt, log.p = lg
+        )
         if (lg) {
-          q_stats <- qinvgamma(exp(pt), shp, rat, lower.tail = lt, log.p = FALSE)
+          q_stats <- qinvgamma(
+            exp(pt), shp, rat, lower.tail = lt, log.p = FALSE
+          )
         } else {
           q_stats <- qinvgamma(pt, shp, rat, lower.tail = lt, log.p = lg)
         }
@@ -172,7 +180,9 @@ test_that("qtrunc() works as expected (invgamma)", {
         for (ii in seq_along(pt)) {
           expect_equal(q_trunc_sr[ii], q_stats[ii])
           # Working back to p from q
-          ptr <- ptrunc(q_trunc_sr[ii], fam, shp, rat, lower.tail = lt, log.p = lg)
+          ptr <- ptrunc(
+            q_trunc_sr[ii], fam, shp, rat, lower.tail = lt, log.p = lg
+          )
           expect_equal(pt[ii], ptr)
         }
       }
@@ -225,7 +235,9 @@ test_that("qtrunc() works as expected (lognormal)", {
         for (ii in seq_along(pt)) {
           expect_equal(q_trunc[ii], q_stats[ii])
           # Working back to p from q
-          ptr <- ptrunc(q_trunc[ii], "lognormal", mn, sg, lower.tail = lt, log.p = lg)
+          ptr <- ptrunc(
+            q_trunc[ii], "lognormal", mn, sg, lower.tail = lt, log.p = lg
+          )
           expect_equal(pt[ii], ptr)
         }
       }

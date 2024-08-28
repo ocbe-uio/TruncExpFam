@@ -55,7 +55,9 @@ test_that("untruncated ptrunc() works as expected (binomial)", {
         size <- sample(1:10, 1L)
         prob <- runif(1)
         qt <- rbinom(i, size, prob)
-        p_trunc <- ptrunc(qt, "binomial", size, prob, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "binomial", size, prob, lower.tail = lt, log.p = lg
+        )
         p_binom <- pbinom(qt, size, prob, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)
@@ -189,7 +191,9 @@ test_that("untruncated ptrunc() works as expected (invgamma)", {
         shp <- rchisq(1L, df = 10L)
         rate <- rchisq(1L, df = 10L)
         qt <- rinvgamma(i, shp, rate)
-        p_trunc <- ptrunc(qt, "invgamma", shp, rate, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "invgamma", shp, rate, lower.tail = lt, log.p = lg
+        )
         p_trunc_2 <- ptrunc(
           qt, "invgamma", shp, scale = 1 / rate, lower.tail = lt, log.p = lg
         )
@@ -236,7 +240,9 @@ test_that("untruncated ptrunc() works as expected (lognormal)", {
         meanlog <- rnorm(1L, sd = 10)
         sdlog <- rchisq(1L, 5L)
         qt <- rlnorm(i, meanlog, sdlog)
-        p_trunc <- ptrunc(qt, "lognormal", meanlog, sdlog, lower.tail = lt, log.p = lg)
+        p_trunc <- ptrunc(
+          qt, "lognormal", meanlog, sdlog, lower.tail = lt, log.p = lg
+        )
         p_lnorm <- plnorm(qt, meanlog, sdlog, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)
@@ -261,7 +267,9 @@ test_that("untruncated ptrunc() works as expected (negative binomial)", {
         mu <- size * (1 - prob) / prob
         qt <- rnbinom(i, size, prob)
         p_trunc <- ptrunc(qt, "nbinom", size, prob, lower.tail = lt, log.p = lg)
-        p_trunc_2 <- ptrunc(qt, "nbinom", size, mu = mu, lower.tail = lt, log.p = lg)
+        p_trunc_2 <- ptrunc(
+          qt, "nbinom", size, mu = mu, lower.tail = lt, log.p = lg
+        )
         p_binom <- pnbinom(qt, size, prob, lower.tail = lt, log.p = lg)
         expect_length(qt, i)
         expect_length(p_trunc, i)

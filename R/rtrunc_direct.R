@@ -161,7 +161,9 @@ rtrunc_direct.poisson <- function(n, family, parms, a = 0, b = Inf, ...) {
 }
 
 #' @export
-rtrunc_direct.binomial <- function(n, family, parms, a = 0, b = parms[["size"]], ...) {
+rtrunc_direct.binomial <- function(
+  n, family, parms, a = 0, b = parms[["size"]], ...
+) {
   F_a <- cumDens(a, pbinom, parms[["size"]], parms[["prob"]])
   F_b <- cumDens(b, pbinom, parms[["size"]], parms[["prob"]])
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
@@ -183,10 +185,13 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
     # Choose a practical b because a:Inf doesn't work
     practical_b <- ifelse(
       test = b == Inf,
-      yes  = qnbinom(p = 1e-50, parms[["size"]], parms[["prob"]], lower.tail = FALSE),
+      yes  = qnbinom(
+        p = 1e-50, parms[["size"]], parms[["prob"]], lower.tail = FALSE
+      ),
       no   = b
     )
-    weights <- dnbinom(a:practical_b, parms[["size"]], parms[["prob"]]) / (F_b - F_a)
+    d_a_practical_b <- dnbinom(a:practical_b, parms[["size"]], parms[["prob"]])
+    weights <- d_a_practical_b / (F_b - F_a)
   }
   trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
