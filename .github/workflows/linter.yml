@@ -57,10 +57,5 @@ jobs:
               undesirable_function_linter(), undesirable_operator_linter(),
               unnecessary_concatenation_linter()
             )
-            lint_result <- lint_package(
-              linters = style_rules, exclusions = excluded_files
-            )
-            if (length(lint_result) > 0) {
-              stop("Linting failed with warnings or errors")
-            }
+            expect_lint_free(linters = style_rules, exclusions = excluded_files)
           shell: Rscript {0}
