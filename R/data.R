@@ -8,7 +8,7 @@ valid_fam_parm <- list(
   binomial = list(
     family = "binomial",
     parms = c("size", "prob"),
-    support = c(0, Inf),
+    support = c(0, Inf), # Conservative. Upper limit is actually size.
     cont = FALSE
   ),
   chisq = list(
