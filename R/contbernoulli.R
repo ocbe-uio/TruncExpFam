@@ -15,7 +15,7 @@ rcontbern <- function(n, lambda) {
   }
 
   # The inverse of the CDF for a cont. bernoulli distribution
-  x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / log(lambda / (1 - lambda)) # TEMP: testing linter warnings as errors
+  x <- log(1 + (2 * lambda - 1) * u / (1 - lambda)) / log(lambda / (1 - lambda))
 }
 
 #' @param lambda mean of "parent" distribution
