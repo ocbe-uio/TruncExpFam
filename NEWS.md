@@ -6,6 +6,7 @@
 * Fixed domain validation on Negative Binomial and Inverse Gamma
 * Added domain validation to `rtrunc(..., faster = TRUE)` (issue #109)
 * Added `faster` argument to `rtrunc()` aliases (issue #110)
+* Improved calculation of cumulative densities (issue #113)
 
 # TruncExpFam 1.1.1
 
