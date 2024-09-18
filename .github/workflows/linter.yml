@@ -38,6 +38,7 @@ jobs:
 
         - name: Picking on the coding style
           run: |
+            options(warn = 2)
             library(lintr)
             excluded_files <- list(
               "vignettes/Sampling_and_ML_estimation.Rmd" = 29,
