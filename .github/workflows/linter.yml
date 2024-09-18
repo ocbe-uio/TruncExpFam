@@ -38,7 +38,6 @@ jobs:
 
         - name: Picking on the coding style
           run: |
-            options(warn = 2)
             library(lintr)
             excluded_files <- list(
               "vignettes/Sampling_and_ML_estimation.Rmd" = 29,
@@ -59,4 +58,7 @@ jobs:
               unnecessary_concatenation_linter()
             )
             lint_package(linters = style_rules, exclusions = excluded_files)
+            if (length(lint_result) > 0) {
+              stop("Linting failed with warnings or errors")
+            }
           shell: Rscript {0}
