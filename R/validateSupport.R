@@ -4,85 +4,88 @@ validateSupport <- function(n, ...) {
 
 #' @method validateSupport trunc_beta
 validateSupport.trunc_beta <- function(n, parms, ...) {
-  support <- createSupport(0, 1, "[]")
+  support <- createSupport(n, "[]")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_binomial
 validateSupport.trunc_binomial <- function(n, parms, nsize = parms$size, ...) {
-  support <- createSupport(0, nsize, "{}")
+  support <- createSupport(n, "{}")
+  support[["u"]] <- nsize
   judgeSupportLimits(n, parms, support, FALSE)
 }
 
 #' @method validateSupport trunc_chisq
 validateSupport.trunc_chisq <- function(n, parms, ...) {
   if (is.null(parms) || parms$df > 1) {
-    support <- createSupport(0, Inf, "[)")
+    support <- createSupport(n, "[)")
   } else {
-    support <- createSupport(0, Inf, "()")
+    support <- createSupport(n, "()")
   }
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_contbern
 validateSupport.trunc_contbern <- function(n, parms, ...) {
-  support <- createSupport(0, 1, "[]")
+  support <- createSupport(n, "[]")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_exp
 validateSupport.trunc_exp <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "[)")
+  support <- createSupport(n, "[)")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_gamma
 validateSupport.trunc_gamma <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "()")
+  support <- createSupport(n, "()")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_invgamma
 validateSupport.trunc_invgamma <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "()")
+  support <- createSupport(n, "()")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_invgauss
 validateSupport.trunc_invgauss <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "()")
+  support <- createSupport(n, "()")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_lognormal
 validateSupport.trunc_lognormal <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "()")
+  support <- createSupport(n, "()")
   judgeSupportLimits(n, parms, support)
 }
 
 #' @method validateSupport trunc_nbinom
 validateSupport.trunc_nbinom <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "{}")
+  support <- createSupport(n, "{}")
   judgeSupportLimits(n, parms, support, FALSE)
 }
 
 #' @method validateSupport trunc_normal
 validateSupport.trunc_normal <- function(n, parms, ...) {
-  support <- createSupport(-Inf, Inf, "()")
+  support <- createSupport(n, "()")
   judgeSupportLimits(n, parms, support, no_complex = TRUE)
 }
 
 #' @method validateSupport trunc_poisson
 validateSupport.trunc_poisson <- function(n, parms, ...) {
-  support <- createSupport(0, Inf, "{}")
+  support <- createSupport(n, "{}")
   judgeSupportLimits(n, parms, support, FALSE)
 }
 
-createSupport <- function(lower, upper, inclusion_brackets) {
+createSupport <- function(n, inclusion_brackets) {
   # This function outputs a list of numbers and texts related to the support
   # of a truncated distribution. It does not evaluate or validate anything,
   # it just blindly builds the output.
-  out <- list(l = lower, u = upper, txt = vector("character"))
+  family <- gsub("trunc_", "", class(n))
+  support <- valid_fam_parm[[family]][["support"]]
+  out <- list(l = min(support), u = max(support), txt = vector("character"))
   split_brackets <- strsplit(inclusion_brackets, "")
   for (i in seq_along(split_brackets)) {
     lower_symbol <- split_brackets[[i]][1]
