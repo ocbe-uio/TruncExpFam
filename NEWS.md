@@ -1,4 +1,4 @@
-# TruncExpFam (development version)
+# TruncExpFam 1.2.0
 
 * Implemented `ptrunc()` and `qtrunc()` for all distributions (issue #54)
 * Refactoring (issue #104, #112)
