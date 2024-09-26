@@ -1,6 +1,6 @@
 #' @title The Truncated Exponential Family
 #' @description Random generation for the truncated exponential family
-#' distributions. Please ferer to the "Details" and "Examples" section for more
+#' distributions. Please refer to the "Details" and "Examples" section for more
 #' information on how to use this function.
 #' @param n sample size
 #' @param a point of left truncation. For discrete distributions, `a` will be

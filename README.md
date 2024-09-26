@@ -44,7 +44,7 @@ Usage
 Once installed, `TruncExpFam` can be loaded with `library(TruncExpFam)`. A list of
 available functions can be printed with `ls("package:TruncExpFam")`.
 
-For more information about the package (e.g. suppored distributions),
+For more information about the package (e.g. supported distributions),
 run `?TruncExpFam` after loading the package in your R session.
 
 Are you familiar with the stats package and its `r*` and `d*` functions
