@@ -150,9 +150,9 @@ distribution). Must be strictly positive, need not be integer.}
 
 \item{s}{vector of dispersion parameters}
 
-\item{meanlog}{mean of un-truncated distribution}
+\item{meanlog}{mean of untruncated distribution}
 
-\item{sdlog}{standard deviation of un-truncated distribution}
+\item{sdlog}{standard deviation of untruncated distribution}
 
 \item{mu}{alternative parametrization via mean}
 

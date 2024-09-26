@@ -43,7 +43,7 @@ estimations but slower iterations}
 }
 \value{
 A vector of class \verb{trunc_*} containing the maximum-likelihood
-estmation of the underlying distribution * parameters.
+estimation of the underlying distribution * parameters.
 }
 \description{
 ML-estimation of the parameters of the distribution of the

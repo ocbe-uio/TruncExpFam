@@ -1,4 +1,4 @@
-#' @title Cummulative Distribution Function
+#' @title Cumulative Distribution Function
 #' @description Calculates the cumulative probability for a given truncated
 #' distribution
 #' @param q vector of quantiles
@@ -9,7 +9,7 @@
 #' @param ... \emph{named} distribution parameters and/or truncation limits
 #' (`a`, `b`)
 #' @export
-#' @return The cummulative probability of y.
+#' @return The cumulative probability of y.
 #' @examples
 #' ptrunc(0)
 #' ptrunc(6, family = "gaussian", mean = 5, sd = 10, b = 7)

@@ -91,9 +91,9 @@ distribution). Must be strictly positive, need not be integer.}
 
 \item{s}{vector of dispersion parameters}
 
-\item{meanlog}{mean of un-truncated distribution}
+\item{meanlog}{mean of untruncated distribution}
 
-\item{sdlog}{standard deviation of un-truncated distribution}
+\item{sdlog}{standard deviation of untruncated distribution}
 
 \item{mu}{alternative parametrization via mean}
 
@@ -115,7 +115,7 @@ elements, as well as some attributes related to the chosen distribution.
 }
 \description{
 Random generation for the truncated exponential family
-distributions. Please ferer to the "Details" and "Examples" section for more
+distributions. Please refer to the "Details" and "Examples" section for more
 information on how to use this function.
 }
 \details{

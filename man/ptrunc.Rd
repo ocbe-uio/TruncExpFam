@@ -14,7 +14,7 @@
 \alias{ptruncinvgauss}
 \alias{ptrunclnorm}
 \alias{ptruncnbinom}
-\title{Cummulative Distribution Function}
+\title{Cumulative Distribution Function}
 \usage{
 ptrunc(q, family, ..., lower.tail = TRUE, log.p = FALSE)
 
@@ -154,14 +154,14 @@ distribution). Must be strictly positive, need not be integer.}
 
 \item{s}{vector of dispersion parameters}
 
-\item{meanlog}{mean of un-truncated distribution}
+\item{meanlog}{mean of untruncated distribution}
 
-\item{sdlog}{standard deviation of un-truncated distribution}
+\item{sdlog}{standard deviation of untruncated distribution}
 
 \item{mu}{alternative parametrization via mean}
 }
 \value{
-The cummulative probability of y.
+The cumulative probability of y.
 }
 \description{
 Calculates the cumulative probability for a given truncated

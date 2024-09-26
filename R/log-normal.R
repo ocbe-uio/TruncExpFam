@@ -2,8 +2,8 @@
 ##   Functions related to the Log Normal distribution   ##
 ## --##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-#' @param meanlog mean of un-truncated distribution
-#' @param sdlog standard deviation of un-truncated distribution
+#' @param meanlog mean of untruncated distribution
+#' @param sdlog standard deviation of untruncated distribution
 #' @rdname rtrunc
 #' @export
 rtrunclnorm <- function(n, meanlog, sdlog, a = 0, b = Inf, faster = FALSE) {
