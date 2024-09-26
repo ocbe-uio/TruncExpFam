@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">TruncExpFam</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,9 +32,19 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/ocbe-uio/TruncExpFam/blob/v1.1.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/ocbe-uio/TruncExpFam/blob/release/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="truncexpfam-120">TruncExpFam 1.2.0<a class="anchor" aria-label="anchor" href="#truncexpfam-120"></a></h2>
+<ul><li>Implemented <code><a href="../reference/ptrunc.html">ptrunc()</a></code> and <code><a href="../reference/qtrunc.html">qtrunc()</a></code> for all distributions (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/54" class="external-link">#54</a>)</li>
+<li>Refactoring (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/104" class="external-link">#104</a>, <a href="https://github.com/ocbe-uio/TruncExpFam/issues/112" class="external-link">#112</a>)</li>
+<li>Fixed bugs related to using the Negative Binomial with <code>mu</code> instead of <code>prob</code> (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/107" class="external-link">#107</a>)</li>
+<li>Fixed domain validation on Negative Binomial and Inverse Gamma</li>
+<li>Added domain validation to <code>rtrunc(..., faster = TRUE)</code> (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/109" class="external-link">#109</a>)</li>
+<li>Added <code>faster</code> argument to <code><a href="../reference/rtrunc.html">rtrunc()</a></code> aliases (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/110" class="external-link">#110</a>)</li>
+<li>Improved calculation of cumulative densities (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/113" class="external-link">#113</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.1" id="truncexpfam-111">TruncExpFam 1.1.1<a class="anchor" aria-label="anchor" href="#truncexpfam-111"></a></h2><p class="text-muted">CRAN release: 2024-02-26</p>
 <ul><li>Fixed <code><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">UseMethod()</a></code> no longer forwarding local variables from the generic on R-devel (issue <a href="https://github.com/ocbe-uio/TruncExpFam/issues/103" class="external-link">#103</a>)</li>
@@ -75,7 +85,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>

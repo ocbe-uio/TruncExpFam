@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">TruncExpFam</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Probability Density Function</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ocbe-uio/TruncExpFam/blob/v1.1.1/R/beta.R" class="external-link"><code>R/beta.R</code></a>, <a href="https://github.com/ocbe-uio/TruncExpFam/blob/v1.1.1/R/binomial.R" class="external-link"><code>R/binomial.R</code></a>, <a href="https://github.com/ocbe-uio/TruncExpFam/blob/v1.1.1/R/chisq.R" class="external-link"><code>R/chisq.R</code></a>, and 10 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/ocbe-uio/TruncExpFam/blob/release/R/beta.R" class="external-link"><code>R/beta.R</code></a>, <a href="https://github.com/ocbe-uio/TruncExpFam/blob/release/R/binomial.R" class="external-link"><code>R/binomial.R</code></a>, <a href="https://github.com/ocbe-uio/TruncExpFam/blob/release/R/chisq.R" class="external-link"><code>R/chisq.R</code></a>, and 10 more</small>
       <div class="d-none name"><code>dtrunc.Rd</code></div>
     </div>
 
@@ -52,11 +52,11 @@
 <span></span>
 <span><span class="fu">dtrunccontbern</span><span class="op">(</span><span class="va">y</span>, <span class="va">lambda</span>, <span class="va">eta</span>, a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">dtrunc</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">dtruncexp</span><span class="op">(</span><span class="va">y</span>, rate <span class="op">=</span> <span class="fl">1</span>, <span class="va">eta</span>, a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="cn">Inf</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dtruncgamma</span><span class="op">(</span><span class="va">y</span>, <span class="va">shape</span>, rate <span class="op">=</span> <span class="fl">1</span>, scale <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">rate</span>, <span class="va">eta</span>, a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="cn">Inf</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dtrunc</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dtruncinvgamma</span><span class="op">(</span><span class="va">y</span>, <span class="va">shape</span>, rate <span class="op">=</span> <span class="fl">1</span>, scale <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">rate</span>, <span class="va">eta</span>, a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="cn">Inf</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -97,7 +97,8 @@
 
 
 <dt id="arg-a">a<a class="anchor" aria-label="anchor" href="#arg-a"></a></dt>
-<dd><p>point of left truncation</p></dd>
+<dd><p>point of left truncation. For discrete distributions, <code>a</code> will be
+included in the support of the truncated distribution.</p></dd>
 
 
 <dt id="arg-b">b<a class="anchor" aria-label="anchor" href="#arg-b"></a></dt>
@@ -147,11 +148,11 @@ distribution). Must be strictly positive, need not be integer.</p></dd>
 
 
 <dt id="arg-meanlog">meanlog<a class="anchor" aria-label="anchor" href="#arg-meanlog"></a></dt>
-<dd><p>mean of un-truncated distribution</p></dd>
+<dd><p>mean of untruncated distribution</p></dd>
 
 
 <dt id="arg-sdlog">sdlog<a class="anchor" aria-label="anchor" href="#arg-sdlog"></a></dt>
-<dd><p>standard deviation of un-truncated distribution</p></dd>
+<dd><p>standard deviation of untruncated distribution</p></dd>
 
 
 <dt id="arg-mean">mean<a class="anchor" aria-label="anchor" href="#arg-mean"></a></dt>
@@ -164,7 +165,7 @@ distribution). Must be strictly positive, need not be integer.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The density of y for the given values of the <code>eta</code> parameter.</p>
+    <p>The density of <code>y</code> for the given values of the <code>eta</code> parameter.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -201,7 +202,7 @@ distribution). Must be strictly positive, need not be integer.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>

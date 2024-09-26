@@ -9,7 +9,7 @@ specified family, truncated at y.min and y.max"><meta property="og:image" conten
 
     <a class="navbar-brand me-2" href="../index.html">TruncExpFam</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ specified family, truncated at y.min and y.max"><meta property="og:image" conten
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>ML Estimation of Distribution Parameters</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ocbe-uio/TruncExpFam/blob/v1.1.1/R/mlEstimationTruncDist.R" class="external-link"><code>R/mlEstimationTruncDist.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ocbe-uio/TruncExpFam/blob/release/R/mlEstimationTruncDist.R" class="external-link"><code>R/mlEstimationTruncDist.R</code></a></small>
       <div class="d-none name"><code>mlEstimationTruncDist.Rd</code></div>
     </div>
 
@@ -68,11 +68,11 @@ specified family, truncated at y.min and y.max</p>
 
 
 <dt id="arg-y-min">y.min<a class="anchor" aria-label="anchor" href="#arg-y-min"></a></dt>
-<dd><p>Lower bound for y</p></dd>
+<dd><p>Lower bound for <code>y</code></p></dd>
 
 
 <dt id="arg-y-max">y.max<a class="anchor" aria-label="anchor" href="#arg-y-max"></a></dt>
-<dd><p>Upper bound for y</p></dd>
+<dd><p>Upper bound for <code>y</code></p></dd>
 
 
 <dt id="arg-tol">tol<a class="anchor" aria-label="anchor" href="#arg-tol"></a></dt>
@@ -94,7 +94,7 @@ compare with the error tolerance</p></dd>
 
 
 <dt id="arg-ny">ny<a class="anchor" aria-label="anchor" href="#arg-ny"></a></dt>
-<dd><p>size of intermediate y range sequence. Higher values yield better
+<dd><p>size of intermediate <code>y</code> range sequence. Higher values yield better
 estimations but slower iterations</p></dd>
 
 
@@ -109,12 +109,12 @@ estimations but slower iterations</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A vector of class <code>trunc_*</code> containing the maximum-likelihood
-estmation of the underlying distribution * parameters.</p>
+estimation of the underlying distribution * parameters.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>If <code>print.iter = TRUE</code>, the function prints the iteration,
-the sum of squares of delta.eta.j (<code>delta.L2</code>), and the current
+the sum of squares of <code>delta.eta.j</code> (<code>delta.L2</code>), and the current
 parameter estimates. The <code>delta</code> argument of this function is a factor
 in the calculation of <code>delta.eta.j</code>, which in turn is a factor in the
 calculation of <code>delta.L2</code>.</p>
@@ -224,7 +224,7 @@ lognormal distributions"</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
