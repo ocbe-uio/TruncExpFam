@@ -36,3 +36,4 @@ Suggests:
 URL: https://ocbe-uio.github.io/TruncExpFam/
 BugReports: https://github.com/ocbe-uio/TruncExpFam/issues
 VignetteBuilder: knitr
+Language: en-US
