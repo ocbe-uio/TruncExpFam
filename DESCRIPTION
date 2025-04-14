@@ -1,7 +1,7 @@
 Package: TruncExpFam
 Title: Truncated Exponential Family
-Version: 1.2.0
-Date: 2024-09-26
+Version: 1.2.1
+Date: 2025-04-10
 Authors@R:
 	c(
 		person(
@@ -36,3 +36,4 @@ Suggests:
 URL: https://ocbe-uio.github.io/TruncExpFam/
 BugReports: https://github.com/ocbe-uio/TruncExpFam/issues
 VignetteBuilder: knitr
+Language: en-US
