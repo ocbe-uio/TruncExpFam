@@ -1,4 +1,4 @@
-# TruncExpFam (development version)
+# TruncExpFam 1.2.1
 
 * Increased tolerance on unit test (issue #114)
 
