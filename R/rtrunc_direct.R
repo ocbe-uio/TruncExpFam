@@ -26,7 +26,7 @@ rtrunc_direct.normal <- function(n, family, parms, a = -Inf, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -39,7 +39,7 @@ rtrunc_direct.beta <- function(n, family, parms, a = 0, b = 1, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -52,7 +52,7 @@ rtrunc_direct.chisq <- function(n, family, parms, a = 0, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -65,7 +65,7 @@ rtrunc_direct.contbern <- function(n, family, parms, a = 0, b = 1, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -78,7 +78,7 @@ rtrunc_direct.exp <- function(n, family, parms, a = 0, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -96,7 +96,7 @@ rtrunc_direct.gamma <- function(n, family, parms, a = 0, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -114,7 +114,7 @@ rtrunc_direct.invgamma <- function(n, family, parms, a = 0, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -127,7 +127,7 @@ rtrunc_direct.invgauss <- function(n, family, parms, a = 0, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
@@ -140,7 +140,7 @@ rtrunc_direct.lognormal <- function(n, family, parms, a = 0, b = Inf, ...) {
     family = family,
     parms = parms
   )
-  return(q_T)
+  q_T
 }
 
 #' @export
