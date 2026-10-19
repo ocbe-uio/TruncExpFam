@@ -203,7 +203,7 @@ cumDens <- function(x, probFunction, family, ...) {
   family <- useStandardFamilyName(family)
   support <- valid_fam_parm[[family]][["support"]]
   if (x == min(support)) {
-		return(0)
+    return(0)
   } else if (x == max(support)) {
     return(1)
   }
