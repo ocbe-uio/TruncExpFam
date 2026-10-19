@@ -83,14 +83,14 @@ rtrunc_direct.exp <- function(n, family, parms, a = 0, b = Inf, ...) {
 
 #' @export
 rtrunc_direct.gamma <- function(n, family, parms, a = 0, b = Inf, ...) {
-  F_a <- cumDens(a, pgamma, family, parms[["shape"]], parms[["rate"]])
-  F_b <- cumDens(b, pgamma, family, parms[["shape"]], parms[["rate"]])
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
   if (is.null(parms[["scale"]])) {
     parms[["scale"]] <- 1 / parms[["rate"]]
   } else if (is.null(parms[["rate"]])) {
     parms[["rate"]] <- 1 / parms[["scale"]]
   }
+  F_a <- cumDens(a, pgamma, family, parms[["shape"]], parms[["rate"]])
+  F_b <- cumDens(b, pgamma, family, parms[["shape"]], parms[["rate"]])
   q_T <- truncated_q(
     q_T = qgamma(rescaled_q(n, F_a, F_b), parms[["shape"]], parms[["rate"]]),
     family = family,
@@ -101,14 +101,14 @@ rtrunc_direct.gamma <- function(n, family, parms, a = 0, b = Inf, ...) {
 
 #' @export
 rtrunc_direct.invgamma <- function(n, family, parms, a = 0, b = Inf, ...) {
-  F_a <- cumDens(a, pinvgamma, family, parms[["shape"]], parms[["rate"]])
-  F_b <- cumDens(b, pinvgamma, family, parms[["shape"]], parms[["rate"]])
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
   if (is.null(parms[["scale"]])) {
     parms[["scale"]] <- 1 / parms[["rate"]]
   } else if (is.null(parms[["rate"]])) {
     parms[["rate"]] <- 1 / parms[["scale"]]
   }
+  F_a <- cumDens(a, pinvgamma, family, parms[["shape"]], parms[["rate"]])
+  F_b <- cumDens(b, pinvgamma, family, parms[["shape"]], parms[["rate"]])
   q_T <- truncated_q(
     q_T = qinvgamma(rescaled_q(n, F_a, F_b), parms[["shape"]], parms[["rate"]]),
     family = family,
