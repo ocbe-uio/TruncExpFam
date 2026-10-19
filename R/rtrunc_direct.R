@@ -157,7 +157,7 @@ rtrunc_direct.poisson <- function(n, family, parms, a = 0, b = Inf, ...) {
   weights <- dpois(a:practical_b, parms[["lambda"]]) / (F_b - F_a)
   trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
   f_T <- truncated_q(trunc_samp, family, parms)  # just to add the attributes
-  return(f_T)
+  f_T
 }
 
 #' @export
@@ -170,7 +170,7 @@ rtrunc_direct.binomial <- function(
   weights <- dbinom(a:b, parms[["size"]], parms[["prob"]]) / (F_b - F_a)
   trunc_samp <- sample(a:b, size = n, replace = TRUE, prob = weights)
   f_T <- truncated_q(trunc_samp, family, parms)  # just to add the attributes
-  return(f_T)
+  f_T
 }
 
 #' @export
@@ -196,16 +196,16 @@ rtrunc_direct.nbinom <- function(n, family, parms, a = 0, b = Inf, ...) {
   trunc_samp <- sample(a:practical_b, size = n, replace = TRUE, prob = weights)
   parms <- c(parms, "n" = n, "a" = a, "b" = b)
   f_T <- truncated_q(trunc_samp, family, parms)  # just to add the attributes
-  return(f_T)
+  f_T
 }
 
 cumDens <- function(x, probFunction, family, ...) {
   family <- useStandardFamilyName(family)
   support <- valid_fam_parm[[family]][["support"]]
   if (x == min(support)) {
-    return(0)
+    0
   } else if (x == max(support)) {
-    return(1)
+    1
   }
   probFunction(x, ...)
 }
