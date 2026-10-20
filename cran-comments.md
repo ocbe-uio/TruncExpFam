@@ -1,20 +1,21 @@
 Dear CRAN Team,
 this is a resubmission of package 'TruncExpFam'. I have added the following changes:
 
-* Increased tolerance on unit test (issue #114)
+* Fixed `rtruncgamma()` and `rtruncinvgamma()` with `faster = TRUE`
+* Updated package documentation for compatibility with roxygen2 8.
 
 Please upload to CRAN.
 Best, Waldir
 
-# Package TruncExpFam 1.2.1
+# Package TruncExpFam 1.2.2
 
-Reporting is done by packager version 1.15.2
+Reporting is done by packager version 1.15.3
 
 
 ## Test environments
-- R version 4.4.1 (2024-06-14)
+- R version 4.5.2 (2025-10-31)
    Platform: x86_64-pc-linux-gnu
-   Running under: Ubuntu 24.10
+   Running under: Ubuntu 26.04.1 LTS
    ERROR: No check log found!
 - win-builder (devel)
 
