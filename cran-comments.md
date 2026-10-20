@@ -1,6 +1,10 @@
 Dear CRAN Team,
 this is a resubmission of package 'TruncExpFam'. I have added the following changes:
 
+* Fixed `rtruncgamma()` and `rtruncinvgamma()` with `faster = TRUE` when
+  using `scale` instead of `rate`.
+* Updated package documentation for compatibility with roxygen2 8.
+
 Please upload to CRAN.
 Best, Waldir
 
