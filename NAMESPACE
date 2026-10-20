@@ -134,51 +134,30 @@ export(rtrunclnorm)
 export(rtruncnbinom)
 export(rtruncnorm)
 export(rtruncpois)
-importFrom(invgamma,dinvgamma)
-importFrom(invgamma,pinvgamma)
-importFrom(invgamma,qinvgamma)
-importFrom(invgamma,rinvgamma)
-importFrom(methods,is)
-importFrom(methods,new)
-importFrom(rmutil,dinvgauss)
-importFrom(rmutil,pinvgauss)
-importFrom(rmutil,qinvgauss)
-importFrom(rmutil,rinvgauss)
-importFrom(stats,dbeta)
-importFrom(stats,dbinom)
-importFrom(stats,dchisq)
-importFrom(stats,dexp)
-importFrom(stats,dgamma)
-importFrom(stats,dlnorm)
-importFrom(stats,dnbinom)
-importFrom(stats,dnorm)
-importFrom(stats,dpois)
-importFrom(stats,pbeta)
-importFrom(stats,pbinom)
-importFrom(stats,pchisq)
-importFrom(stats,pexp)
-importFrom(stats,pgamma)
-importFrom(stats,plnorm)
-importFrom(stats,pnbinom)
-importFrom(stats,pnorm)
-importFrom(stats,ppois)
-importFrom(stats,qbeta)
-importFrom(stats,qbinom)
-importFrom(stats,qchisq)
-importFrom(stats,qexp)
-importFrom(stats,qgamma)
-importFrom(stats,qlnorm)
-importFrom(stats,qnbinom)
-importFrom(stats,qnorm)
-importFrom(stats,qpois)
-importFrom(stats,rbeta)
-importFrom(stats,rbinom)
-importFrom(stats,rchisq)
-importFrom(stats,rexp)
-importFrom(stats,rgamma)
-importFrom(stats,rlnorm)
-importFrom(stats,rnbinom)
-importFrom(stats,rnorm)
-importFrom(stats,rpois)
-importFrom(stats,runif)
-importFrom(stats,var)
+importFrom(invgamma,
+  dinvgamma,
+  pinvgamma,
+  qinvgamma,
+  rinvgamma
+)
+importFrom(methods,
+  is,
+  new
+)
+importFrom(rmutil,
+  dinvgauss,
+  pinvgauss,
+  qinvgauss,
+  rinvgauss
+)
+importFrom(stats,
+  dbinom,
+  dgamma,
+  dlnorm,
+  dnorm,
+  dpois,
+  pbinom,
+  pgamma,
+  plnorm,
+  pnorm
+)
