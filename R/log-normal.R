@@ -81,7 +81,7 @@ parameters2natural.parms_lognormal <- function(parms, ...) {
   eta
 }
 
-#' @exportS3Method getYseq parms_lognormal
+#' @exportS3Method getGradETinv parms_lognormal
 getGradETinv.parms_lognormal <- function(eta, ...) {
   getGradETinv.parms_normal(eta, ...)
 }
