@@ -1,4 +1,7 @@
-# TruncExpFam (development version)
+# TruncExpFam 1.2.2
+
+* Fixed `rtruncgamma()` and `rtruncinvgamma()` with `faster = TRUE`
+* Updated package documentation for compatibility with roxygen2 8.
 
 # TruncExpFam 1.2.1
 
