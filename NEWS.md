@@ -1,5 +1,9 @@
 # TruncExpFam 1.2.2
 
+* Fixed `rtruncgamma()` and `rtruncinvgamma()` with `faster = TRUE` when
+  using `scale` instead of `rate`.
+* Updated package documentation for compatibility with roxygen2 8.
+
 # TruncExpFam 1.2.1
 
 * Increased tolerance on unit test (issue #114)
