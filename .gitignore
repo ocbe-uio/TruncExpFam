@@ -44,3 +44,6 @@ docs
 inst/doc
 /doc/
 /Meta/
+
+# CRAN submission metadata
+CRAN-SUBMISSION
