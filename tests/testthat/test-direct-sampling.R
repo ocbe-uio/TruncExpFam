@@ -355,12 +355,12 @@ test_that("Tight truncation limits is not a speed limiter", {
   # Contbern
   expect_error({
       setTimeLimit(time_limit)
-      rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2)
+      rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .15)
     },
     "reached CPU time limit"
   )
   expect_length(
-    rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .2, faster = TRUE),
+    rtrunc(n, family = "contbern", lambda = .8, a = .1, b = .15, faster = TRUE),
     n
   )
 
