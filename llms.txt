@@ -1,0 +1,171 @@
+# What is this?
+
+![](logo.png)
+
+This is an R package to handle truncated members from the exponential
+family.
+
+# Installation
+
+## Stable version
+
+TruncExpFam is available on CRAN and can be installed by running the
+following in an interactive R session:
+
+``` r
+
+install.packages("TruncExpFam")
+```
+
+## Development version
+
+The development version of the package contains features and bug fixes
+that are yet to be published. It is, however, much less stable than the
+CRAN version. You can install the development version of TruncExpFam by
+running the following command in R (requires the `remotes` package to be
+installed beforehand):
+
+``` r
+
+remotes::install_github("ocbe-uio/TruncExpFam")
+```
+
+If you want to browse the vignette, add `build_vignettes = TRUE` to your
+`install_github()` command.
+
+Further details on installing TruncExpFam can be found on the
+[Wiki](https://github.com/ocbe-uio/TruncExpFam/wiki/Installing-TruncExpFam).
+
+# Usage
+
+Once installed, `TruncExpFam` can be loaded with
+[`library(TruncExpFam)`](https://ocbe-uio.github.io/TruncExpFam/). A
+list of available functions can be printed with
+`ls("package:TruncExpFam")`.
+
+For more information about the package (e.g. supported distributions),
+run [`?TruncExpFam`](reference/TruncExpFam.md) after loading the package
+in your R session.
+
+Are you familiar with the stats package and its `r*` and `d*` functions
+such as [`rnorm()`](https://rdrr.io/r/stats/Normal.html) and
+[`dpois()`](https://rdrr.io/r/stats/Poisson.html)? If so, you will feel
+right at home with `TruncExpFam`, which uses the
+[`rtrunc()`](reference/rtrunc.md) function to generate random numbers
+and the [`dtrunc()`](reference/dtrunc.md) function to generate
+probability densities.
+
+For a more detailed explanation on how to use this package’s features,
+check out its vignette:
+
+``` r
+
+browseVignettes("TruncExpFam")
+```
+
+# Contributing
+
+TruncExpFam is open-source software licensed by the GPL. All
+contributions are welcome! Please use the [issues
+page](https://github.com/ocbe-uio/TruncExpFam/issues) to submit any bugs
+you find or see what other issues have been submitted.
+
+To contribute with code, we recommend reading [this Wiki
+page](https://github.com/ocbe-uio/TruncExpFam/wiki/Contributing-to-the-project)
+on the subject.
+
+# Citing
+
+If you present work that uses this package, please remember to cite it.
+To cite TruncExpFam in publications, use the output of
+`citation("TruncExpFam")` on your R session.
+
+# Badges
+
+## Stable version
+
+[![CRAN
+version](https://www.r-pkg.org/badges/version/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
+[![CRAN
+downloads](http://cranlogs.r-pkg.org/badges/last-month/TruncExpFam?color=green)](https://cran.r-project.org/package=TruncExpFam)
+[![License:
+GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
+[![DOI](https://zenodo.org/badge/326590808.svg)](https://zenodo.org/badge/latestdoi/326590808)
+
+## Development version
+
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Last
+commit](https://img.shields.io/github/last-commit/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam/commits/develop)
+[![Code
+size](https://img.shields.io/github/languages/code-size/ocbe-uio/TruncExpFam.svg)](https://github.com/ocbe-uio/TruncExpFam)
+[![R build
+status](https://github.com/ocbe-uio/TruncExpFam/workflows/R-CMD-check/badge.svg)](https://github.com/ocbe-uio/TruncExpFam/actions)
+[![codecov](https://codecov.io/gh/ocbe-uio/TruncExpFam/branch/develop/graph/badge.svg?token=78YFRZKJO6)](https://codecov.io/gh/ocbe-uio/TruncExpFam)
+[![CodeFactor](https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam/badge)](https://www.codefactor.io/repository/github/ocbe-uio/TruncExpFam)
+
+# Package index
+
+## All functions
+
+- [`TruncExpFam-package`](TruncExpFam.md)
+  [`TruncExpFam`](TruncExpFam.md) : Truncated Exponential Family
+- [`averageT()`](averageT.md) : Averages out the sufficient statistics
+  T(y)
+- [`.onAttach()`](dot-onAttach.md) : Prints welcome message on package
+  load
+- [`dtruncbeta()`](dtrunc.md) [`dtruncbinom()`](dtrunc.md)
+  [`dtruncchisq()`](dtrunc.md) [`dtrunccontbern()`](dtrunc.md)
+  [`dtrunc()`](dtrunc.md) [`dtruncexp()`](dtrunc.md)
+  [`dtruncgamma()`](dtrunc.md) [`dtruncinvgamma()`](dtrunc.md)
+  [`dtruncinvgauss()`](dtrunc.md) [`dtrunclnorm()`](dtrunc.md)
+  [`dtruncnbinom()`](dtrunc.md) [`dtruncnorm()`](dtrunc.md)
+  [`dtruncpois()`](dtrunc.md) : Probability Density Function
+- [`empiricalParameters()`](empiricalParameters.md) : Calculate
+  empirical parameters
+- [`empiricalParameters(`*`<numeric>`*`)`](empiricalParameters.numeric.md)
+  : Extract parameters
+- [`genrtruncClass()`](genrtruncClass.md) : Generates an
+  rtrunc-dispatchable class
+- [`mlEstimationTruncDist()`](mlEstimationTruncDist.md) : ML Estimation
+  of Distribution Parameters
+- [`natural2parameters()`](natural2parameters.md) : Convert natural
+  parameters to distribution parameters
+- [`parameters2natural()`](parameters2natural.md) : Convert distribution
+  parameters to natural parameters
+- [`print(`*`<trunc>`*`)`](print.trunc.md) : Print sample from truncated
+  distribution
+- [`probdist-class`](probdist-class.md) [`probdist`](probdist-class.md)
+  : Probability distribution class
+- [`ptrunc()`](ptrunc.md) [`ptruncnorm()`](ptrunc.md)
+  [`ptruncbeta()`](ptrunc.md) [`ptruncbinom()`](ptrunc.md)
+  [`ptruncpois()`](ptrunc.md) [`ptruncchisq()`](ptrunc.md)
+  [`ptrunccontbern()`](ptrunc.md) [`ptruncexp()`](ptrunc.md)
+  [`ptruncgamma()`](ptrunc.md) [`ptruncinvgamma()`](ptrunc.md)
+  [`ptruncinvgauss()`](ptrunc.md) [`ptrunclnorm()`](ptrunc.md)
+  [`ptruncnbinom()`](ptrunc.md) : Cumulative Distribution Function
+- [`qtrunc()`](qtrunc.md) [`qtruncbeta()`](qtrunc.md)
+  [`qtruncbinom()`](qtrunc.md) [`qtruncchisq()`](qtrunc.md)
+  [`qtrunccontbern()`](qtrunc.md) [`qtruncexp()`](qtrunc.md)
+  [`qtruncgamma()`](qtrunc.md) [`qtruncinvgamma()`](qtrunc.md)
+  [`qtruncinvgauss()`](qtrunc.md) [`qtrunclnorm()`](qtrunc.md)
+  [`qtruncnbinom()`](qtrunc.md) [`qtruncnorm()`](qtrunc.md)
+  [`qtruncpois()`](qtrunc.md) : Quantile Function
+- [`rtruncbeta()`](rtrunc.md) [`rtruncbinom()`](rtrunc.md)
+  [`rtruncchisq()`](rtrunc.md) [`rtrunccontbern()`](rtrunc.md)
+  [`rtruncexp()`](rtrunc.md) [`rtruncgamma()`](rtrunc.md)
+  [`rtruncinvgamma()`](rtrunc.md) [`rtruncinvgauss()`](rtrunc.md)
+  [`rtrunclnorm()`](rtrunc.md) [`rtruncnbinom()`](rtrunc.md)
+  [`rtruncnorm()`](rtrunc.md) [`rtruncpois()`](rtrunc.md)
+  [`rtrunc()`](rtrunc.md) [`rtrunc_direct()`](rtrunc.md) : The Truncated
+  Exponential Family
+- [`validateFamilyParms()`](validateFamilyParms.md) : Validate family
+  parameters
+
+# Articles
+
+### All vignettes
+
+- [Sampling and ML estimation](Sampling_and_ML_estimation.md):
