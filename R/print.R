@@ -5,7 +5,11 @@
 #' @param ... other arguments passed to [base::print.default()]
 #' @return `x` with or without its attributes
 #' @author Waldir Leoncio
-#' @aliases print.trunc_beta print.trunc_binomial print.trunc_chisq print.trunc_contbern print.trunc_exp print.trunc_gamma print.trunc_invgamma print.trunc_invgauss print.trunc_lognormal print.trunc_nbinom print.trunc_poisson print.trunc_normal print.trunc
+#' @aliases print.trunc_beta print.trunc_binomial print.trunc_chisq
+#' @aliases print.trunc_contbern print.trunc_exp print.trunc_gamma
+#' @aliases print.trunc_invgamma print.trunc_invgauss
+#' @aliases print.trunc_lognormal print.trunc_nbinom print.trunc_poisson
+#' @aliases print.trunc_normal print.trunc
 #' @export
 print.trunc <- function(x, details = FALSE, ...) {
   if (!details) {
