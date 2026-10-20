@@ -1,4 +1,4 @@
-# TruncExpFam (development version)
+# TruncExpFam 1.2.2
 
 # TruncExpFam 1.2.1
 
